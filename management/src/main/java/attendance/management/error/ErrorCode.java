@@ -17,6 +17,8 @@ public enum ErrorCode {
     USER_NOT_FOUND(HttpStatus.NOT_FOUND,"해당하는 사용자가 없습니다."),
     FILE_NOT_FOUND(HttpStatus.NOT_FOUND, "파일을 찾을 수 없습니다."),
     LECTURE_NOT_ENABLE(HttpStatus.NOT_ACCEPTABLE, "닫힌 강좌입니다."),
+    ATTENDANCE_NOT_FOUND(HttpStatus.NOT_FOUND, "존재하지 않는 요청입니다."),
+
 
     ;
 

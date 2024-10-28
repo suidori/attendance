@@ -1,6 +1,5 @@
 package attendance.management.attendance;
 
-import attendance.management.user.User;
 import attendance.management.utility.PageUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,10 +25,16 @@ public class AttendanceController {
         return ResponseEntity.ok(attendanceResponseDtos);
     }
 
-    @PostMapping("/unlogin")
+    @PostMapping("/attupdate")
     public ResponseEntity<Attendance> unlogged(@RequestBody AttendanceReqDto attendanceReqDto) {
-        Attendance attendance = attendanceService.unlogged(attendanceReqDto);
-        return ResponseEntity.status(200).body(attendance);
+        Attendance attendance = attendanceService.attadd(attendanceReqDto);
+        return ResponseEntity.ok(attendance);
+    }
+
+    @DeleteMapping("/attdelete/{idx}")
+    public ResponseEntity<Attendance> delete(@PathVariable("idx") long idx) {
+        Attendance attendance = attendanceService.attdelete(idx);
+        return ResponseEntity.ok(attendance);
     }
 
     @GetMapping("/student")
@@ -61,5 +66,11 @@ public class AttendanceController {
         AttendanceResponsePageDto attendanceResponsePageDto = attendanceService.managerPage(PageUtil.getPageable(pageNum, size));
         return ResponseEntity.ok(attendanceResponsePageDto);
     }
+
+//    @GetMapping("/attview")
+//    public ResponseEntity<Attendance> attview(@RequestParam(name = "id") long id) {
+//        Attendance attendance = attendanceService.attview(id);
+//        return ResponseEntity.ok(attendance);
+//    }
 
 }

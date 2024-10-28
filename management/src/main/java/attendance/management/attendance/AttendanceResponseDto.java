@@ -15,5 +15,6 @@ public class AttendanceResponseDto {
     private String lecture;
     private String teacheraccept;
     private String manageraccept;
+    private String approval;
 
 }
