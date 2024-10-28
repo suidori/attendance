@@ -3,13 +3,16 @@
       <!-- Header -->
       <div class="mb-4">
         <h1 class="text-2xl font-bold mb-2">과정 선택</h1>
+        
         <hr class="border-t-2 border-blue-600" />
       </div>
   
       <!-- Main Section -->
       <div class="w-full bg-white shadow p-6 rounded-lg">
-        <h2 class="text-xl font-bold mb-4">강좌 선택</h2>
-  
+        <h2 class="text-xl font-bold mb-4 inline-block">강좌 선택</h2>
+
+        <button @click="golectureinsert()" class="ml-10 inline-block bg-yellow-500 text-white py-2 px-4 rounded-lg hover:bg-yellow-700 " >강좌 생성</button>
+        
         <!-- Search Bar -->
         <div class="mb-4">
           <input
@@ -49,7 +52,10 @@
   
   <script setup>
   import { ref, computed } from 'vue';
-  
+  import { useRouter } from 'vue-router';
+
+const router = useRouter()
+
   const search = ref('');
   const courses = [
     '강좌1', '강좌2', '강좌3', '강좌4', '강좌5',
@@ -62,6 +68,14 @@
       course.toLowerCase().includes(search.value.toLowerCase())
     )
   );
+
+const golectureinsert = () => {
+
+router.push({name:'lectureinsert'})
+
+}
+
+
   </script>
   
   <style scoped>

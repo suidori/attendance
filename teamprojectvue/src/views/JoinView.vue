@@ -1,28 +1,79 @@
 <template>
-  <div class="absolute max-md:hidden"><SideBar /></div>
-  <div class="w-3/4 max-w-2xl p-8 mx-auto bg-white rounded shadow-md min-w-80 max-lg:w-1/2">
-    <h1 class="mb-4 text-3xl font-bold text-center">GREENART COMPUTER ACADEMY</h1>
+  <div class="absolute  max-md:hidden"><SideBar /></div>
+
+
+
+
+
+
+
+  <div class="w-3/4 max-w-2xl mt-10 p-8 mx-auto bg-white rounded shadow-2xl min-w-80 max-lg:w-1/2">
+    <h1 class="mb-4 text-3xl  font-bold text-center">GREENART COMPUTER ACADEMY</h1>
     <form @submit.prevent="joinuser">
+
+
+
+    
+      <div class="mb-6">
+        <label for="role" class="inline mb-2 text-sm font-bold  text-blue-800">1. 회원 유형</label>
+        <hr class="m-1">
+        <div class="m-2 ml-4 flex w-full" style="justify-content: center;">
+          <input type="radio" value="ROLE_STUDENT" name="role" id="role-1" v-model="role" checked />
+        <label for="role-1" class="p-1 pr-3 mr-10">학원생</label>
+        <input type="radio" value="ROLE_TEACHER" name="role" id="role-2" v-model="role" />
+        <label for="role-2" class="p-1 pr-3 mr-10">선생님</label>
+        <input type="radio" value="ROLE_MANAGER" name="role" id="role-3" v-model="role" />
+        <label for="role-3" class="p-1 pr-3 mr-10">매니저</label></div>
+        
+      </div>
+
+
+
+
       <!-- 아이디 입력 -->
+      <label for="role" class="inline mb-2 text-sm font-bold  text-blue-800">2. 기본 정보 입력</label>
+      <hr class="m-1">
+
+      <div class="mb-4">
+        <label for="name" class="block mb-2 text-sm font-bold text-gray-700"
+          >이름
+          <p class="inline text-red-500">*</p>
+        </label>
+        <input
+          type="text"
+          id="name"
+          placeholder="이름을 입력하세요"
+          v-model="name"
+          class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+        />
+      </div>
+
       <div class="mb-4">
         <label for="userid" class="block mb-2 text-sm font-bold text-gray-700"
           >아이디
           <p class="inline text-red-500">*</p></label
         >
-        <input
+
+        <div class=" w-full">
+          <div class="flex">  
+            <input
           type="text"
           id="userid"
           placeholder="아이디를 입력하세요"
           v-model="userid"
-          class="w-3/4 px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+          class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
         />
-         <button
+      
+      
+        <button
          @click="checkid"
-         class="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline"
+         class="px-4 py-2 font-bold w-1/5 text-white bg-blue-500 rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline"
         type="button"
         >
         중복확인
-         </button>
+         </button></div>
+        
+      </div>
          <p v-if="!idAvailable" class="text-sm text-red-500">{{ idError }}</p>
          <p v-if="idAvailable" class="text-sm text-green-500">사용 가능한 아이디입니다.</p>
       </div>
@@ -41,37 +92,32 @@
           class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
         />
       </div>
-      <div class="mb-4">
-        <label for="name" class="block mb-2 text-sm font-bold text-gray-700"
-          >이름
-          <p class="inline text-red-500">*</p>
-        </label>
-        <input
-          type="text"
-          id="name"
-          placeholder="이름을 입력하세요"
-          v-model="name"
-          class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-        />
-      </div>
+      
       <div class="mb-4">
         <label for="phoneNumber" class="block mb-2 text-sm font-bold text-gray-700"
           >전화번호
           <p class="inline text-red-500">*</p>
         </label>
-        <select id="items" name="items" class="border border-gray-500" v-model="phoneNumberfirst">
-                        <option value="010" selected>010</option>
+
+        <div class="w-full">
+        <div class="flex"> 
+          
+          <select id="items" name="items" class="w-1/4 border rounded " v-model="phoneNumberfirst">
+                        <option value="010">010</option>
                         <option value="011">011</option>
                         <option value="016">016</option>
                         <option value="017">017</option>
                         <option value="018">018</option>
                         <option value="019">019</option>
                     </select>
-                    - <input @blur="checkphone" type="text" v-model="phoneNumbersecond" class="border border-gray-500">
-                    - <input @blur="checkphone" type="text" v-model="phoneNumberthird" class="border border-gray-500">
+                     <p class="m-1">  -  </p>  <input @blur="checkphone" type="text" v-model="phoneNumbersecond" class="border px-3 py-2 leading-tight  w-2/4 rounded">
+                     <p class="m-1">  -  </p>  <input @blur="checkphone" type="text" v-model="phoneNumberthird" class="border px-3 py-2 leading-tight w-2/4 rounded">
+                  </div>
+                  </div>
         <p v-if="!phoneAvailable" class="text-sm text-red-500">{{ phoneError }}</p>
          <p v-if="phoneAvailable" class="text-sm text-green-500">사용 가능한 전화번호입니다.</p>
       </div>
+
       <div class="mb-4">
         <label for="email" class="block mb-2 text-sm font-bold text-gray-700">이메일</label>
         <input
@@ -82,15 +128,7 @@
           class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
         />
       </div>
-      <div class="mb-6">
-        <label for="role" class="block mb-2 text-sm font-bold text-gray-700">관리자 여부</label>
-        <input type="radio" value="ROLE_STUDENT" name="role" id="role-1" v-model="role" checked />
-        <label for="role-1" class="p-1 pr-3">학생</label>
-        <input type="radio" value="ROLE_TEACHER" name="role" id="role-2" v-model="role" />
-        <label for="role-2" class="p-1 pr-3">선생</label>
-        <input type="radio" value="ROLE_MANAGER" name="role" id="role-3" v-model="role" />
-        <label for="role-3" class="p-1 pr-3">매니저</label>
-      </div>
+      
       <button
         @click="joinuser"
         class="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline"
@@ -117,7 +155,7 @@ const userid = ref('')
 const password = ref('')
 const name = ref('')
 const email = ref('')
-const phoneNumberfirst = ref('');
+const phoneNumberfirst = ref('010');
 const phoneNumbersecond = ref('');
 const phoneNumberthird = ref('');
 const role = ref('')
@@ -137,6 +175,14 @@ if (!phoneNumbersecond.value || !phoneNumberthird.value) {
     phoneAvailable.value = false
     return
   }
+
+  if(String(phoneNumbersecond.value)  || String(phoneNumberthird.value) ){
+     phoneError.value = '숫자를 입력해 주세요.'
+    
+
+  }
+  
+ 
 
   const phoneNumber = `${phoneNumberfirst.value}-${phoneNumbersecond.value}-${phoneNumberthird.value}`;
 
@@ -196,9 +242,13 @@ const joinuser = async () => {
   }
 
   try {
+
     const res = await axios.post('http://192.168.67:8080/sign/signin', data)
     console.log(res)
-    router.push({ name: 'loginview' })
+
+    router.push({ name: 'joincomplete' })
+    
+
   } catch (e) {
     console.log(e)
     alert('에러')
