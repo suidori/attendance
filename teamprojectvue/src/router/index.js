@@ -10,6 +10,7 @@ import AttendanceCheck from '@/views/AttendanceCheck.vue'
 import GuestAttendance from '@/views/GuestAttendance.vue'
 import JoinComplete from '@/views/JoinComplete.vue'
 import Lectureinsert from '@/views/Lectureinsert.vue'
+import LectureApprovallist from '@/views/LectureApprovallist.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -73,6 +74,11 @@ const router = createRouter({
       path: '/Lectureinsert',
       name: 'lectureinsert',
       component: Lectureinsert
+    },
+    {
+      path: '/    LectureApprovallist',
+      name: 'lectureapprovallist',
+      component:     LectureApprovallist
     },
   ]
 })
