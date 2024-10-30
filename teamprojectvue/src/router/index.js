@@ -8,6 +8,9 @@ import Mypage from '@/views/MyPage.vue'
 import LectureSelect from '@/views/LectureSelect.vue'
 import AttendanceCheck from '@/views/AttendanceCheck.vue'
 import GuestAttendance from '@/views/GuestAttendance.vue'
+import StudentAttendance from '@/views/StudentAttendance.vue'
+import TeacherToday from '@/views/teacher/TeacherToday.vue'
+import TeacherCalander from '@/views/teacher/TeacherCalander.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -21,6 +24,11 @@ const router = createRouter({
       path: '/guestattendance',
       name: 'guestattendance',
       component: GuestAttendance
+    },
+    {
+      path: '/stdatt',
+      name: 'stdatt',
+      component: StudentAttendance
     },
     {
       path: '/loginview',
@@ -62,6 +70,15 @@ const router = createRouter({
       name: 'attendancecheck',
       component: AttendanceCheck
     },
+    {
+      path: '/teachertoday',
+      name: 'teachertoday',
+      component: TeacherToday
+    },
+    { path: '/teachercalander',
+      name: 'teachercalander',
+      component: TeacherCalander
+     }
   ]
 })
 

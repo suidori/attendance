@@ -1,9 +1,11 @@
 package attendance.management.attendance;
 
-import attendance.management.utility.PageUtil;
+import attendance.management.sign.LoginUserDetails;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,7 +22,7 @@ public class AttendanceController {
     @PostMapping("/getuser")
     public ResponseEntity<List<AttendanceResponseListDto>> studentList(
             @RequestBody AttendanceListReqDto attendanceListReqDto
-            ) {
+    ) {
         List<AttendanceResponseListDto> attendanceResponseDtos = attendanceService.studentList(attendanceListReqDto);
         return ResponseEntity.ok(attendanceResponseDtos);
     }
@@ -37,40 +39,24 @@ public class AttendanceController {
         return ResponseEntity.ok(attendance);
     }
 
-    @GetMapping("/student")
-    public ResponseEntity<AttendanceResponsePageDto> studentFindAll(
-            @RequestParam(name = "pageNum", defaultValue = "0") int pageNum,
-            @RequestParam(name = "size", defaultValue = "10") int size,
-            @RequestHeader("Authorization") String token
+    @GetMapping("/todayteacherview")
+    public ResponseEntity<List<AttendanceResponseStudentListDto>> todayteacherview(
+            @AuthenticationPrincipal LoginUserDetails loginUserDetails
     ) {
-        AttendanceResponsePageDto attendanceResponsePageDto = attendanceService.studentPage(PageUtil.getPageable(pageNum, size), token);
-        return ResponseEntity.ok(attendanceResponsePageDto);
+        if (loginUserDetails == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        List<AttendanceResponseStudentListDto> attendanceResponseDto = attendanceService.todayteacherview(loginUserDetails);
+        return ResponseEntity.ok(attendanceResponseDto);
     }
 
-    @GetMapping("/teacher")
-    public ResponseEntity<AttendanceResponsePageDto> teacherFindAll(
-            @RequestParam(name = "pageNum", defaultValue = "0") int pageNum,
-            @RequestParam(name = "size", defaultValue = "10") int size,
-            @RequestHeader("Authorization") String token
+    @GetMapping("/monthview")
+    public ResponseEntity<List<AttendanceResponseMonthDto>> monthview(
+            @RequestParam("idx") Long idx,
+            @RequestParam("month") String month
     ) {
-        AttendanceResponsePageDto attendanceResponsePageDto = attendanceService.teacherPage(PageUtil.getPageable(pageNum, size), token);
-        return ResponseEntity.ok(attendanceResponsePageDto);
+        List<AttendanceResponseMonthDto> attendanceResponseMonthDtos = attendanceService.monthview(idx, month);
+
+        return ResponseEntity.ok(attendanceResponseMonthDtos);
     }
-
-    @GetMapping("/manager")
-    public ResponseEntity<AttendanceResponsePageDto> managerFindAll(
-            @RequestParam(name = "pageNum", defaultValue = "0") int pageNum,
-            @RequestParam(name = "size", defaultValue = "10") int size,
-            @RequestHeader("Authorization") String token
-    ) {
-        AttendanceResponsePageDto attendanceResponsePageDto = attendanceService.managerPage(PageUtil.getPageable(pageNum, size));
-        return ResponseEntity.ok(attendanceResponsePageDto);
-    }
-
-//    @GetMapping("/attview")
-//    public ResponseEntity<Attendance> attview(@RequestParam(name = "id") long id) {
-//        Attendance attendance = attendanceService.attview(id);
-//        return ResponseEntity.ok(attendance);
-//    }
-
 }

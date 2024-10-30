@@ -3,6 +3,7 @@ package attendance.management.lecture;
 import attendance.management.error.BizException;
 import attendance.management.error.ErrorCode;
 import attendance.management.jwt.JWTManager;
+import attendance.management.sign.LoginUserDetails;
 import attendance.management.user.User;
 import attendance.management.user.UserRepository;
 import attendance.management.userandlecture.UserAndLecture;
@@ -13,6 +14,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -53,7 +55,7 @@ public class LectureService {
             throw new BizException(ErrorCode.LECTURE_NOT_ENABLE);
         }
 
-        if(!lecture.getPassword().equals(lectureReqDto.getPassword())) {
+        if (!lecture.getPassword().equals(lectureReqDto.getPassword())) {
             throw new BizException(ErrorCode.PASSWORD_MISMATCH);
         }
 
@@ -63,7 +65,7 @@ public class LectureService {
                 .findById(userIdx)
                 .orElseThrow(() -> new BizException(ErrorCode.USER_NOT_FOUND));
 
-        Optional<UserAndLecture> userAndLecture = userAndLectureRepository.findByUser_IdxAndState(userIdx,1);
+        Optional<UserAndLecture> userAndLecture = userAndLectureRepository.findByUser_IdxAndState(userIdx, 1);
 
         userAndLecture.ifPresent(
                 userAndLecture1 -> userAndLecture1.setState(0)
@@ -80,4 +82,14 @@ public class LectureService {
         return userAndLecture1;
     }
 
+    public List<Lecture> findAll() {
+        return lectureRepository.findAll();
+    }
+
+    public List<Lecture> myLecture(LoginUserDetails loginUserDetails) {
+        Lecture lecture = userAndLectureRepository.findByUser_Idx(loginUserDetails.getIdx()).orElseThrow(()-> new BizException(ErrorCode.LECTURE_NOT_FOUND)).getLecture();
+
+        return lectureRepository.findByIdx(lecture.getIdx());
+
+    }
 }

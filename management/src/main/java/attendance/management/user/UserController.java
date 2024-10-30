@@ -1,8 +1,12 @@
 package attendance.management.user;
 
+import attendance.management.sign.LoginUserDetails;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,6 +35,17 @@ public class UserController {
         }
 
         return roles.toString();
+    }
+
+    @GetMapping("/getuser")
+    public ResponseEntity<User> getUser(
+            @AuthenticationPrincipal LoginUserDetails loginUserDetails
+    ) {
+        if (loginUserDetails == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        return ResponseEntity.ok(userRepository.findByIdx(loginUserDetails.getIdx()).get());
     }
 
 
