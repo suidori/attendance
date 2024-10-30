@@ -180,7 +180,7 @@ const showuser = async () => {
     }
 
     try {
-        const res = await axios.post('http://192.168.0.67:8080/attendance/getuser', data)
+        const res = await axios.post('http://192.168.0.11:8080/attendance/getuser', data)
         attlist.value = res.data;
         console.log(attlist.value);
     } catch (e) {
@@ -201,7 +201,7 @@ const guestattendance = async () => {
     }
 
     try {
-        const res = await axios.post('http://192.168.67:8080/attendance/unlogin', data)
+        const res = await axios.post('http://192.168.11:8080/attendance/unlogin', data)
         console.log(res)
         alert(`${selectDate.value}, ${name.value} 학생 ${type.value} 요청 완료!`)
         router.push({ name: 'loginhome' })
