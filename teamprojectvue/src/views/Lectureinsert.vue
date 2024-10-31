@@ -241,6 +241,201 @@
         <button class="border bg-blue-800 text-white w-full" @click.stop="endlecture">강좌종료</button>
       </div>
 
+      
+      <div class="border-2 rounded p-5 m-5 cursor-pointer" style="width: 200px; height: 230px"  @click="lecturestudentlistopen">
+        <h1 class="text-2xl font-bold">|현재 강좌</h1>
+        <br />
+        <p>강좌제목</p>
+        <p>0교시</p>
+        <p>00:00 ~ 00:00</p>
+        <button class="border bg-blue-800 text-white w-full " @click.stop="opnechengelecture">
+          시간변경
+        </button>
+        <br />
+        <button class="border bg-blue-800 text-white w-full" @click.stop="endlecture">강좌종료</button>
+      </div>
+      
+      <div class="border-2 rounded p-5 m-5 cursor-pointer" style="width: 200px; height: 230px"  @click="lecturestudentlistopen">
+        <h1 class="text-2xl font-bold">|현재 강좌</h1>
+        <br />
+        <p>강좌제목</p>
+        <p>0교시</p>
+        <p>00:00 ~ 00:00</p>
+        <button class="border bg-blue-800 text-white w-full " @click.stop="opnechengelecture">
+          시간변경
+        </button>
+        <br />
+        <button class="border bg-blue-800 text-white w-full" @click.stop="endlecture">강좌종료</button>
+      </div>
+      
+      <div class="border-2 rounded p-5 m-5 cursor-pointer" style="width: 200px; height: 230px"  @click="lecturestudentlistopen">
+        <h1 class="text-2xl font-bold">|현재 강좌</h1>
+        <br />
+        <p>강좌제목</p>
+        <p>0교시</p>
+        <p>00:00 ~ 00:00</p>
+        <button class="border bg-blue-800 text-white w-full " @click.stop="opnechengelecture">
+          시간변경
+        </button>
+        <br />
+        <button class="border bg-blue-800 text-white w-full" @click.stop="endlecture">강좌종료</button>
+      </div>
+      
+      <div class="border-2 rounded p-5 m-5 cursor-pointer" style="width: 200px; height: 230px"  @click="lecturestudentlistopen">
+        <h1 class="text-2xl font-bold">|현재 강좌</h1>
+        <br />
+        <p>강좌제목</p>
+        <p>0교시</p>
+        <p>00:00 ~ 00:00</p>
+        <button class="border bg-blue-800 text-white w-full " @click.stop="opnechengelecture">
+          시간변경
+        </button>
+        <br />
+        <button class="border bg-blue-800 text-white w-full" @click.stop="endlecture">강좌종료</button>
+      </div>
+      
+      <div class="border-2 rounded p-5 m-5 cursor-pointer" style="width: 200px; height: 230px"  @click="lecturestudentlistopen">
+        <h1 class="text-2xl font-bold">|현재 강좌</h1>
+        <br />
+        <p>강좌제목</p>
+        <p>0교시</p>
+        <p>00:00 ~ 00:00</p>
+        <button class="border bg-blue-800 text-white w-full " @click.stop="opnechengelecture">
+          시간변경
+        </button>
+        <br />
+        <button class="border bg-blue-800 text-white w-full" @click.stop="endlecture">강좌종료</button>
+      </div>
+      
+      <div class="border-2 rounded p-5 m-5 cursor-pointer" style="width: 200px; height: 230px"  @click="lecturestudentlistopen">
+        <h1 class="text-2xl font-bold">|현재 강좌</h1>
+        <br />
+        <p>강좌제목</p>
+        <p>0교시</p>
+        <p>00:00 ~ 00:00</p>
+        <button class="border bg-blue-800 text-white w-full " @click.stop="opnechengelecture">
+          시간변경
+        </button>
+        <br />
+        <button class="border bg-blue-800 text-white w-full" @click.stop="endlecture">강좌종료</button>
+      </div>
+      
+      <div class="border-2 rounded p-5 m-5 cursor-pointer" style="width: 200px; height: 230px"  @click="lecturestudentlistopen">
+        <h1 class="text-2xl font-bold">|현재 강좌</h1>
+        <br />
+        <p>강좌제목</p>
+        <p>0교시</p>
+        <p>00:00 ~ 00:00</p>
+        <button class="border bg-blue-800 text-white w-full " @click.stop="opnechengelecture">
+          시간변경
+        </button>
+        <br />
+        <button class="border bg-blue-800 text-white w-full" @click.stop="endlecture">강좌종료</button>
+      </div>
+      
+      <div class="border-2 rounded p-5 m-5 cursor-pointer" style="width: 200px; height: 230px"  @click="lecturestudentlistopen">
+        <h1 class="text-2xl font-bold">|현재 강좌</h1>
+        <br />
+        <p>강좌제목</p>
+        <p>0교시</p>
+        <p>00:00 ~ 00:00</p>
+        <button class="border bg-blue-800 text-white w-full " @click.stop="opnechengelecture">
+          시간변경
+        </button>
+        <br />
+        <button class="border bg-blue-800 text-white w-full" @click.stop="endlecture">강좌종료</button>
+      </div>
+      
+      <div class="border-2 rounded p-5 m-5 cursor-pointer" style="width: 200px; height: 230px"  @click="lecturestudentlistopen">
+        <h1 class="text-2xl font-bold">|현재 강좌</h1>
+        <br />
+        <p>강좌제목</p>
+        <p>0교시</p>
+        <p>00:00 ~ 00:00</p>
+        <button class="border bg-blue-800 text-white w-full " @click.stop="opnechengelecture">
+          시간변경
+        </button>
+        <br />
+        <button class="border bg-blue-800 text-white w-full" @click.stop="endlecture">강좌종료</button>
+      </div>
+      
+      <div class="border-2 rounded p-5 m-5 cursor-pointer" style="width: 200px; height: 230px"  @click="lecturestudentlistopen">
+        <h1 class="text-2xl font-bold">|현재 강좌</h1>
+        <br />
+        <p>강좌제목</p>
+        <p>0교시</p>
+        <p>00:00 ~ 00:00</p>
+        <button class="border bg-blue-800 text-white w-full " @click.stop="opnechengelecture">
+          시간변경
+        </button>
+        <br />
+        <button class="border bg-blue-800 text-white w-full" @click.stop="endlecture">강좌종료</button>
+      </div>
+      
+      <div class="border-2 rounded p-5 m-5 cursor-pointer" style="width: 200px; height: 230px"  @click="lecturestudentlistopen">
+        <h1 class="text-2xl font-bold">|현재 강좌</h1>
+        <br />
+        <p>강좌제목</p>
+        <p>0교시</p>
+        <p>00:00 ~ 00:00</p>
+        <button class="border bg-blue-800 text-white w-full " @click.stop="opnechengelecture">
+          시간변경
+        </button>
+        <br />
+        <button class="border bg-blue-800 text-white w-full" @click.stop="endlecture">강좌종료</button>
+      </div>
+      
+      <div class="border-2 rounded p-5 m-5 cursor-pointer" style="width: 200px; height: 230px"  @click="lecturestudentlistopen">
+        <h1 class="text-2xl font-bold">|현재 강좌</h1>
+        <br />
+        <p>강좌제목</p>
+        <p>0교시</p>
+        <p>00:00 ~ 00:00</p>
+        <button class="border bg-blue-800 text-white w-full " @click.stop="opnechengelecture">
+          시간변경
+        </button>
+        <br />
+        <button class="border bg-blue-800 text-white w-full" @click.stop="endlecture">강좌종료</button>
+      </div>
+      
+      <div class="border-2 rounded p-5 m-5 cursor-pointer" style="width: 200px; height: 230px"  @click="lecturestudentlistopen">
+        <h1 class="text-2xl font-bold">|현재 강좌</h1>
+        <br />
+        <p>강좌제목</p>
+        <p>0교시</p>
+        <p>00:00 ~ 00:00</p>
+        <button class="border bg-blue-800 text-white w-full " @click.stop="opnechengelecture">
+          시간변경
+        </button>
+        <br />
+        <button class="border bg-blue-800 text-white w-full" @click.stop="endlecture">강좌종료</button>
+      </div>
+      
+      <div class="border-2 rounded p-5 m-5 cursor-pointer" style="width: 200px; height: 230px"  @click="lecturestudentlistopen">
+        <h1 class="text-2xl font-bold">|현재 강좌</h1>
+        <br />
+        <p>강좌제목</p>
+        <p>0교시</p>
+        <p>00:00 ~ 00:00</p>
+        <button class="border bg-blue-800 text-white w-full " @click.stop="opnechengelecture">
+          시간변경
+        </button>
+        <br />
+        <button class="border bg-blue-800 text-white w-full" @click.stop="endlecture">강좌종료</button>
+      </div>
+      
+      <div class="border-2 rounded p-5 m-5 cursor-pointer" style="width: 200px; height: 230px"  @click="lecturestudentlistopen">
+        <h1 class="text-2xl font-bold">|현재 강좌</h1>
+        <br />
+        <p>강좌제목</p>
+        <p>0교시</p>
+        <p>00:00 ~ 00:00</p>
+        <button class="border bg-blue-800 text-white w-full " @click.stop="opnechengelecture">
+          시간변경
+        </button>
+        <br />
+        <button class="border bg-blue-800 text-white w-full" @click.stop="endlecture">강좌종료</button>
+      </div>
       <!-- key 수정 해야함 -->
       <!-- <div v-for="item in arr" :key="" class="border-2 rounded p-5 m-5" style="width: 200px; height: 230px;"  @click="lecturestudentlistopen">
             <h1 class="text-2xl font-bold">|현재 강좌</h1>
@@ -462,7 +657,7 @@ if (token !== null) {
     password: postpassword.value
   }
 
-  const res = await axios.post(`http://192.168.67:8080/lecture/save`, data, head)
+  const res = await axios.post(`http://192.168.0.5:8080/lecture/save`, data, head)
 
   if (res.status == 200) {
     alert('강좌가 등록 되었습니다.')
@@ -492,7 +687,7 @@ const chengelecturetime = async () => {
     }
   }
 
-  const res = await axios.post(`http://192.168.67:8080/lecture/save`, data, head)
+  const res = await axios.post(`http://192.168.0.5:8080/lecture/save`, data, head)
 
   alert('시간변경이 완료되었습니다.')
   changemodal.value = true

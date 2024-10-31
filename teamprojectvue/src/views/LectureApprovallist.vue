@@ -85,9 +85,6 @@ const totalpages = ref(10)
 
 
 
-
-
-
 </script>
 
 <style lang="scss" scoped>
