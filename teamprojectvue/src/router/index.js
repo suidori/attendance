@@ -29,8 +29,8 @@ const router = createRouter({
       component: LoginView
     },
     {
-      path: '/join',
-      name: 'join',
+      path: '/joinview',
+      name: 'joinview',
       component: () => import('../views/JoinView.vue')
     },
     {
