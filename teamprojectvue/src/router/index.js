@@ -1,13 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import LoginView from '../views/LoginView.vue'
 import LoginHome from '@/views/LoginHome.vue'
-import LaboView from '@/views/LaboView.vue'
+import LaboView from '@/views/JoinSuccess.vue'
 import VacationForm from '@/views/VacationForm.vue'
 import JoinView from '../views/JoinView.vue'
 import Mypage from '@/views/MyPage.vue'
 import LectureSelect from '@/views/LectureSelect.vue'
 import AttendanceCheck from '@/views/AttendanceCheck.vue'
 import GuestAttendance from '@/views/GuestAttendance.vue'
+import JoinTermsOfUse from '@/views/JoinTermsOfUse.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -61,6 +62,11 @@ const router = createRouter({
       path: '/attendancecheck',
       name: 'attendancecheck',
       component: AttendanceCheck
+    },
+    {
+      path: '/jointermsofuse',
+      name: 'jointermsofuse',
+      component: JoinTermsOfUse
     },
   ]
 })
