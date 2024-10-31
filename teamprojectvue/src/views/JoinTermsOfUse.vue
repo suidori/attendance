@@ -59,7 +59,5 @@
 </script>
 
 <style lang="scss" scoped>
-.step {
-  flex: 1;
-}
+
 </style>

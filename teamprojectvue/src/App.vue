@@ -8,7 +8,7 @@
       </div>
       <div class="flex text-white z-10 justify-end">
         <div class="mr-2"><RouterLink to="/loginview">| 로그인</RouterLink></div>
-        <div class="mr-2"><RouterLink to="/join">| 회원가입</RouterLink></div>
+        <div class="mr-2"><RouterLink to="/jointermsofuse">| 회원가입</RouterLink></div>
         <div class="mr-2"><RouterLink to="/vacationform">| 휴가신청</RouterLink></div>
         <div class="mr-20"><RouterLink to="/laboview">| 연구실</RouterLink></div>
       </div>

@@ -78,7 +78,7 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 
 const ToJoinview = () => {
-  router.push({ path: 'joinview' })
+  router.push({ path: 'jointermsofuse' })
 }
 </script>
 
