@@ -97,7 +97,7 @@ const sub = async () => {
   }
 
   try {
-    const res = await axios.post('http://192.168.0.5:8080/vacation/request', data, {
+    const res = await axios.post('http://192.168.0.103:8080/vacation/request', data, {
             headers: {
                 Authorization: `Bearer ${token}`,
             }

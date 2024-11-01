@@ -128,7 +128,7 @@ const update = () => {
 
 const getlecture = async () => {
     try {
-        const res = await axios.get(`http://192.168.0.5:8080/lecture/list`);
+        const res = await axios.get(`http://192.168.0.103:8080/lecture/list`);
         lecturelist.value = res.data.sort((a, b) => b.idx - a.idx);
         console.log(lecturelist.value);
     } catch (e) {
@@ -138,7 +138,7 @@ const getlecture = async () => {
 
 const desclecture = async () => {
     try {
-        const res = await axios.get(`http://192.168.0.5:8080/lecture/list`);
+        const res = await axios.get(`http://192.168.0.103:8080/lecture/list`);
         lecturelist.value = res.data.sort((a, b) => a.idx - b.idx);
         console.log(lecturelist.value);
     } catch (e) {
@@ -151,7 +151,7 @@ const getmonthatt = async (lecture, month) => {
         console.log(lecture.idx, month);
         selectedtitle.value = lecture.title;
         selectedlecture.value = lecture;
-        const res = await axios.get(`http://192.168.0.5:8080/attendance/monthview?idx=${lecture.idx}&month=${month}`);
+        const res = await axios.get(`http://192.168.0.103:8080/attendance/monthview?idx=${lecture.idx}&month=${month}`);
         console.log(res.data);
         monthatt.value = processAttendanceData(res.data); // 데이터를 가공하는 함수를 호출
         console.log("Processed Month Attendance:", monthatt.value);
@@ -247,7 +247,7 @@ const approve = async (useridx, day, isApproved) => {
         studentAttendance.attendance[day].approval = isApproved;
 
         try {
-            await axios.post('http://192.168.0.5:8080/attendance/updateApproval', {
+            await axios.post('http://192.168.0.103:8080/attendance/updateApproval', {
                 useridx: useridx, // useridx도 전송할 수 있음
                 adate: dayjs().year(currentYear.value).month(currentMonth.value).date(day + 1).format('YYYY-MM-DD'),  // day를 날짜 형식으로 변환
                 type: studentAttendance.attendance[day].type,

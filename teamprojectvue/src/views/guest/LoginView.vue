@@ -57,7 +57,7 @@ const LoginSequence = async () => {
     // 백엔드로 보낼 데이터
 
     const response = await axios.post(
-      `http://192.168.0.5:8080/sign/login`, data
+      `http://192.168.0.103:8080/sign/login`, data
     )
     if (response) {
       const token = response.data

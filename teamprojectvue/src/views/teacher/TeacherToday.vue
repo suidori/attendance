@@ -41,7 +41,7 @@ const user = ref(null);
 const getuser = async () => {
     try {
         const token = localStorage.getItem('token')
-        const res = await axios.get(`http://192.168.0.5:8080/user/getuser`, {
+        const res = await axios.get(`http://192.168.0.103:8080/user/getuser`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             }
@@ -55,7 +55,7 @@ const getuser = async () => {
 const todayview = async () => {
     try {
         const token = localStorage.getItem('token')
-        const res = await axios.get(`http://192.168.0.5:8080/attendance/todayteacherview`, {
+        const res = await axios.get(`http://192.168.0.103:8080/attendance/todayteacherview`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             }
