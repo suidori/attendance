@@ -3,7 +3,7 @@
     <div class="">
       <div class="justify-center flex items-center ">
         <RouterLink to="/">
-          <img src="./images/LOGO.PNG" alt="" class="w-32 max-md:w-28 ml-3">
+          <img src="./images/LOGO.png" alt="" class="w-32 max-md:w-28 ml-3">
         </RouterLink>
       </div>
       <div class="flex text-white z-10 justify-end">

@@ -77,8 +77,8 @@
 <script setup>
 import { ref } from 'vue';
 
-const arr = ref([])
-const pageNum = ref(0)
+// const arr = ref([])
+// const pageNum = ref(0)
 const totalpages = ref(10)
 
 
