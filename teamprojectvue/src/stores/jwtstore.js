@@ -12,8 +12,11 @@ export const usejwtStore = ()=> defineStore ('jwt', ()=> {
 
         if(res !==null){
     
-            const token = localStorage.getItem('token', res.data)
+            localStorage.getItem('token', res.data)
     
+            const token = localStorage.setItem('token')
+
+
             return token
     
         }
