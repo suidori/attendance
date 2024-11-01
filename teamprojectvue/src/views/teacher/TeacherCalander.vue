@@ -3,6 +3,8 @@
     <div class="flex justify-center">
       <div v-if="lecturelist.length > 0" id="lecturelist" class="w-[15vw] p-4 border border-blue-500">
         <h1>강의목록</h1>
+        <button @click="getlecture" class="border border-green-500">최신순</button>
+        <button @click="desclecture" class="border border-green-500">과거순</button>
         <hr class="my-2 border-blue-500" />
         <div class="hover:bg-blue-700" @click="getmonthatt(lecture.idx, nowDat)" v-for="(lecture, index) in lecturelist"
           :key="lecture.idx">
@@ -25,14 +27,17 @@
               <thead>
                 <tr class="border">
                   <th class="w-1/4 p-4">이름</th>
-                  <th v-for="day in arr" :key="day" class="p-4" :style="{ color: isWeekend(getDayName(day)) }">{{ getDayName(day) }}</th>
+                  <th v-for="day in arr" :key="day" class="p-4" :style="{ color: isWeekend(getDayName(day)) }">{{
+                    getDayName(day) }}</th>
                 </tr>
               </thead>
               <tbody v-if="monthatt.length > 0">
                 <tr v-for="student in monthatt" :key="student.user" class="border bg-[#eee]">
                   <th class="w-1/4 p-4 bg-red-400">{{ student.user }}</th>
-                  <td v-for="day in arr" :key="day" class="p-4 font-bold border-r min-w-20" :style="{ color: isWeekend(getDayName(day)) }">
-                    <div :style="{ color: getatt(student.attendance[day]) }">{{ getAttendanceType(student.user, day) }}</div>
+                  <td v-for="day in arr" :key="day" class="p-4 font-bold border-r min-w-20"
+                    :style="{ color: isWeekend(getDayName(day)) }">
+                    <div :style="{ color: getatt(student.attendance[day]) }">{{ getAttendanceType(student.user, day) }}
+                    </div>
                   </td>
                 </tr>
               </tbody>
@@ -113,11 +118,26 @@ const getlecture = async () => {
   try {
     const token = localStorage.getItem('token');
     const res = await axios.get(`http://192.168.0.5:8080/lecture/mylecture`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            }
-        });
-    lecturelist.value = res.data;
+      headers: {
+        Authorization: `Bearer ${token}`,
+      }
+    });
+    lecturelist.value = res.data.sort((a, b) => b.idx - a.idx);
+    console.log(lecturelist.value);
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+const desclecture = async () => {
+  try {
+    const token = localStorage.getItem('token');
+    const res = await axios.get(`http://192.168.0.5:8080/lecture/mylecture`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      }
+    });
+    lecturelist.value = res.data.sort((a, b) => a.idx - b.idx);
     console.log(lecturelist.value);
   } catch (e) {
     console.error(e);
@@ -136,7 +156,7 @@ const getmonthatt = async (idx, month) => {
 
 const getAttendanceType = (username, day) => {
   const studentAttendance = monthatt.value.find(student => student.user === username);
-  
+
   if (!studentAttendance) return '-'; // 학생이 존재하지 않으면 '-'
 
   // 주말인지 확인
@@ -144,7 +164,7 @@ const getAttendanceType = (username, day) => {
   const isWeekendDay = /^일/.test(dayName) || /^토/.test(dayName); // 주말 여부 확인
 
   // 주말이면 '-'
-  if (isWeekendDay) return '☕'; 
+  if (isWeekendDay) return '☕';
 
   // 해당 날짜에 출결 정보가 없다면 '출석' 반환
   if (!studentAttendance.attendance[day]) {
@@ -185,7 +205,7 @@ const processAttendanceData = (data) => {
 
 
 const getatt = (attendance) => {
-  if (!attendance) { 
+  if (!attendance) {
     return 'black'; // attendance가 undefined일 때 기본 색상
   }
   if (attendance.approval !== null) {
@@ -202,8 +222,11 @@ const getatt = (attendance) => {
 
 
 
-onMounted(() => {
-  getlecture();
+onMounted(async () => {
+  await getlecture(); // 강의 목록 가져오기
+  if (lecturelist.value.length > 0) { // 강의 목록이 비어 있지 않은 경우
+    await getmonthatt(lecturelist.value[0].idx, nowDat.value); // 첫 번째 강의에 대한 출결 정보 가져오기
+  }
 });
 
 </script>

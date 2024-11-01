@@ -1,4 +1,7 @@
 <template>
+    <router-link to="teachercalander" class="bg-green-300">
+        달력보기
+    </router-link>
     <h1>오늘의 출결 변동 한눈에 보기</h1>
     <h1 v-if="user">{{ user.name }} 선생님, 환영합니다.</h1>
     <div v-if="arr.length > 0" class="overflow-x-auto">

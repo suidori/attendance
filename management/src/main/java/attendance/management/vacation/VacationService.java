@@ -3,6 +3,9 @@ package attendance.management.vacation;
 import attendance.management.error.BizException;
 import attendance.management.error.ErrorCode;
 import attendance.management.jwt.JWTManager;
+import attendance.management.sign.LoginUserDetails;
+import attendance.management.user.User;
+import attendance.management.user.UserRepository;
 import attendance.management.userandlecture.UserAndLecture;
 import attendance.management.userandlecture.UserAndLectureRepository;
 import lombok.RequiredArgsConstructor;
@@ -35,12 +38,10 @@ public class VacationService {
     private final JWTManager jwtManager;
 
 
-    public VacationResponseDto request(VacationReqDto vacationReqDto, String token) {
-        Long userIdx = jwtManager.extractUserIdxFromToken(token);
-
+    public VacationResponseDto request(VacationReqDto vacationReqDto, LoginUserDetails loginUserDetails) {
         Vacation vacation = modelMapper.map(vacationReqDto, Vacation.class);
 
-        Optional<UserAndLecture> userAndLecture = userAndLectureRepository.findByUser_IdxAndState(userIdx, 1);
+        Optional<UserAndLecture> userAndLecture = userAndLectureRepository.findByUser_IdxAndState(loginUserDetails.getIdx(), 1);
         userAndLecture.orElseThrow(() -> new BizException(ErrorCode.USER_NOT_FOUND));
         vacation.setLecture(userAndLecture.get().getLecture());
         vacation.setUser(userAndLecture.get().getUser());

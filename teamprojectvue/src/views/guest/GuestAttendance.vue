@@ -175,9 +175,11 @@ const selectAtt = ref(null);
 
 const subMonth = () => {
     now.value = dayjs(now.value).subtract(1, 'month');
+    showuser();
 };
 const addMonth = () => {
     now.value = dayjs(now.value).add(1, 'month');
+    showuser();
 };
 
 
@@ -236,7 +238,7 @@ watch(
 const router = useRouter();
 
 const name = ref('');
-const phoneNumberfirst = ref('');
+const phoneNumberfirst = ref('010');
 const phoneNumbersecond = ref('');
 const phoneNumberthird = ref('');
 const type = ref("지각");

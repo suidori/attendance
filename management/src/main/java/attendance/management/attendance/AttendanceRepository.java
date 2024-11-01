@@ -18,5 +18,5 @@ public interface AttendanceRepository extends JpaRepository<Attendance, Long> {
     @Query("SELECT a FROM Attendance a WHERE a.lecture.idx = :lectureidx AND FUNCTION('DATE_FORMAT', a.adate, '%Y-%m') = :adate")
     List<Attendance> findByLecture_IdxAndAdate(@Param("lectureidx") Long lectureIdx, @Param("adate") String adate);
 
-
+    Optional<Attendance> findAttendanceByUserIdxAndAdateAndType(Long useridx, LocalDate adate, String type);
 }

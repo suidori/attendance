@@ -4,6 +4,7 @@ import attendance.management.error.BizException;
 import attendance.management.error.ErrorCode;
 import attendance.management.jwt.JWTManager;
 import attendance.management.lecture.Lecture;
+import attendance.management.lecture.LectureRepository;
 import attendance.management.sign.LoginUserDetails;
 import attendance.management.user.User;
 import attendance.management.user.UserRepository;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -26,6 +28,7 @@ public class AttendanceService {
     private final ModelMapper modelMapper;
     private final UserAndLectureRepository userAndLectureRepository;
     private final JWTManager jwtManager;
+    private final LectureRepository lectureRepository;
 
     public Attendance attadd(AttendanceReqDto attendanceReqDto) {
         User user = userRepository.findByNameAndPhoneNumber(attendanceReqDto.getUser().getName(), attendanceReqDto.getUser().getPhoneNumber()).orElseThrow(()->new BizException(ErrorCode.USER_NOT_FOUND));
@@ -118,6 +121,7 @@ public class AttendanceService {
                 .stream()
                 .map(attendance -> {
                     AttendanceResponseMonthDto attendanceResponseMonthDto = modelMapper.map(attendance, AttendanceResponseMonthDto.class);
+                    attendanceResponseMonthDto.setUseridx(attendance.getUser().getIdx());
                     attendanceResponseMonthDto.setUser(attendance.getUser().getName());
                     attendanceResponseMonthDto.setAdate(attendance.getAdate().toString());
                     attendanceResponseMonthDto.setType(attendance.getType());
@@ -125,5 +129,19 @@ public class AttendanceService {
                     return attendanceResponseMonthDto;
                 }).toList();
         return attendanceResponseMonthDtos;
+    }
+
+    public Attendance updateApproval(AttendanceReqApproveDto attendanceReqApproveDto) {
+        LocalDate adate = LocalDate.parse(attendanceReqApproveDto.getAdate());
+
+        // useridx, adate, type을 사용하여 Attendance 조회
+        Attendance attendance = attendanceRepository
+                .findAttendanceByUserIdxAndAdateAndType(attendanceReqApproveDto.getUseridx(), adate, attendanceReqApproveDto.getType())
+                .orElseThrow(() -> new BizException(ErrorCode.ATTENDANCE_NOT_FOUND));
+
+        attendance.setApproval(attendanceReqApproveDto.getApproval());  // approval 필드 업데이트
+        attendanceRepository.save(attendance);
+
+        return attendance;
     }
 }

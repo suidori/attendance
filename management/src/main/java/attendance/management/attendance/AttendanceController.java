@@ -59,4 +59,11 @@ public class AttendanceController {
 
         return ResponseEntity.ok(attendanceResponseMonthDtos);
     }
+
+    @PostMapping("/updateApproval")
+    public ResponseEntity<Attendance> updateApproval(@RequestBody AttendanceReqApproveDto attendanceReqApproveDto) {
+        Attendance attendance = attendanceService.updateApproval(attendanceReqApproveDto);
+        return ResponseEntity.ok(attendance);
+    }
+
 }

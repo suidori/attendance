@@ -40,7 +40,7 @@ public class SecurityConfig {
 
         http.authorizeRequests(auth -> auth
                 // 일반 사용자도 접근 가능하다
-                .requestMatchers("/sign/**", "/question/**", "/answer/**", "/lecture/**", "/vacation/**", "/user/**", "/attendance/**").permitAll()
+                .requestMatchers("/sign/**", "/question/**", "/answer/**", "/lecture/**", "/vacation/**", "/user/**", "/attendance/**", "/userandlecture/**").permitAll()
                 // swagger 문서...
                 .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                 // STUDENT 로 role 을 가지고 있을때 접근 가능 하다.

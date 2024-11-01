@@ -2,18 +2,12 @@
     <div id="container" class="flex">
         <div id="leftmenu" class="p-4 border border-blue-500 w-36">
             <h1>메뉴</h1>
-            <RouterLink to="/join">
-                <h1>회원가입</h1>
+            <RouterLink to="/stdatt">
+                <h1>출결달력</h1>
             </RouterLink>
-            <RouterLink to="/loginview">
-                <h1>로그인</h1>
+            <RouterLink to="/vacationform">
+                <h1>휴가신청</h1>
             </RouterLink>
-            <router-link to="/teachertoday">
-                <h1>선생님페이지</h1>
-            </router-link>
-            <router-link to="/teachercalander">
-                <h1>선생님달력</h1>
-            </router-link>
         </div>
         <div id="main">
             <div id="user">
@@ -165,9 +159,11 @@ const selectAtt = ref(null);
 
 const subMonth = () => {
     now.value = dayjs(now.value).subtract(1, 'month');
+    showuser();
 };
 const addMonth = () => {
     now.value = dayjs(now.value).add(1, 'month');
+    showuser();
 };
 
 
