@@ -31,8 +31,6 @@
 
 
 
-
-
     <!-- 리스트 항목 -->
     <!-- <ul v-for="item in arr" :key="item.id" class="w-full  flex justify-center "> -->
         <!-- <input type="checkbox" name="" id="" class="inline-block mr-7">
