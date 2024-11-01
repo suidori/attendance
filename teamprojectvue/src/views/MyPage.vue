@@ -41,10 +41,13 @@
       <input type="text" name="강의정보" id="" class="h-10 mx-3 text-xs border w-96" placeholder=" 강의정보-강사:000 / 강의시간 0교시"/>
     </div>
   </div>
+  <div class="mb-64">
+
+</div>
 </template>
 
 <script setup>
-import SideBar from '@/component/SideBar.vue'
+import SideBar from '@/layout/SideBar.vue'
 </script>
 
 <style lang="scss" scoped></style>

@@ -71,6 +71,9 @@
       회원가입 페이지로이동하기
     </button>
   </div>
+  <div class="mb-64">
+
+</div>
 </template>
 
 <script setup>

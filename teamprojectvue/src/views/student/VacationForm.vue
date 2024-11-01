@@ -65,11 +65,14 @@
     <div class="flex items-center justify-center">
     </div>
   </div>
+  <div class="mb-64">
+
+</div>
 </template>
 
 <script setup>
 import axios from 'axios';
-import SideBar from '@/component/SideBar.vue'
+import SideBar from '@/layout/SideBar.vue'
 import { ref, computed } from 'vue';
 
 const phoneNumberfirst = ref('010');

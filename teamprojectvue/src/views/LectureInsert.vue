@@ -500,6 +500,9 @@
 <li class="w-4/6 text-center border-2 py-2">금일출결현황</li>
     </ul>
 </div>
+<div class="mb-64">
+
+</div>
 </template>
 
 

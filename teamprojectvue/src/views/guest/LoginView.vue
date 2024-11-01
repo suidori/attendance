@@ -33,6 +33,9 @@
       </div>
     </div>
   </div>
+  <div class="mb-64">
+
+</div>
 </template>
 
 <script setup>
@@ -63,7 +66,7 @@ const LoginSequence = async () => {
 
       const token = await logincontrol(data)
 
-      
+
      console.log('최종 토큰'+token)
 
      router.push({ path: 'devmenu' })
