@@ -112,7 +112,7 @@ const update = () => {
 const getlecture = async () => {
   try {
     const token = localStorage.getItem('token');
-    const res = await axios.get(`http://192.168.0.11:8080/lecture/mylecture`, {
+    const res = await axios.get(`http://192.168.0.5:8080/lecture/mylecture`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             }
@@ -126,7 +126,7 @@ const getlecture = async () => {
 
 const getmonthatt = async (idx, month) => {
   try {
-    const res = await axios.get(`http://192.168.0.11:8080/attendance/monthview?idx=${idx}&month=${month}`);
+    const res = await axios.get(`http://192.168.0.5:8080/attendance/monthview?idx=${idx}&month=${month}`);
     monthatt.value = processAttendanceData(res.data); // 데이터를 가공하는 함수를 호출
     console.log(monthatt.value);
   } catch (e) {

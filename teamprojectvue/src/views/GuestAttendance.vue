@@ -257,7 +257,7 @@ const showuser = async () => {
     }
 
     try {
-        const res = await axios.post('http://192.168.0.11:8080/attendance/getuser', data)
+        const res = await axios.post('http://192.168.0.5:8080/attendance/getuser', data)
         attlist.value = res.data;
         useravail.value = true;
         console.log(attlist.value);
@@ -288,7 +288,7 @@ const attupdate = async () => {
     }
 
     try {
-        const res = await axios.post('http://192.168.11:8080/attendance/attupdate', data)
+        const res = await axios.post('http://192.168.0.5:8080/attendance/attupdate', data)
         console.log(res)
         alert(`${(selectDate.value == null) ? attDate.value : selectDate.value}, ${name.value} 학생 ${type.value} 요청 완료!`)
         showuser();
@@ -305,7 +305,7 @@ const attdelete = async () => {
     }
 
     try {
-        const res = await axios.delete(`http://192.168.11:8080/attendance/attdelete/${selectAtt.value.idx}`)
+        const res = await axios.delete(`http://192.168.0.5:8080/attendance/attdelete/${selectAtt.value.idx}`)
         console.log(res)
         alert(`${selectAtt.value.adate}, ${name.value} 학생 ${type.value} 삭제 요청 완료!`)
         selectAtt.value = null;

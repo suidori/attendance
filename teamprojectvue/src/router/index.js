@@ -11,6 +11,8 @@ import GuestAttendance from '@/views/GuestAttendance.vue'
 import StudentAttendance from '@/views/StudentAttendance.vue'
 import TeacherToday from '@/views/teacher/TeacherToday.vue'
 import TeacherCalander from '@/views/teacher/TeacherCalander.vue'
+import Devmenu from '@/views/dev/Devmenu.vue'
+import DeskCalander from '@/views/Desk/DeskCalander.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -78,6 +80,14 @@ const router = createRouter({
     { path: '/teachercalander',
       name: 'teachercalander',
       component: TeacherCalander
+     },
+    { path: '/devmenu',
+      name: 'devmenu',
+      component: Devmenu
+     },
+     {path: '/deskcalander',
+      name: 'deskcalander',
+      component: DeskCalander
      }
   ]
 })
