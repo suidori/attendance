@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
     <!-- 드랍박스 여기 -->
   <div class="px-52">
     <DropBox />
@@ -92,11 +93,17 @@
         </div>
       </div>
     </div>
+=======
+  <div>
+실험하기
+>>>>>>> origin/우혁
   </div>
 </template>
 
 <script setup>
-import DropBox from '@/component/DropBox.vue'
+
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+
+</style>
