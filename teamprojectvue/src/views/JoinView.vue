@@ -98,6 +98,9 @@
       >
         회원가입
       </button>
+      <div>
+      <button type="button"><RouterLink to="joincomplete"> 완료페이지로 </RouterLink></button>
+    </div>
       <!-- :disabled="!IdAvailable"
       >
         회원가입 -->
@@ -198,7 +201,7 @@ const joinuser = async () => {
   try {
     const res = await axios.post('http://192.168.67:8080/sign/signin', data)
     console.log(res)
-    router.push({ name: 'loginview' })
+    router.push({ name: 'joincomplete' })
   } catch (e) {
     console.log(e)
     alert('에러')

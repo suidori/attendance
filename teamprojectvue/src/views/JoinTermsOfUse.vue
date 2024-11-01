@@ -232,7 +232,7 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router';
 
 
-const router = useRouter
+const router = useRouter();
 
 const agree1 = ref(false)
 const agree2 = ref(false)
@@ -248,7 +248,6 @@ function toggleAllAgree(event) {
 function joinSubmit(){
   if(allAgree.value==true){
   router.push({ path:'/joinview' })
-    console.log(allAgree.value)
   }else{
     alert('개인정보 동의에 체크하여 주세요')
   }
