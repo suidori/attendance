@@ -37,6 +37,12 @@
                   <td v-for="day in arr" :key="day" class="p-4 font-bold border-r min-w-20"
                     :style="{ color: isWeekend(getDayName(day)) }">
                     <div :style="{ color: getatt(student.attendance[day]) }">{{ getAttendanceType(student.user, day) }}
+                      <div v-if="appget(student.attendance[day])">
+                        <button @click="approve(student.useridx, day, true)" class="border border-black"
+                          :style="{ color: 'green' }">승인</button>
+                        <button @click="approve(student.useridx, day, null)" class="border border-black"
+                          :style="{ color: 'red' }">거절</button>
+                      </div>
                     </div>
                   </td>
                 </tr>
@@ -117,13 +123,12 @@ const update = () => {
 const getlecture = async () => {
   try {
     const token = localStorage.getItem('token');
-    const res = await axios.get(`http://192.168.0.5:8080/lecture/mylecture`, {
+    const res = await axios.get(`http://192.168.0.103:8080/lecture/mylecture`, {
       headers: {
         Authorization: `Bearer ${token}`,
       }
     });
     lecturelist.value = res.data.sort((a, b) => b.idx - a.idx);
-    console.log(lecturelist.value);
   } catch (e) {
     console.error(e);
   }
@@ -132,13 +137,12 @@ const getlecture = async () => {
 const desclecture = async () => {
   try {
     const token = localStorage.getItem('token');
-    const res = await axios.get(`http://192.168.0.5:8080/lecture/mylecture`, {
+    const res = await axios.get(`http://192.168.0.103:8080/lecture/mylecture`, {
       headers: {
         Authorization: `Bearer ${token}`,
       }
     });
     lecturelist.value = res.data.sort((a, b) => a.idx - b.idx);
-    console.log(lecturelist.value);
   } catch (e) {
     console.error(e);
   }
@@ -146,9 +150,8 @@ const desclecture = async () => {
 
 const getmonthatt = async (idx, month) => {
   try {
-    const res = await axios.get(`http://192.168.0.5:8080/attendance/monthview?idx=${idx}&month=${month}`);
+    const res = await axios.get(`http://192.168.0.103:8080/attendance/monthview?idx=${idx}&month=${month}`);
     monthatt.value = processAttendanceData(res.data); // 데이터를 가공하는 함수를 호출
-    console.log(monthatt.value);
   } catch (e) {
     console.log(e);
   }
@@ -180,19 +183,17 @@ const processAttendanceData = (data) => {
   const attendanceMap = {};
 
   data.forEach(record => {
-    const { user, adate, type = '', approval = 'null' } = record; // 기본값 설정
+    const { user, useridx, adate, type = '', approval = 'null' } = record; // idx 포함
 
-    // 사용자 별로 출결 정보를 초기화
     if (!attendanceMap[user]) {
       attendanceMap[user] = {
         user: user,
-        attendance: {} // 출결 정보를 담는 객체
+        useridx: useridx,  // useridx로 변경
+        attendance: {}
       };
     }
 
-    const day = dayjs(adate).date() - 1; // 날짜 인덱스 계산
-
-    // 각 날짜에 대해 출결 정보 저장
+    const day = dayjs(adate).date() - 1;
     attendanceMap[user].attendance[day] = {
       type,
       approval: approval === null ? null : approval === 'true' ? true : approval === 'false' ? false : null
@@ -201,8 +202,6 @@ const processAttendanceData = (data) => {
 
   return Object.values(attendanceMap);
 };
-
-
 
 const getatt = (attendance) => {
   if (!attendance) {
@@ -219,6 +218,35 @@ const getatt = (attendance) => {
   }
 };
 
+const appget = (attendance) => {
+  if (attendance && attendance.approval === false) {
+    return true;
+  }
+  return false;
+};
+
+const approve = async (useridx, day, isApproved) => {
+  const studentAttendance = monthatt.value.find(student => student.useridx === useridx); // useridx로 검색
+
+  if (studentAttendance && studentAttendance.attendance[day]) {
+    studentAttendance.attendance[day].approval = isApproved;
+
+    // 전송할 데이터 객체를 먼저 선언
+    const data = {
+      useridx: useridx, // useridx도 전송할 수 있음
+      adate: dayjs().year(currentYear.value).month(currentMonth.value).date(day + 1).format('YYYY-MM-DD'),  // day를 날짜 형식으로 변환
+      type: studentAttendance.attendance[day].type,
+      approval: isApproved,
+    };
+
+
+    try {
+      await axios.post('http://192.168.0.103:8080/attendance/updateApproval', data);
+    } catch (e) {
+      console.error('Approval update failed:', e);
+    }
+  }
+};
 
 
 

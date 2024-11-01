@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import LoginView from '../views/guest/LoginView.vue'
-import LoginHome from '@/views/guest/LoginHome.vue'
+import LoginHome from '@/views/LoginHome.vue'
 import LaboView from '@/views/LaboView.vue'
 import VacationForm from '@/views/student/VacationForm.vue'
 import JoinView from '@/views/guest/JoinView.vue'
@@ -13,6 +13,8 @@ import LectureApprovallist from '@/views/LectureApprovallist.vue'
 import JoinComplete from '@/views/JoinComplete.vue'
 import LectureInsert from '@/views/LectureInsert.vue'
 import StudentAttendance from '@/views/student/StudentAttendance.vue'
+import Devmenu from '@/views/dev/Devmenu.vue'
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -91,6 +93,11 @@ const router = createRouter({
       path: '/lectureinsert',
       name: 'lectureinsert',
       component: LectureInsert
+    },
+    {
+      path: '/Devmenu',
+      name: 'devmenu',
+      component: Devmenu
     },
   ]
 })

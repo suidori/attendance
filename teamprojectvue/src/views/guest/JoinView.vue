@@ -98,9 +98,6 @@
       >
         회원가입
       </button>
-      <div>
-      <button type="button"><RouterLink to="joincomplete"> 완료페이지로 </RouterLink></button>
-    </div>
       <!-- :disabled="!IdAvailable"
       >
         회원가입 -->

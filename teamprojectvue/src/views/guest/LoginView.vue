@@ -37,8 +37,8 @@
 
 <script setup>
 import { ref } from 'vue'
-import axios from 'axios'
 import { useRouter } from 'vue-router'
+import { logincontrol } from '@/api/loginapi';
 
 const userid = ref('')
 const password = ref('')
@@ -49,30 +49,39 @@ const router = useRouter()
 // const errorMessage = ref('') // 에러 메시지를 저장할 변수
 
 const LoginSequence = async () => {
+
   const data = {
     "userid": userid.value,
     "password": password.value
   }
-  try {
+  
     // 백엔드로 보낼 데이터
 
-    const response = await axios.post(
-      `http://192.168.0.5:8080/sign/login`, data
-    )
-    if (response) {
-      const token = response.data
-      localStorage.setItem('token', token)
-      console.log('로그인 성공, 토큰:' + token)
-      router.push({ path: 'devmenu' })
-    } else {
-      console.log('로그인실패 ' + response)
+    try{
+
+      console.log(data)
+
+      const token = await logincontrol(data)
+
+      
+     console.log('최종 토큰'+token)
+
+     router.push({ path: 'devmenu' })
+
+
+    }catch(e){
+
+
+console.log('로그인실패 ' + e)
       loginError.value = '아이디와 비밀번호를 확인해 주세요'
-    }
-  } catch (error) {
-    console.error('error' + error)
-    loginError.value = '로그인 에러'
+      return
+
+    } 
   }
-}
+     
+
+  
+
 // 로그인 유지
 // const onMounted = (() => {
 //   // Axios 요청 시 토큰을 헤더에 자동으로 추가
