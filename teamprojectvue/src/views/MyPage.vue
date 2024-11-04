@@ -47,7 +47,11 @@
 </template>
 
 <script setup>
+<<<<<<< HEAD
 import SideBar from '@/layout/SideBar.vue'
+=======
+import SideBar from '@/component/StudentSideBar.vue'
+>>>>>>> main
 </script>
 
 <style lang="scss" scoped></style>

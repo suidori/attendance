@@ -14,9 +14,12 @@
         매니저메뉴
       </div>
     </router-link>
+<<<<<<< HEAD
     <div class="mb-64">
 
 </div>
+=======
+>>>>>>> main
   </template>
   
   <script setup>

@@ -1,24 +1,26 @@
 <template>
   <div class="text-center">
-    <div class="flex justify-center">
-      <img src="../images/LOGO.PNG" alt="#" class="w-32 max-md:w-28" />
+    <div class="flex justify-center -m-5">
+      <h1 class="font-mono font-black italic text-3xl tracking-tight flex flex-col">GREENART COMPUTER ARCADEMY</h1>
+
     </div>
-    <div class="absolute p-4 transform -translate-x-1/2 -translate-y-1/2 bg-white shadow-md top-1/2 left-1/2">
-      <div class="flex flex-col items-center justify-center my-3 mt-10 space-y-3">
-          <p>아이디<input
-              class="p-2 ml-5 transition duration-200 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+    <div class="mx-auto mt-20 w-[40rem] p-4 transform bg-white shadow-md flex flex-col justify-center items-center">
+      <div class=" my-3 mt-10 space-y-3">
+          <p class="">ID<input
+              class="ml-5 p-3 mb-5 w-80 transition duration-200 border-b border-gray-400 focus:outline-none"
               type="text"
               name="userid"
               id="userid"
               v-model="userid"
             />
           </p>
-          <p>비밀번호<input
-              class="p-2 ml-1 transition duration-200 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          <p>PASSWORD<input
+              class="ml-5 p-3 w-80 transition duration-200 border-b border-gray-400 focus:outline-none"
               type="password"
               name="password"
               id="password"
               v-model="password"
+              @keydown.enter="LoginSequence"
             />
           </p>
         </div>
@@ -60,6 +62,7 @@ const LoginSequence = async () => {
   
     // 백엔드로 보낼 데이터
 
+<<<<<<< HEAD
     try{
 
       console.log(data)
@@ -76,6 +79,21 @@ const LoginSequence = async () => {
 
 
 console.log('로그인실패 ' + e)
+=======
+    const response = await axios.post(
+
+      `http://192.168.103:8080/sign/login`, data
+
+
+    )
+    if (response) {
+      const token = response.data
+      localStorage.setItem('token', token)
+      console.log('로그인 성공, 토큰:' + token)
+      router.push({ path: 'devmenu' })
+    } else {
+      console.log('로그인실패 ' + response)
+>>>>>>> main
       loginError.value = '아이디와 비밀번호를 확인해 주세요'
       return
 

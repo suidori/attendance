@@ -30,7 +30,11 @@
                 </td>
                 <td>
                   <a v-if="vacation.accept === '허가됨'" 
+<<<<<<< HEAD
                      :href="`http://192.168.0.5:8080/vacation/download/hwp/${vacation.idx}`" 
+=======
+                     :href="`http://192.168.0.103:8080/vacation/download/hwp/${vacation.idx}`" 
+>>>>>>> main
                      class="btn btn-primary btn-sm" 
                      target="_blank">다운로드</a>
                   <span v-else>—</span>
@@ -67,7 +71,11 @@
   
   const fetchVacations = async () => {
     try {
+<<<<<<< HEAD
       const response = await axios.get('http://192.168.0.5:8080/vacation/manager');
+=======
+      const response = await axios.get('http://192.168.0.103:8080/vacation/manager');
+>>>>>>> main
       vacationList.value = response.data.list; 
       totalElements.value = response.data.totalElements;
     } catch (error) {
@@ -77,7 +85,11 @@
   
   const handleApprove = async (idx) => {
     try {
+<<<<<<< HEAD
       await axios.post(`http://192.168.0.5:8080/vacation/accept/${idx}`);
+=======
+      await axios.post(`http://192.168.0.103:8080/vacation/accept/${idx}`);
+>>>>>>> main
       fetchVacations(); // 요청 승인 후 목록 새로고침
     } catch (error) {
       console.error('승인 중 오류 발생:', error);
@@ -86,7 +98,11 @@
   
   const handleDeny = async (idx) => {
     try {
+<<<<<<< HEAD
       await axios.post(`http://192.168.0.5:8080/vacation/deny/${idx}`);
+=======
+      await axios.post(`http://192.168.0.103:8080/vacation/deny/${idx}`);
+>>>>>>> main
       fetchVacations(); // 요청 거절 후 목록 새로고침
     } catch (error) {
       console.error('거절 중 오류 발생:', error);

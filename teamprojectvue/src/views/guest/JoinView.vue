@@ -127,7 +127,19 @@
           class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
         />
       </div>
+<<<<<<< HEAD
       
+=======
+      <div class="mb-6">
+        <label for="role" class="block mb-2 text-sm font-bold text-gray-700">관리자 여부</label>
+        <input type="radio" value="ROLE_STUDENT" name="role" id="role-1" v-model="role" />
+        <label for="role-1" class="p-1 pr-3">학생</label>
+        <input type="radio" value="ROLE_TEACHER" name="role" id="role-2" v-model="role" />
+        <label for="role-2" class="p-1 pr-3">선생</label>
+        <input type="radio" value="ROLE_MANAGER" name="role" id="role-3" v-model="role" />
+        <label for="role-3" class="p-1 pr-3">매니저</label>
+      </div>
+>>>>>>> main
       <button
         @click="joinuser"
         class="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline"
@@ -149,7 +161,11 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import axios from 'axios'
+<<<<<<< HEAD
 import SideBar from '@/layout/SideBar.vue'
+=======
+import SideBar from '@/component/StudentSideBar.vue'
+>>>>>>> main
 
 const router = useRouter()
 
@@ -160,7 +176,7 @@ const email = ref('')
 const phoneNumberfirst = ref('010');
 const phoneNumbersecond = ref('');
 const phoneNumberthird = ref('');
-const role = ref('')
+const role = ref('ROLE_STUDENT')
 // const lecture = ref('')
 
 // // 중복 확인 상태
@@ -189,7 +205,10 @@ if (!phoneNumbersecond.value || !phoneNumberthird.value) {
   const phoneNumber = `${phoneNumberfirst.value}-${phoneNumbersecond.value}-${phoneNumberthird.value}`;
 
   try {
-    const phoneResponse = await axios.get(`http://192.168.67:8080/sign/checkphone?phoneNumber=${phoneNumber}`);
+
+
+    const phoneResponse = await axios.get(`http://192.168.0.103:8080/sign/checkphone?phoneNumber=${phoneNumber}`);
+
     console.log(phoneNumber);
     console.log(phoneResponse);
 
@@ -216,7 +235,9 @@ const checkid = async () => {
   }
 
   try {
-    const idResponse = await axios.get(`http://192.168.67:8080/sign/checkid?userid=${userid.value}`);
+
+    const idResponse = await axios.get(`http://192.168.0.103:8080/sign/checkid?userid=${userid.value}`);
+
 
     if (idResponse.data == false) {
       idError.value = '이미 사용 중인 아이디입니다.'
@@ -240,17 +261,26 @@ const joinuser = async () => {
     email: (email.value) ? email.value : null,
     phoneNumber: `${phoneNumberfirst.value}-${phoneNumbersecond.value}-${phoneNumberthird.value}`,
     role: role.value
-    // lecture: lecture.value
   }
+
+console.log(data);
 
   try {
 
+<<<<<<< HEAD
     const res = await axios.post('http://192.168.67:8080/sign/signin', data)
     console.log(res)
 
     router.push({ name: 'joincomplete' })
     
 
+=======
+
+    const res = await axios.post('http://192.168.0.103:8080/sign/signin', data)
+
+    console.log(res)
+    router.push({ name: 'loginview' })
+>>>>>>> main
   } catch (e) {
     console.log(e)
     alert('에러')

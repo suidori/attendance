@@ -2,16 +2,34 @@
     <div id="container" class="flex">
         <div id="leftmenu" class="p-4 border border-blue-500 w-36">
             <h1>메뉴</h1>
-            <RouterLink to="/stdatt">
-                <h1>출결달력</h1>
+            <RouterLink to="/join">
+                <h1>회원가입</h1>
             </RouterLink>
-            <RouterLink to="/vacationform">
-                <h1>휴가신청</h1>
+            <RouterLink to="/loginview">
+                <h1>로그인</h1>
             </RouterLink>
         </div>
         <div id="main">
             <div id="user">
-                <h1 v-if="user">{{user.name}} 학생 출결 관리</h1>
+                <h1>비로그인용 출결 관리</h1>
+                <p>이름 <input type="text" placeholder="입력해주세요" class="border border-gray-500" v-model="name"></p>
+                <p>전화번호 <label for="items"> </label>
+                    <select id="items" name="items" class="border border-gray-500" v-model="phoneNumberfirst">
+                        <option value="010" selected>010</option>
+                        <option value="011">011</option>
+                        <option value="016">016</option>
+                        <option value="017">017</option>
+                        <option value="018">018</option>
+                        <option value="019">019</option>
+                    </select>
+                    - <input type="text" v-model="phoneNumbersecond" class="border border-gray-500">
+                    - <input @input="showuser" type="text" v-model="phoneNumberthird" class="border border-gray-500">
+                    <button @click="showuser"
+                        class="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline"
+                        type="button">
+                        조회하기
+                    </button>
+                </p>
                 <p v-if="useravail" class="text-green-600">수강중: {{ attlist.at(0).lecture }}</p>
                 <p v-if="!useravail" class="text-red-600">{{ usererror }}</p>
             </div>
@@ -43,7 +61,7 @@
                             <template v-for="items in attlist" :key="items.adate">
                                 <div v-if="items.adate == column.format('YYYY-MM-DD')">
                                     <div class="mt-2 text-green-600">
-                                        <button @click="(event) => selectAttFn(event, items, column)"
+                                        <button @click="(event) => selectAttFn(event, items)"
                                             class="w-full font-bold text-white rounded hover:bg-green-700 focus:outline-none focus:shadow-outline"
                                             :class="{
                                                 'bg-green-500': items.approval == null && (items.type === '조퇴' || items.type === '외출' || items.type === '지각'),
@@ -117,11 +135,9 @@
                     <div>
                         <label for="approval">3. 출석 인정 사유에 해당됩니까?</label>
                         <form action="">
-                            <input type="radio" :value="false" id="approval-1" name="approval" v-model="approval"
-                                required>
+                            <input type="radio" :value="false" id="approval-1" name="approval" v-model="approval" required>
                             <label for="approval-1" class="p-1 pr-3">예</label>
-                            <input type="radio" :value="null" id="approval-2" name="approval" v-model="approval"
-                                required>
+                            <input type="radio" :value="null" id="approval-2" name="approval" v-model="approval" required>
                             <label for="approval-2" class="p-1 pr-3">아니오</label>
                         </form>
                     </div>
@@ -140,16 +156,10 @@
             </div>
         </div>
     </div>
-<<<<<<< HEAD
-    <div class="mb-64">
-
-</div>
-=======
->>>>>>> main
 </template>
 
 <script setup>
-import { ref, watch, watchEffect, onMounted } from 'vue';
+import { ref, watch, watchEffect } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
 import dayjs from 'dayjs';
@@ -227,7 +237,10 @@ watch(
 
 const router = useRouter();
 
-const user = ref(null);
+const name = ref('');
+const phoneNumberfirst = ref('010');
+const phoneNumbersecond = ref('');
+const phoneNumberthird = ref('');
 const type = ref("지각");
 const reason = ref('');
 const approval = ref(null);
@@ -237,31 +250,17 @@ const usererror = ref('');
 const attlist = ref([]);
 
 const showuser = async () => {
-
-    try {
-        const token = localStorage.getItem('token')
-<<<<<<< HEAD
-        const resuser = await axios.get('http://192.168.0.5:8080/user/getuser', {
-=======
-        const resuser = await axios.get('http://192.168.0.103:8080/user/getuser', {
->>>>>>> main
-            headers: {
-                Authorization: `Bearer ${token}`,
-            }
-        });
-        console.log(resuser.data);
-        user.value = resuser.data;
-        const data = {
-        "user": user.value,
+    const data = {
+        "user": {
+            "name": name.value,
+            "phoneNumber": `${phoneNumberfirst.value}-${phoneNumbersecond.value}-${phoneNumberthird.value}`
+        },
         "month": dayjs(now.value).format('YYYY-MM')
     }
 
-<<<<<<< HEAD
-        const resatt = await axios.post('http://192.168.0.5:8080/attendance/getuser', data)
-=======
-        const resatt = await axios.post('http://192.168.0.103:8080/attendance/getuser', data)
->>>>>>> main
-        attlist.value = resatt.data;
+    try {
+        const res = await axios.post('http://192.168.0.5:8080/attendance/getuser', data)
+        attlist.value = res.data;
         useravail.value = true;
         console.log(attlist.value);
     } catch (e) {
@@ -284,17 +283,16 @@ const attupdate = async () => {
         "adate": (selectDate.value == null) ? attDate.value : selectDate.value,
         "approval": approval.value,
         "oldtype": oldtype.value,
-        "user": user.value
+        "user": {
+            "name": name.value,
+            "phoneNumber": `${phoneNumberfirst.value}-${phoneNumbersecond.value}-${phoneNumberthird.value}`
+        }
     }
 
     try {
-<<<<<<< HEAD
         const res = await axios.post('http://192.168.0.5:8080/attendance/attupdate', data)
-=======
-        const res = await axios.post('http://192.168.0.103:8080/attendance/attupdate', data)
->>>>>>> main
         console.log(res)
-        alert(`${(selectDate.value == null) ? attDate.value : selectDate.value}, ${type.value} 요청 완료!`)
+        alert(`${(selectDate.value == null) ? attDate.value : selectDate.value}, ${name.value} 학생 ${type.value} 요청 완료!`)
         showuser();
     } catch (e) {
         console.log(e)
@@ -309,13 +307,9 @@ const attdelete = async () => {
     }
 
     try {
-<<<<<<< HEAD
         const res = await axios.delete(`http://192.168.0.5:8080/attendance/attdelete/${selectAtt.value.idx}`)
-=======
-        const res = await axios.delete(`http://192.168.0.103:8080/attendance/attdelete/${selectAtt.value.idx}`)
->>>>>>> main
         console.log(res)
-        alert(`${attDate.value}, ${type.value} 삭제 요청 완료!`)
+        alert(`${selectAtt.value.adate}, ${name.value} 학생 ${type.value} 삭제 요청 완료!`)
         selectAtt.value = null;
         showuser();
     } catch (e) {
@@ -345,7 +339,7 @@ const selectDateFn = (date, index) => {
     }
 };
 
-const selectAttFn = (event, items, date) => {
+const selectAttFn = (event, items) => {
     // 사용자가 유효하지 않다면 바로 리턴
     if (!useravail.value) return;
     if (dayjs(date).format('YYYY-MM') != dayjs(now.value).format('YYYY-MM')) return;
@@ -364,13 +358,9 @@ const selectAttFn = (event, items, date) => {
         reason.value = items.reason;
         oldtype.value = items.type;
         attDate.value = items.adate;
-        approval.value = (items.approval == null) ? null : false;
+        approval.value = (items.approval==null) ? null : false;
     }
 };
-
-onMounted(() => {
-  showuser();
-});
 </script>
 
 <style lang="scss" scoped></style>
