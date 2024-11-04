@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import LoginView from '../views/guest/LoginView.vue'
-import LoginHome from '@/views/LoginHome.vue'
+// import LoginHome from '@/views/LoginHome.vue'
 import LaboView from '@/views/LaboView.vue'
 import VacationForm from '@/views/student/VacationForm.vue'
 import JoinView from '@/views/guest/JoinView.vue'
@@ -14,15 +14,20 @@ import JoinComplete from '@/views/JoinComplete.vue'
 import LectureInsert from '@/views/LectureInsert.vue'
 import StudentAttendance from '@/views/student/StudentAttendance.vue'
 import Devmenu from '@/views/dev/Devmenu.vue'
-
+import TeacherCalander from '@/views/teacher/TeacherCalander.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    // {
+    //   path: '/',
+    //   name: 'loginhome',
+    //   component: LoginHome
+    // },
     {
-      path: '/',
-      name: 'loginhome',
-      component: LoginHome
+      path: '/loginview',
+      name: 'loginview',
+      component: LoginView
     },
     {
       path: '/guestattendance',
@@ -34,11 +39,7 @@ const router = createRouter({
       name: 'stdatt',
       component: StudentAttendance
     },
-    {
-      path: '/loginview',
-      name: 'loginview',
-      component: LoginView
-    },
+  
     {
       path: '/joinview',
       name: 'joinview',
@@ -98,6 +99,11 @@ const router = createRouter({
       path: '/Devmenu',
       name: 'devmenu',
       component: Devmenu
+    },
+    {
+      path: '/TeacherCalander',
+      name: 'teachercalander',
+      component: TeacherCalander
     },
   ]
 })
