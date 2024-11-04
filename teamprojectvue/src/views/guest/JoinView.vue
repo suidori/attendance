@@ -24,7 +24,6 @@
         <label for="role-2" class="p-1 pr-3 mr-10">선생님</label>
         <input type="radio" value="ROLE_MANAGER" name="role" id="role-3" v-model="role" />
         <label for="role-3" class="p-1 pr-3 mr-10">매니저</label></div>
-        
       </div>
 
 
