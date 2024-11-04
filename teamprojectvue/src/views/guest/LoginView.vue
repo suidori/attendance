@@ -59,13 +59,16 @@ const LoginSequence = async () => {
     // 백엔드로 보낼 데이터
 
     const response = await axios.post(
+
       `http://192.168.103:8080/sign/login`, data
+
+
     )
     if (response) {
       const token = response.data
-      localStorage.setItem('access_token', token)
+      localStorage.setItem('token', token)
       console.log('로그인 성공, 토큰:' + token)
-      router.push({ path: 'mypage' }) // 안된다
+      router.push({ path: 'devmenu' })
     } else {
       console.log('로그인실패 ' + response)
       loginError.value = '아이디와 비밀번호를 확인해 주세요'

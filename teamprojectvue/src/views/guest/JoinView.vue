@@ -84,7 +84,7 @@
       </div>
       <div class="mb-6">
         <label for="role" class="block mb-2 text-sm font-bold text-gray-700">관리자 여부</label>
-        <input type="radio" value="ROLE_STUDENT" name="role" id="role-1" v-model="role" checked />
+        <input type="radio" value="ROLE_STUDENT" name="role" id="role-1" v-model="role" />
         <label for="role-1" class="p-1 pr-3">학생</label>
         <input type="radio" value="ROLE_TEACHER" name="role" id="role-2" v-model="role" />
         <label for="role-2" class="p-1 pr-3">선생</label>
@@ -117,10 +117,10 @@ const userid = ref('')
 const password = ref('')
 const name = ref('')
 const email = ref('')
-const phoneNumberfirst = ref('');
+const phoneNumberfirst = ref('010');
 const phoneNumbersecond = ref('');
 const phoneNumberthird = ref('');
-const role = ref('')
+const role = ref('ROLE_STUDENT')
 // const lecture = ref('')
 
 // // 중복 확인 상태
@@ -141,7 +141,10 @@ if (!phoneNumbersecond.value || !phoneNumberthird.value) {
   const phoneNumber = `${phoneNumberfirst.value}-${phoneNumbersecond.value}-${phoneNumberthird.value}`;
 
   try {
-    const phoneResponse = await axios.get(`http://192.168.0.5:8080/sign/checkphone?phoneNumber=${phoneNumber}`);
+
+
+    const phoneResponse = await axios.get(`http://192.168.0.103:8080/sign/checkphone?phoneNumber=${phoneNumber}`);
+
     console.log(phoneNumber);
     console.log(phoneResponse);
 
@@ -168,7 +171,9 @@ const checkid = async () => {
   }
 
   try {
-    const idResponse = await axios.get(`http://192.168.0.5:8080/sign/checkid?userid=${userid.value}`);
+
+    const idResponse = await axios.get(`http://192.168.0.103:8080/sign/checkid?userid=${userid.value}`);
+
 
     if (idResponse.data == false) {
       idError.value = '이미 사용 중인 아이디입니다.'
@@ -192,11 +197,15 @@ const joinuser = async () => {
     email: (email.value) ? email.value : null,
     phoneNumber: `${phoneNumberfirst.value}-${phoneNumbersecond.value}-${phoneNumberthird.value}`,
     role: role.value
-    // lecture: lecture.value
   }
 
+console.log(data);
+
   try {
-    const res = await axios.post('http://192.168.0.5:8080/sign/signin', data)
+
+
+    const res = await axios.post('http://192.168.0.103:8080/sign/signin', data)
+
     console.log(res)
     router.push({ name: 'loginview' })
   } catch (e) {

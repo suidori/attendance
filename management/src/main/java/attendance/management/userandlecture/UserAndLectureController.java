@@ -8,6 +8,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin
 @Slf4j
@@ -16,6 +18,12 @@ import org.springframework.web.bind.annotation.*;
 public class UserAndLectureController {
 
     private final UserAndLectureService userAndLectureService;
+
+    @GetMapping("/findall")
+    public ResponseEntity<List<UserAndLectureResponseListDto>> findAll(){
+        List<UserAndLectureResponseListDto> userAndLectures = userAndLectureService.findAll();
+        return ResponseEntity.ok(userAndLectures);
+    }
 
     @GetMapping("/userlist")
     public ResponseEntity<UserAndLectureResponsePageDto> list(

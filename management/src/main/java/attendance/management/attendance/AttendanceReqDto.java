@@ -10,10 +10,14 @@ public class AttendanceReqDto {
 
     private String type;
 
+    private String oldtype;
+
     private String reason;
 
     private LocalDate adate;
 
     private User user;
+
+    private Boolean approval;
 
 }

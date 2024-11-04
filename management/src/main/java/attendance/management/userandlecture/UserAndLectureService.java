@@ -43,4 +43,17 @@ public class UserAndLectureService {
 
         return userAndLectureResponsePageDto;
     }
+
+    public List<UserAndLectureResponseListDto> findAll() {
+        List<UserAndLecture> userAndLectures = userAndLectureRepository.findByState(1);
+
+        return userAndLectures.stream()
+                .map(userAndLecture -> {
+                    UserAndLectureResponseListDto responseDto = new UserAndLectureResponseListDto();
+                    responseDto.setUser(userAndLecture.getUser().getIdx()); // User의 idx 추출
+                    responseDto.setLecture(userAndLecture.getLecture().getIdx()); // Lecture의 idx 추출
+                    return responseDto;
+                })
+                .collect(Collectors.toList());
+    }
 }

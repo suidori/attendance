@@ -1,12 +1,15 @@
 package attendance.management.vacation;
 
+import attendance.management.sign.LoginUserDetails;
 import attendance.management.utility.PageUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -25,9 +28,12 @@ public class VacationController {
     @PostMapping("request")
     public ResponseEntity<VacationResponseDto> request(
             @RequestBody VacationReqDto vacationReqDto,
-            @RequestHeader("Authorization") String token
-    ) {
-        VacationResponseDto vacationResponseDto = vacationService.request(vacationReqDto, token);
+            @AuthenticationPrincipal LoginUserDetails loginUserDetails
+            ) {
+        if (loginUserDetails==null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        VacationResponseDto vacationResponseDto = vacationService.request(vacationReqDto, loginUserDetails);
         return ResponseEntity.ok(vacationResponseDto);
     }
 

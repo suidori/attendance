@@ -40,4 +40,6 @@ public class Attendance {
 
     private boolean manageraccept;
 
+    private Boolean approval;
+
 }
