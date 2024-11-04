@@ -1,24 +1,26 @@
 <template>
-  <div class="text-center">
-    <div class="flex justify-center">
-      <img src="../images/LOGO.PNG" alt="#" class="w-32 max-md:w-28" />
+<div class="text-center">
+    <div class="flex justify-center -m-5">
+      <h1 class="font-mono font-black italic text-3xl tracking-tight flex flex-col">GREENART COMPUTER ARCADEMY</h1>
+
     </div>
-    <div class="absolute p-4 transform -translate-x-1/2 -translate-y-1/2 bg-white shadow-md top-1/2 left-1/2">
-      <div class="flex flex-col items-center justify-center my-3 mt-10 space-y-3">
-          <p>아이디<input
-              class="p-2 ml-5 transition duration-200 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+    <div class="mx-auto mt-20 w-[40rem] p-4 transform bg-white shadow-md flex flex-col justify-center items-center">
+      <div class=" my-3 mt-10 space-y-3 justify-between">
+          <p class="ml-7">ID<input
+              class="ml-5 p-3 mb-5 w-80 transition duration-200 border-b border-gray-400 focus:outline-none"
               type="text"
               name="userid"
               id="userid"
               v-model="userid"
             />
           </p>
-          <p>비밀번호<input
-              class="p-2 ml-1 transition duration-200 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          <p class="mr-10">PASSWORD<input
+              class="ml-5 p-3 w-80 transition duration-200 border-b border-gray-400 focus:outline-none"
               type="password"
               name="password"
               id="password"
               v-model="password"
+              @keydown.enter="LoginSequence"
             />
           </p>
         </div>
@@ -26,16 +28,13 @@
         <p class="pb-2 font-bold text-rose-600" v-if="loginError">{{ loginError }}</p>
         <input
           @click="LoginSequence"
-          class="bg-gray-200 border-2 border-black rounded cursor-pointer hover:opacity-30 hover:bg-gray-300"
-          type="submit"
+          class="bg-blue-500 text-white font-bold py-2 px-16 rounded-lg shadow-md hover:bg-blue-300 transition duration-200 ease-in-out transform hover:scale-x-105"
+          type="button"
           value="로그인"
         />
       </div>
     </div>
   </div>
-  <div class="mb-64">
-
-</div>
 </template>
 
 <script setup>
@@ -82,25 +81,9 @@ console.log('로그인실패 ' + e)
     } 
   }
      
-
-  
-
-// 로그인 유지
-// const onMounted = (() => {
-//   // Axios 요청 시 토큰을 헤더에 자동으로 추가
-//   axios.interceptors.request.use(
-//     (config) => {
-//       const token = localStorage.getItem('access_token')
-//       if (token) {
-//         config.headers.Authorization = `Bearer ${token}` // 토큰을 Bearer 형태로 추가
-//       }
-//       return config
-//     },
-//     (error) => {
-//       return Promise.reject(error)
-//     }
-//   )
-// })
 </script>
 
 <style lang="scss" scoped></style>
+
+
+
