@@ -47,7 +47,11 @@
 </template>
 
 <script setup>
+<<<<<<< HEAD
 import SideBar from '@/layout/SideBar.vue'
+=======
+import SideBar from '@/layout/StudentSideBar.vue'
+>>>>>>> origin/우혁
 </script>
 
 <style lang="scss" scoped></style>

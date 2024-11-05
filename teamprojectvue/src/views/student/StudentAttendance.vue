@@ -1,6 +1,11 @@
 <template>
     <div id="container" class="flex">
+<<<<<<< HEAD
         <div id="leftmenu" class="p-4 border border-blue-500 w-36">
+=======
+        <StudentSideBar class=""/>
+        <!-- <div id="leftmenu" class="p-4 border border-blue-500 w-36">
+>>>>>>> origin/우혁
             <h1>메뉴</h1>
             <RouterLink to="/stdatt">
                 <h1>출결달력</h1>
@@ -8,9 +13,15 @@
             <RouterLink to="/vacationform">
                 <h1>휴가신청</h1>
             </RouterLink>
+<<<<<<< HEAD
         </div>
         <div id="main">
             <div id="user">
+=======
+        </div> -->
+        <div id="main" class="mx-auto items-center justify-center">
+            <div id="user" class="">
+>>>>>>> origin/우혁
                 <h1 v-if="user">{{user.name}} 학생 출결 관리</h1>
                 <p v-if="useravail" class="text-green-600">수강중: {{ attlist.at(0).lecture }}</p>
                 <p v-if="!useravail" class="text-red-600">{{ usererror }}</p>
@@ -41,7 +52,11 @@
                             }">
                             <span>{{ column.get('date') }}</span>
                             <template v-for="items in attlist" :key="items.adate">
+<<<<<<< HEAD
                                 <div v-if="items.adate == column.format('YYYY-MM-DD')">
+=======
+                                <div v-if="items.adate == column.format('YYYY-MM-DD') ">
+>>>>>>> origin/우혁
                                     <div class="mt-2 text-green-600">
                                         <button @click="(event) => selectAttFn(event, items, column)"
                                             class="w-full font-bold text-white rounded hover:bg-green-700 focus:outline-none focus:shadow-outline"
@@ -56,7 +71,11 @@
                         </div>
                     </div>
                 </div>
+<<<<<<< HEAD
                 <div id="attadd" v-show="selectDate">
+=======
+                <div id="attadd" v-show="selectDate" class="mx-6">
+>>>>>>> origin/우혁
                     <h1>{{ selectDate }} 출결 등록</h1>
                     <div>
                         <label for="attendance">1. 해당하는 출결 변동 사항을 선택 해 주세요.</label>
@@ -150,6 +169,10 @@ import { ref, watch, watchEffect, onMounted } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
 import dayjs from 'dayjs';
+<<<<<<< HEAD
+=======
+import StudentSideBar from '@/layout/StudentSideBar.vue';
+>>>>>>> origin/우혁
 
 
 
@@ -237,7 +260,11 @@ const showuser = async () => {
 
     try {
         const token = localStorage.getItem('token')
+<<<<<<< HEAD
         const resuser = await axios.get('http://192.168.0.5:8080/user/getuser', {
+=======
+        const resuser = await axios.get('http://192.168.103:8080/user/getuser', {
+>>>>>>> origin/우혁
             headers: {
                 Authorization: `Bearer ${token}`,
             }
@@ -249,7 +276,11 @@ const showuser = async () => {
         "month": dayjs(now.value).format('YYYY-MM')
     }
 
+<<<<<<< HEAD
         const resatt = await axios.post('http://192.168.0.5:8080/attendance/getuser', data)
+=======
+        const resatt = await axios.post('http://192.168.103:8080/attendance/getuser', data)
+>>>>>>> origin/우혁
         attlist.value = resatt.data;
         useravail.value = true;
         console.log(attlist.value);
@@ -277,7 +308,11 @@ const attupdate = async () => {
     }
 
     try {
+<<<<<<< HEAD
         const res = await axios.post('http://192.168.0.5:8080/attendance/attupdate', data)
+=======
+        const res = await axios.post('http://192.168.103:8080/attendance/attupdate', data)
+>>>>>>> origin/우혁
         console.log(res)
         alert(`${(selectDate.value == null) ? attDate.value : selectDate.value}, ${type.value} 요청 완료!`)
         showuser();
@@ -294,7 +329,11 @@ const attdelete = async () => {
     }
 
     try {
+<<<<<<< HEAD
         const res = await axios.delete(`http://192.168.0.5:8080/attendance/attdelete/${selectAtt.value.idx}`)
+=======
+        const res = await axios.delete(`http://192.168.103:8080/attendance/attdelete/${selectAtt.value.idx}`)
+>>>>>>> origin/우혁
         console.log(res)
         alert(`${attDate.value}, ${type.value} 삭제 요청 완료!`)
         selectAtt.value = null;

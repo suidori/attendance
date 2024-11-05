@@ -11,7 +11,7 @@
           <li><a href="#" class="block text-sm">문의 게시판</a></li>
           <hr />
           <RouterLink to="/vacationform">
-            <li><a href="#" class="block text-sm pt-3">휴가 신청서 제출</a></li>
+            <li><a href="#" class="block text-sm pt-3">휴가 제출 관리</a></li>
           </RouterLink>
           <hr />
           <RouterLink to="/lectureselect">

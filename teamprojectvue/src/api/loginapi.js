@@ -1,6 +1,7 @@
 
 import axios from "axios"
 import { useloginStore } from "@/stores/loginpinia"
+<<<<<<< HEAD
 import { ref } from "vue"
 
 
@@ -46,6 +47,11 @@ role.value = res.role;
 return role.value;
 
 }
+=======
+
+
+
+>>>>>>> origin/우혁
 
 export const logincontrol = async(data) =>{
 
@@ -78,6 +84,13 @@ try{
        return token
       
 
+<<<<<<< HEAD
+=======
+
+    
+
+
+>>>>>>> origin/우혁
 }catch (e){
     console.log(e)
     

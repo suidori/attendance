@@ -150,6 +150,10 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import axios from 'axios'
+<<<<<<< HEAD
+=======
+import SideBar from '@/layout/StudentSideBar.vue'
+>>>>>>> origin/우혁
 
 const router = useRouter()
 
@@ -184,10 +188,19 @@ if (!phoneNumbersecond.value || !phoneNumberthird.value) {
 
   }
   
+<<<<<<< HEAD
   const phoneNumber = `${phoneNumberfirst.value}-${phoneNumbersecond.value}-${phoneNumberthird.value}`;
 
   try {
     const phoneResponse = await axios.get(`http://192.168.103:8080/sign/checkphone?phoneNumber=${phoneNumber}`);
+=======
+ 
+
+  const phoneNumber = `${phoneNumberfirst.value}-${phoneNumbersecond.value}-${phoneNumberthird.value}`;
+
+  try {
+    const phoneResponse = await axios.get(`http://192.168.67:8080/sign/checkphone?phoneNumber=${phoneNumber}`);
+>>>>>>> origin/우혁
     console.log(phoneNumber);
     console.log(phoneResponse);
 
@@ -214,7 +227,11 @@ const checkid = async () => {
   }
 
   try {
+<<<<<<< HEAD
     const idResponse = await axios.get(`http://192.168.103:8080/sign/checkid?userid=${userid.value}`);
+=======
+    const idResponse = await axios.get(`http://192.168.67:8080/sign/checkid?userid=${userid.value}`);
+>>>>>>> origin/우혁
 
     if (idResponse.data == false) {
       idError.value = '이미 사용 중인 아이디입니다.'
@@ -243,6 +260,7 @@ const joinuser = async () => {
 
   try {
 
+<<<<<<< HEAD
     if(localStorage.getItem('token')!==null){
 
       localStorage.removeItem('token')
@@ -252,6 +270,11 @@ const joinuser = async () => {
     const res = await axios.post('http://192.168.103:8080/sign/signin', data)
     
     console.log(res)
+=======
+    const res = await axios.post('http://192.168.67:8080/sign/signin', data)
+    console.log(res)
+
+>>>>>>> origin/우혁
     router.push({ name: 'joincomplete' })
     
 

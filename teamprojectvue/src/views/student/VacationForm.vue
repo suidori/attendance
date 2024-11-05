@@ -72,7 +72,11 @@
 
 <script setup>
 import axios from 'axios';
+<<<<<<< HEAD
 import SideBar from '@/layout/SideBar.vue'
+=======
+import SideBar from '@/layout/StudentSideBar.vue'
+>>>>>>> origin/우혁
 import { ref, computed } from 'vue';
 
 const phoneNumberfirst = ref('010');
