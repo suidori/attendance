@@ -64,31 +64,31 @@
                     </div>
                 </div>
 
-                <div id="attadd" v-show="selectDate" class="mx-6">
+                <div id="attadd" v-show="selectDate" class="mx-6 bg-blue-300 rounded-lg p-2">
 
                     <h1>{{ selectDate }} 출결 등록</h1>
-                    <div>
-                        <label for="attendance">1. 해당하는 출결 변동 사항을 선택 해 주세요.</label>
+                    <div class="">
+                        <label for="attendance" class="text-xs">1. 해당하는 출결 변동 사항을 선택 해 주세요.</label>
                         <form action="">
                             <input type="radio" value="지각" id="type-1" name="attendance" v-model="type" checked>
-                            <label for="type-1" class="p-1 pr-3">지각</label>
+                            <label for="type-1" class="p-1 pr-3 text-sm">지각</label>
 
                             <input type="radio" value="조퇴" id="type-2" name="attendance" v-model="type">
-                            <label for="type-2" class="p-1 pr-3">조퇴</label>
+                            <label for="type-2" class="p-1 pr-3 text-sm">조퇴</label>
 
                             <input type="radio" value="외출" id="type-3" name="attendance" v-model="type">
-                            <label for="type-3" class="p-1 pr-3">외출</label>
+                            <label for="type-3" class="p-1 pr-3 text-sm">외출</label>
 
                             <input type="radio" value="결석" id="type-4" name="attendance" v-model="type">
-                            <label for="type-4" class="p-1 pr-3">결석</label>
+                            <label for="type-4" class="p-1 pr-3 text-sm">결석</label>
                         </form>
                     </div>
 
-                    <p>2. 출결 변동의 원인을 적어주세요.</p>
-                    <p><input type="text" placeholder="예시) 병원, 예비군 등" class="border border-gray-500" v-model="reason">
+                    <p class="text-xs">2. 출결 변동의 원인을 적어주세요.</p>
+                    <p><input type="text" placeholder="예시) 병원, 예비군 등" class="border border-gray-500 " v-model="reason">
                     </p>
                     <div>
-                        <label for="approval">3. 출석 인정 사유에 해당됩니까?</label>
+                        <label for="approval" class="text-xs">3. 출석 인정 사유에 해당됩니까?</label>
                         <form action="">
                             <input type="radio" value=false id="approval-1" name="approval" v-model="approval" required>
                             <label for="approval-1" class="p-1 pr-3">예</label>
@@ -97,34 +97,34 @@
                         </form>
                     </div>
                     <button @click="attupdate"
-                        class="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline"
+                        class="px-4 py-2 font-bold mt-6 text-white bg-blue-500 rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline"
                         type="button">
                         제출하기
                     </button>
                 </div>
-                <div id="attupdate" v-show="selectAtt">
+                <div id="attupdate" v-show="selectAtt" class="bg-blue-300 rounded-lg p-2">
                     <h1>{{ attDate }} 출결 수정</h1>
                     <div>
-                        <label for="attendance">1. 해당하는 출결 변동 사항을 선택 해 주세요.</label>
+                        <label for="attendance" class="text-xs">1. 해당하는 출결 변동 사항을 선택 해 주세요.</label>
                         <form action="">
                             <input type="radio" value="지각" id="type-1" name="attendance" v-model="type">
-                            <label for="type-1" class="p-1 pr-3">지각</label>
+                            <label for="type-1" class="p-1 pr-3 text-sm">지각</label>
 
                             <input type="radio" value="조퇴" id="type-2" name="attendance" v-model="type">
-                            <label for="type-2" class="p-1 pr-3">조퇴</label>
+                            <label for="type-2" class="p-1 pr-3 text-sm">조퇴</label>
 
                             <input type="radio" value="외출" id="type-3" name="attendance" v-model="type">
-                            <label for="type-3" class="p-1 pr-3">외출</label>
+                            <label for="type-3" class="p-1 pr-3 text-sm">외출</label>
 
                             <input type="radio" value="결석" id="type-4" name="attendance" v-model="type">
-                            <label for="type-4" class="p-1 pr-3">결석</label>
+                            <label for="type-4" class="p-1 pr-3 text-sm">결석</label>
                         </form>
                     </div>
-                    <p>2. 출결 변동의 원인을 적어주세요.</p>
+                    <p class="text-xs">2. 출결 변동의 원인을 적어주세요.</p>
                     <p><input type="text" placeholder="예시) 병원, 예비군 등" class="border border-gray-500" v-model="reason">
                     </p>
                     <div>
-                        <label for="approval">3. 출석 인정 사유에 해당됩니까?</label>
+                        <label for="approval" class="text-xs">3. 출석 인정 사유에 해당됩니까?</label>
                         <form action="">
                             <input type="radio" :value="false" id="approval-1" name="approval" v-model="approval"
                                 required>
@@ -135,12 +135,12 @@
                         </form>
                     </div>
                     <button @click="attupdate"
-                        class="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline"
+                        class="px-3 py-2 mt-6 font-bold text-white bg-blue-500 rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline"
                         type="button">
                         수정하기
                     </button>
                     <button @click="attdelete"
-                        class="px-4 py-2 font-bold text-white bg-red-500 rounded hover:bg-red-700 focus:outline-none focus:shadow-outline"
+                        class="px-3 py-2 font-bold text-white bg-red-500 rounded hover:bg-red-700 focus:outline-none focus:shadow-outline"
                         type="button">
                         삭제하기
                     </button>
