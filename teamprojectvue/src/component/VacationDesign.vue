@@ -77,6 +77,8 @@
               </tbody>
             </table>
             <button @click="approveAll" class="px-4 py-2 text-white bg-green-600 rounded hover:opacity-80">선택 사항 모두 승인</button>
+            <button v-if="!unchecking" @click="unChecked(1)" class="px-4 py-2 text-white bg-blue-600 rounded hover:opacity-80">대기 중인 요청만 보기</button>
+            <button v-if="unchecking" @click="fetchVacations(1)" class="px-4 py-2 text-white bg-blue-600 rounded hover:opacity-80">모든 요청 보기</button>
             
           </div>
   
@@ -106,6 +108,21 @@
   const currentPageGroup = ref(0); // 현재 페이지 그룹
   const totalPageGroups = computed(() => Math.ceil(totalPages.value / itemsPerPage)); // 총 페이지 그룹 수
   const username = ref('');
+  const unchecking = ref(false);
+
+  const unChecked = async (pageNum = 1) => {
+    unchecking.value = true;
+    try {
+      const response = await axios.get(`http://192.168.0.103:8080/vacation/managerunchecked?pageNum=${pageNum - 1}`);
+      vacationList.value = response.data.list; 
+      totalElements.value = response.data.totalElements;
+      totalPages.value = response.data.totalPages;
+      currentPage.value = pageNum; // 현재 페이지 업데이트
+      checkedRequest.value = [];
+    } catch (error) {
+      console.error('휴가 요청을 가져오는 중 오류 발생:', error);
+    }
+  };
 
   const nameSearch = async (pageNum = 1) => {
     if (username.value === '') {
@@ -126,6 +143,7 @@
   };
   
   const fetchVacations = async (pageNum = 1) => {
+    unchecking.value = false;
     try {
       const response = await axios.get(`http://192.168.0.103:8080/vacation/manager?pageNum=${pageNum - 1}`);
       vacationList.value = response.data.list; 
@@ -139,10 +157,16 @@
   };
   
   const getPage = (index) => {
+    if(unchecking.value == true){
+        unChecked(index);
+        return;
+    }
+
     if (username.value === '') {
      fetchVacations(index); // 현재 페이지 번호로 데이터를 가져옴
       return;
     }
+    
     nameSearch(index);
   };
   
