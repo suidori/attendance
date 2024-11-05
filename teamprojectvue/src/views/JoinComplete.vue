@@ -15,7 +15,7 @@
             <p>로그인 후 이용하세요.</p>
         </div>
         <div class="p-10">
-            <button class="border border-1 p-3 mr-5 pr-10 pl-10 rounded" @click="gologinhome">메인으로</button>
+            <!-- <button class="border border-1 p-3 mr-5 pr-10 pl-10 rounded" @click="gologinhome">메인으로</button> -->
             <button class="border border-1  p-3 mr-5 pr-7 pl-7 bg-blue-800 text-white rounded" @click="gologinview">로그인하기</button>
         </div>
     </div>
@@ -33,10 +33,10 @@ import { useRouter } from 'vue-router';
 
 const router = useRouter()
 
-const gologinhome = () => {
+// const gologinhome = () => {
 
-router.push({name:'loginhome'})
-}
+// router.push({name:'loginhome'})
+// }
 
 
 const gologinview = () => {

@@ -13,6 +13,9 @@
             @click="logoclick"
           />
         </div>
+
+        <StudentSideBar  class="" v-if="sidecheck"/>
+
         <div class="  flex float-end z-10 ">
           <div class="mr-2" v-if="logincheckpinia">
             <RouterLink to="/loginview">| 로그인</RouterLink>
@@ -38,7 +41,7 @@
     <!-- 사이드배너 -->
     <div class="" id="sidebann">
       <div class="hidden">
-        <SideBanner />
+        
       </div>
     </div>
   </div>
@@ -46,7 +49,7 @@
 </template>
 
 <script setup>
-import SideBanner from './component/SideBanner.vue'
+import StudentSideBar from './layout/StudentSideBar.vue'
 
 import { useloginStore } from './stores/loginpinia'
 import { onMounted, watch } from 'vue'
@@ -66,6 +69,9 @@ const router = useRouter()
 
 const { logincheckpinia, username, userrl } = storeToRefs(loginStore)
 const { logincheckfalse, loginchecktrue } = loginStore
+
+
+const sidecheck = ref(false)
 
 // watch(
 //   () => route.fullPath, // 라우트 경로가 변경될 때 감지
@@ -87,7 +93,15 @@ const rolecheck = async() => {
     } else if ( userrl.value == 'ROLE_TEACHER') {
       console.log('선생계정')
       router.push({ name: 'teachercalander' })
-    } else {
+    }
+    
+    else if ( userrl.value == 'ROLE_MANAGER') {
+      console.log('매니저계정')
+      router.push({ name: 'teachercalander' })
+      
+    }
+    
+    else {
       console.log('맵핑문제')
       
     }
@@ -151,6 +165,7 @@ onMounted(async () => {
   homelogin()
 })
 
+
 const homelogin = () => {
   if (localStorage.getItem('token') !== null) {
     console.log('로그인 유지')
@@ -162,7 +177,15 @@ const homelogin = () => {
     } else if ( userrl.value == 'ROLE_TEACHER') {
       console.log('선생계정')
       router.push({ name: 'teachercalander' })
-    } else {
+      
+    }
+   else if ( userrl.value == 'ROLE_MANAGER') {
+      console.log('매니저계정')
+      router.push({ name: 'teachercalander' })
+      
+    }
+    
+    else {
       console.log('맵핑문제')
       
     }

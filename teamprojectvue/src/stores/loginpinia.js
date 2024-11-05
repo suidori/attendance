@@ -28,7 +28,6 @@ export const useloginStore = defineStore('loginpinia',  ()=>{
 
     const check = () => {
 
-
         return logincheckpinia.value
 
     }

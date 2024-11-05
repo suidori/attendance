@@ -6,7 +6,7 @@
         <label for="role" class="inline mb-2 text-sm font-bold  text-blue-800">1. 회원 유형</label>
         <hr class="m-1">
         <div class="m-2 ml-4 flex w-full" style="justify-content: center;">
-          <input type="radio" value="ROLE_STUDENT" name="role" id="role-1" v-model="role" checked />
+          <input type="radio" value="ROLE_STUDENT" name="role" id="role-1" v-model="role" />
         <label for="role-1" class="p-1 pr-3 mr-10">학원생</label>
         <input type="radio" value="ROLE_TEACHER" name="role" id="role-2" v-model="role" />
         <label for="role-2" class="p-1 pr-3 mr-10">선생님</label>
@@ -150,7 +150,7 @@ const email = ref('')
 const phoneNumberfirst = ref('010');
 const phoneNumbersecond = ref('');
 const phoneNumberthird = ref('');
-const role = ref('')
+const role = ref('ROLE_STUDENT')
 // const lecture = ref('')
 
 // // 중복 확인 상태
@@ -159,6 +159,10 @@ const idError = ref('') // 오류 메시지
 
 const phoneAvailable = ref(false)
 const phoneError = ref('')
+
+const phoneNumber = ref('')
+
+
 
 
 const checkphone = async () => {
@@ -174,14 +178,15 @@ if (!phoneNumbersecond.value || !phoneNumberthird.value) {
     
   }
 
-  const phoneNumber = `${phoneNumberfirst.value}-${phoneNumbersecond.value}-${phoneNumberthird.value}`;
+   phoneNumber.value = `${phoneNumberfirst.value}-${phoneNumbersecond.value}-${phoneNumberthird.value}`;
 
  //맵핑 메서드
-   const phoneResponse = await checkPhapi(phoneNumber , phoneError, phoneAvailable)
+   const phonechek = await checkPhapi(phoneNumber.value)
 
+   console.log("전화번호"+phoneNumber.value)
        try{
 
-           if (phoneResponse.data == false) {
+           if (phonechek.data == false) {
               phoneError.value = '이미 가입된 전화번호입니다.'
               phoneAvailable.value = false
             } else {
@@ -196,8 +201,6 @@ if (!phoneNumbersecond.value || !phoneNumberthird.value) {
           }  
 }
 
-
-
 const checkid = async () => {
   // 아이디가 비어있을 경우
   if (!userid.value) {
@@ -206,7 +209,6 @@ const checkid = async () => {
     return
   }
 
-  
   const idResponse = await checkI( userid.value )
 
   try{
@@ -224,33 +226,22 @@ const checkid = async () => {
       }
 }
 
-
-
-
-
-
 const joinuser = async () => {
+
   const data = {
     userid: userid.value,
     password: password.value,
     name: name.value,
     email: (email.value) ? email.value : null,
-    phoneNumber: `${phoneNumberfirst.value}-${phoneNumbersecond.value}-${phoneNumberthird.value}`,
-    role: role.value
+    phoneNumber: String(`${phoneNumberfirst.value}-${phoneNumbersecond.value}-${phoneNumberthird.value}`),
+    role: role.value,
     // lecture: lecture.value
   }
+    await joinU(data)
 
-  try {
+    router.push({name:'joincomplete'})
 
-    const res = joinU(data)
-  
-    console.log(res)
+     alert("회원가입 완료")
 
-    router.push({ name: 'joincomplete' })
-
-  } catch (e) {
-    console.log(e)
-    alert('에러')
-  }
 }
 </script>
