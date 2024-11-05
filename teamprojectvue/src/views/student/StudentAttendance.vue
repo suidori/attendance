@@ -1,6 +1,7 @@
 <template>
     <div id="container" class="flex">
-        <div id="leftmenu" class="p-4 border border-blue-500 w-36">
+        <StudentSideBar class=""/>
+        <!-- <div id="leftmenu" class="p-4 border border-blue-500 w-36">
             <h1>메뉴</h1>
             <RouterLink to="/stdatt">
                 <h1>출결달력</h1>
@@ -8,9 +9,9 @@
             <RouterLink to="/vacationform">
                 <h1>휴가신청</h1>
             </RouterLink>
-        </div>
-        <div id="main">
-            <div id="user">
+        </div> -->
+        <div id="main" class="mx-auto items-center justify-center">
+            <div id="user" class="">
                 <h1 v-if="user">{{user.name}} 학생 출결 관리</h1>
                 <p v-if="useravail" class="text-green-600">수강중: {{ attlist.at(0).lecture }}</p>
                 <p v-if="!useravail" class="text-red-600">{{ usererror }}</p>
@@ -41,7 +42,7 @@
                             }">
                             <span>{{ column.get('date') }}</span>
                             <template v-for="items in attlist" :key="items.adate">
-                                <div v-if="items.adate == column.format('YYYY-MM-DD')">
+                                <div v-if="items.adate == column.format('YYYY-MM-DD') ">
                                     <div class="mt-2 text-green-600">
                                         <button @click="(event) => selectAttFn(event, items, column)"
                                             class="w-full font-bold text-white rounded hover:bg-green-700 focus:outline-none focus:shadow-outline"
@@ -56,7 +57,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="attadd" v-show="selectDate">
+                <div id="attadd" v-show="selectDate" class="mx-6">
                     <h1>{{ selectDate }} 출결 등록</h1>
                     <div>
                         <label for="attendance">1. 해당하는 출결 변동 사항을 선택 해 주세요.</label>
@@ -140,6 +141,9 @@
             </div>
         </div>
     </div>
+    <div class="mb-64">
+
+</div>
 </template>
 
 <script setup>
@@ -147,6 +151,7 @@ import { ref, watch, watchEffect, onMounted } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
 import dayjs from 'dayjs';
+import StudentSideBar from '@/layout/StudentSideBar.vue';
 
 
 
@@ -234,7 +239,7 @@ const showuser = async () => {
 
     try {
         const token = localStorage.getItem('token')
-        const resuser = await axios.get('http://192.168.0.5:8080/user/getuser', {
+        const resuser = await axios.get('http://192.168.103:8080/user/getuser', {
             headers: {
                 Authorization: `Bearer ${token}`,
             }
@@ -246,7 +251,7 @@ const showuser = async () => {
         "month": dayjs(now.value).format('YYYY-MM')
     }
 
-        const resatt = await axios.post('http://192.168.0.5:8080/attendance/getuser', data)
+        const resatt = await axios.post('http://192.168.103:8080/attendance/getuser', data)
         attlist.value = resatt.data;
         useravail.value = true;
         console.log(attlist.value);
@@ -274,7 +279,7 @@ const attupdate = async () => {
     }
 
     try {
-        const res = await axios.post('http://192.168.0.5:8080/attendance/attupdate', data)
+        const res = await axios.post('http://192.168.103:8080/attendance/attupdate', data)
         console.log(res)
         alert(`${(selectDate.value == null) ? attDate.value : selectDate.value}, ${type.value} 요청 완료!`)
         showuser();
@@ -291,7 +296,7 @@ const attdelete = async () => {
     }
 
     try {
-        const res = await axios.delete(`http://192.168.0.5:8080/attendance/attdelete/${selectAtt.value.idx}`)
+        const res = await axios.delete(`http://192.168.103:8080/attendance/attdelete/${selectAtt.value.idx}`)
         console.log(res)
         alert(`${attDate.value}, ${type.value} 삭제 요청 완료!`)
         selectAtt.value = null;

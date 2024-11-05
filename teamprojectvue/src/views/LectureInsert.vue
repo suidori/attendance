@@ -500,6 +500,9 @@
 <li class="w-4/6 text-center border-2 py-2">금일출결현황</li>
     </ul>
 </div>
+<div class="mb-64">
+
+</div>
 </template>
 
 
@@ -518,6 +521,8 @@ const lecturestudentlistlord = ref(false)
 
 
 //페이지 및 리스트
+const pageNum = ref(0)
+const arr = ref([])
 const totalpages = ref(10)
 
 // post 맵핑용
@@ -530,6 +535,13 @@ const postendTime = ref('')
 const postpassword = ref('')
 
 // get맵핑용
+const gettitle = ref('')
+const getcontent = ref('')
+const getstartDate = ref('')
+const getendDate = ref('')
+const getstartTime = ref('')
+const getendTime = ref('')
+const gettitlepassword = ref('')
 
 //인풋리셋 메서드
 const resetdata =() => {
@@ -662,23 +674,23 @@ if (token !== null) {
 
 const chengelecturetime = async () => {
 
-  // const data = {
-  //   startDate: poststartDate.value,
-  //   endDate: postendDate.value,
-  //   startTime: poststartTime.value,
-  //   endTime: postendTime.value,
-  //   password: postpassword.value
-  // }
+  const data = {
+    startDate: poststartDate.value,
+    endDate: postendDate.value,
+    startTime: poststartTime.value,
+    endTime: postendTime.value,
+    password: postpassword.value
+  }
 
-  // const token = await localStorage.getItem('token')
+  const token = await localStorage.getItem('token')
 
-  // const head = {
-  //   headers: {
-  //     Authorization: `Bearer ${token}`
-  //   }
-  // }
+  const head = {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  }
 
-  // const res = await axios.post(`http://192.168.0.5:8080/lecture/save`, data, head)
+  const res = await axios.post(`http://192.168.0.5:8080/lecture/save`, data, head)
 
   alert('시간변경이 완료되었습니다.')
   changemodal.value = true

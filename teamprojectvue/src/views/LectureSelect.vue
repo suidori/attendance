@@ -1,13 +1,14 @@
-<template>
-    <div class="w-full h-screen p-10">
-      <!-- Header -->
-      <div class="mb-4">
+  <template>
+       <div class="w-full h-screen p-10">
+       <div class="mb-4">
+
         <h1 class="text-2xl font-bold mb-2">과정 선택</h1>
         
         <hr class="border-t-2 border-blue-600" />
       </div>
   
       <!-- Main Section -->
+
       <div class="w-full bg-white shadow p-6 rounded-lg">
         <h2 class="text-xl font-bold mb-4 inline-block">강좌 선택</h2>
 
@@ -29,7 +30,7 @@
           <button
             v-for="course in filteredCourses"
             :key="course"
-            class="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700"
+            class="px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700"
           >
             {{ course }}
           </button>
@@ -37,18 +38,21 @@
       </div>
   
       <!-- Duplicate Section (Optional) -->
-      <div class="w-full bg-white shadow p-6 rounded-lg mt-10">
+      <div class="w-full p-6 mt-10 bg-white rounded-lg shadow">
         <div class="grid grid-cols-5 gap-4">
           <button
             v-for="course in courses"
             :key="course + '-dup'"
-            class="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700"
+            class="px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700"
           >
             {{ course }}
           </button>
         </div>
       </div>
     </div>
+    <div class="mb-64">
+
+</div>
   </template>
   
   <script setup>
