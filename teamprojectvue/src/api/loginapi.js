@@ -3,11 +3,16 @@ import axios from "axios"
 import { useloginStore } from "@/stores/loginpinia"
 // import { ref } from "vue"
 
+
+const url = `http://192.168.103:8080`
+
+
+
 export const userdata = async() => {
 
     const token = localStorage.getItem('token')
     
-    const res = await axios.get('http://192.168.103:8080/user/getuser', {
+    const res = await axios.get(`${url}/user/getuser`, {
 
         headers: {
             Authorization: `Bearer ${token}`,
@@ -26,21 +31,27 @@ export const userdata = async() => {
 export const userrole = async() => {
 
     const token = localStorage.getItem('token')
-
-const res = await axios.get(`http://192.168.103:8080/user/getuser`, 
+    
+const res = await axios.get(`${url}/user/getrole`, 
     {
         headers: {
             Authorization: `Bearer ${token}`,
         }
     }
+    
+    
  )
     
 
+ 
+
+
+
  const logincheck = useloginStore()
 
-    console.log(JSON.stringify(res.data.role)) 
+    console.log(res.data) 
  
-    logincheck.userR(JSON.stringify(res.data.role))
+    logincheck.userR(res.data)
 
 
 }
@@ -56,7 +67,7 @@ export const logincontrol = async(data) =>{
 
 try{
 
-    const response = await axios.post(`http://192.168.103:8080/sign/login`, data)
+    const response = await axios.post(`${url}/sign/login`, data)
 
      
        localStorage.setItem('token', response.data)

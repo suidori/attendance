@@ -14,6 +14,7 @@ import JoinComplete from '@/views/JoinComplete.vue'
 import LectureInsert from '@/views/LectureInsert.vue'
 import StudentAttendance from '@/views/student/StudentAttendance.vue'
 import TeacherCalander from '@/views/teacher/TeacherCalander.vue'
+import TeacherToday from '@/views/teacher/TeacherToday.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -27,6 +28,12 @@ const router = createRouter({
       path: '/loginview',
       name: 'loginview',
       component: LoginView
+    },
+    
+    {
+      path: '/TeacherToday',
+      name: 'teachertoday',
+      component: TeacherToday
     },
     {
       path: '/guestattendance',

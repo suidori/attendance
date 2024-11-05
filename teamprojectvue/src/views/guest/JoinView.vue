@@ -137,8 +137,9 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import axios from 'axios'
-
+import { checkPhapi } from '@/api/joinapi';
+import { checkI } from '@/api/joinapi';
+import { joinU } from '@/api/joinapi';
 
 const router = useRouter()
 
@@ -159,6 +160,7 @@ const idError = ref('') // 오류 메시지
 const phoneAvailable = ref(false)
 const phoneError = ref('')
 
+
 const checkphone = async () => {
 // 아이디가 비어있을 경우
 if (!phoneNumbersecond.value || !phoneNumberthird.value) {
@@ -170,30 +172,31 @@ if (!phoneNumbersecond.value || !phoneNumberthird.value) {
   if(String(phoneNumbersecond.value)  || String(phoneNumberthird.value) ){
      phoneError.value = '숫자를 입력해 주세요.'
     
-
   }
 
   const phoneNumber = `${phoneNumberfirst.value}-${phoneNumbersecond.value}-${phoneNumberthird.value}`;
 
-  try {
-    const phoneResponse = await axios.get(`http://192.168.103:8080/sign/checkphone?phoneNumber=${phoneNumber}`);
+ //맵핑 메서드
+   const phoneResponse = await checkPhapi(phoneNumber , phoneError, phoneAvailable)
 
-    console.log(phoneNumber);
-    console.log(phoneResponse);
+       try{
 
-    if (phoneResponse.data == false) {
-      phoneError.value = '이미 가입된 전화번호입니다.'
-      phoneAvailable.value = false
-    } else {
-      phoneError.value = ''
-      phoneAvailable.value = true
-    }
-  } catch (error) {
-    console.log(error)
-    phoneError.value = '전화번호 중복 확인에 실패했습니다.'
-    phoneAvailable.value = false
-  }  
+           if (phoneResponse.data == false) {
+              phoneError.value = '이미 가입된 전화번호입니다.'
+              phoneAvailable.value = false
+            } else {
+              phoneError.value = ''
+              phoneAvailable.value = true
+            }
+
+          }catch (error) {
+            console.log(error)
+            phoneError.value = '전화번호 중복 확인에 실패했습니다.'
+            phoneAvailable.value = false
+          }  
 }
+
+
 
 const checkid = async () => {
   // 아이디가 비어있을 경우
@@ -203,23 +206,28 @@ const checkid = async () => {
     return
   }
 
-  try {
+  
+  const idResponse = await checkI( userid.value )
 
-    const idResponse = await axios.get(`http://192.168.103:8080/sign/checkid?userid=${userid.value}`);
-
-    if (idResponse.data == false) {
-      idError.value = '이미 사용 중인 아이디입니다.'
-      idAvailable.value = false
-    } else {
-      idError.value = ''
-      idAvailable.value = true
-    }
-  } catch (error) {
-    console.log(error)
-    idError.value = '아이디 중복 확인에 실패했습니다.'
-    idAvailable.value = false
-  }
+  try{
+  if (idResponse.data == false) {
+          idError.value = '이미 사용 중인 아이디입니다.'
+          idAvailable.value = false
+        } else {
+          idError.value = ''
+          idAvailable.value = true
+        }
+      } catch (error) {
+        console.log(error)
+        idError.value = '아이디 중복 확인에 실패했습니다.'
+        idAvailable.value = false
+      }
 }
+
+
+
+
+
 
 const joinuser = async () => {
   const data = {
@@ -234,19 +242,11 @@ const joinuser = async () => {
 
   try {
 
-
-    if(localStorage.getItem('token')!==null){
-
-      localStorage.removeItem('token')
-
-    }
-
-    const res = await axios.post('http://192.168.103:8080/sign/signin', data)
-    
+    const res = joinU(data)
+  
     console.log(res)
 
     router.push({ name: 'joincomplete' })
-    
 
   } catch (e) {
     console.log(e)
