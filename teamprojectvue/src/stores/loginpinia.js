@@ -2,7 +2,6 @@ import { defineStore } from "pinia";
 import { ref } from "vue";
 
 
-
 export const useloginStore = defineStore('loginpinia',  ()=>{
 
     const logincheckpinia = ref(true)
@@ -27,9 +26,6 @@ export const useloginStore = defineStore('loginpinia',  ()=>{
     }
 
 
-
-
-
     const check = () => {
 
 
@@ -37,14 +33,11 @@ export const useloginStore = defineStore('loginpinia',  ()=>{
 
     }
 
-
     const logincheckfalse = () => {
 
        //로그인
 
         logincheckpinia.value = false
-
-
 
         console.log("체크"+logincheckpinia.value)
 
@@ -57,7 +50,6 @@ export const useloginStore = defineStore('loginpinia',  ()=>{
 
         logincheckpinia.value = true
         console.log("체크"+logincheckpinia.value)
-
 
     }
     return {logincheckfalse, loginchecktrue,  check , userN, userR, logincheckpinia, username,  userrl}

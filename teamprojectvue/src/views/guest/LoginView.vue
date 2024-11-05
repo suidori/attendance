@@ -44,7 +44,7 @@ import { logincontrol } from '@/api/loginapi';
 import { useloginStore } from '@/stores/loginpinia';
 import { userrole } from '@/api/loginapi';
 import { storeToRefs } from 'pinia';
-
+import { userdata } from '@/api/loginapi';
 
 const loginpinia = useloginStore()
 
@@ -83,17 +83,17 @@ const LoginSequence = async () => {
 
      console.log('최종 토큰'+token)
 
-     
+     await userdata()
      await userrole()
 
-     if ( userrl == 'ROLE_STUDENT') {
-      console.log('학생계정')
+     if ( userrl.value == 'ROLE_STUDENT') {
+      console.log('학생계정'+ userrl.value)
       router.push({ name: 'stdatt' })
-    } else if ( userrl == 'ROLE_TEACHER') {
-      console.log('선생계정')
-      router.push({ name: 'teachercalander' })
+    } else if ( userrl.value == 'ROLE_TEACHER') {
+      console.log('선생계정'+ userrl.value)
+      router.push({ name: 'teachertoday' })
     } else {
-      console.log('맵핑문제')
+      console.log('맵핑문제'+ userrl.value)
       router.push({name:'loginview'})
     }
 

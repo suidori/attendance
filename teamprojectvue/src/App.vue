@@ -1,6 +1,6 @@
 <template>
-
-  <nav class="mx-0 shadow-md">
+<div class="bg-[#FFE6CC] h-[50vw]">
+  <nav class="mx-0 shadow-md ">
     <div class="bg-blue-300 h-44">
       <div>
         <div class="justify-center flex items-center">
@@ -11,8 +11,6 @@
             @click="logoclick"
           />
         </div>
-
-
         <div class="  flex float-end z-10 ">
           <div class="mr-2" v-if="logincheckpinia">
             <RouterLink to="/loginview">| 로그인</RouterLink>
@@ -24,7 +22,7 @@
             <div class="float-right mr-10 mb-10 text-2xl border-2 border-red-400 rounded hover:bg-red-400" @click="logout">
               <RouterLink to="/loginview">로그아웃</RouterLink>
             </div>
-            <div class="float-right mr-10 mb-10 text-2xl">{{ username }} 님 반갑습니다.</div>
+            <div  class="float-right mr-10 mb-10 text-2xl">{{ username }} 님 반갑습니다.</div>
           </div>
         </div>
       </div>
@@ -42,41 +40,56 @@
       </div>
     </div>
   </div>
+</div>
 </template>
 
 <script setup>
 import SideBanner from './component/SideBanner.vue'
 
 import { useloginStore } from './stores/loginpinia'
-import { onMounted } from 'vue'
+import { onMounted, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import { userrole } from './api/loginapi'
 import { userdata } from './api/loginapi'
+import { ref } from 'vue'
+// import { useRoute } from 'vue-router'
+
+const usernameinput = ref(false);
 
 const loginStore = useloginStore()
 
 const router = useRouter()
-
+// const route = useRoute()
 
 const { logincheckpinia, username, userrl } = storeToRefs(loginStore)
 const { logincheckfalse, loginchecktrue } = loginStore
 
+// watch(
+//   () => route.fullPath, // 라우트 경로가 변경될 때 감지
+//   () => {
+//     usernameinput.value = false;
+//     setTimeout(() => {
+//       usernameinput.value = true;
+//     }, 500);
+//   }
+// );
 
 const rolecheck = async() => {
 
   await userrole()
 
-  if ( userrl == 'ROLE_STUDENT') {
+  if ( userrl.value == 'ROLE_STUDENT') {
       console.log('학생계정')
       router.push({ name: 'stdatt' })
-    } else if ( userrl == 'ROLE_TEACHER') {
+    } else if ( userrl.value == 'ROLE_TEACHER') {
       console.log('선생계정')
       router.push({ name: 'teachercalander' })
     } else {
       console.log('맵핑문제')
       
     }
+ 
   
 }
 
@@ -88,13 +101,19 @@ const logoclick = async () => {
 
       rolecheck()
       
+
   } else {
+    console.log("서버연결 오류")
     router.push({ name: 'loginview' })
   }
 }
 
 
 const logout = () => {
+
+
+
+
   localStorage.removeItem('token')
 
   loginchecktrue()
@@ -109,6 +128,7 @@ const logout = () => {
 
 
 onMounted(async () => {
+
   userdata()
 
   if (localStorage.getItem('token') !== null) {
@@ -126,12 +146,26 @@ onMounted(async () => {
   //   router.push({name:'loginview'})
   //    console.log("에러"+logincheckpinia )
   //  }
+  homelogin()
 })
 
 const homelogin = () => {
   if (localStorage.getItem('token') !== null) {
     console.log('로그인 유지')
-    router.push({ name: 'stdatt' })
+
+    
+    if ( userrl.value == 'ROLE_STUDENT') {
+      console.log('학생계정')
+      router.push({ name: 'stdatt' })
+    } else if ( userrl.value == 'ROLE_TEACHER') {
+      console.log('선생계정')
+      router.push({ name: 'teachercalander' })
+    } else {
+      console.log('맵핑문제')
+      
+    }
+
+    
   } else {
     console.log('로그아웃 상태')
     router.push({ name: 'loginview' })
