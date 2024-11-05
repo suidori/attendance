@@ -234,7 +234,7 @@ const showuser = async () => {
 
     try {
         const token = localStorage.getItem('token')
-        const resuser = await axios.get('http://192.168.0.103:8080/user/getuser', {
+        const resuser = await axios.get('http://192.168.0.5:8080/user/getuser', {
             headers: {
                 Authorization: `Bearer ${token}`,
             }
@@ -246,7 +246,7 @@ const showuser = async () => {
         "month": dayjs(now.value).format('YYYY-MM')
     }
 
-        const resatt = await axios.post('http://192.168.0.103:8080/attendance/getuser', data)
+        const resatt = await axios.post('http://192.168.0.5:8080/attendance/getuser', data)
         attlist.value = resatt.data;
         useravail.value = true;
         console.log(attlist.value);
@@ -274,7 +274,7 @@ const attupdate = async () => {
     }
 
     try {
-        const res = await axios.post('http://192.168.0.103:8080/attendance/attupdate', data)
+        const res = await axios.post('http://192.168.0.5:8080/attendance/attupdate', data)
         console.log(res)
         alert(`${(selectDate.value == null) ? attDate.value : selectDate.value}, ${type.value} 요청 완료!`)
         showuser();
@@ -291,7 +291,7 @@ const attdelete = async () => {
     }
 
     try {
-        const res = await axios.delete(`http://192.168.0.103:8080/attendance/attdelete/${selectAtt.value.idx}`)
+        const res = await axios.delete(`http://192.168.0.5:8080/attendance/attdelete/${selectAtt.value.idx}`)
         console.log(res)
         alert(`${attDate.value}, ${type.value} 삭제 요청 완료!`)
         selectAtt.value = null;

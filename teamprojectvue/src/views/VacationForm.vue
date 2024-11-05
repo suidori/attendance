@@ -1,6 +1,6 @@
 <template>
   <div class="absolute max-md:hidden">
-
+    <SideBar></SideBar>
   </div>
   <div>
     <h1 class="md:ml-52">| 학생용 (VacationForm)</h1>
@@ -65,12 +65,14 @@
     <div class="flex items-center justify-center">
     </div>
   </div>
+  <SideBanner></SideBanner>
 </template>
 
 <script setup>
 import axios from 'axios';
-
+import SideBar from '@/component/StudentSideBar.vue'
 import { ref, computed } from 'vue';
+import SideBanner from '@/component/SideBanner.vue';
 
 const phoneNumberfirst = ref('010');
 const phoneNumbersecond = ref('');
@@ -97,7 +99,7 @@ const sub = async () => {
   }
 
   try {
-    const res = await axios.post('http://192.168.0.103:8080/vacation/request', data, {
+    const res = await axios.post('http://192.168.0.5:8080/vacation/request', data, {
             headers: {
                 Authorization: `Bearer ${token}`,
             }
