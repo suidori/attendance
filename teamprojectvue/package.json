@@ -1,0 +1,10 @@
+{
+  "name": "teamprojectvue",
+  "lockfileVersion": 3,
+  "requires": true,
+  "packages": {
+    "": {
+      "name": "teamprojectvue"
+    }
+  }
+}

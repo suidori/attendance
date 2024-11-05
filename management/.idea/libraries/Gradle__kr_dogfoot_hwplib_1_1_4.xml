@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Gradle: kr.dogfoot:hwplib:1.1.4" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="kr.dogfoot" artifactId="hwplib" version="1.1.4" />
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/kr.dogfoot/hwplib/1.1.4/5c81437d1e3b5c77f9fa04f4b2442e2e8a822bed/hwplib-1.1.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
