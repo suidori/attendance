@@ -1,6 +1,6 @@
 <template>
   <div class="absolute max-md:hidden">
-    <SideBar></SideBar>
+    <StudentSideBar></StudentSideBar>
   </div>
   <div>
     <h1 class="md:ml-52">| 학생용 (VacationForm)</h1>
@@ -72,11 +72,9 @@
 
 <script setup>
 import axios from 'axios';
-<<<<<<< HEAD
-import SideBar from '@/layout/SideBar.vue'
-=======
-import SideBar from '@/layout/StudentSideBar.vue'
->>>>>>> origin/우혁
+
+import StudentSideBar from '@/layout/StudentSideBar.vue';
+
 import { ref, computed } from 'vue';
 
 const phoneNumberfirst = ref('010');

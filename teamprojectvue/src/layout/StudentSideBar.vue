@@ -1,19 +1,11 @@
 <template>
-<<<<<<<< HEAD:teamprojectvue/src/layout/SideBar.vue
-  <div class="bg-blue-900 w-36">
-    <aside class="p-4 text-white">
-      <h2 class="h-20 mb-6 text-lg font-bold">메뉴</h2>
-      <ul class="space-y-3">
-        <hr />
-        <RouterLink to="/attendancecheck">
-========
+
   <div class="bg-blue-900 w-36 ">
     <aside class="p-4 text-white">
       <h2 class="h-20 mb-6 text-lg font-bold">학생 메뉴</h2>
       <ul class="space-y-3">
         <hr />
         <RouterLink to="/stdatt">
->>>>>>>> origin/우혁:teamprojectvue/src/layout/StudentSideBar.vue
           <li><a href="#" class="block pt-3 text-sm">출결 관리</a></li>
         </RouterLink>
         <hr />

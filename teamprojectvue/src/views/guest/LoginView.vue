@@ -61,7 +61,7 @@ const LoginSequence = async () => {
 
     try{
 
-<<<<<<< HEAD
+
       if(localStorage.getItem('token')!==null){
 
         localStorage.removeItem('token')
@@ -69,32 +69,22 @@ const LoginSequence = async () => {
 
       }
       
-=======
->>>>>>> origin/우혁
+
       console.log(data)
 
       const token = await logincontrol(data)
 
-<<<<<<< HEAD
+
      console.log('최종 토큰'+token)
 
      router.push({ path: 'stdatt' })
-=======
-
-     console.log('최종 토큰'+token)
-
-     router.push({ path: 'devmenu' })
->>>>>>> origin/우혁
 
 
     }catch(e){
 
-<<<<<<< HEAD
-      console.log('로그인실패 ' + e)
-=======
 
-console.log('로그인실패 ' + e)
->>>>>>> origin/우혁
+      console.log('로그인실패 ' + e)
+
       loginError.value = '아이디와 비밀번호를 확인해 주세요'
       return
 

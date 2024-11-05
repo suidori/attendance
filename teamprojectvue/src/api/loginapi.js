@@ -1,7 +1,7 @@
 
 import axios from "axios"
 import { useloginStore } from "@/stores/loginpinia"
-<<<<<<< HEAD
+
 import { ref } from "vue"
 
 
@@ -10,24 +10,23 @@ export const userdata = async() => {
 
     const token = localStorage.getItem('token')
     
-    const res = await axios.get(`http://192.168.0.103:8080/userandlecture/userlist`, {
+    const res = await axios.get('http://192.168.103:8080/user/getuser', {
 
         headers: {
             Authorization: `Bearer ${token}`,
         }
     })
 
-    console.log("유저정보"+JSON.stringify(res.data.list[0].user))
+    console.log("유저정보"+JSON.stringify(res.data.name))
 
     const logincheck = useloginStore()
 
-    logincheck.userN(JSON.stringify(res.data.list[0].user))
+    logincheck.userN(JSON.stringify(res.data.name))
    
 }
 
 
 export const userrole = async() => {
-
 
 
     const token = localStorage.getItem('token')
@@ -47,11 +46,7 @@ role.value = res.role;
 return role.value;
 
 }
-=======
 
-
-
->>>>>>> origin/우혁
 
 export const logincontrol = async(data) =>{
 
@@ -84,13 +79,8 @@ try{
        return token
       
 
-<<<<<<< HEAD
-=======
-
-    
 
 
->>>>>>> origin/우혁
 }catch (e){
     console.log(e)
     

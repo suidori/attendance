@@ -1,19 +1,7 @@
 <template>
-  
-
-
-
-
-
-
-
   <div class="w-3/4 max-w-2xl mt-10 p-8 mx-auto bg-white rounded shadow-2xl min-w-80 max-lg:w-1/2">
     <h1 class="mb-4 text-3xl  font-bold text-center">GREENART COMPUTER ACADEMY</h1>
     <form @submit.prevent="joinuser">
-
-
-
-    
       <div class="mb-6">
         <label for="role" class="inline mb-2 text-sm font-bold  text-blue-800">1. 회원 유형</label>
         <hr class="m-1">
@@ -150,10 +138,7 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import axios from 'axios'
-<<<<<<< HEAD
-=======
-import SideBar from '@/layout/StudentSideBar.vue'
->>>>>>> origin/우혁
+
 
 const router = useRouter()
 
@@ -187,20 +172,12 @@ if (!phoneNumbersecond.value || !phoneNumberthird.value) {
     
 
   }
-  
-<<<<<<< HEAD
+
   const phoneNumber = `${phoneNumberfirst.value}-${phoneNumbersecond.value}-${phoneNumberthird.value}`;
 
   try {
     const phoneResponse = await axios.get(`http://192.168.103:8080/sign/checkphone?phoneNumber=${phoneNumber}`);
-=======
- 
 
-  const phoneNumber = `${phoneNumberfirst.value}-${phoneNumbersecond.value}-${phoneNumberthird.value}`;
-
-  try {
-    const phoneResponse = await axios.get(`http://192.168.67:8080/sign/checkphone?phoneNumber=${phoneNumber}`);
->>>>>>> origin/우혁
     console.log(phoneNumber);
     console.log(phoneResponse);
 
@@ -227,11 +204,8 @@ const checkid = async () => {
   }
 
   try {
-<<<<<<< HEAD
+
     const idResponse = await axios.get(`http://192.168.103:8080/sign/checkid?userid=${userid.value}`);
-=======
-    const idResponse = await axios.get(`http://192.168.67:8080/sign/checkid?userid=${userid.value}`);
->>>>>>> origin/우혁
 
     if (idResponse.data == false) {
       idError.value = '이미 사용 중인 아이디입니다.'
@@ -260,7 +234,7 @@ const joinuser = async () => {
 
   try {
 
-<<<<<<< HEAD
+
     if(localStorage.getItem('token')!==null){
 
       localStorage.removeItem('token')
@@ -270,11 +244,7 @@ const joinuser = async () => {
     const res = await axios.post('http://192.168.103:8080/sign/signin', data)
     
     console.log(res)
-=======
-    const res = await axios.post('http://192.168.67:8080/sign/signin', data)
-    console.log(res)
 
->>>>>>> origin/우혁
     router.push({ name: 'joincomplete' })
     
 

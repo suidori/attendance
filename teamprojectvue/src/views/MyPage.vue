@@ -1,5 +1,5 @@
 <template>
-  <SideBar class="absolute"></SideBar>
+  <StudentSideBar class="absolute"></StudentSideBar>
   <h1 class="py-4 font-bold text-blue-800 mx-60">마이페이지</h1>
   <hr class="w-2/3 mx-auto" />
 
@@ -47,11 +47,9 @@
 </template>
 
 <script setup>
-<<<<<<< HEAD
-import SideBar from '@/layout/SideBar.vue'
-=======
-import SideBar from '@/layout/StudentSideBar.vue'
->>>>>>> origin/우혁
+
+import StudentSideBar from '@/layout/StudentSideBar.vue';
+
 </script>
 
 <style lang="scss" scoped></style>
