@@ -10,11 +10,19 @@ export const useloginStore = defineStore('loginpinia',  ()=>{
 
     const username = ref('')
     
+    const userrl = ref('')
    
 
     const userN = (usernamedata) =>{
 
         username.value = usernamedata;
+
+    }
+
+
+    const userR = (userroledata) => {
+
+        userrl.value = userroledata;
 
     }
 
@@ -52,7 +60,7 @@ export const useloginStore = defineStore('loginpinia',  ()=>{
 
 
     }
-    return {logincheckfalse, loginchecktrue,  check , userN,  logincheckpinia, username}
+    return {logincheckfalse, loginchecktrue,  check , userN, userR, logincheckpinia, username,  userrl}
     }
     
 )

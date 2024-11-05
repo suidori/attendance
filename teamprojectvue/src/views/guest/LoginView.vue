@@ -41,6 +41,14 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { logincontrol } from '@/api/loginapi';
+import { useloginStore } from '@/stores/loginpinia';
+import { userrole } from '@/api/loginapi';
+import { storeToRefs } from 'pinia';
+
+
+const loginpinia = useloginStore()
+
+const {userrl} = storeToRefs(loginpinia)
 
 const userid = ref('')
 const password = ref('')
@@ -61,7 +69,6 @@ const LoginSequence = async () => {
 
     try{
 
-
       if(localStorage.getItem('token')!==null){
 
         localStorage.removeItem('token')
@@ -74,14 +81,26 @@ const LoginSequence = async () => {
 
       const token = await logincontrol(data)
 
-
      console.log('최종 토큰'+token)
 
-     router.push({ path: 'stdatt' })
+     
+     await userrole()
 
+     if ( userrl == 'ROLE_STUDENT') {
+      console.log('학생계정')
+      router.push({ name: 'stdatt' })
+    } else if ( userrl == 'ROLE_TEACHER') {
+      console.log('선생계정')
+      router.push({ name: 'teachercalander' })
+    } else {
+      console.log('맵핑문제')
+      router.push({name:'loginview'})
+    }
+
+
+    //  router.push({ path: 'stdatt' })
 
     }catch(e){
-
 
       console.log('로그인실패 ' + e)
 

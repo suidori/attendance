@@ -59,27 +59,40 @@ const loginStore = useloginStore()
 const router = useRouter()
 
 
-const { logincheckpinia, username } = storeToRefs(loginStore)
+const { logincheckpinia, username, userrl } = storeToRefs(loginStore)
 const { logincheckfalse, loginchecktrue } = loginStore
 
-const logoclick = async () => {
-  if (localStorage.getItem('token') !== null) {
-    const role = await userrole()
 
-    if (role == 'ROLE_STUDENT') {
+const rolecheck = async() => {
+
+  await userrole()
+
+  if ( userrl == 'ROLE_STUDENT') {
       console.log('학생계정')
       router.push({ name: 'stdatt' })
-    } else if (role == 'ROLE_TEACHER') {
+    } else if ( userrl == 'ROLE_TEACHER') {
       console.log('선생계정')
       router.push({ name: 'teachercalander' })
     } else {
       console.log('맵핑문제')
-      router.push({ name: '' })
+      
     }
+  
+}
+
+const logoclick = async () => {
+
+  console.log("로고클릭")
+
+  if (localStorage.getItem('token') !== null) {
+
+      rolecheck()
+      
   } else {
     router.push({ name: 'loginview' })
   }
 }
+
 
 const logout = () => {
   localStorage.removeItem('token')
@@ -91,11 +104,19 @@ const logout = () => {
   router.push({ name: 'loginhome' })
 }
 
+
+
+
+
 onMounted(async () => {
   userdata()
 
   if (localStorage.getItem('token') !== null) {
+
+    //토큰 체크
     logincheckfalse()
+    //권한 체크
+    
 
     console.log('로그인 체크' + logincheckpinia)
   }
