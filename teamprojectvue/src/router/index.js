@@ -14,15 +14,27 @@ import TeacherToday from '@/views/teacher/TeacherToday.vue'
 import TeacherCalander from '@/views/teacher/TeacherCalander.vue'
 import Devmenu from '@/views/dev/Devmenu.vue'
 import DeskCalander from '@/views/Desk/DeskCalander.vue'
+import VacationManage from '@/component/VacationManage.vue'
+import VacationDesign from '@/component/VacationDesign.vue'
 
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
+      path: '/vacationmanage',
+      name: 'vacationmanage',
+      component: VacationManage
+    },
+    {
       path: '/',
       name: 'loginhome',
       component: LoginHome
+    },
+    {
+      path: '/vacationdesign',
+      name: 'vacationdesign',
+      component: VacationDesign
     },
     {
       path: '/guestattendance',
