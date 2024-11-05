@@ -1,5 +1,5 @@
 <template>
-<div class="bg-[#FFE6CC] h-[50vw]">
+<div class="bg-[#eee] h-[50vw]">
   <nav class="mx-0 shadow-md ">
     <div class="bg-blue-300 h-44">
       <div>
@@ -95,7 +95,7 @@ const rolecheck = async() => {
     
     else if ( userrl.value == 'ROLE_MANAGER') {
       console.log('매니저계정')
-      router.push({ name: 'teachercalander' })
+      router.push({ name: 'deskcalander' })
       
     }
     
@@ -179,7 +179,7 @@ const homelogin = () => {
     }
    else if ( userrl.value == 'ROLE_MANAGER') {
       console.log('매니저계정')
-      router.push({ name: 'teachercalander' })
+      router.push({ name: 'deskcalander' })
       
     }
     

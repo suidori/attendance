@@ -1,19 +1,19 @@
 <template>
   <div class="m-3">
-    <div class="flex justify-center">
-      <div v-if="lecturelist.length > 0" id="lecturelist" class="w-[15vw] p-4 border border-blue-500">
+    <div class="flex justify-center ">
+      <div v-if="lecturelist.length > 0" id="lecturelist" class="w-[15vw] p-4 border border-blue-500 bg-white">
         <h1>강의목록</h1>
-        <button @click="getlecture" class="border border-green-500">최신순</button>
-        <button @click="desclecture" class="border border-green-500">과거순</button>
+        <button @click="getlecture , isClicked = true" :class="{ 'bg-green-500': isClicked }" class="border border-green-500 hover:bg-green-500 mr-1">최신순</button>
+        <button @click="desclecture , isClicked = false" :class="{ 'bg-green-500': !isClicked }"  class="border border-green-500 hover:bg-green-500">과거순</button>
         <hr class="my-2 border-blue-500" />
-        <div class="hover:bg-blue-700" @click="getmonthatt(lecture.idx, nowDat)" v-for="(lecture, index) in lecturelist"
+        <div  class="hover:bg-blue-700" @click="getmonthatt(lecture.idx, nowDat)" v-for="(lecture, index) in lecturelist"
           :key="lecture.idx">
           {{ lecture.title }}
           <hr v-if="index < lecturelist.length - 1" class="my-2 border-blue-500" />
         </div>
       </div>
 
-      <div class="w-6/12 p-3 border-2">
+      <div class="w-6/12 p-3 border-2 bg-white">
         <div class="w-full">
           <h1 class="p-5 text-3xl font-bold text-blue-800">-출결리스트-</h1>
           <hr class="border-2 border-blue-800" />
@@ -64,6 +64,9 @@ import { ref, onMounted } from 'vue'
 import dayjs from 'dayjs'
 import axios from 'axios';
 import 'dayjs/locale/ko'
+
+const isClicked = ref(true);
+
 
 dayjs.locale('ko')
 
