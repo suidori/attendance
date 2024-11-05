@@ -1,42 +1,41 @@
 import axios from "axios"
-
+import { useRouter } from "vue-router";
 
 const url = `http://192.168.103:8080`
 
-
    export const checkPhapi = async(phoneNumber) => {
 
-            const phoneResponse = await axios.get(`${url}/sign/checkphone?phoneNumber=${phoneNumber}`);
+            const phonechek = await axios.get(`http://192.168.103:8080/sign/checkphone?phoneNumber=${phoneNumber}`);
         
-            console.log(phoneNumber);
-            console.log(phoneResponse);
-        
-            return phoneResponse
+            console.log("폰넘버 후"+phonechek);
+
+      return phonechek
+          
 }
     
 
-
 export const checkI = async (userid) => {
 
-        const idResponse = await axios.get(`${url}/sign/checkid?userid=${userid}`);
+        const idResponse = await axios.get(`http://192.168.103:8080/sign/checkid?userid=${userid}`);
     
       return idResponse
 
 }
 
-
-
 export const joinU = async (data) => {
 
 
-    if(localStorage.getItem('token')!==null){
+      console.log(data)
+     await axios.post(`http://192.168.0.103:8080/sign/signin`, data)
+    
+     if(localStorage.getItem('token')!==null){
 
-        localStorage.removeItem('token')
-  
-      }
-  
-      const res = await axios.post(`${url}/sign/signin`, data)
+      localStorage.removeItem('token')
+     }
+    
+    // } catch (e) {
+    //   console.log(e)
+    //   alert('에러')
+    // }
 
-      return res
-
-}
+  }
