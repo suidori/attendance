@@ -1,10 +1,11 @@
 <template>
     <div class="m-3">
-        <div @click="goVacationManage" class="flex text-xl border-2 border-red-300 pl-3 pr-3 hover:bg-red-300 cursor-pointer float-left ml-80 rounded">휴가신청</div>
+        <div @click="goVacationManage" class="flex text-xl border-2 border-blue-300 pl-3 pr-3 
+        hover:bg-blue-300 hover:opacity-80 hover:text-white cursor-pointer float-left ml-[17.3%] rounded p-1">휴가 요청 관리</div>
         <br>
         <div class="mt-5 flex justify-center ">
            
-            <div v-if="lecturelist.length> 0" id="lecturelist" class="w-[15vw] p-4 border bg-white border-blue-500">
+            <div v-if="lecturelist.length> 0" id="lecturelist" class="w-[15vw] p-4 border bg-white border-blue-500 ">
                 <h1>강의목록</h1>
                 <button @click="getlecture(), isClicked = true" :class="{ 'bg-green-500': isClicked }"  class="border border-green-500 hover:bg-green-500 mr-1">최신순</button>
                 <button @click="desclecture(), isClicked = false" :class="{ 'bg-green-500': !isClicked }" class="border border-green-500 hover:bg-green-500">과거순</button>

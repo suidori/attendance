@@ -1,12 +1,12 @@
 <template>
 <div class="text-center">
     <div class="flex justify-center -m-5">
-      <h1 class="font-mono font-black italic text-3xl tracking-tight flex flex-col">GREEN COMPUTER ARCADEMY</h1>
+      <h1 class="font-mono font-black italic text-3xl tracking-tight flex flex-col ">GREEN COMPUTER ARCADEMY</h1>
 
     </div>
     <div class="mx-auto mt-20 w-[40rem] p-4 transform bg-white shadow-md flex flex-col justify-center items-center">
       <div class=" my-3 mt-10 space-y-3 justify-between">
-          <p class="ml-7">ID<input
+          <p class="ml-10">ID<input
               class="ml-5 p-3 mb-5 w-80 transition duration-200 border-b border-gray-400 focus:outline-none"
               type="text"
               name="userid"
@@ -15,7 +15,7 @@
               v-model="userid"
             />
           </p>
-          <p class="mr-10">PASSWORD<input
+          <p class="mr-12">PASSWORD<input
               class="ml-5 p-3 w-80 transition duration-200 border-b border-gray-400 focus:outline-none"
               type="password"
               name="password"
@@ -93,23 +93,25 @@ const LoginSequence = async () => {
      await userrole()
 
      if ( userrl.value == 'ROLE_STUDENT') {
-      console.log('학생계정'+ userrl.value)
+      console.log('학생계정')
       router.push({ name: 'stdatt' })
     } else if ( userrl.value == 'ROLE_TEACHER') {
-      console.log('선생계정'+ userrl.value)
+      console.log('선생계정')
       router.push({ name: 'teachertoday' })
 
-
-    }else if ( userrl.value == 'ROLE_MANAGER') {
-      console.log('매니저계정'+ userrl.value)
+      
+    }
+   else if ( userrl.value == 'ROLE_MANAGER') {
+      console.log('매니저계정')
       router.push({ name: 'deskcalander' })
+      
+    }
     
-    }
     else {
-      console.log('맵핑문제'+ userrl.value)
-      router.push({name:'loginview'})
-    }
 
+      console.log('맵핑문제')
+      
+    }
 
     //  router.push({ path: 'stdatt' })
 

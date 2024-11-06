@@ -1,8 +1,9 @@
 <template>
   <div class="absolute max-md:hidden">
-    <StudentSideBar></StudentSideBar>
+    <StudentSideBar class="min-w-28"/>
+ 
   </div>
-  <div>
+  <div class>
     <h1 class="md:ml-52">| 학생용 (VacationForm)</h1>
     <div class="w-1/2 mx-auto min-w-80">
       <div class="">
@@ -102,7 +103,7 @@ const sub = async () => {
   }
 
   try {
-    const res = await axios.post('http://192.168.0.5:8080/vacation/request', data, {
+    const res = await axios.post('http://192.168.103:8080/vacation/request', data, {
             headers: {
                 Authorization: `Bearer ${token}`,
             }

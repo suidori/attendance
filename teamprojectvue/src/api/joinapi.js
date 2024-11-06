@@ -17,10 +17,12 @@ const url = `http://192.168.103:8080`
 export const checkI = async (userid) => {
 
         const idResponse = await axios.get(`http://192.168.103:8080/sign/checkid?userid=${userid}`);
+
     
       return idResponse
 
 }
+
 
 export const joinU = async (data) => {
 

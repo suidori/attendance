@@ -77,6 +77,7 @@ const nowDat = ref(dayjs().format('YYYY-MM'))
 const currentMonth = ref(dayjs().month())
 const currentYear = ref(dayjs().year())
 const lecturelist = ref([])
+const selectedlecture = ref(null);
 
 const getDaysInMonth = (month, year) => {
   return new Date(year, month + 1, 0).getDate()
@@ -89,6 +90,9 @@ onMounted(() => {
 const updateDaysInMonth = () => {
   const daysInMonth = getDaysInMonth(currentMonth.value, currentYear.value)
   arr.value = Array.from({ length: daysInMonth }, (_, i) => i) // 0부터 일수까지의 배열 생성
+  monthatt.value = [];
+  getmonthatt(selectedlecture.value, nowDat.value);
+
 }
 
 const getDayName = (item) => {
@@ -158,6 +162,7 @@ const getmonthatt = async (idx, month) => {
   try {
     const res = await axios.get(`http://192.168.0.103:8080/attendance/monthview?idx=${idx}&month=${month}`);
     monthatt.value = processAttendanceData(res.data); // 데이터를 가공하는 함수를 호출
+    selectedlecture.value = idx;
   } catch (e) {
     console.log(e);
   }
