@@ -3,6 +3,7 @@
 <div class="bg-[#eee] h-screen font-[GmarketSansMedium]">
 
 
+
   <nav class="mx-0 shadow-md ">
     <div class="bg-blue-300 h-44">
       <div>
