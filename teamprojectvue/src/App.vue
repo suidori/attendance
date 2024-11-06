@@ -1,5 +1,5 @@
 <template>
-<div class="bg-[#FFE6CC] h-[50vw]">
+<div class="bg-[#faf1e6] h-[90vw]">
   <nav class="mx-0 shadow-md ">
     <div class="bg-blue-300 h-44">
       <div>

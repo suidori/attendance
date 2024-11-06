@@ -1,7 +1,7 @@
 <template>
     <div id="container" class="flex">
 
-        <StudentSideBar class=""/>
+        <StudentSideBar class="min-w-28"/>
         <!-- <div id="leftmenu" class="p-4 border border-blue-500 w-36">
 
             <h1>메뉴</h1>
@@ -13,7 +13,7 @@
             </RouterLink>
 
         </div> -->
-        <div id="main" class="mx-auto items-center justify-center">
+        <div id="main" class="mx-auto items-center justify-center w-2/3">
             <div id="user" class="">
 
                 <h1 v-if="user">{{user.name}} 학생 출결 관리</h1>
@@ -21,7 +21,7 @@
                 <p v-if="!useravail" class="text-red-600">{{ usererror }}</p>
             </div>
             <div id="attendance" class="flex">
-                <div id="calander" class="w-full max-w-lg p-4 bg-white rounded-lg shadow-md">
+                <div id="calander" class="w-full p-4 bg-white rounded-lg shadow-md min-w-72">
                     <h1 class="mb-4 text-xl font-bold text-center">
                         <button @click="subMonth()" class="mr-2"><i class="fas fa-arrow-left">&lt;&lt;</i></button>
                         {{ now.format('YYYY년 MM월') }}

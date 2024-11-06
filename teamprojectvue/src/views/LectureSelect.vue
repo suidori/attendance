@@ -1,5 +1,6 @@
   <template>
-       <div class="w-full h-screen p-10">
+    <StudentSideBar class="absolute"></StudentSideBar>
+       <div class="w-2/3 mx-auto p-10">
        <div class="mb-4">
 
         <h1 class="text-2xl font-bold mb-2">과정 선택</h1>
@@ -9,7 +10,7 @@
   
       <!-- Main Section -->
 
-      <div class="w-full bg-white shadow p-6 rounded-lg">
+      <div class="bg-white shadow p-6 rounded-lg">
         <h2 class="text-xl font-bold mb-4 inline-block">강좌 선택</h2>
 
         <button @click="golectureinsert()" class="ml-10 inline-block bg-yellow-500 text-white py-2 px-4 rounded-lg hover:bg-yellow-700 " >강좌 생성</button>
@@ -26,7 +27,7 @@
         </div>
   
         <!-- Course Buttons -->
-        <div class="grid grid-cols-5 gap-4">
+        <div class=" mx-auto grid grid-cols-4 gap-4">
           <button
             v-for="course in filteredCourses"
             :key="course"
@@ -38,8 +39,8 @@
       </div>
   
       <!-- Duplicate Section (Optional) -->
-      <div class="w-full p-6 mt-10 bg-white rounded-lg shadow">
-        <div class="grid grid-cols-5 gap-4">
+      <div class=" mx-auto p-6 mt-10 bg-white rounded-lg shadow">
+        <div class="grid grid-cols-4 gap-4">
           <button
             v-for="course in courses"
             :key="course + '-dup'"
@@ -56,7 +57,8 @@
   </template>
   
   <script setup>
-  import { ref, computed } from 'vue';
+  import StudentSideBar from '@/layout/StudentSideBar.vue';
+import { ref, computed } from 'vue';
   import { useRouter } from 'vue-router';
 
 const router = useRouter()
