@@ -102,7 +102,7 @@ const LoginSequence = async () => {
 
     }else if ( userrl.value == 'ROLE_MANAGER') {
       console.log('매니저계정'+ userrl.value)
-      router.push({ name: 'teachercalander' })
+      router.push({ name: 'deskcalander' })
     
     }
     else {

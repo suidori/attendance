@@ -298,6 +298,8 @@ const attupdate = async () => {
 
         console.log(res)
         alert(`${(selectDate.value == null) ? attDate.value : selectDate.value}, ${type.value} 요청 완료!`)
+        selectAtt.value=null;
+        selectDate.value=null;
         showuser();
     } catch (e) {
         console.log(e)
