@@ -1,7 +1,15 @@
+<<<<<<< HEAD
 <template>
     <div class="w-full h-screen p-10">
       <!-- Header -->
       <div class="mb-4">
+=======
+  <template>
+        <StudentSideBar class="min-w-28 absolute"/>
+
+       <div class="w-2/3 mx-auto p-10">
+       <div class="mb-4">
+>>>>>>> completed
 
         <h1 class="text-2xl font-bold mb-2">과정 선택</h1>
         
@@ -12,7 +20,11 @@
   
       <!-- Main Section -->
 
+<<<<<<< HEAD
       <div class="w-full bg-white shadow p-6 rounded-lg">
+=======
+      <div class="bg-white shadow p-6 rounded-lg">
+>>>>>>> completed
         <h2 class="text-xl font-bold mb-4 inline-block">강좌 선택</h2>
 
         <button @click="golectureinsert()" class="ml-10 inline-block bg-yellow-500 text-white py-2 px-4 rounded-lg hover:bg-yellow-700 " >강좌 생성</button>
@@ -30,7 +42,7 @@
         </div>
   
         <!-- Course Buttons -->
-        <div class="grid grid-cols-5 gap-4">
+        <div class=" mx-auto grid grid-cols-4 gap-4">
           <button
             v-for="course in filteredCourses"
             :key="course"
@@ -42,8 +54,13 @@
       </div>
   
       <!-- Duplicate Section (Optional) -->
+<<<<<<< HEAD
       <div class="w-full p-6 mt-10 bg-white rounded-lg shadow">
         <div class="grid grid-cols-5 gap-4">
+=======
+      <div class=" mx-auto p-6 mt-10 bg-white rounded-lg shadow">
+        <div class="grid grid-cols-4 gap-4">
+>>>>>>> completed
           <button
             v-for="course in courses"
             :key="course + '-dup'"
@@ -54,10 +71,14 @@
         </div>
       </div>
     </div>
+    <div class="mb-64">
+
+</div>
   </template>
   
   <script setup>
-  import { ref, computed } from 'vue';
+  import StudentSideBar from '@/layout/StudentSideBar.vue';
+import { ref, computed } from 'vue';
   import { useRouter } from 'vue-router';
 
 const router = useRouter()

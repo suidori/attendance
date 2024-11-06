@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
 
   <nav class="relative mx-0">
     <div class="flex justify-between">
@@ -19,6 +20,43 @@
         <img class="w-full h-40 -z-30" src="../src/images/wbar_t.jpg" alt="" />
       </div>
 
+=======
+
+<div class="bg-[#eee] h-screen font-[GmarketSansMedium]">
+
+
+  <nav class="mx-0 shadow-md ">
+    <div class="bg-blue-300 h-44">
+      <div>
+        <div class="justify-center flex items-center">
+          <img
+            src="./images/LOGO.png"
+            alt=""
+            class="w-32 mt-5 max-md:w-28 ml-3 cursor-pointer"
+            @click="logoclick"
+          />
+        </div>
+
+
+        <!-- <StudentSideBar  class="" v-if="sidecheck"/> -->
+
+
+        <div class="  flex float-end z-10 ">
+          <div class="mr-2" v-if="logincheckpinia">
+            <!-- <RouterLink to="/loginview">| 로그인</RouterLink> -->
+          </div>
+          <div class="mr-2" v-if="logincheckpinia">
+            <!-- <RouterLink to="/jointermsofuse">| 회원가입</RouterLink> -->
+          </div>
+          <div v-else>
+            <div class="flex items-end float-right mr-10 text-xl rounded hover:bg-red-400" @click="logout">
+              <RouterLink to="/loginview"><a class="flex text-white items-center font-[GmarketSansMedium]">로그아웃 <img class="w-8" src="./images/LoutIcon.png" alt=""></a></RouterLink>
+            </div>
+            <div  class="float-right mr-10 mb-10 text-2xl">{{ username }} 님 반갑습니다.</div>
+          </div>
+        </div>
+      </div>
+>>>>>>> completed
     </div>
   </nav>
 
@@ -29,13 +67,218 @@
     <!-- 사이드배너 -->
     <div class="" id="sidebann">
       <div class="hidden">
-        <SideBanner />
+        
       </div>
     </div>
   </div>
+</div>
+<!-- <StudentSideBar  class="" style="position: fixed; top:35%; left:3%" v-if="sidecheck1"/>
+<StudentSideBar  class="" style="position: fixed; top:35%; left:3%" v-if="sidecheck2"/> -->
+
 </template>
 
 <script setup>
+<<<<<<< HEAD
+=======
+import StudentSideBar from './layout/StudentSideBar.vue'
+
+import { useloginStore } from './stores/loginpinia'
+import { onMounted, watch } from 'vue'
+import { useRouter } from 'vue-router'
+import { storeToRefs } from 'pinia'
+import { userrole } from './api/loginapi'
+import { userdata } from './api/loginapi'
+import { ref } from 'vue'
+// import { useRoute } from 'vue-router'
+
+const usernameinput = ref(false);
+
+const loginStore = useloginStore()
+
+const router = useRouter()
+// const route = useRoute()
+
+const { logincheckpinia, username, userrl } = storeToRefs(loginStore)
+const { logincheckfalse, loginchecktrue } = loginStore
+
+// watch(
+//   () => route.fullPath, // 라우트 경로가 변경될 때 감지
+//   () => {
+//     usernameinput.value = false;
+//     setTimeout(() => {
+//       usernameinput.value = true;
+//     }, 500);
+//   }
+// );
+
+const sidecheck1 = ref(false)
+const sidecheck2 = ref(false)
+
+// watch(
+//   () => route.fullPath, // 라우트 경로가 변경될 때 감지
+//   () => {
+//     usernameinput.value = false;
+//     setTimeout(() => {
+//       usernameinput.value = true;
+//     }, 500);
+//   }
+// );
+
+const rolecheck = async() => {
+
+  await userrole()
+
+  if ( userrl.value == 'ROLE_STUDENT') {
+      console.log('학생계정')
+      sidecheck1.value = true
+      sidecheck2.value = false
+      router.push({ name: 'stdatt' })
+    } else if ( userrl.value == 'ROLE_TEACHER') {
+      console.log('선생계정')
+      sidecheck1.value = false
+      sidecheck2.value = true
+      router.push({ name: 'teachertoday' })
+    }
+    
+    else if ( userrl.value == 'ROLE_MANAGER') {
+      console.log('매니저계정')
+      router.push({ name: 'deskcalander' })
+      
+    }
+    
+    else {
+      console.log('맵핑문제')
+      
+    }
+ 
+  
+}
+
+const logoclick = async () => {
+
+  console.log("로고클릭")
+
+  if (localStorage.getItem('token') !== null) {
+
+      rolecheck()
+      
+
+  } else {
+    console.log("서버연결 오류")
+    router.push({ name: 'loginview' })
+  }
+}
+
+
+const logout = () => {
+
+
+
+
+  localStorage.removeItem('token')
+
+  loginchecktrue()
+
+  console.log('로그아웃 체크' + logincheckpinia)
+
+  sidecheck1.value = false
+  sidecheck2.value = false
+  router.push({ name: 'loginhome' })
+}
+
+
+
+
+
+onMounted(async () => {
+
+  userdata()
+
+  if (localStorage.getItem('token') !== null) {
+
+    //토큰 체크
+    logincheckfalse()
+    //권한 체크
+
+    //사이드바 체크
+    
+
+    if ( userrl.value == 'ROLE_STUDENT') {
+      console.log('학생계정')
+      sidecheck1.value = true
+      sidecheck2.value = false
+      router.push({ name: 'stdatt' })
+    } else if ( userrl.value == 'ROLE_TEACHER') {
+      console.log('선생계정')
+      sidecheck1.value = false
+      sidecheck2.value = true
+      router.push({ name: 'teachertoday' })
+      
+    }
+   else if ( userrl.value == 'ROLE_MANAGER') {
+      console.log('매니저계정')
+      router.push({ name: 'deskcalander' })
+      
+    }
+    
+    else {
+      console.log('맵핑문제')
+      
+    }
+
+
+
+    console.log('로그인 체크' + logincheckpinia)
+  }
+
+  //  else{
+
+  //   router.push({name:'loginview'})
+  //    console.log("에러"+logincheckpinia )
+  //  }
+  homelogin()
+})
+
+
+const homelogin = () => {
+  if (localStorage.getItem('token') !== null) {
+    console.log('로그인 유지')
+
+    
+    if ( userrl.value == 'ROLE_STUDENT') {
+      console.log('학생계정')
+      sidecheck1.value = true
+      sidecheck2.value = false
+      router.push({ name: 'stdatt' })
+    } else if ( userrl.value == 'ROLE_TEACHER') {
+      console.log('선생계정')
+      sidecheck1.value = false
+      sidecheck2.value = true
+      router.push({ name: 'teachertoday' })
+
+      
+    }
+   else if ( userrl.value == 'ROLE_MANAGER') {
+      console.log('매니저계정')
+      router.push({ name: 'deskcalander' })
+      
+    }
+    
+    else {
+
+      console.log('맵핑문제')
+      
+    }
+
+    
+  } else {
+    console.log('로그아웃 상태')
+    router.push({ name: 'loginview' })
+  }
+}
+
+homelogin()
+>>>>>>> completed
 
 </script>
 

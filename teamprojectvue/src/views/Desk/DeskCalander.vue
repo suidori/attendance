@@ -1,5 +1,6 @@
 <template>
     <div class="m-3">
+<<<<<<< HEAD
         <div class="flex justify-center">
             <div v-if="lecturelist.length > 0" id="lecturelist" class="w-[15vw] p-4 border border-blue-500">
                 <h1>강의목록</h1>
@@ -14,6 +15,28 @@
             </div>
 
             <div class="w-6/12 p-3 border-2">
+=======
+        <div @click="goVacationManage" class="flex text-xl border-2 border-blue-300 pl-3 pr-3 
+        hover:bg-blue-300 hover:opacity-80 hover:text-white cursor-pointer float-left ml-[17.3%] rounded p-1">휴가 요청 관리</div>
+        <br>
+        <div class="mt-5 flex justify-center ">
+           
+            <div v-if="lecturelist.length> 0" id="lecturelist" class="w-[15vw] p-4 border bg-white border-blue-500 ">
+                <h1>강의목록</h1>
+                <button @click="getlecture(), isClicked = true" :class="{ 'bg-green-500': isClicked }"  class="border border-green-500 hover:bg-green-500 mr-1">최신순</button>
+                <button @click="desclecture(), isClicked = false" :class="{ 'bg-green-500': !isClicked }" class="border border-green-500 hover:bg-green-500">과거순</button>
+                <hr class="my-2 border-blue-500" />
+                <div :class="{ 'bg-blue-500 text-white': (selectedlecture !==null ) &&  selectedlecture.title == lecture.title}" class="hover:bg-blue-500 hover:text-white"  @click="getmonthatt(lecture, nowDat) " 
+                    v-for="(lecture, index) in lecturelist" :key="lecture.idx">
+                    {{ lecture.title }}
+                    <br>
+                    <div class="mb-3">
+                    <hr v-if="index < lecturelist.length - 1" class="my-2 border-blue-500" />
+                </div>
+                </div>
+            </div>
+            <div class="w-6/12 p-3 border-2 bg-white">
+>>>>>>> completed
                 <div class="w-full">
                     <h1 class="p-5 text-3xl font-bold text-blue-800">-출결리스트-</h1>
                     <hr class="border-2 border-blue-800" />
@@ -56,6 +79,12 @@
             </div>
         </div>
     </div>
+<<<<<<< HEAD
+=======
+    <div class="mb-64">
+
+</div>
+>>>>>>> completed
 </template>
 
 <script setup>
@@ -63,6 +92,10 @@ import { ref, onMounted } from 'vue'
 import dayjs from 'dayjs'
 import axios from 'axios';
 import 'dayjs/locale/ko'
+<<<<<<< HEAD
+=======
+import router from '@/router';
+>>>>>>> completed
 
 dayjs.locale('ko')
 
@@ -76,6 +109,21 @@ const lecturelist = ref([])
 const selectedtitle = ref(null)
 const selectedlecture = ref(null)
 
+<<<<<<< HEAD
+=======
+const isClicked = ref(true);
+
+const goVacationManage = () => {
+
+
+    
+router.push({name:'vacationmanage' })
+
+}
+
+
+
+>>>>>>> completed
 const getDaysInMonth = (month, year) => {
     return new Date(year, month + 1, 0).getDate()
 }
@@ -127,8 +175,14 @@ const update = () => {
 }
 
 const getlecture = async () => {
+<<<<<<< HEAD
     try {
         const res = await axios.get(`http://192.168.0.103:8080/lecture/list`);
+=======
+
+    try {
+        const res = await axios.get(`http://192.168.103:8080/lecture/list`);
+>>>>>>> completed
         lecturelist.value = res.data.sort((a, b) => b.idx - a.idx);
         console.log(lecturelist.value);
     } catch (e) {
@@ -138,7 +192,11 @@ const getlecture = async () => {
 
 const desclecture = async () => {
     try {
+<<<<<<< HEAD
         const res = await axios.get(`http://192.168.0.103:8080/lecture/list`);
+=======
+        const res = await axios.get(`http://192.168.103:8080/lecture/list`);
+>>>>>>> completed
         lecturelist.value = res.data.sort((a, b) => a.idx - b.idx);
         console.log(lecturelist.value);
     } catch (e) {
@@ -151,7 +209,11 @@ const getmonthatt = async (lecture, month) => {
         console.log(lecture.idx, month);
         selectedtitle.value = lecture.title;
         selectedlecture.value = lecture;
+<<<<<<< HEAD
         const res = await axios.get(`http://192.168.0.103:8080/attendance/monthview?idx=${lecture.idx}&month=${month}`);
+=======
+        const res = await axios.get(`http://192.168.103:8080/attendance/monthview?idx=${lecture.idx}&month=${month}`);
+>>>>>>> completed
         console.log(res.data);
         monthatt.value = processAttendanceData(res.data); // 데이터를 가공하는 함수를 호출
         console.log("Processed Month Attendance:", monthatt.value);
@@ -186,9 +248,12 @@ const getAttendanceType = (useridx, day) => {
     return attendanceInfo.type || '-';
 };
 
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> completed
 const processAttendanceData = (data) => {
     const attendanceMap = {};
 
@@ -247,7 +312,11 @@ const approve = async (useridx, day, isApproved) => {
         studentAttendance.attendance[day].approval = isApproved;
 
         try {
+<<<<<<< HEAD
             await axios.post('http://192.168.0.103:8080/attendance/updateApproval', {
+=======
+            await axios.post('http://192.168.103:8080/attendance/updateApproval', {
+>>>>>>> completed
                 useridx: useridx, // useridx도 전송할 수 있음
                 adate: dayjs().year(currentYear.value).month(currentMonth.value).date(day + 1).format('YYYY-MM-DD'),  // day를 날짜 형식으로 변환
                 type: studentAttendance.attendance[day].type,

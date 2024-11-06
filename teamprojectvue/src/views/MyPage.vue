@@ -1,5 +1,10 @@
 <template>
+<<<<<<< HEAD
   <SideBar class="absolute"></SideBar>
+=======
+        <StudentSideBar class="min-w-28 absolute"/>
+
+>>>>>>> completed
   <h1 class="py-4 font-bold text-blue-800 mx-60">마이페이지</h1>
   <hr class="w-2/3 mx-auto" />
 
@@ -41,10 +46,15 @@
       <input type="text" name="강의정보" id="" class="h-10 mx-3 text-xs border w-96" placeholder=" 강의정보-강사:000 / 강의시간 0교시"/>
     </div>
   </div>
+  <div class="mb-64">
+
+</div>
 </template>
 
 <script setup>
-import SideBar from '@/component/StudentSideBar.vue'
+
+import StudentSideBar from '@/layout/StudentSideBar.vue';
+
 </script>
 
 <style lang="scss" scoped></style>

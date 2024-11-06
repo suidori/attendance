@@ -156,6 +156,12 @@
             </div>
         </div>
     </div>
+<<<<<<< HEAD
+=======
+    <div class="mb-64">
+
+</div>
+>>>>>>> completed
 </template>
 
 <script setup>
@@ -259,7 +265,11 @@ const showuser = async () => {
     }
 
     try {
+<<<<<<< HEAD
         const res = await axios.post('http://192.168.0.103:8080/attendance/getuser', data)
+=======
+        const res = await axios.post('http://192.168.0.5:8080/attendance/getuser', data)
+>>>>>>> completed
         attlist.value = res.data;
         useravail.value = true;
         console.log(attlist.value);
@@ -290,7 +300,11 @@ const attupdate = async () => {
     }
 
     try {
+<<<<<<< HEAD
         const res = await axios.post('http://192.168.0.103:8080/attendance/attupdate', data)
+=======
+        const res = await axios.post('http://192.168.0.5:8080/attendance/attupdate', data)
+>>>>>>> completed
         console.log(res)
         alert(`${(selectDate.value == null) ? attDate.value : selectDate.value}, ${name.value} 학생 ${type.value} 요청 완료!`)
         showuser();
@@ -307,7 +321,11 @@ const attdelete = async () => {
     }
 
     try {
+<<<<<<< HEAD
         const res = await axios.delete(`http://192.168.0.103:8080/attendance/attdelete/${selectAtt.value.idx}`)
+=======
+        const res = await axios.delete(`http://192.168.0.5:8080/attendance/attdelete/${selectAtt.value.idx}`)
+>>>>>>> completed
         console.log(res)
         alert(`${selectAtt.value.adate}, ${name.value} 학생 ${type.value} 삭제 요청 완료!`)
         selectAtt.value = null;

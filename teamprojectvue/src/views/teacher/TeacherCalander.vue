@@ -1,5 +1,6 @@
 <template>
   <div class="m-3">
+<<<<<<< HEAD
     <div class="flex justify-center">
       <div v-if="lecturelist.length > 0" id="lecturelist" class="w-[15vw] p-4 border border-blue-500">
         <h1>강의목록</h1>
@@ -7,13 +8,26 @@
         <button @click="desclecture" class="border border-green-500">과거순</button>
         <hr class="my-2 border-blue-500" />
         <div class="hover:bg-blue-700" @click="getmonthatt(lecture.idx, nowDat)" v-for="(lecture, index) in lecturelist"
+=======
+    <div class="flex justify-center ">
+      <div v-if="lecturelist.length > 0" id="lecturelist" class="w-[15vw] p-4 border border-blue-500 bg-white">
+        <h1>강의목록</h1>
+        <button @click="getlecture , isClicked = true" :class="{ 'bg-green-500': isClicked }" class="border border-green-500 hover:bg-green-500 mr-1">최신순</button>
+        <button @click="desclecture , isClicked = false" :class="{ 'bg-green-500': !isClicked }"  class="border border-green-500 hover:bg-green-500">과거순</button>
+        <hr class="my-2 border-blue-500" />
+        <div  class="hover:bg-blue-700" @click="getmonthatt(lecture.idx, nowDat)" v-for="(lecture, index) in lecturelist"
+>>>>>>> completed
           :key="lecture.idx">
           {{ lecture.title }}
           <hr v-if="index < lecturelist.length - 1" class="my-2 border-blue-500" />
         </div>
       </div>
 
+<<<<<<< HEAD
       <div class="w-6/12 p-3 border-2">
+=======
+      <div class="w-6/12 p-3 border-2 bg-white">
+>>>>>>> completed
         <div class="w-full">
           <h1 class="p-5 text-3xl font-bold text-blue-800">-출결리스트-</h1>
           <hr class="border-2 border-blue-800" />
@@ -54,6 +68,12 @@
       </div>
     </div>
   </div>
+<<<<<<< HEAD
+=======
+  <div class="mb-64">
+
+</div>
+>>>>>>> completed
 </template>
 
 <script setup>
@@ -62,6 +82,12 @@ import dayjs from 'dayjs'
 import axios from 'axios';
 import 'dayjs/locale/ko'
 
+<<<<<<< HEAD
+=======
+const isClicked = ref(true);
+
+
+>>>>>>> completed
 dayjs.locale('ko')
 
 const arr = ref([]) // 날짜 배열
@@ -85,7 +111,12 @@ const updateDaysInMonth = () => {
   const daysInMonth = getDaysInMonth(currentMonth.value, currentYear.value)
   arr.value = Array.from({ length: daysInMonth }, (_, i) => i) // 0부터 일수까지의 배열 생성
   monthatt.value = [];
+<<<<<<< HEAD
   getmonthatt(selectedlecture.value, nowDat.value)
+=======
+  getmonthatt(selectedlecture.value, nowDat.value);
+
+>>>>>>> completed
 }
 
 const getDayName = (item) => {
@@ -154,8 +185,13 @@ const desclecture = async () => {
 const getmonthatt = async (idx, month) => {
   try {
     const res = await axios.get(`http://192.168.0.103:8080/attendance/monthview?idx=${idx}&month=${month}`);
+<<<<<<< HEAD
     selectedlecture.value = idx;
     monthatt.value = processAttendanceData(res.data); // 데이터를 가공하는 함수를 호출
+=======
+    monthatt.value = processAttendanceData(res.data); // 데이터를 가공하는 함수를 호출
+    selectedlecture.value = idx;
+>>>>>>> completed
   } catch (e) {
     console.log(e);
   }
@@ -263,4 +299,8 @@ onMounted(async () => {
 
 </script>
 
+<<<<<<< HEAD
 <style lang="scss" scoped></style>
+=======
+<style lang="scss" scoped></style>
+>>>>>>> completed

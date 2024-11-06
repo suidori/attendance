@@ -1,6 +1,10 @@
 spring:
   datasource:
+<<<<<<< HEAD
     url: jdbc:mariadb://192.168.0.103:3306/educationsystemdb
+=======
+    url: jdbc:mariadb://192.168.0.5:3306/educationsystemdb
+>>>>>>> completed
     username: root
     password: 1234
     driver-class-name: org.mariadb.jdbc.Driver

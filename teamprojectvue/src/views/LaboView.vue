@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
     <!-- 드랍박스 여기 -->
   <div class="px-52">
     <DropBox />
@@ -108,21 +109,20 @@
   </div>   
   
 
+=======
+
+  <div>
+    
+실험하기
+
+  </div>
+>>>>>>> completed
 </template>
 
 <script setup>
-import { ref } from 'vue';
-
-// const arr = ref([])
-// const pageNum = ref(0)
-const totalpages = ref(10)
-
-
 
 </script>
 
 <style lang="scss" scoped>
-
-
 
 </style>

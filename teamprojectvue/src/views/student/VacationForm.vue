@@ -1,8 +1,15 @@
 <template>
   <div class="absolute max-md:hidden">
+<<<<<<< HEAD
 
   </div>
   <div>
+=======
+    <StudentSideBar class="min-w-28"/>
+ 
+  </div>
+  <div class>
+>>>>>>> completed
     <h1 class="md:ml-52">| 학생용 (VacationForm)</h1>
     <div class="w-1/2 mx-auto min-w-80">
       <div class="">
@@ -65,11 +72,22 @@
     <div class="flex items-center justify-center">
     </div>
   </div>
+<<<<<<< HEAD
+=======
+  <div class="mb-64">
+
+</div>
+>>>>>>> completed
 </template>
 
 <script setup>
 import axios from 'axios';
 
+<<<<<<< HEAD
+=======
+import StudentSideBar from '@/layout/StudentSideBar.vue';
+
+>>>>>>> completed
 import { ref, computed } from 'vue';
 
 const phoneNumberfirst = ref('010');
@@ -97,7 +115,11 @@ const sub = async () => {
   }
 
   try {
+<<<<<<< HEAD
     const res = await axios.post('http://192.168.0.103:8080/vacation/request', data, {
+=======
+    const res = await axios.post('http://192.168.103:8080/vacation/request', data, {
+>>>>>>> completed
             headers: {
                 Authorization: `Bearer ${token}`,
             }
