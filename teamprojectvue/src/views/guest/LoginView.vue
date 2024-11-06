@@ -95,12 +95,14 @@ const LoginSequence = async () => {
      if ( userrl.value == 'ROLE_STUDENT') {
       console.log('학생계정'+ userrl.value)
       router.push({ name: 'stdatt' })
-    } else if ( userrl == 'ROLE_TEACHER') {
+
+    } else if ( userrl.value == 'ROLE_TEACHER') {
       console.log('선생계정')
       router.push({ name: 'teachercalander' })
+
     } else {
-      console.log('맵핑문제')
-      router.push({name:'loginview'})
+      console.log('매니저계정')
+      router.push({name:'deskcalander'})
     }
 
 

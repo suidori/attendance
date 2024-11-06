@@ -2,6 +2,7 @@
 
 <div class="bg-[#eee] h-[50vw]">
 
+
   <nav class="mx-0 shadow-md ">
     <div class="bg-blue-300 h-44">
       <div>
