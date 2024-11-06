@@ -3,6 +3,8 @@
         달력보기
     </router-link>
     <h1>오늘의 출결 변동 한눈에 보기</h1>
+
+   
     <h1 v-if="user">{{ user.name }} 선생님, 환영합니다.</h1>
     <div v-if="arr.length > 0" class="overflow-x-auto">
         <h1>{{ arr.at(0).lecture }} 강좌의 출결 변동 목록입니다.</h1>
@@ -15,6 +17,7 @@
                     <th class="p-2 border border-gray-300">교사 확인</th>
                     <th class="p-2 border border-gray-300">행정실 확인</th>
                     <th class="p-2 border border-gray-300">병결</th>
+                    <th class="p-2 border border-gray-300"></th>
                 </tr>
             </thead>
             <tbody>
@@ -22,9 +25,10 @@
                     <td class="p-2 border border-gray-300">{{ students.user }}</td>
                     <td class="p-2 border border-gray-300">{{ students.type }}</td>
                     <td class="p-2 border border-gray-300">{{ students.reason }}</td>
-                    <td class="p-2 border border-gray-300">{{ students.teacheraccept }}</td>
+                    <td class="p-2 border border-gray-300">{{ students.teacheraccept }} </td>
                     <td class="p-2 border border-gray-300">{{ students.manageraccept }}</td>
                     <td class="p-2 border border-gray-300">{{ students.approval }}</td>
+                   <td  class="p-2 border border-gray-300"> <button @click.stop="" class="border-2 border-blue-500 rounded">확인</button></td>
                 </tr>
             </tbody>
         </table>
