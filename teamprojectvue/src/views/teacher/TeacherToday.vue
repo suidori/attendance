@@ -15,6 +15,7 @@
                     <th class="p-2 border border-gray-300">교사 확인</th>
                     <th class="p-2 border border-gray-300">행정실 확인</th>
                     <th class="p-2 border border-gray-300">병결</th>
+                    <th class="p-2 border border-gray-300"></th>
                 </tr>
             </thead>
             <tbody>
@@ -25,6 +26,11 @@
                     <td class="p-2 border border-gray-300">{{ students.teacheraccept }}</td>
                     <td class="p-2 border border-gray-300">{{ students.manageraccept }}</td>
                     <td class="p-2 border border-gray-300">{{ students.approval }}</td>
+                    <td class="p-2 border border-gray-300">
+                        <button v-if="students.teacheraccept == '담당교사 확인 대기중'" @click="teachercheck(students.idx)"
+                            class="px-2 py-1 mr-1 text-white bg-blue-600 rounded hover:opacity-80">확인</button>
+                        <div v-else class="px-2 py-1 mr-1" style="opacity: 0;">확인</div>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -37,6 +43,20 @@ import { onMounted, ref } from 'vue';
 
 const arr = ref([]);
 const user = ref(null);
+
+const teachercheck = async (idx) => {
+    try {
+        await axios.post(`http://192.168.0.103:8080/attendance/teacheraccept/${idx}`);
+        
+        const item = arr.value.find(student => student.idx === idx);
+        if (item) {
+            item.teacheraccept = '담당교사 확인 완료';
+        }
+    } catch (e) {
+        console.log(e);
+    }
+}
+
 
 const getuser = async () => {
     try {
@@ -54,18 +74,31 @@ const getuser = async () => {
 
 const todayview = async () => {
     try {
-        const token = localStorage.getItem('token')
+        const token = localStorage.getItem('token');
         const res = await axios.get(`http://192.168.0.103:8080/attendance/todayteacherview`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             }
         });
-        console.log(res.data);
-        arr.value = res.data;
+
+        const sortedData = res.data.sort((a, b) => {
+            // 첫 번째 조건: '담당교사 확인 대기중' 우선
+            if (a.teacheraccept === '담당교사 확인 대기중' && b.teacheraccept !== '담당교사 확인 대기중') {
+                return -1;
+            } else if (a.teacheraccept !== '담당교사 확인 대기중' && b.teacheraccept === '담당교사 확인 대기중') {
+                return 1;
+            }
+            // 두 번째 조건: teacheraccept가 같을 경우 user의 가나다순 정렬
+            return a.user.localeCompare(b.user, 'ko');
+        });
+
+        console.log(sortedData);
+        arr.value = sortedData;
     } catch (e) {
         console.error(e);
     }
 }
+
 
 
 onMounted(() => {
