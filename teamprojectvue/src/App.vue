@@ -1,6 +1,6 @@
 <template>
 
-<div class="bg-[#eee] h-[50vw]">
+<div class="bg-[#eee] h-screen font-[GmarketSansMedium]">
 
 
   <nav class="mx-0 shadow-md ">
@@ -21,16 +21,16 @@
 
         <div class="  flex float-end z-10 ">
           <div class="mr-2" v-if="logincheckpinia">
-            <RouterLink to="/loginview">| 로그인</RouterLink>
+            <!-- <RouterLink to="/loginview">| 로그인</RouterLink> -->
           </div>
           <div class="mr-2" v-if="logincheckpinia">
-            <RouterLink to="/jointermsofuse">| 회원가입</RouterLink>
+            <!-- <RouterLink to="/jointermsofuse">| 회원가입</RouterLink> -->
           </div>
           <div v-else>
-            <div class="float-right mr-10 mb-10 text-2xl border-2 border-red-400 rounded hover:bg-red-400" @click="logout">
-              <RouterLink to="/loginview">로그아웃</RouterLink>
+            <div class="flex items-end float-right mr-10 text-xl rounded hover:bg-red-400" @click="logout">
+              <RouterLink to="/loginview"><a class="flex text-white items-center font-[GmarketSansMedium]">로그아웃 <img class="w-8" src="./images/LoutIcon.png" alt=""></a></RouterLink> 
             </div>
-            <div  class="float-right mr-10 mb-10 text-2xl">{{ username }} 님 반갑습니다.</div>
+            <div  class="float-right mr-10 mb-10 text-2xl">{{ username }} {{ userrl }} 님 반갑습니다.</div>
           </div>
         </div>
       </div>
