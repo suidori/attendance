@@ -10,7 +10,7 @@
           <img
             src="./images/LOGO.png"
             alt=""
-            class="w-32 mt-5 max-md:w-28 ml-3 cursor-pointer"
+            class="w-32 mt-5 max-md:w-28 cursor-pointer"
             @click="logoclick"
           />
         </div>
