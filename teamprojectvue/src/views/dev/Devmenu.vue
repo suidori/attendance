@@ -14,20 +14,12 @@
         매니저메뉴
       </div>
     </router-link>
-<<<<<<< HEAD
-  </template>
-  
-  <script setup>
-  import { useRouter } from 'vue-router'
-  const router = useRouter()
-=======
     <div class="mb-64">
 
 </div>
   </template>
   
   <script setup>
->>>>>>> completed
   </script>
   
   <style lang="scss" scoped></style>
