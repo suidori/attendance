@@ -1,7 +1,7 @@
 <template>
 
-<div class="bg-[#eee] h-[50vw]">
-  
+<div class="bg-[#eee] h-screen font-[GmarketSansMedium]">
+
 
   <nav class="mx-0 shadow-md ">
     <div class="bg-blue-300 h-44">
@@ -10,26 +10,25 @@
           <img
             src="./images/LOGO.png"
             alt=""
-            class="w-32 mt-5 max-md:w-28 ml-3 cursor-pointer"
+            class="w-32 mt-5 max-md:w-28 cursor-pointer"
             @click="logoclick"
           />
         </div>
 
 
-      
+        <!-- <StudentSideBar  class="" v-if="sidecheck"/> -->
 
 
         <div class="  flex float-end z-10 ">
           <div class="mr-2" v-if="logincheckpinia">
-          
-            <RouterLink to="/loginview">| 로그인</RouterLink>
+            <!-- <RouterLink to="/loginview">| 로그인</RouterLink> -->
           </div>
           <div class="mr-2" v-if="logincheckpinia">
-            <RouterLink to="/jointermsofuse">| 회원가입</RouterLink>
+            <!-- <RouterLink to="/jointermsofuse">| 회원가입</RouterLink> -->
           </div>
           <div v-else>
-            <div class="float-right mr-10 mb-10 text-2xl border-2 border-red-400 rounded hover:bg-red-400" @click="logout">
-              <RouterLink to="/loginview">로그아웃</RouterLink>
+            <div class="flex items-end float-right mr-10 text-xl rounded hover:bg-red-400" @click="logout">
+              <RouterLink to="/loginview"><a class="flex text-white items-center font-[GmarketSansMedium]">로그아웃 <img class="w-8" src="./images/LoutIcon.png" alt=""></a></RouterLink>
             </div>
             <div  class="float-right mr-10 mb-10 text-2xl">{{ username }} 님 반갑습니다.</div>
           </div>
@@ -38,11 +37,9 @@
     </div>
   </nav>
 
-  
-
   <div class="m-5">
     <div class="h-24"></div>
-   
+
     <RouterView />
     <!-- 사이드배너 -->
     <div class="" id="sidebann">
@@ -52,10 +49,11 @@
     </div>
   </div>
 </div>
- <StudentSideBar  class="" style="position: fixed; top:35%; left:8%" v-if="studentsidebar"/>
- <TeacherSideBar  class="" style="position: fixed; top:35%; left:8%" v-if="teachersidebar"/>
+<!-- <StudentSideBar  class="" style="position: fixed; top:35%; left:3%" v-if="sidecheck1"/>
+<StudentSideBar  class="" style="position: fixed; top:35%; left:3%" v-if="sidecheck2"/> -->
+
 </template>
- 
+
 <script setup>
 import StudentSideBar from './layout/StudentSideBar.vue'
 import TeacherSideBar from './component/TeacherSideBar.vue'
@@ -77,7 +75,6 @@ const loginStore = useloginStore()
 
 const router = useRouter()
 // const route = useRoute()
-
 const {studentsidebar, teachersidebar} = storeToRefs(sidebarstore)
 
 const { logincheckpinia, username, userrl } = storeToRefs(loginStore)
@@ -92,8 +89,6 @@ const { logincheckfalse, loginchecktrue } = loginStore
 //     }, 500);
 //   }
 // );
-
-const sidecheck = ref(false)
 
 
 // watch(
@@ -112,9 +107,13 @@ const rolecheck = async() => {
 
   if ( userrl.value == 'ROLE_STUDENT') {
       console.log('학생계정')
+      // sidecheck1.value = true
+      // sidecheck2.value = false
       router.push({ name: 'stdatt' })
     } else if ( userrl.value == 'ROLE_TEACHER') {
       console.log('선생계정')
+      // sidecheck1.value = false
+      // sidecheck2.value = true
       router.push({ name: 'teachertoday' })
     }
     
@@ -159,8 +158,8 @@ const logout = () => {
 
   console.log('로그아웃 체크' + logincheckpinia)
 
-  sidecheck.value = false
-
+  // sidecheck1.value = false
+  // sidecheck2.value = false
   router.push({ name: 'loginhome' })
 }
 
@@ -179,13 +178,17 @@ onMounted(async () => {
     //권한 체크
 
     //사이드바 체크
-    sidecheck.value = true
+    
 
     if ( userrl.value == 'ROLE_STUDENT') {
       console.log('학생계정')
+      // sidecheck1.value = true
+      // sidecheck2.value = false
       router.push({ name: 'stdatt' })
     } else if ( userrl.value == 'ROLE_TEACHER') {
       console.log('선생계정')
+      // sidecheck1.value = false
+      // sidecheck2.value = true
       router.push({ name: 'teachertoday' })
       
     }
@@ -217,13 +220,17 @@ onMounted(async () => {
 const homelogin = () => {
   if (localStorage.getItem('token') !== null) {
     console.log('로그인 유지')
-sidecheck.value = true
+
     
     if ( userrl.value == 'ROLE_STUDENT') {
       console.log('학생계정')
+      // sidecheck1.value = true
+      // sidecheck2.value = false
       router.push({ name: 'stdatt' })
     } else if ( userrl.value == 'ROLE_TEACHER') {
       console.log('선생계정')
+      // sidecheck1.value = false
+      // sidecheck2.value = true
       router.push({ name: 'teachertoday' })
 
       
@@ -251,8 +258,4 @@ homelogin()
 
 </script>
 
-<style scoped>
-*{
-  font-family: "Noto Sans", sans-serif;
-}
-</style>
+<style lang="scss" scoped></style>

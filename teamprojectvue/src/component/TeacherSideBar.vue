@@ -1,7 +1,7 @@
 <template>
     <div class="w-36 bg-blue-900">
       <aside class="text-white p-4">
-        <h2 class="text-lg font-bold mb-6 h-20">메뉴</h2>
+        <h2 class="text-lg font-bold mb-6 h-20">선생님 메뉴</h2>
         <ul class="space-y-3">
           <hr />
           <RouterLink to="/attendancecheck">
@@ -15,7 +15,7 @@
           </RouterLink>
           <hr />
           <RouterLink to="/lectureselect">
-            <li><a href="#" class="block text-sm pt-3">과정 선택</a></li>
+            <li><a href="#" class="block text-sm pt-3">과정 관리</a></li>
           </RouterLink>
           <hr />
           <RouterLink to="/mypage">

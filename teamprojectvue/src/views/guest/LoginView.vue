@@ -6,7 +6,7 @@
     </div>
     <div class="mx-auto mt-20 w-[40rem] p-4 transform bg-white shadow-md flex flex-col justify-center items-center">
       <div class=" my-3 mt-10 space-y-3 justify-between">
-          <p class="ml-7">ID<input
+          <p class="ml-10">ID<input
               class="ml-5 p-3 mb-5 w-80 transition duration-200 border-b border-gray-400 focus:outline-none"
               type="text"
               name="userid"
@@ -15,7 +15,7 @@
               v-model="userid"
             />
           </p>
-          <p class="mr-10">PASSWORD<input
+          <p class="mr-12">PASSWORD<input
               class="ml-5 p-3 w-80 transition duration-200 border-b border-gray-400 focus:outline-none"
               type="password"
               name="password"
@@ -127,9 +127,7 @@ const LoginSequence = async () => {
      
 </script>
 
-<style scoped>
-
-</style>
+<style lang="scss" scoped></style>
 
 
 

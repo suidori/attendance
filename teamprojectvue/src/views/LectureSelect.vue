@@ -1,5 +1,6 @@
   <template>
-    <StudentSideBar class="absolute"></StudentSideBar>
+        <StudentSideBar class="min-w-28 absolute"/>
+
        <div class="w-2/3 mx-auto p-10">
        <div class="mb-4">
 
