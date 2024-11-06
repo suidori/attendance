@@ -1,7 +1,7 @@
 <template>
 <div class="text-center">
     <div class="flex justify-center -m-5">
-      <h1 class="font-mono font-black italic text-3xl tracking-tight flex flex-col">GREENART COMPUTER ARCADEMY</h1>
+      <h1 class="font-mono font-black italic text-3xl tracking-tight flex flex-col">GREEN COMPUTER ARCADEMY</h1>
 
     </div>
     <div class="mx-auto mt-20 w-[40rem] p-4 transform bg-white shadow-md flex flex-col justify-center items-center">
@@ -11,6 +11,7 @@
               type="text"
               name="userid"
               id="userid"
+              placeholder="아이디를 입력해주세요"
               v-model="userid"
             />
           </p>
@@ -20,6 +21,7 @@
               name="password"
               id="password"
               v-model="password"
+              placeholder="비밀번호를 입력해주세요"
               @keydown.enter="LoginSequence"
             />
           </p>
@@ -33,6 +35,10 @@
           value="로그인"
         />
       </div>
+      <router-link to="jointermsofuse">
+      <button class="text-sm text-blue-900">
+        회원이 아니신가요?
+      </button></router-link>
     </div>
   </div>
 </template>
@@ -89,18 +95,11 @@ const LoginSequence = async () => {
      if ( userrl.value == 'ROLE_STUDENT') {
       console.log('학생계정'+ userrl.value)
       router.push({ name: 'stdatt' })
-    } else if ( userrl.value == 'ROLE_TEACHER') {
-      console.log('선생계정'+ userrl.value)
-      router.push({ name: 'teachertoday' })
-
-
-    }else if ( userrl.value == 'ROLE_MANAGER') {
-      console.log('매니저계정'+ userrl.value)
-      router.push({ name: 'deskcalander' })
-    
-    }
-    else {
-      console.log('맵핑문제'+ userrl.value)
+    } else if ( userrl == 'ROLE_TEACHER') {
+      console.log('선생계정')
+      router.push({ name: 'teachercalander' })
+    } else {
+      console.log('맵핑문제')
       router.push({name:'loginview'})
     }
 

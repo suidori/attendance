@@ -1,6 +1,6 @@
 <template>
   <div class="w-3/4 max-w-2xl mt-10 p-8 mx-auto bg-white rounded shadow-2xl min-w-80 max-lg:w-1/2">
-    <h1 class="mb-4 text-3xl  font-bold text-center">GREENART COMPUTER ACADEMY</h1>
+    <h1 class="mb-4 text-3xl  font-bold text-center">GREEN COMPUTER ACADEMY</h1>
     <form @submit.prevent="joinuser">
       <div class="mb-6">
         <label for="role" class="inline mb-2 text-sm font-bold  text-blue-800">1. 회원 유형</label>
@@ -164,7 +164,6 @@ const phoneNumber = ref('')
 
 
 
-
 const checkphone = async () => {
 // 아이디가 비어있을 경우
 if (!phoneNumbersecond.value || !phoneNumberthird.value) {
@@ -181,12 +180,14 @@ if (!phoneNumbersecond.value || !phoneNumberthird.value) {
    phoneNumber.value = `${phoneNumberfirst.value}-${phoneNumbersecond.value}-${phoneNumberthird.value}`;
 
  //맵핑 메서드
+
    const phonechek = await checkPhapi(phoneNumber.value)
 
    console.log("전화번호"+phoneNumber.value)
        try{
 
            if (phonechek.data == false) {
+
               phoneError.value = '이미 가입된 전화번호입니다.'
               phoneAvailable.value = false
             } else {
@@ -201,6 +202,8 @@ if (!phoneNumbersecond.value || !phoneNumberthird.value) {
           }  
 }
 
+
+
 const checkid = async () => {
   // 아이디가 비어있을 경우
   if (!userid.value) {
@@ -208,6 +211,8 @@ const checkid = async () => {
     idAvailable.value = false
     return
   }
+
+
 
   const idResponse = await checkI( userid.value )
 
@@ -226,6 +231,11 @@ const checkid = async () => {
       }
 }
 
+
+
+
+
+
 const joinuser = async () => {
 
   const data = {
@@ -241,7 +251,9 @@ const joinuser = async () => {
 
     router.push({name:'joincomplete'})
 
+
      alert("회원가입 완료")
+
 
 }
 </script>

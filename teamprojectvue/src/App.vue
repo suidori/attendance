@@ -1,5 +1,7 @@
 <template>
+
 <div class="bg-[#eee] h-[50vw]">
+
   <nav class="mx-0 shadow-md ">
     <div class="bg-blue-300 h-44">
       <div>
@@ -12,7 +14,9 @@
           />
         </div>
 
+
         <StudentSideBar  class="" v-if="sidecheck"/>
+
 
         <div class="  flex float-end z-10 ">
           <div class="mr-2" v-if="logincheckpinia">
@@ -68,6 +72,15 @@ const router = useRouter()
 const { logincheckpinia, username, userrl } = storeToRefs(loginStore)
 const { logincheckfalse, loginchecktrue } = loginStore
 
+// watch(
+//   () => route.fullPath, // 라우트 경로가 변경될 때 감지
+//   () => {
+//     usernameinput.value = false;
+//     setTimeout(() => {
+//       usernameinput.value = true;
+//     }, 500);
+//   }
+// );
 
 const sidecheck = ref(false)
 
@@ -196,6 +209,7 @@ const homelogin = () => {
     } else if ( userrl.value == 'ROLE_TEACHER') {
       console.log('선생계정')
       router.push({ name: 'teachercalander' })
+
       
     }
    else if ( userrl.value == 'ROLE_MANAGER') {
@@ -205,6 +219,7 @@ const homelogin = () => {
     }
     
     else {
+
       console.log('맵핑문제')
       
     }
