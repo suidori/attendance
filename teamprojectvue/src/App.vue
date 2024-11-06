@@ -28,7 +28,7 @@
           </div>
           <div v-else>
             <div class="flex items-end float-right mr-10 text-xl rounded hover:bg-red-400" @click="logout">
-              <RouterLink to="/loginview"><a class="flex text-white items-center font-[GmarketSansMedium]">로그아웃 <img class="w-8" src="./images/LoutIcon.png" alt=""></a></RouterLink> 
+              <RouterLink to="/loginview"><a class="flex text-white items-center font-[GmarketSansMedium]">로그아웃 <img class="w-8" src="./images/LoutIcon.png" alt=""></a></RouterLink>
             </div>
             <div  class="float-right mr-10 mb-10 text-2xl">{{ username }} {{ userrl }} 님 반갑습니다.</div>
           </div>
@@ -49,6 +49,7 @@
     </div>
   </div>
 </div>
+<StudentSideBar  class="" style="position: fixed; top:35%; left:8%" v-if="sidecheck"/>
 </template>
 
 <script setup>
@@ -104,7 +105,7 @@ const rolecheck = async() => {
       router.push({ name: 'stdatt' })
     } else if ( userrl.value == 'ROLE_TEACHER') {
       console.log('선생계정')
-      router.push({ name: 'teachercalander' })
+      router.push({ name: 'teachertoday' })
     }
     
     else if ( userrl.value == 'ROLE_MANAGER') {
@@ -148,6 +149,8 @@ const logout = () => {
 
   console.log('로그아웃 체크' + logincheckpinia)
 
+  sidecheck.value = false
+
   router.push({ name: 'loginhome' })
 }
 
@@ -164,14 +167,16 @@ onMounted(async () => {
     //토큰 체크
     logincheckfalse()
     //권한 체크
-    
+
+    //사이드바 체크
+    sidecheck.value = true
 
     if ( userrl.value == 'ROLE_STUDENT') {
       console.log('학생계정')
       router.push({ name: 'stdatt' })
     } else if ( userrl.value == 'ROLE_TEACHER') {
       console.log('선생계정')
-      router.push({ name: 'teachercalander' })
+      router.push({ name: 'teachertoday' })
       
     }
    else if ( userrl.value == 'ROLE_MANAGER') {
@@ -202,14 +207,14 @@ onMounted(async () => {
 const homelogin = () => {
   if (localStorage.getItem('token') !== null) {
     console.log('로그인 유지')
-
+sidecheck.value = true
     
     if ( userrl.value == 'ROLE_STUDENT') {
       console.log('학생계정')
       router.push({ name: 'stdatt' })
     } else if ( userrl.value == 'ROLE_TEACHER') {
       console.log('선생계정')
-      router.push({ name: 'teachercalander' })
+      router.push({ name: 'teachertoday' })
 
       
     }
