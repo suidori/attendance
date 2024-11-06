@@ -21,6 +21,7 @@
 
         <div class="  flex float-end z-10 ">
           <div class="mr-2" v-if="logincheckpinia">
+          
             <RouterLink to="/loginview">| 로그인</RouterLink>
           </div>
           <div class="mr-2" v-if="logincheckpinia">
@@ -104,7 +105,7 @@ const rolecheck = async() => {
       router.push({ name: 'stdatt' })
     } else if ( userrl.value == 'ROLE_TEACHER') {
       console.log('선생계정')
-      router.push({ name: 'teachercalander' })
+      router.push({ name: 'teachertoday' })
     }
     
     else if ( userrl.value == 'ROLE_MANAGER') {
@@ -171,7 +172,7 @@ onMounted(async () => {
       router.push({ name: 'stdatt' })
     } else if ( userrl.value == 'ROLE_TEACHER') {
       console.log('선생계정')
-      router.push({ name: 'teachercalander' })
+      router.push({ name: 'teachertoday' })
       
     }
    else if ( userrl.value == 'ROLE_MANAGER') {
@@ -209,7 +210,7 @@ const homelogin = () => {
       router.push({ name: 'stdatt' })
     } else if ( userrl.value == 'ROLE_TEACHER') {
       console.log('선생계정')
-      router.push({ name: 'teachercalander' })
+      router.push({ name: 'teachertoday' })
 
       
     }
@@ -236,4 +237,8 @@ homelogin()
 
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+*{
+  font-family: "Noto Sans", sans-serif;
+}
+</style>
