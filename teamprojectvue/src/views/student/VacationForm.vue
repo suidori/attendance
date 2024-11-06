@@ -1,30 +1,26 @@
 <template>
   <div class="absolute max-md:hidden">
-<<<<<<< HEAD
-
-  </div>
-  <div>
-=======
     <StudentSideBar class="min-w-28"/>
  
   </div>
   <div class>
->>>>>>> completed
-    <h1 class="md:ml-52">| 학생용 (VacationForm)</h1>
     <div class="w-1/2 mx-auto min-w-80">
       <div class="">
         <h1 class="pt-10 font-extrabold text-blue-900">휴가 신청서 제출</h1>
       </div>
       <hr class="border-t border-gray-300" />
       <div>
-        <p class="py-6 font-bold text-blue-900">1. 휴가를 시작하는 날짜와 끝나는 날짜 기입</p>
+        <p class="py-6 font-bold text-blue-900">1. 휴가 신청 날짜 기입</p>
         <div class="inline-flex">
-          <label for="startdate" class="mr-3">시작 날짜</label>
-          <input class="border-2 border-slate-600" type="date" v-model="startdate" id="startdate" />
-        </div>
-        <div class="inline-flex">
-          <label for="enddate" class="mx-3">끝나는 날짜</label>
-          <input class="border-2 border-slate-600" type="date" v-model="enddate" id="enddate" />
+          <label for="date" class="mx-3">휴가 신청일</label>
+          <input 
+          @input="datecheck(date)" 
+          class="border-2 border-slate-600" 
+          type="date" 
+          v-model="date" 
+          id="enddate" />
+          <p v-if="dateAvail" class="text-green-500">{{ selectedDate }}</p>
+          <p v-if="!dateAvail" class="text-red-500">{{ selectedDate }}</p>
         </div>
         <div>
           <hr class="mt-6" />
@@ -57,8 +53,8 @@
               <option value="018">018</option>
               <option value="019">019</option>
             </select>
-            - <input type="text" v-model="phoneNumbersecond" class="border border-gray-500">
-            - <input @input="showuser" type="text" v-model="phoneNumberthird" class="border border-gray-500">
+            - <input type="text" v-model="phoneNumbersecond" maxlength="4" class="border border-gray-500">
+            - <input @input="showuser" type="text" v-model="phoneNumberthird" maxlength="4" class="border border-gray-500">
           </div>
         </div>
         <div class="flex justify-end">
@@ -72,32 +68,61 @@
     <div class="flex items-center justify-center">
     </div>
   </div>
-<<<<<<< HEAD
-=======
   <div class="mb-64">
 
 </div>
->>>>>>> completed
 </template>
 
 <script setup>
 import axios from 'axios';
 
-<<<<<<< HEAD
-=======
 import StudentSideBar from '@/layout/StudentSideBar.vue';
 
->>>>>>> completed
 import { ref, computed } from 'vue';
 
 const phoneNumberfirst = ref('010');
 const phoneNumbersecond = ref('');
 const phoneNumberthird = ref('');
-const startdate = ref('');
-const enddate = ref('');
+const date = ref('');
 const reason = ref('');
 const personalNumFront = ref('');
 const personalNumBack = ref('');
+const dateAvail = ref(false);
+const selectedDate = ref('날짜를 선택 해 주세요');
+
+const datecheck = (date) => {
+    if (!date) {
+      dateAvail.value = false;
+      selectedDate.value = '유효하지 않은 날짜입니다.';
+      return;
+    }
+
+    const inputDate = new Date(date);
+    const today = new Date();
+
+    const sevenDaysAfterToday = new Date(today);
+    sevenDaysAfterToday.setDate(today.getDate() + 6);
+
+    const isWeekend = inputDate.getDay() === 0 || inputDate.getDay() === 6;
+
+    if(!isWeekend){
+      dateAvail.value = true;
+      selectedDate.value = '선택되었습니다.';
+    }else {
+      dateAvail.value = false;
+      selectedDate.value = '주말은 선택할 수 없습니다.';
+      return;
+    }
+
+    if(inputDate >= sevenDaysAfterToday){
+      dateAvail.value = true;
+      selectedDate.value = '선택되었습니다.';
+    } else {
+      dateAvail.value = false;
+      selectedDate.value = '휴가 신청은 최소 일주일 전에 가능합니다.';
+    }
+
+  }
 
 const fullPersonalNum = computed(() => {
   return `${personalNumFront.value}-${personalNumBack.value}●●●●●●`;
@@ -105,21 +130,22 @@ const fullPersonalNum = computed(() => {
 
 const sub = async () => {
 
+  if(dateAvail.value == false){
+    alert('올바른 날짜를 선택 해 주세요.');
+    return;
+  }
+
+
   const token = localStorage.getItem('token')
   const data = {
     "personalNum": fullPersonalNum.value,
     "reason": reason.value,
-    "startdate": startdate.value,
-    "enddate": enddate.value,
+    "date": date.value,
     "phonecall": `${phoneNumberfirst.value}-${phoneNumbersecond.value}-${phoneNumberthird.value}`
   }
 
   try {
-<<<<<<< HEAD
-    const res = await axios.post('http://192.168.0.103:8080/vacation/request', data, {
-=======
     const res = await axios.post('http://192.168.103:8080/vacation/request', data, {
->>>>>>> completed
             headers: {
                 Authorization: `Bearer ${token}`,
             }

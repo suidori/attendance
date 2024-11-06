@@ -1,21 +1,4 @@
 <template>
-<<<<<<< HEAD
-    <div class="mt-4">
-      <h1 class="my-5 text-center ">휴가 요청</h1>
-      <div class="card">
-        <div class="">
-          <table class="table">
-            <thead class="">
-              <tr class="">
-                <th>번호</th>
-                <th>작성자</th>
-                <th>강의</th>
-                <th>시작일</th>
-                <th>종료일</th>
-                <th>승인 상태</th>
-                <th>다운로드</th>
-                <th>행동</th>
-=======
   <div class="font-sans flex justify-center">  
     <main class="flex justify-center" style="width: 1300px;">
       <section class="flex-1 p-5 m-10 bg-white border-1 border-gray-500">
@@ -49,7 +32,6 @@
                 <th class="p-1 border border-gray-300">종료일</th>
                 <th class="p-1 border border-gray-300">휴가 승인</th>
                 <th class="p-1 border border-gray-300">휴가 신청서</th>
->>>>>>> completed
               </tr>
             </thead>
             <tbody>
@@ -63,19 +45,6 @@
                          class="w-4 h-4 transform scale-150" />
                   <span v-else>&nbsp;</span>
                 </td>
-<<<<<<< HEAD
-                <td>
-                  <a v-if="vacation.accept === '허가됨'" 
-                     :href="`http://192.168.0.103:8080/vacation/download/hwp/${vacation.idx}`" 
-                     class="btn btn-primary btn-sm" 
-                     target="_blank">다운로드</a>
-                  <span v-else>—</span>
-                </td>
-                <td>
-                  <button v-if="vacation.accept == '대기중'" 
-                          @click="handleApprove(vacation.idx)" 
-                          class="mx-1 text-white bg-blue-600 rounded-md hover:opacity-80">
-=======
                 <td class="p-1 border border-gray-300">{{ vacation.wdate }}</td>
                 <td class="p-1 border border-gray-300">{{ vacation.user }}</td>
                 <td class="p-1 border border-gray-300">{{ vacation.lecture }}</td>
@@ -86,16 +55,11 @@
                   <button v-if="vacation.accept == '대기중'" 
                           @click="handleApprove(vacation.idx)"
                           class="px-2 py-1 mr-1 text-white bg-blue-600 rounded hover:opacity-80">
->>>>>>> completed
                     승인
                   </button>
                   <button v-if="vacation.accept == '대기중'" 
                           @click="handleDeny(vacation.idx)" 
-<<<<<<< HEAD
-                          class="text-white bg-blue-600 rounded-md hover:opacity-80">
-=======
                           class="px-2 py-1 text-white bg-blue-600 rounded hover:opacity-80">
->>>>>>> completed
                     거절
                   </button>
                   <span v-else :class="vacation.accept === '허가됨' ? 'text-green-600' : 'text-red-600'">
@@ -112,52 +76,6 @@
               </tr>
             </tbody>
           </table>
-<<<<<<< HEAD
-          <div v-if="totalElements === 0" class="text-center alert alert-info" role="alert">
-            휴가 요청이 없습니다.
-          </div>
-        </div>
-      </div>
-    </div>
-  </template>
-  
-  <script setup>
-  import { ref, onMounted } from 'vue';
-  import axios from 'axios';
-  
-  const vacationList = ref([]);
-  const totalElements = ref(0);
-  
-  const fetchVacations = async () => {
-    try {
-      const response = await axios.get('http://192.168.0.103:8080/vacation/manager');
-      vacationList.value = response.data.list; 
-      totalElements.value = response.data.totalElements;
-    } catch (error) {
-      console.error('휴가 요청을 가져오는 중 오류 발생:', error);
-    }
-  };
-  
-  const handleApprove = async (idx) => {
-    try {
-      await axios.post(`http://192.168.0.103:8080/vacation/accept/${idx}`);
-      fetchVacations(); // 요청 승인 후 목록 새로고침
-    } catch (error) {
-      console.error('승인 중 오류 발생:', error);
-    }
-  };
-  
-  const handleDeny = async (idx) => {
-    try {
-      await axios.post(`http://192.168.0.103:8080/vacation/deny/${idx}`);
-      fetchVacations(); // 요청 거절 후 목록 새로고침
-    } catch (error) {
-      console.error('거절 중 오류 발생:', error);
-    }
-  };
-  
-  onMounted(() => {
-=======
           <button @click="approveAll" class="px-4 py-2 text-white bg-green-600 rounded hover:opacity-80">선택 사항 모두 승인</button>
           <button v-if="!unchecking" @click="unChecked(1)" class="px-4 py-2 text-white bg-blue-600 rounded hover:opacity-80">대기 중인 요청만 보기</button>
           <button v-if="unchecking" @click="fetchVacations(1)" class="px-4 py-2 text-white bg-blue-600 rounded hover:opacity-80">모든 요청 보기</button>
@@ -209,7 +127,6 @@ const unChecked = async (pageNum = 1) => {
 const nameSearch = async (pageNum = 1) => {
   unchecking.value = false;
   if (username.value === '') {
->>>>>>> completed
     fetchVacations();
     return;
   }

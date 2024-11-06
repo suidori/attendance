@@ -2,6 +2,7 @@ package attendance.management.vacation;
 
 import attendance.management.sign.LoginUserDetails;
 import attendance.management.utility.PageUtil;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
@@ -16,6 +17,7 @@ import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
+@SecurityRequirement(name = "Bearer Authentication")
 @RestController
 @RequiredArgsConstructor
 @CrossOrigin
@@ -47,18 +49,28 @@ public class VacationController {
     public ResponseEntity<VacationResponsePageDto> studentFindAll(
             @RequestParam(name = "pageNum", defaultValue = "0") int pageNum,
             @RequestParam(name = "size", defaultValue = "10") int size,
-            @RequestHeader("Authorization") String token
+            @AuthenticationPrincipal LoginUserDetails loginUserDetails
     ) {
-        VacationResponsePageDto vacationResponsePageDto = vacationService.studentPage(PageUtil.getPageable(pageNum, size), token);
+        if(loginUserDetails==null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        VacationResponsePageDto vacationResponsePageDto = vacationService.studentPage(PageUtil.getPageable(pageNum, size), loginUserDetails.getIdx());
         return ResponseEntity.ok(vacationResponsePageDto);
     }
 
+    @GetMapping("/studentunchecked")
+    public ResponseEntity<VacationResponsePageDto> studentUnchecked(
+            @RequestParam(name = "pageNum", defaultValue = "0") int pageNum,
+            @RequestParam(name = "size", defaultValue = "10") int size,
+            @AuthenticationPrincipal LoginUserDetails loginUserDetails
+    ) {
+        if(loginUserDetails==null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
 
-
-
-
-
-    
+        VacationResponsePageDto vacationResponsePageDto = vacationService.studentUnchecked(PageUtil.getPageable(pageNum, size), loginUserDetails.getIdx());
+        return ResponseEntity.ok(vacationResponsePageDto);
+    }
 
     @GetMapping("/teacher")
     public ResponseEntity<VacationResponsePageDto> teacherFindAll(
@@ -78,6 +90,24 @@ public class VacationController {
         return ResponseEntity.ok(vacationResponsePageDto);
     }
 
+    @GetMapping("/managersearch")
+    public ResponseEntity<VacationResponsePageDto> managerSearch(
+            @RequestParam(name = "pageNum", defaultValue = "0") int pageNum,
+            @RequestParam(name = "size", defaultValue = "10") int size,
+            @RequestParam(name = "name") String name
+            ){
+        VacationResponsePageDto vacationResponsePageDto = vacationService.managerSearch(PageUtil.getPageable(pageNum, size), name);
+        return ResponseEntity.ok(vacationResponsePageDto);
+    }
+
+    @GetMapping("/managerunchecked")
+    public ResponseEntity<VacationResponsePageDto> managerUnChecked(
+            @RequestParam(name = "pageNum", defaultValue = "0") int pageNum,
+            @RequestParam(name = "size", defaultValue = "10") int size
+    ){
+        VacationResponsePageDto vacationResponsePageDto = vacationService.managerUnChecked(PageUtil.getPageable(pageNum, size));
+        return ResponseEntity.ok(vacationResponsePageDto);
+    }
 
     @PostMapping("/accept/{idx}")
     public ResponseEntity<String> accept(@PathVariable("idx") long idx) throws Exception {

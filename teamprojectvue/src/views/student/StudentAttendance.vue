@@ -1,13 +1,9 @@
 <template>
     <div id="container" class="flex">
-<<<<<<< HEAD
-        <div id="leftmenu" class="p-4 border border-blue-500 w-36">
-=======
 
-        <StudentSideBar class="min-w-28 absolute"/>
+        <StudentSideBar class="absolute min-w-28"/>
         <!-- <div id="leftmenu" class="p-4 border border-blue-500 w-36">
 
->>>>>>> completed
             <h1>메뉴</h1>
             <RouterLink to="/stdatt">
                 <h1>출결달력</h1>
@@ -15,27 +11,17 @@
             <RouterLink to="/vacationform">
                 <h1>휴가신청</h1>
             </RouterLink>
-<<<<<<< HEAD
-        </div>
-        <div id="main">
-            <div id="user">
-=======
 
         </div> -->
-        <div id="main" class="mx-auto items-center justify-center w-2/3">
+        <div id="main" class="items-center justify-center w-2/3 mx-auto">
             <div id="user" class="">
 
->>>>>>> completed
                 <h1 v-if="user">{{user.name}} 학생 출결 관리</h1>
                 <p v-if="useravail" class="text-green-600">수강중: {{ attlist.at(0).lecture }}</p>
                 <p v-if="!useravail" class="text-red-600">{{ usererror }}</p>
             </div>
             <div id="attendance" class="flex">
-<<<<<<< HEAD
-                <div id="calander" class="w-full max-w-lg p-4 bg-white rounded-lg shadow-md">
-=======
                 <div id="calander" class="w-full p-4 bg-white rounded-lg shadow-md min-w-72">
->>>>>>> completed
                     <h1 class="mb-4 text-xl font-bold text-center">
                         <button @click="subMonth()" class="mr-2"><i class="fas fa-arrow-left">&lt;&lt;</i></button>
                         {{ now.format('YYYY년 MM월') }}
@@ -60,13 +46,9 @@
                             }">
                             <span>{{ column.get('date') }}</span>
                             <template v-for="items in attlist" :key="items.adate">
-<<<<<<< HEAD
-                                <div v-if="items.adate == column.format('YYYY-MM-DD')">
-=======
 
                                 <div v-if="items.adate == column.format('YYYY-MM-DD') ">
 
->>>>>>> completed
                                     <div class="mt-2 text-green-600">
                                         <button @click="(event) => selectAttFn(event, items, column)"
                                             class="w-full font-bold text-white rounded hover:bg-green-700 focus:outline-none focus:shadow-outline"
@@ -81,34 +63,8 @@
                         </div>
                     </div>
                 </div>
-<<<<<<< HEAD
-                <div id="attadd" v-show="selectDate">
-                    <h1>{{ selectDate }} 출결 등록</h1>
-                    <div>
-                        <label for="attendance">1. 해당하는 출결 변동 사항을 선택 해 주세요.</label>
-                        <form action="">
-                            <input type="radio" value="지각" id="type-1" name="attendance" v-model="type" checked>
-                            <label for="type-1" class="p-1 pr-3">지각</label>
 
-                            <input type="radio" value="조퇴" id="type-2" name="attendance" v-model="type">
-                            <label for="type-2" class="p-1 pr-3">조퇴</label>
-
-                            <input type="radio" value="외출" id="type-3" name="attendance" v-model="type">
-                            <label for="type-3" class="p-1 pr-3">외출</label>
-
-                            <input type="radio" value="결석" id="type-4" name="attendance" v-model="type">
-                            <label for="type-4" class="p-1 pr-3">결석</label>
-                        </form>
-                    </div>
-
-                    <p>2. 출결 변동의 원인을 적어주세요.</p>
-                    <p><input type="text" placeholder="예시) 병원, 예비군 등" class="border border-gray-500" v-model="reason">
-                    </p>
-                    <div>
-                        <label for="approval">3. 출석 인정 사유에 해당됩니까?</label>
-=======
-
-                <div id="attadd" v-show="selectDate" class="mx-6 bg-blue-300 rounded-lg p-2">
+                <div id="attadd" v-show="selectDate" class="p-2 mx-6 bg-blue-300 rounded-lg">
 
                     <h1>{{ selectDate }} 출결 등록</h1>
                     <div class="">
@@ -133,7 +89,6 @@
                     </p>
                     <div>
                         <label for="approval" class="text-xs">3. 출석 인정 사유에 해당됩니까?</label>
->>>>>>> completed
                         <form action="">
                             <input type="radio" value=false id="approval-1" name="approval" v-model="approval" required>
                             <label for="approval-1" class="p-1 pr-3">예</label>
@@ -142,41 +97,12 @@
                         </form>
                     </div>
                     <button @click="attupdate"
-<<<<<<< HEAD
-                        class="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline"
-=======
-                        class="px-4 py-2 font-bold mt-6 text-white bg-blue-500 rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline"
->>>>>>> completed
+                        class="px-4 py-2 mt-6 font-bold text-white bg-blue-500 rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline"
                         type="button">
                         제출하기
                     </button>
                 </div>
-<<<<<<< HEAD
-                <div id="attupdate" v-show="selectAtt">
-                    <h1>{{ attDate }} 출결 수정</h1>
-                    <div>
-                        <label for="attendance">1. 해당하는 출결 변동 사항을 선택 해 주세요.</label>
-                        <form action="">
-                            <input type="radio" value="지각" id="type-1" name="attendance" v-model="type">
-                            <label for="type-1" class="p-1 pr-3">지각</label>
-
-                            <input type="radio" value="조퇴" id="type-2" name="attendance" v-model="type">
-                            <label for="type-2" class="p-1 pr-3">조퇴</label>
-
-                            <input type="radio" value="외출" id="type-3" name="attendance" v-model="type">
-                            <label for="type-3" class="p-1 pr-3">외출</label>
-
-                            <input type="radio" value="결석" id="type-4" name="attendance" v-model="type">
-                            <label for="type-4" class="p-1 pr-3">결석</label>
-                        </form>
-                    </div>
-                    <p>2. 출결 변동의 원인을 적어주세요.</p>
-                    <p><input type="text" placeholder="예시) 병원, 예비군 등" class="border border-gray-500" v-model="reason">
-                    </p>
-                    <div>
-                        <label for="approval">3. 출석 인정 사유에 해당됩니까?</label>
-=======
-                <div id="attupdate" v-show="selectAtt" class="bg-blue-300 rounded-lg p-2">
+                <div id="attupdate" v-show="selectAtt" class="p-2 bg-blue-300 rounded-lg">
                     <h1>{{ attDate }} 출결 수정</h1>
                     <div>
                         <label for="attendance" class="text-xs">1. 해당하는 출결 변동 사항을 선택 해 주세요.</label>
@@ -199,7 +125,6 @@
                     </p>
                     <div>
                         <label for="approval" class="text-xs">3. 출석 인정 사유에 해당됩니까?</label>
->>>>>>> completed
                         <form action="">
                             <input type="radio" :value="false" id="approval-1" name="approval" v-model="approval"
                                 required>
@@ -210,20 +135,12 @@
                         </form>
                     </div>
                     <button @click="attupdate"
-<<<<<<< HEAD
-                        class="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline"
-=======
                         class="px-3 py-2 mt-6 font-bold text-white bg-blue-500 rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline"
->>>>>>> completed
                         type="button">
                         수정하기
                     </button>
                     <button @click="attdelete"
-<<<<<<< HEAD
-                        class="px-4 py-2 font-bold text-white bg-red-500 rounded hover:bg-red-700 focus:outline-none focus:shadow-outline"
-=======
                         class="px-3 py-2 font-bold text-white bg-red-500 rounded hover:bg-red-700 focus:outline-none focus:shadow-outline"
->>>>>>> completed
                         type="button">
                         삭제하기
                     </button>
@@ -232,26 +149,20 @@
             </div>
         </div>
     </div>
-<<<<<<< HEAD
-=======
     <div class="mb-64">
 
 </div>
->>>>>>> completed
 </template>
 
 <script setup>
-import { ref, watch, watchEffect, onMounted } from 'vue';
+import { ref, watch, onMounted } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
 import dayjs from 'dayjs';
 
-<<<<<<< HEAD
-=======
 import StudentSideBar from '@/layout/StudentSideBar.vue';
 
 
->>>>>>> completed
 
 
 const now = ref(dayjs());
@@ -338,13 +249,9 @@ const showuser = async () => {
 
     try {
         const token = localStorage.getItem('token')
-<<<<<<< HEAD
-        const resuser = await axios.get('http://192.168.0.103:8080/user/getuser', {
-=======
 
         const resuser = await axios.get('http://192.168.103:8080/user/getuser', {
 
->>>>>>> completed
             headers: {
                 Authorization: `Bearer ${token}`,
             }
@@ -356,13 +263,9 @@ const showuser = async () => {
         "month": dayjs(now.value).format('YYYY-MM')
     }
 
-<<<<<<< HEAD
-        const resatt = await axios.post('http://192.168.0.103:8080/attendance/getuser', data)
-=======
 
         const resatt = await axios.post('http://192.168.103:8080/attendance/getuser', data)
 
->>>>>>> completed
         attlist.value = resatt.data;
         useravail.value = true;
         console.log(attlist.value);
@@ -390,11 +293,6 @@ const attupdate = async () => {
     }
 
     try {
-<<<<<<< HEAD
-        const res = await axios.post('http://192.168.0.103:8080/attendance/attupdate', data)
-        console.log(res)
-        alert(`${(selectDate.value == null) ? attDate.value : selectDate.value}, ${type.value} 요청 완료!`)
-=======
 
         const res = await axios.post('http://192.168.103:8080/attendance/attupdate', data)
 
@@ -402,7 +300,6 @@ const attupdate = async () => {
         alert(`${(selectDate.value == null) ? attDate.value : selectDate.value}, ${type.value} 요청 완료!`)
         selectAtt.value=null;
         selectDate.value=null;
->>>>>>> completed
         showuser();
     } catch (e) {
         console.log(e)
@@ -417,13 +314,9 @@ const attdelete = async () => {
     }
 
     try {
-<<<<<<< HEAD
-        const res = await axios.delete(`http://192.168.0.103:8080/attendance/attdelete/${selectAtt.value.idx}`)
-=======
 
         const res = await axios.delete(`http://192.168.103:8080/attendance/attdelete/${selectAtt.value.idx}`)
 
->>>>>>> completed
         console.log(res)
         alert(`${attDate.value}, ${type.value} 삭제 요청 완료!`)
         selectAtt.value = null;

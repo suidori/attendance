@@ -1,10 +1,12 @@
 package attendance.management.test;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 
+@SecurityRequirement(name = "Bearer Authentication")
 @CrossOrigin
 @RestController
 @RequestMapping("test")

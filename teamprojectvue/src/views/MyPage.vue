@@ -1,10 +1,6 @@
 <template>
-<<<<<<< HEAD
-  <SideBar class="absolute"></SideBar>
-=======
         <StudentSideBar class="min-w-28 absolute"/>
 
->>>>>>> completed
   <h1 class="py-4 font-bold text-blue-800 mx-60">마이페이지</h1>
   <hr class="w-2/3 mx-auto" />
 

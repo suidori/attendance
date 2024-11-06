@@ -40,7 +40,7 @@ public class VacationFileEditor {
         body[2] = vacation.getUser().getName();
         body[3] = vacation.getPersonalNum();
         body[4] = vacation.getReason();
-        body[5] = vacation.getStartdate().toString() + " ~ " + vacation.getEnddate().toString();
+        body[5] = vacation.getDate().toString();
         body[6] = vacation.getPhonecall();
 
 
@@ -55,6 +55,10 @@ public class VacationFileEditor {
         int count = 1;
 
         File directory = new File("request_hwp");
+
+        if(!directory.exists())
+            directory.mkdirs();
+
         File[] files = directory.listFiles();
 
         if (files != null) {

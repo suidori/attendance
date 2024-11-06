@@ -116,19 +116,7 @@
           class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
         />
       </div>
-<<<<<<< HEAD
-      <div class="mb-6">
-        <label for="role" class="block mb-2 text-sm font-bold text-gray-700">관리자 여부</label>
-        <input type="radio" value="ROLE_STUDENT" name="role" id="role-1" v-model="role" />
-        <label for="role-1" class="p-1 pr-3">학생</label>
-        <input type="radio" value="ROLE_TEACHER" name="role" id="role-2" v-model="role" />
-        <label for="role-2" class="p-1 pr-3">선생</label>
-        <input type="radio" value="ROLE_MANAGER" name="role" id="role-3" v-model="role" />
-        <label for="role-3" class="p-1 pr-3">매니저</label>
-      </div>
-=======
       
->>>>>>> completed
       <button
         @click="joinuser"
         class="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline"
@@ -189,17 +177,7 @@ if (!phoneNumbersecond.value || !phoneNumberthird.value) {
     
   }
 
-<<<<<<< HEAD
-  try {
-
-
-    const phoneResponse = await axios.get(`http://192.168.0.103:8080/sign/checkphone?phoneNumber=${phoneNumber}`);
-
-    console.log(phoneNumber);
-    console.log(phoneResponse);
-=======
    phoneNumber.value = `${phoneNumberfirst.value}-${phoneNumbersecond.value}-${phoneNumberthird.value}`;
->>>>>>> completed
 
  //맵핑 메서드
 
@@ -234,13 +212,6 @@ const checkid = async () => {
     return
   }
 
-<<<<<<< HEAD
-  try {
-
-    const idResponse = await axios.get(`http://192.168.0.103:8080/sign/checkid?userid=${userid.value}`);
-
-=======
->>>>>>> completed
 
 
   const idResponse = await checkI( userid.value )
@@ -272,14 +243,9 @@ const joinuser = async () => {
     password: password.value,
     name: name.value,
     email: (email.value) ? email.value : null,
-<<<<<<< HEAD
-    phoneNumber: `${phoneNumberfirst.value}-${phoneNumbersecond.value}-${phoneNumberthird.value}`,
-    role: role.value
-=======
     phoneNumber: String(`${phoneNumberfirst.value}-${phoneNumbersecond.value}-${phoneNumberthird.value}`),
     role: role.value,
     // lecture: lecture.value
->>>>>>> completed
   }
     await joinU(data)
 
@@ -289,21 +255,5 @@ const joinuser = async () => {
      alert("회원가입 완료")
 
 
-<<<<<<< HEAD
-console.log(data);
-
-  try {
-
-
-    const res = await axios.post('http://192.168.0.103:8080/sign/signin', data)
-
-    console.log(res)
-    router.push({ name: 'loginview' })
-  } catch (e) {
-    console.log(e)
-    alert('에러')
-  }
-=======
->>>>>>> completed
 }
 </script>

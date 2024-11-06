@@ -1,5 +1,6 @@
 package attendance.management.sign;
 
+import attendance.management.user.Role;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
@@ -25,7 +26,7 @@ public class JoinDto {
 
     @NotEmpty
     @Schema(description = "권한", example = "ROLE_STUDENT")
-    private String role;
+    private Role role;
 
     @Schema(description = "이메일", example = "aaa@example.com")
     private String email;
