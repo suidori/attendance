@@ -1,11 +1,11 @@
 <template>
   <div class="absolute max-md:hidden">
-    <StudentSideBar></StudentSideBar>
+ 
   </div>
   <div>
     <h1 class="md:ml-52">| 학생용 (VacationForm)</h1>
     <div class="w-1/2 mx-auto min-w-80">
-      <div class="">
+      <div class="bg-red-500" style="width: 2500px;">
         <h1 class="pt-10 font-extrabold text-blue-900">휴가 신청서 제출</h1>
       </div>
       <hr class="border-t border-gray-300" />
@@ -102,7 +102,7 @@ const sub = async () => {
   }
 
   try {
-    const res = await axios.post('http://192.168.0.5:8080/vacation/request', data, {
+    const res = await axios.post('http://192.168.103:8080/vacation/request', data, {
             headers: {
                 Authorization: `Bearer ${token}`,
             }

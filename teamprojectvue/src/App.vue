@@ -1,7 +1,7 @@
 <template>
 
 <div class="bg-[#eee] h-[50vw]">
-
+  
 
   <nav class="mx-0 shadow-md ">
     <div class="bg-blue-300 h-44">
@@ -16,7 +16,7 @@
         </div>
 
 
-        <StudentSideBar  class="" v-if="sidecheck"/>
+      
 
 
         <div class="  flex float-end z-10 ">
@@ -38,9 +38,11 @@
     </div>
   </nav>
 
+  
+
   <div class="m-5">
     <div class="h-24"></div>
-
+   
     <RouterView />
     <!-- 사이드배너 -->
     <div class="" id="sidebann">
@@ -50,8 +52,9 @@
     </div>
   </div>
 </div>
+<StudentSideBar  class="" style="position: fixed; top:35%; left:8%" v-if="sidecheck"/>
 </template>
-
+ 
 <script setup>
 import StudentSideBar from './layout/StudentSideBar.vue'
 
@@ -85,6 +88,7 @@ const { logincheckfalse, loginchecktrue } = loginStore
 // );
 
 const sidecheck = ref(false)
+
 
 // watch(
 //   () => route.fullPath, // 라우트 경로가 변경될 때 감지
@@ -149,6 +153,8 @@ const logout = () => {
 
   console.log('로그아웃 체크' + logincheckpinia)
 
+  sidecheck.value = false
+
   router.push({ name: 'loginhome' })
 }
 
@@ -165,7 +171,9 @@ onMounted(async () => {
     //토큰 체크
     logincheckfalse()
     //권한 체크
-    
+
+    //사이드바 체크
+    sidecheck.value = true
 
     if ( userrl.value == 'ROLE_STUDENT') {
       console.log('학생계정')
@@ -203,7 +211,7 @@ onMounted(async () => {
 const homelogin = () => {
   if (localStorage.getItem('token') !== null) {
     console.log('로그인 유지')
-
+sidecheck.value = true
     
     if ( userrl.value == 'ROLE_STUDENT') {
       console.log('학생계정')

@@ -2,35 +2,35 @@
 
 
 
-     <div class=" flex justify-center bg-gray-300">
-        <div class="bg-blue-200">
-            <div class="border border-red-400 hover:bg-red-400 inline-block "><router-link to="teachercalander" class="">
-        학생출결 조회
-    </router-link></div>
-    <h1 v-if="user"><span class="font-bold">{{ user.name }}</span> 선생님, 환영합니다.</h1>
-    <div v-if="arr.length > 0" class="overflow-x-auto">
-        <h1>{{ arr.at(0).lecture }} 강좌의 출결 변동 목록입니다.</h1>
+     <div class=" flex justify-center ">
+        <div class="m-3 border border-gray-400 bg-white">
+        <div class="  m-10">
+        
+    <h1 class=" m-3 inline-block" v-if="user"><span class="font-bold">{{ user.name }}</span> 선생님, 환영합니다.</h1>
+    <hr class="m-1 mr-2 ml-2 border border-blue-500">
+    <div v-if="arr.length > 0" class="overflow-x-auto ">
+        <h1 class="font-bold m-2"> - {{ arr.at(0).lecture }} 강좌 출결정보 리스트 - </h1>
         <table class="border border-collapse border-gray-200">
             <thead>
-                <tr class="bg-gray-100 ">
-                    <th class="p-2 pr-4 pl-4 border border-gray-300">학생</th>
+                <tr class="bg-gray-200 ">
+                    <th class="p-2 pr-4 pl-4 border-t border-b border-gray-300">학생</th>
                     <th class="p-2 pr-4 pl-4 border border-gray-300 ">출결 상태</th>
                     <th class="p-2 pr-4 pl-4 border border-gray-300">사유</th>
                     <th class="p-2 pr-4 pl-4 border border-gray-300">교사 확인</th>
                     <th class="p-2 pr-4 pl-4 border border-gray-300">행정실 확인</th>
                     <th class="p-2 pr-4 pl-4 border border-gray-300">출석 인정</th>
-                    <th class="p-2 pr-4 pl-4 border border-gray-300"></th>
+                    <th class="p-2 pr-4 pl-4 border-t border-b border-gray-300"></th>
                 </tr>
             </thead>
             <tbody>
                 <tr  v-for="students in arr" :key="students.idx" class="bg-gray-50 hover:bg-gray-200">
-                    <td class="p-2 border border-gray-300 text-center">{{ students.user }}</td>
+                    <td class="p-2 border-t border-b border-gray-300 text-center">{{ students.user }}</td>
                     <td class="p-2 border border-gray-300 text-center">{{ students.type }}</td>
                     <td class="p-2 border border-gray-300">{{ students.reason }}</td>
                     <td class="p-2 border border-gray-300 text-center">{{ students.teacheraccept }} </td>
                     <td class="p-2 border border-gray-300 text-center">{{ students.manageraccept }}</td>
                     <td class="p-2 border border-gray-300 text-center">{{ students.approval }}</td>
-                    <td class="p-2 border border-gray-300">
+                    <td class="p-2 border-t border-b border-gray-300">
 
 
                         <button v-if="students.teacheraccept == '담당교사 확인 대기중'" @click="teachercheck(students.idx)"
@@ -42,10 +42,14 @@
                 </tr>
             </tbody>
         </table>
+        <div class="mt-3 border-2  border-red-400 hover:bg-red-400 inline-block rounded-sm"><router-link to="teachercalander" class="">
+        학생출결 조회
+    </router-link></div>
     </div>
     </div>
-    <div class="mb-64">
+    <div class="">
     
+</div>
 </div>
 </div>
 </template>

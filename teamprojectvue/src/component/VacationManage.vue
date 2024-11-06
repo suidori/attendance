@@ -1,7 +1,7 @@
 <template>
-  <div class="font-sans">  
-    <main class="flex">
-      <section class="flex-1 p-5">
+  <div class="font-sans flex justify-center">  
+    <main class="flex justify-center" style="width: 1300px;">
+      <section class="flex-1 p-5 m-10 bg-white border-1 border-gray-500">
         <h1 class="mb-5 text-2xl font-semibold">휴가 신청 관리</h1>
         
         <div class="flex mb-5">
