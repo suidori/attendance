@@ -176,7 +176,7 @@ onMounted(async () => {
     //권한 체크
 
     //사이드바 체크
-    
+
 
     if ( userrl.value == 'ROLE_STUDENT') {
       console.log('학생계정')
@@ -188,17 +188,17 @@ onMounted(async () => {
       sidecheck1.value = false
       sidecheck2.value = true
       router.push({ name: 'teachertoday' })
-      
+
     }
    else if ( userrl.value == 'ROLE_MANAGER') {
       console.log('매니저계정')
       router.push({ name: 'deskcalander' })
-      
+
     }
-    
+
     else {
       console.log('맵핑문제')
-      
+
     }
 
 

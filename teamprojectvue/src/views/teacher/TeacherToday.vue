@@ -5,7 +5,7 @@
      <div class=" flex justify-center ">
         <div class="m-3 border border-gray-400 bg-white">
         <div class="  m-10">
-        
+
     <h1 class=" m-3 inline-block" v-if="user"><span class="font-bold">{{ user.name }}</span> 선생님, 환영합니다.</h1>
     <hr class="m-1 mr-2 ml-2 border border-blue-500">
     <div v-if="arr.length > 0" class="overflow-x-auto ">
@@ -48,7 +48,7 @@
     </div>
     </div>
     <div class="">
-    
+
 </div>
 </div>
 </div>
@@ -88,7 +88,7 @@ const getuser = async () => {
 const teachercheck = async (idx) => {
     try {
         await axios.post(`http://192.168.0.103:8080/attendance/teacheraccept/${idx}`);
-        
+
         const item = arr.value.find(student => student.idx === idx);
         if (item) {
             item.teacheraccept = '담당교사 확인 완료';
