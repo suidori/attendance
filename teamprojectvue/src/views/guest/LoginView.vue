@@ -128,9 +128,7 @@ const LoginSequence = async () => {
 </script>
 
 <style scoped>
-*{
-  font-family: "Noto Sans", sans-serif;
-}
+
 </style>
 
 

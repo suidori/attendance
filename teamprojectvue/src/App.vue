@@ -52,12 +52,14 @@
     </div>
   </div>
 </div>
-<StudentSideBar  class="" style="position: fixed; top:35%; left:8%" v-if="sidecheck"/>
+ <StudentSideBar  class="" style="position: fixed; top:35%; left:8%" v-if="studentsidebar"/>
+ <TeacherSideBar  class="" style="position: fixed; top:35%; left:8%" v-if="teachersidebar"/>
 </template>
  
 <script setup>
 import StudentSideBar from './layout/StudentSideBar.vue'
-
+import TeacherSideBar from './component/TeacherSideBar.vue'
+import { usesidebarstore } from './stores/sidebar'
 import { useloginStore } from './stores/loginpinia'
 import { onMounted, watch } from 'vue'
 import { useRouter } from 'vue-router'
@@ -69,10 +71,14 @@ import { ref } from 'vue'
 
 const usernameinput = ref(false);
 
+const sidebarstore = usesidebarstore()
+
 const loginStore = useloginStore()
 
 const router = useRouter()
 // const route = useRoute()
+
+const {studentsidebar, teachersidebar} = storeToRefs(sidebarstore)
 
 const { logincheckpinia, username, userrl } = storeToRefs(loginStore)
 const { logincheckfalse, loginchecktrue } = loginStore

@@ -97,6 +97,8 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue';
 import axios from 'axios';
+// import { fetchVacationsapi, handleApproveapi, handleDenyapi, unCheckedapi } from '@/api/vacation';
+
 
 const vacationList = ref([]);
 const totalElements = ref(0);
@@ -110,28 +112,47 @@ const username = ref('');
 
 const unchecking = ref(false);
 
+
+
+
+
 const unChecked = async (pageNum = 1) => {
   unchecking.value = true;
   try {
-    const response = await axios.get(`http://192.168.0.103:8080/vacation/managerunchecked?pageNum=${pageNum - 1}`);
+    
+    const response = await axios.get`http://192.168.0.103:8080/vacation/managerunchecked?pageNum=${pageNum - 1}`;
+    // const response = await unCheckedapi(pageNum);
+
     vacationList.value = response.data.list; 
     totalElements.value = response.data.totalElements;
     totalPages.value = response.data.totalPages;
     currentPage.value = pageNum; // 현재 페이지 업데이트
     checkedRequest.value = [];
+
   } catch (error) {
     console.error('휴가 요청을 가져오는 중 오류 발생:', error);
   }
 };
 
+
+
+
+
+
 const nameSearch = async (pageNum = 1) => {
+
   unchecking.value = false;
   if (username.value === '') {
     fetchVacations();
     return;
   }
   try {
-    const response = await axios.get(`http://192.168.0.103:8080/vacation/managersearch?pageNum=${pageNum -1}&size=10&name=${username.value}`);
+
+  //  const response = nameSearchapi(pageNum, username.value);
+    
+
+   const response = await axios.get(`http://192.168.0.103:8080/vacation/managersearch?pageNum=${pageNum -1}&size=10&name=${username.value}`);
+
     vacationList.value = response.data.list; 
     vacationList.value.sort((a, b) => b.idx - a.idx);
     totalElements.value = response.data.totalElements;
@@ -144,10 +165,13 @@ const nameSearch = async (pageNum = 1) => {
   }
 };
 
+
 const fetchVacations = async (pageNum = 1) => {
   unchecking.value = false;
   try {
     const response = await axios.get(`http://192.168.0.103:8080/vacation/manager?pageNum=${pageNum - 1}`);
+  //  const response = fetchVacationsapi(pageNum)
+
     vacationList.value = response.data.list; 
     vacationList.value.sort((a, b) => b.idx - a.idx);
     totalElements.value = response.data.totalElements;
@@ -158,6 +182,8 @@ const fetchVacations = async (pageNum = 1) => {
     console.error('휴가 요청을 가져오는 중 오류 발생:', error);
   }
 };
+
+
 
 const getPage = (index) => {
 
@@ -194,17 +220,24 @@ const approveAll = async () => {
 };
 
 const handleApprove = async (idx) => {
+
   try {
+
     await axios.post(`http://192.168.0.103:8080/vacation/accept/${idx}`);
+    // await handleApproveapi(idx)
     getPage(currentPage.value); // 현재 페이지로 목록 새로고침
   } catch (error) {
     console.error('승인 중 오류 발생:', error);
   }
 };
 
+
 const handleDeny = async (idx) => {
   try {
+
     await axios.post(`http://192.168.0.103:8080/vacation/deny/${idx}`);
+    // handleDenyapi(idx)
+
     getPage(currentPage.value); // 현재 페이지로 목록 새로고침
   } catch (error) {
     console.error('거절 중 오류 발생:', error);
