@@ -16,7 +16,7 @@
         </div>
 
 
-        <StudentSideBar  class="" v-if="sidecheck"/>
+        <!-- <StudentSideBar  class="" v-if="sidecheck"/> -->
 
 
         <div class="  flex float-end z-10 ">
@@ -30,7 +30,7 @@
             <div class="flex items-end float-right mr-10 text-xl rounded hover:bg-red-400" @click="logout">
               <RouterLink to="/loginview"><a class="flex text-white items-center font-[GmarketSansMedium]">로그아웃 <img class="w-8" src="./images/LoutIcon.png" alt=""></a></RouterLink>
             </div>
-            <div  class="float-right mr-10 mb-10 text-2xl">{{ username }} {{ userrl }} 님 반갑습니다.</div>
+            <div  class="float-right mr-10 mb-10 text-2xl">{{ username }} 님 반갑습니다.</div>
           </div>
         </div>
       </div>
@@ -49,7 +49,9 @@
     </div>
   </div>
 </div>
-<StudentSideBar  class="" style="position: fixed; top:35%; left:8%" v-if="sidecheck"/>
+<!-- <StudentSideBar  class="" style="position: fixed; top:35%; left:3%" v-if="sidecheck1"/>
+<StudentSideBar  class="" style="position: fixed; top:35%; left:3%" v-if="sidecheck2"/> -->
+
 </template>
 
 <script setup>
@@ -84,7 +86,8 @@ const { logincheckfalse, loginchecktrue } = loginStore
 //   }
 // );
 
-const sidecheck = ref(false)
+const sidecheck1 = ref(false)
+const sidecheck2 = ref(false)
 
 // watch(
 //   () => route.fullPath, // 라우트 경로가 변경될 때 감지
@@ -102,9 +105,13 @@ const rolecheck = async() => {
 
   if ( userrl.value == 'ROLE_STUDENT') {
       console.log('학생계정')
+      sidecheck1.value = true
+      sidecheck2.value = false
       router.push({ name: 'stdatt' })
     } else if ( userrl.value == 'ROLE_TEACHER') {
       console.log('선생계정')
+      sidecheck1.value = false
+      sidecheck2.value = true
       router.push({ name: 'teachertoday' })
     }
     
@@ -149,8 +156,8 @@ const logout = () => {
 
   console.log('로그아웃 체크' + logincheckpinia)
 
-  sidecheck.value = false
-
+  sidecheck1.value = false
+  sidecheck2.value = false
   router.push({ name: 'loginhome' })
 }
 
@@ -169,13 +176,17 @@ onMounted(async () => {
     //권한 체크
 
     //사이드바 체크
-    sidecheck.value = true
+    
 
     if ( userrl.value == 'ROLE_STUDENT') {
       console.log('학생계정')
+      sidecheck1.value = true
+      sidecheck2.value = false
       router.push({ name: 'stdatt' })
     } else if ( userrl.value == 'ROLE_TEACHER') {
       console.log('선생계정')
+      sidecheck1.value = false
+      sidecheck2.value = true
       router.push({ name: 'teachertoday' })
       
     }
@@ -207,13 +218,17 @@ onMounted(async () => {
 const homelogin = () => {
   if (localStorage.getItem('token') !== null) {
     console.log('로그인 유지')
-sidecheck.value = true
+
     
     if ( userrl.value == 'ROLE_STUDENT') {
       console.log('학생계정')
+      sidecheck1.value = true
+      sidecheck2.value = false
       router.push({ name: 'stdatt' })
     } else if ( userrl.value == 'ROLE_TEACHER') {
       console.log('선생계정')
+      sidecheck1.value = false
+      sidecheck2.value = true
       router.push({ name: 'teachertoday' })
 
       
