@@ -82,13 +82,11 @@ const todayview = async () => {
         });
 
         const sortedData = res.data.sort((a, b) => {
-            // 첫 번째 조건: '담당교사 확인 대기중' 우선
             if (a.teacheraccept === '담당교사 확인 대기중' && b.teacheraccept !== '담당교사 확인 대기중') {
                 return -1;
             } else if (a.teacheraccept !== '담당교사 확인 대기중' && b.teacheraccept === '담당교사 확인 대기중') {
                 return 1;
             }
-            // 두 번째 조건: teacheraccept가 같을 경우 user의 가나다순 정렬
             return a.user.localeCompare(b.user, 'ko');
         });
 

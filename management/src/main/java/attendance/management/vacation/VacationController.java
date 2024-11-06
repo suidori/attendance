@@ -53,6 +53,13 @@ public class VacationController {
         return ResponseEntity.ok(vacationResponsePageDto);
     }
 
+
+
+
+
+
+    
+
     @GetMapping("/teacher")
     public ResponseEntity<VacationResponsePageDto> teacherFindAll(
             @RequestParam(name = "pageNum", defaultValue = "0") int pageNum,
