@@ -1,6 +1,6 @@
 <template>
-  <div class="text-center">
-    <div class="flex justify-center -m-5">
+  <div class="text-center m-52">
+    <div class="flex justify-center items-center">
       <h1 class="font-mono font-black italic text-3xl tracking-tight flex flex-col">GREEN COMPUTER ARCADEMY</h1>
 
     </div>
