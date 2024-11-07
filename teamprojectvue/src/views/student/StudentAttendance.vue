@@ -155,7 +155,7 @@
 </template>
 
 <script setup>
-import { ref, watch, watchEffect, onMounted } from 'vue';
+import { ref, watch, onMounted } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
 import dayjs from 'dayjs';

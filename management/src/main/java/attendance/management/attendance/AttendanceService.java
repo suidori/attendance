@@ -144,4 +144,11 @@ public class AttendanceService {
 
         return attendance;
     }
+
+    public Attendance teacherAccept(long idx) {
+        Attendance attendance = attendanceRepository.findById(idx).orElseThrow(()->{throw new BizException(ErrorCode.ATTENDANCE_NOT_FOUND);});
+        attendance.setTeacheraccept(true);
+        attendanceRepository.save(attendance);
+        return attendance;
+    }
 }

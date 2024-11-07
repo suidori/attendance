@@ -46,8 +46,7 @@ public class VacationService {
         vacation.setLecture(userAndLecture.get().getLecture());
         vacation.setUser(userAndLecture.get().getUser());
         vacation.setWdate(LocalDate.now());
-        vacation.setStartdate(LocalDate.parse(vacationReqDto.getStartdate()));
-        vacation.setEnddate(LocalDate.parse(vacationReqDto.getEnddate()));
+        vacation.setDate(LocalDate.parse(vacationReqDto.getDate()));
         vacationRepository.save(vacation);
 
         VacationResponseDto vacationResponseDto = modelMapper.map(vacationReqDto, VacationResponseDto.class);
@@ -68,8 +67,7 @@ public class VacationService {
         VacationResponseDto vacationResponseDto = modelMapper.map(vacation, VacationResponseDto.class);
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yy/MM/dd");
         vacationResponseDto.setWdate(dateTimeFormatter.format(vacation.getWdate()));
-        vacationResponseDto.setStartdate(dateTimeFormatter.format(vacation.getStartdate()));
-        vacationResponseDto.setEnddate(dateTimeFormatter.format(vacation.getEnddate()));
+        vacationResponseDto.setDate(dateTimeFormatter.format(vacation.getDate()));
         if (vacation.getAccept() == null) {
             vacationResponseDto.setAccept("대기중");
         } else {
@@ -114,8 +112,7 @@ public class VacationService {
         return new VacationFileDto(resource, fileName);
     }
 
-    public VacationResponsePageDto studentPage(Pageable pageable, String token) {
-        Long userIdx = jwtManager.extractUserIdxFromToken(token);
+    public VacationResponsePageDto studentPage(Pageable pageable, Long userIdx) {
 
         Page<Vacation> page = vacationRepository.findByUser_Idx(userIdx, pageable);
 
@@ -146,8 +143,7 @@ public class VacationService {
                     VacationResponseDto vacationResponseDto = modelMapper.map(vacation, VacationResponseDto.class);
                     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yy/MM/dd");
                     vacationResponseDto.setWdate(dateTimeFormatter.format(vacation.getWdate()));
-                    vacationResponseDto.setStartdate(dateTimeFormatter.format(vacation.getStartdate()));
-                    vacationResponseDto.setEnddate(dateTimeFormatter.format(vacation.getEnddate()));
+                    vacationResponseDto.setDate(dateTimeFormatter.format(vacation.getDate()));
                     vacationResponseDto.setUser(vacation.getUser().getName());
                     vacationResponseDto.setLecture(vacation.getLecture().getTitle());
                     if (vacation.getAccept() == null) {
@@ -167,5 +163,21 @@ public class VacationService {
     }
 
 
+    public VacationResponsePageDto managerSearch(Pageable pageable, String name) {
+        Page<Vacation> page = vacationRepository.findByUserName(name, pageable);
+
+        return mapToVacationResponsePageDto(page);
+
+    }
+
+    public VacationResponsePageDto managerUnChecked(Pageable pageable) {
+        Page<Vacation> page = vacationRepository.findByAccept(null, pageable);
+        return mapToVacationResponsePageDto(page);
+    }
+
+    public VacationResponsePageDto studentUnchecked(Pageable pageable, Long idx) {
+        Page<Vacation> page = vacationRepository.findByAcceptAndUser_Idx(null, idx, pageable);
+        return mapToVacationResponsePageDto(page);
+    }
 }
 

@@ -5,7 +5,7 @@
  <div class="mb-4">
 
   <h1 class="text-2xl font-bold mb-2">과정 선택</h1>
-  
+
   <hr class="border-t-2 border-blue-600" />
 </div>
 
@@ -16,7 +16,7 @@
 
   <button @click="golectureinsert()" class="ml-10 inline-block bg-yellow-500 text-white py-2 px-4 rounded-lg hover:bg-yellow-700 " >강좌 생성</button>
   <button @click="golecturelist()" class="ml-10 inline-block bg-red-300 text-white py-2 px-4 rounded-lg hover:bg-yellow-700 " >강좌 리스트</button>
-  
+
   <!-- Search Bar -->
   <div class="mb-4">
     <input
