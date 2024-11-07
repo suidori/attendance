@@ -15,29 +15,43 @@ user5~15 학생
       </div>
     </div>
   </div>
-  <layoutHeader></layoutHeader>
+  <LayoutFooter></LayoutFooter>
 
+  <template v-if="role_number=='ROLE_STUDNET'">
+    {{ console.log("학생") }}
+    <StudentSideBar class="" style="position: fixed; top: 35%; left: 3%" v-if="sidecheck1" />
+  </template>
+  <template v-if="role_number=='ROLE_TEACHER'">
+    {{ console.log("선생") }}
+    <div>TEACHER</div>
+  </template>
+  <template v-if="role_number=='ROLE_MANAGER'">
+    {{ console.log("매니저") }}
+    <div>MANAGER</div>
+  </template>
+  
   <!-- <StudentSideBar  class="" style="position: fixed; top:35%; left:3%" v-if="sidecheck1"/>
 <StudentSideBar  class="" style="position: fixed; top:35%; left:3%" v-if="sidecheck2"/> -->
 </template>
 
 <script setup>
-import layoutHeader from './layout/layout-header.vue';
+import LayoutFooter from './layout/layoutFooter.vue';
 import { useloginStore } from './stores/loginpinia';
-import { onMounted } from 'vue';
+import { onMounted,ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { storeToRefs } from 'pinia';
 // import { userrole } from './api/loginapi';
 import { userdata } from './api/loginapi';
 
-
-const loginStore = useloginStore();
-
 const router = useRouter();
 
-const { logincheckpinia,  userrl } = storeToRefs(loginStore);
+const loginStore = useloginStore();
+const { userrl } = storeToRefs(loginStore);
 const { logincheckfalse } = loginStore;
 
+const role_number = ref(''); 
+
+console.log(`userrl = ${JSON.stringify(userrl)}`);
 
 // watch(
 //   () => route.fullPath, // 라우트 경로가 변경될 때 감지
@@ -50,37 +64,17 @@ const { logincheckfalse } = loginStore;
 // );
 
 onMounted(async () => {
-  
-
   if (localStorage.getItem('token') !== null) {
-
     userdata();
     //토큰 체크
     logincheckfalse();
     //권한 체크
 
     //사이드바 체크
-
-    if (userrl.value == 'ROLE_STUDENT') {
-      console.log('학생계정');
-     
-      router.push({ name: 'stdatt' });
-    } else if (userrl.value == 'ROLE_TEACHER') {
-      console.log('선생계정');
-     
-      router.push({ name: 'teachertoday' });
-    } else if (userrl.value == 'ROLE_MANAGER') {
-      console.log('매니저계정');
-      router.push({ name: 'deskcalander' });
-    } else {
-      console.log('맵핑문제');
-    }
-
-    console.log('로그인 체크' + logincheckpinia);
+    role_number.value = userrl.value;
+    console.log("여기오냐"+role_number.value)
   }
-
   //  else{
-
   //   router.push({name:'loginview'})
   //    console.log("에러"+logincheckpinia )
   //  }
@@ -93,11 +87,11 @@ const homelogin = () => {
 
     if (userrl.value == 'ROLE_STUDENT') {
       console.log('학생계정');
-    
+
       router.push({ name: 'stdatt' });
     } else if (userrl.value == 'ROLE_TEACHER') {
       console.log('선생계정');
-     
+
       router.push({ name: 'teachertoday' });
     } else if (userrl.value == 'ROLE_MANAGER') {
       console.log('매니저계정');
