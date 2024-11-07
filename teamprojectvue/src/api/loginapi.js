@@ -25,6 +25,7 @@ export const userdata = async () => {
   }
 };
 
+
 export const userrole = async () => {
   const token = localStorage.getItem('token');
 
@@ -38,6 +39,8 @@ export const userrole = async () => {
   console.log(res.data);
   logincheck.userR(res.data);
 };
+
+
 
 export const logincontrol = async (data) => {
   const logincheck = useloginStore();

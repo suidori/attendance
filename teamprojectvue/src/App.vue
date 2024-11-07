@@ -50,9 +50,11 @@ const { logincheckfalse } = loginStore;
 // );
 
 onMounted(async () => {
-  userdata();
+  
 
   if (localStorage.getItem('token') !== null) {
+
+    userdata();
     //토큰 체크
     logincheckfalse();
     //권한 체크

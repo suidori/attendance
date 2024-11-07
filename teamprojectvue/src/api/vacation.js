@@ -1,30 +1,30 @@
-// import axios from "axios";
+import axios from "axios";
+import { GLOBAL_URL } from './utils';
+
+const url = `${GLOBAL_URL}`;
 
 
-// // const url = `http://192.168.0.103:8080`
+export const unCheckedapi = async(pageNum) => {
 
+    try {
+    const response = await axios.get`${url}/vacation/managerunchecked?pageNum=${pageNum - 1}`;
 
-// export const unCheckedapi = async(pageNum) => {
+    console.log(response)
 
-//     try {
-//     const response = await axios.get`http://192.168.0.103:8080/vacation/managerunchecked?pageNum=${pageNum - 1}`;
+    return response.data
 
-//     console.log(response)
-
-//     return response
-
-//     }catch(e){
-//         console.log(e)
-//         alert(e)
-//     }
-// }
+    }catch(e){
+        console.log(e)
+        alert(e)
+    }
+}
 
 
 // // export const nameSearchapi = async(pageNum, username) => {
 
 // //     try {
 
-// //     const response = await axios.get(`http://192.168.0.103:8080/vacation/managersearch?pageNum=${pageNum -1}&size=10&name=${username}`);
+// //     const response = await axios.get(`${url}/vacation/managersearch?pageNum=${pageNum -1}&size=10&name=${username}`);
 // //     console.log(response.data.list)
 // // return response
 
@@ -40,7 +40,7 @@
 
 //     try{
 
-//     const response = await axios.get(`http://192.168.0.103:8080/vacation/manager?pageNum=${pageNum - 1}`);
+//     const response = await axios.get(`${url}/vacation/manager?pageNum=${pageNum - 1}`);
 
 //     console.log(response)
 //     return response
@@ -57,7 +57,7 @@
 // export const handleApproveapi = async(idx) => {
 
 //     try{
-//         await axios.post(`http://192.168.0.103:8080/vacation/accept/${idx}`);
+//         await axios.post(`${url}/vacation/accept/${idx}`);
 
 //     }catch(e){
 //     console.log(e)
@@ -70,7 +70,7 @@
 
 //     try{
 
-//     await axios.post(`http://192.168.0.103:8080/vacation/deny/${idx}`);
+//     await axios.post(`${url}/vacation/deny/${idx}`);
 
 
 // }catch(e){
