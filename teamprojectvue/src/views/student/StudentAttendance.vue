@@ -13,15 +13,15 @@
             </RouterLink>
 
         </div> -->
-        <div id="main" class="mx-auto items-center justify-center w-2/3 ">
+        <div id="main" class="mx-auto items-center justify-center w-2/3">
             <div id="user" class="">
 
                 <h1 v-if="user">{{user.name}} 학생 출결 관리</h1>
                 <p v-if="useravail" class="text-green-600">수강중: {{ attlist.at(0).lecture }}</p>
                 <p v-if="!useravail" class="text-red-600">{{ usererror }}</p>
             </div>
-            <div id="attendance" class="flex min-h-[600px]">
-                <div id="calander" class="w-full p-4 bg-white rounded-lg shadow-md min-w-72 h-">
+            <div id="attendance" class="flex">
+                <div id="calander" class="w-full p-4 bg-white rounded-lg shadow-md min-w-72">
                     <h1 class="mb-4 text-xl font-bold text-center">
                         <button @click="subMonth()" class="mr-2"><i class="fas fa-arrow-left">&lt;&lt;</i></button>
                         {{ now.format('YYYY년 MM월') }}

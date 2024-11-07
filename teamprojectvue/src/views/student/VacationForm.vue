@@ -109,6 +109,7 @@ const sub = async () => {
             }
         })
     console.log(res)
+    alert('제출이 완료되었습니다')
   } catch (e) {
     console.log(e)
     alert('에러')

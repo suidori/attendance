@@ -1,7 +1,7 @@
 <template>
 <div class="text-center">
     <div class="flex justify-center -m-5">
-      <h1 class="font-mono font-black italic text-3xl tracking-tight flex flex-col">GREEN COMPUTER ARCADEMY</h1>
+      <h1 class="font-mono font-black italic text-3xl tracking-tight flex flex-col ">GREEN COMPUTER ARCADEMY</h1>
 
     </div>
     <div class="mx-auto mt-20 w-[40rem] p-4 transform bg-white shadow-md flex flex-col justify-center items-center">
@@ -99,18 +99,18 @@ const LoginSequence = async () => {
       console.log('선생계정')
       router.push({ name: 'teachertoday' })
 
-
+      
     }
    else if ( userrl.value == 'ROLE_MANAGER') {
       console.log('매니저계정')
       router.push({ name: 'deskcalander' })
-
+      
     }
-
+    
     else {
 
       console.log('맵핑문제')
-
+      
     }
 
     //  router.push({ path: 'stdatt' })
