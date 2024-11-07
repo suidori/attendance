@@ -1,7 +1,7 @@
 <template>
     <div id="container" class="flex">
 
-        <StudentSideBar class="min-w-28 absolute"/>
+        <!-- <StudentSideBar class="min-w-28 absolute"/> -->
         <!-- <div id="leftmenu" class="p-4 border border-blue-500 w-36">
 
             <h1>메뉴</h1>

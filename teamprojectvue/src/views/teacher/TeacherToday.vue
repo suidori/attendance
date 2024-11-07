@@ -7,6 +7,7 @@
         <div class="  m-10">
         
     <h1 class=" m-3 inline-block" v-if="user"><span class="font-bold">{{ user.name }}</span> 선생님, 환영합니다.</h1>
+    
     <hr class="m-1 mr-2 ml-2 border border-blue-500">
     <div v-if="arr.length > 0" class="overflow-x-auto ">
         <h1 class="font-bold m-2"> - {{ arr.at(0).lecture }} 강좌 출결정보 리스트 - </h1>

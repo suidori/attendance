@@ -39,9 +39,11 @@ const router = useRouter();
 const { username, userrl, logincheckpinia } = storeToRefs(loginStore);
 const { loginchecktrue } = loginStore;
 
-const logout = () => {
-  localStorage.removeItem('token');
+const logout =async () => {
+
+   localStorage.removeItem('token');
   loginchecktrue();
+   userrole();
   router.push({ name: 'loginview' });
 };
 

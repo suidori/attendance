@@ -2,11 +2,11 @@
 
   <div class="bg-blue-900 w-36 ">
     <aside class="p-4 text-white">
-      <h2 class="h-20 mb-6 text-lg font-bold">학생 메뉴</h2>
+      <h2 class="h-20 mb-6 text-lg font-bold">매니저 메뉴</h2>
       <ul class="space-y-3">
         <hr />
-        <RouterLink to="/stdatt">
-          <li><a href="#" class="block pt-3 text-sm">출결 관리</a></li>
+        <RouterLink to="/deskcalander">
+          <li><a href="#" class="block pt-3 text-sm">출결리스트</a></li>
         </RouterLink>
         <hr />
         <RouterLink to="/vacationform">

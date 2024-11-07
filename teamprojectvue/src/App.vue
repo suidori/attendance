@@ -7,7 +7,7 @@ user5~15 학생
 -->
   <div>
     <div class="m-5">
-      <div class=""></div>
+      <div class="h-[5vw]"></div>
       <RouterView />
       <!-- 사이드배너 -->
       <div class="" id="sidebann">
@@ -17,17 +17,14 @@ user5~15 학생
   </div>
   <LayoutFooter></LayoutFooter>
 
-  <template v-if="role_number=='ROLE_STUDNET'">
-    {{ console.log("학생") }}
-    <StudentSideBar class="" style="position: fixed; top: 35%; left: 3%" v-if="sidecheck1" />
+  <template v-if="userrlvalue =='ROLE_STUDENT'">
+    <StudentSideBar class="" style="position: fixed; top: 15%; left: 7%"  />
   </template>
-  <template v-if="role_number=='ROLE_TEACHER'">
-    {{ console.log("선생") }}
-    <div>TEACHER</div>
+  <template v-if="userrlvalue =='ROLE_TEACHER'">
+    <TeacherSideBar class="" style="position: fixed; top: 15%; left: 7%" />
   </template>
-  <template v-if="role_number=='ROLE_MANAGER'">
-    {{ console.log("매니저") }}
-    <div>MANAGER</div>
+  <template v-if="userrlvalue =='ROLE_MANAGER'">
+    <ManagerSideBar class="" style="position: fixed; top: 15%; left: 7%" />
   </template>
 
   <!-- <StudentSideBar  class="" style="position: fixed; top:35%; left:3%" v-if="sidecheck1"/>
@@ -35,13 +32,18 @@ user5~15 학생
 </template>
 
 <script setup>
+import ManagerSideBar from './layout/ManagerSideBar.vue';
+import StudentSideBar from './layout/StudentSideBar.vue';
+import TeacherSideBar from './layout/TeacherSideBar.vue';
 import LayoutFooter from './layout/layoutFooter.vue';
 import { useloginStore } from './stores/loginpinia';
-import { onMounted,ref } from 'vue';
+import { onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { storeToRefs } from 'pinia';
 // import { userrole } from './api/loginapi';
 import { userdata } from './api/loginapi';
+import { userrole } from './api/loginapi';
+import { computed } from 'vue';
 
 const router = useRouter();
 
@@ -49,7 +51,8 @@ const loginStore = useloginStore();
 const { userrl } = storeToRefs(loginStore);
 const { logincheckfalse } = loginStore;
 
-const role_number = ref('');
+const userrlvalue = computed(() => loginStore.userrl);
+
 
 console.log(`userrl = ${JSON.stringify(userrl)}`);
 
@@ -69,10 +72,9 @@ onMounted(async () => {
     //토큰 체크
     logincheckfalse();
     //권한 체크
-
+    
     //사이드바 체크
-    role_number.value = userrl.value;
-    console.log("여기오냐"+role_number.value)
+    
   }
   //  else{
   //   router.push({name:'loginview'})
@@ -81,11 +83,14 @@ onMounted(async () => {
   homelogin();
 });
 
-const homelogin = () => {
+const homelogin = async() => {
+
+  await userrole();
+
   if (localStorage.getItem('token') !== null) {
     console.log('로그인 유지');
 
-    if (userrl.value == 'ROLE_STUDENT') {
+    if (userrl.value =='ROLE_STUDENT') {
       console.log('학생계정');
 
       router.push({ name: 'stdatt' });
@@ -105,7 +110,7 @@ const homelogin = () => {
   }
 };
 
-homelogin();
+
 </script>
 
 <style lang="scss" scoped></style>
