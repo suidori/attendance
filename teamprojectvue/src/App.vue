@@ -5,14 +5,9 @@ user3,4 매니저
 user5~15 학생
 마스터
 -->
-  <div>
+  <div  class="mt-24">
     <div class="font-[GmarketSansMedium]">
-
-    <div class="m-5">
-      <div class="h-[5vw]"></div>
       <RouterView />
-
-
     </div>
   </div>
   <LayoutFooter></LayoutFooter>

@@ -1,4 +1,5 @@
 <template>
+  <div>
   <div class="m-3">
     <div
       @click="goVacationManage"
@@ -77,7 +78,9 @@
       </div>
     </div>
   </div>
-  <div class="mb-64"></div>
+  <div class="mb-64">
+  </div>
+</div>
 </template>
 
 <script setup>
