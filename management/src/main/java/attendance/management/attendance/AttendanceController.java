@@ -1,6 +1,7 @@
 package attendance.management.attendance;
 
 import attendance.management.sign.LoginUserDetails;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@SecurityRequirement(name = "Bearer Authentication")
 @RestController
 @RequestMapping("attendance")
 @CrossOrigin
@@ -48,6 +50,12 @@ public class AttendanceController {
         }
         List<AttendanceResponseStudentListDto> attendanceResponseDto = attendanceService.todayteacherview(loginUserDetails);
         return ResponseEntity.ok(attendanceResponseDto);
+    }
+
+    @PostMapping("/teacheraccept/{idx}")
+    public ResponseEntity<Attendance> teacherAccept(@PathVariable("idx") long idx){
+        Attendance attendance = attendanceService.teacherAccept(idx);
+        return ResponseEntity.ok(attendance);
     }
 
     @GetMapping("/monthview")

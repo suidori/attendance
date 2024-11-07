@@ -1,7 +1,7 @@
 <template>
     <div id="container" class="flex">
 
-        <StudentSideBar class="min-w-28 absolute"/>
+        <StudentSideBar class="absolute min-w-28"/>
         <!-- <div id="leftmenu" class="p-4 border border-blue-500 w-36">
 
             <h1>메뉴</h1>
@@ -13,7 +13,7 @@
             </RouterLink>
 
         </div> -->
-        <div id="main" class="mx-auto items-center justify-center w-2/3">
+        <div id="main" class="items-center justify-center w-2/3 mx-auto">
             <div id="user" class="">
 
                 <h1 v-if="user">{{user.name}} 학생 출결 관리</h1>
@@ -64,7 +64,7 @@
                     </div>
                 </div>
 
-                <div id="attadd" v-show="selectDate" class="mx-6 bg-blue-300 rounded-lg p-2">
+                <div id="attadd" v-show="selectDate" class="p-2 mx-6 bg-blue-300 rounded-lg">
 
                     <h1>{{ selectDate }} 출결 등록</h1>
                     <div class="">
@@ -97,12 +97,12 @@
                         </form>
                     </div>
                     <button @click="attupdate"
-                        class="px-4 py-2 font-bold mt-6 text-white bg-blue-500 rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline"
+                        class="px-4 py-2 mt-6 font-bold text-white bg-blue-500 rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline"
                         type="button">
                         제출하기
                     </button>
                 </div>
-                <div id="attupdate" v-show="selectAtt" class="bg-blue-300 rounded-lg p-2">
+                <div id="attupdate" v-show="selectAtt" class="p-2 bg-blue-300 rounded-lg">
                     <h1>{{ attDate }} 출결 수정</h1>
                     <div>
                         <label for="attendance" class="text-xs">1. 해당하는 출결 변동 사항을 선택 해 주세요.</label>
@@ -155,7 +155,7 @@
 </template>
 
 <script setup>
-import { ref, watch, watchEffect, onMounted } from 'vue';
+import { ref, watch, onMounted } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
 import dayjs from 'dayjs';

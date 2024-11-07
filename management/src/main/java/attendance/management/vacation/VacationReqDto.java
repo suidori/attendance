@@ -9,9 +9,7 @@ public class VacationReqDto {
 
     private String reason;
 
-    private String startdate;
-
-    private String enddate;
+    private String date;
 
     private String phonecall;
 }

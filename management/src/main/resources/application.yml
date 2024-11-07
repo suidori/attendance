@@ -1,6 +1,7 @@
 spring:
   datasource:
-    url: jdbc:mariadb://192.168.0.5:3306/educationsystemdb
+    url: jdbc:mariadb://192.168.0.103:3306/educationsystemdb
+#    url: jdbc:mariadb://host.docker.internal:3306/educationsystemdb
     username: root
     password: 1234
     driver-class-name: org.mariadb.jdbc.Driver
@@ -17,7 +18,7 @@ spring:
     level:
       org.hibernate.SQL: DEBUG                            # Hibernate SQL 로깅 레벨
       org.hibernate.type.descriptor.sql.BasicTypeDescriptor: TRACE  # Hibernate의 SQL 타입 디스크립터 로깅 레벨
-      org.springframework.security: DEBUG
+      org.springframework.security: TRACE
   jwt:
     secret: mySuperSecretKey
 # 추가 설정 예시

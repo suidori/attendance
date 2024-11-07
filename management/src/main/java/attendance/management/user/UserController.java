@@ -1,6 +1,9 @@
 package attendance.management.user;
 
+import attendance.management.error.BizException;
+import attendance.management.error.ErrorCode;
 import attendance.management.sign.LoginUserDetails;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
+@SecurityRequirement(name = "Bearer Authentication")
 @CrossOrigin
 @RestController
 @RequestMapping("user")
@@ -48,5 +52,16 @@ public class UserController {
         return ResponseEntity.ok(userRepository.findByIdx(loginUserDetails.getIdx()).get());
     }
 
+    @GetMapping("/getrole")
+    public ResponseEntity<Role> getRole(
+            @AuthenticationPrincipal LoginUserDetails loginUserDetails
+    ) {
+        if (loginUserDetails == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        Role role = userRepository.findByIdx(loginUserDetails.getIdx()).orElseThrow(()->{throw new BizException(ErrorCode.USER_NOT_FOUND);}).getRole();
+
+        return ResponseEntity.ok(role);
+    }
 
 }

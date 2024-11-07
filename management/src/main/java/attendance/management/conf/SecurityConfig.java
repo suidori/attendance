@@ -12,6 +12,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -30,7 +33,6 @@ public class SecurityConfig {
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
@@ -38,22 +40,15 @@ public class SecurityConfig {
         http.formLogin(form -> form.disable());
         http.httpBasic(basic -> basic.disable());
 
-        http.authorizeRequests(auth -> auth
-                // 일반 사용자도 접근 가능하다
-                .requestMatchers("/sign/**", "/question/**", "/answer/**", "/lecture/**", "/vacation/**", "/user/**", "/attendance/**", "/userandlecture/**").permitAll()
-                // swagger 문서...
-                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
-                // STUDENT 로 role 을 가지고 있을때 접근 가능 하다.
-                .requestMatchers("/test/**").hasRole("STUDENT")
+        http.authorizeRequests(auth -> auth.requestMatchers("/**").permitAll()
                 .anyRequest().authenticated()
         );
 
         http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
+        // JWT 필터 추가
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
-
 }
-

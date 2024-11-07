@@ -33,9 +33,7 @@ public class Vacation {
 
     private String reason;
 
-    private LocalDate startdate;
-
-    private LocalDate enddate;
+    private LocalDate date;
 
     private LocalDate wdate;
 

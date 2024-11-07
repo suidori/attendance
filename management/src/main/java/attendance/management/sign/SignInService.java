@@ -1,5 +1,6 @@
 package attendance.management.sign;
 
+import attendance.management.user.Role;
 import attendance.management.user.User;
 import attendance.management.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +23,7 @@ public class SignInService {
                 passwordEncoder.encode(joinDto.getPassword())
         );
         //권한이 학생이 아니라면 accept 를 false 로
-        user.setAccept(user.getRole().equals("ROLE_STUDENT"));
+        user.setAccept(user.getRole() == Role.ROLE_STUDENT);
 
         userRepository.save(user);
 

@@ -9,8 +9,7 @@ public class VacationResponseDto {
     private String lecture;
     private String personalNum;
     private String reason;
-    private String startdate;
-    private String enddate;
+    private String date;
     private String wdate;
     private String phonecall;
     private String accept;

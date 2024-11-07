@@ -18,6 +18,7 @@ import TeacherToday from '@/views/teacher/TeacherToday.vue'
 
 import VacationManage from '@/component/VacationManage.vue'
 import DeskCalander from '@/views/Desk/DeskCalander.vue'
+import StudentVacation from '@/views/student/StudentVacation.vue'
 
 
 const router = createRouter({
@@ -33,7 +34,11 @@ const router = createRouter({
       name: 'loginview',
       component: LoginView
     },
-    
+    {
+      path: '/studentvacation',
+      name: 'studentvacation',
+      component: StudentVacation
+    },
     {
       path: '/TeacherToday',
       name: 'teachertoday',

@@ -52,7 +52,7 @@ public class SignController {
 
         boolean isMatch = passwordEncoder.matches(loginReqDto.getPassword(), user.getPassword());
         if(isMatch){
-            String jwt = jwtManager.createJWT(user.getUserid(), user.getIdx(), user.getRole());
+            String jwt = jwtManager.createJWT(user.getUserid(), user.getIdx(), user.getRole().toString());
             return ResponseEntity.ok(jwt);
         }else{
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
