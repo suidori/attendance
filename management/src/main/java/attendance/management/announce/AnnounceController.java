@@ -71,6 +71,15 @@ public class AnnounceController {
         return ResponseEntity.ok(announceResponsePageDto);
     }
 
+    @GetMapping("/managerdesc")
+    public ResponseEntity<AnnounceResponsePageDto> managerFindAlldesc(
+            @RequestParam(name = "pageNum", defaultValue = "0") int pageNum,
+            @RequestParam(name = "size", defaultValue = "10") int size
+    ) {
+        AnnounceResponsePageDto announceResponsePageDto = announceService.managerPage(PageUtil.getPageableASC(pageNum, size));
+        return ResponseEntity.ok(announceResponsePageDto);
+    }
+
     @GetMapping("/lecturesearch/{idx}")
     public ResponseEntity<AnnounceResponsePageDto> lectureFindAll(
             @RequestParam(name = "pageNum", defaultValue = "0") int pageNum,
@@ -81,12 +90,31 @@ public class AnnounceController {
         return ResponseEntity.ok(announceResponsePageDto);
     }
 
+    @GetMapping("/lecturesearchdesc/{idx}")
+    public ResponseEntity<AnnounceResponsePageDto> lectureFindAlldesc(
+            @RequestParam(name = "pageNum", defaultValue = "0") int pageNum,
+            @RequestParam(name = "size", defaultValue = "10") int size,
+            @PathVariable(name = "idx") long idx
+    ) {
+        AnnounceResponsePageDto announceResponsePageDto = announceService.lectureSearch(PageUtil.getPageableASC(pageNum, size), idx);
+        return ResponseEntity.ok(announceResponsePageDto);
+    }
+
     @GetMapping("/searchforall")
     public ResponseEntity<AnnounceResponsePageDto> searchAll(
             @RequestParam(name = "pageNum", defaultValue = "0") int pageNum,
             @RequestParam(name = "size", defaultValue = "10") int size
     ) {
         AnnounceResponsePageDto announceResponsePageDto = announceService.allSearch(PageUtil.getPageable(pageNum, size));
+        return ResponseEntity.ok(announceResponsePageDto);
+    }
+
+    @GetMapping("/searchforalldesc")
+    public ResponseEntity<AnnounceResponsePageDto> searchAlldesc(
+            @RequestParam(name = "pageNum", defaultValue = "0") int pageNum,
+            @RequestParam(name = "size", defaultValue = "10") int size
+    ) {
+        AnnounceResponsePageDto announceResponsePageDto = announceService.allSearch(PageUtil.getPageableASC(pageNum, size));
         return ResponseEntity.ok(announceResponsePageDto);
     }
 

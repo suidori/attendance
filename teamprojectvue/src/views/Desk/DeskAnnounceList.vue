@@ -5,8 +5,7 @@
         <h1 class="mb-5 text-2xl font-semibold">공지사항</h1>
 
         <div v-if="lecturelist.length > 0">
-          <select class="border border-gray-500 mr-3" v-model="selectedlecture"
-            name="" id="">
+          <select class="border border-gray-500 mr-3" v-model="selectedlecture" name="" id="">
             <option value="전체">전체</option>
             <option v-for="lecture in lecturelist" :key="lecture.idx" :value="lecture.idx">
               {{ lecture.title }}
@@ -20,17 +19,17 @@
             <thead>
               <tr class="bg-gray-100">
                 <th class="p-1 border border-gray-300">제목</th>
+                <th class="p-1 border border-gray-300">강좌</th>
                 <th class="p-1 border border-gray-300">글쓴이</th>
                 <th class="p-1 border border-gray-300">작성일</th>
-                <th class="p-1 border border-gray-300">대상</th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="(announce, index) in announcelist" :key="index" class="text-center">
-                <td class="p-1 border border-gray-300">{{ announce.title }}</td>
+                <td @click="viewPage(announce.idx)" class="p-1 border border-gray-300 hover:underline hover:cursor-pointer hover:bg-gray-200">{{ announce.title }}</td>
+                <td @click="lectureclick(announce.lecture)" class="p-1 border border-gray-300 hover:underline hover:cursor-pointer hover:bg-gray-200">{{ announce.lecture }}</td>
                 <td class="p-1 border border-gray-300">{{ announce.user }}</td>
                 <td class="p-1 border border-gray-300">{{ announce.wdate }}</td>
-                <td class="p-1 border border-gray-300">{{ announce.lecture }}</td>
               </tr>
             </tbody>
           </table>
@@ -43,7 +42,7 @@
           <button @click="prevPageGroup" :disabled="currentPageGroup === 0"
             class="px-3 py-1 bg-white border border-gray-300 hover:bg-gray-100">&lt;</button>
           <span v-for="page in currentPageNumbers" :key="page"
-            class="px-3 py-1 border border-gray-300 cursor-pointer hover:bg-gray-100" @click="getPage(page)">
+            class="px-3 py-1 border border-gray-300 cursor-pointer hover:bg-gray-100" @click="(ascdesc) ? getPage(page) : getdescPage(page)">
             {{ page }}
           </span>
           <button @click="nextPageGroup" :disabled="currentPageGroup >= maxPageGroup"
@@ -56,7 +55,10 @@
 
 <script setup>
 import { ref, onMounted, computed, watch } from 'vue';
+import { useRouter } from 'vue-router';
 import axios from 'axios';
+
+const router = useRouter();
 
 const announcelist = ref([]);
 const totalElements = ref(0);
@@ -67,6 +69,7 @@ const currentPageGroup = ref(0); // 현재 페이지 그룹
 const totalPageGroups = computed(() => Math.ceil(totalPages.value / itemsPerPage));
 const lecturelist = ref([]);
 const selectedlecture = ref(null);
+const ascdesc = ref(true);
 
 const getlecture = async () => {
   try {
@@ -81,12 +84,28 @@ const getlecture = async () => {
   }
 };
 
+const lectureclick = (title) => {
+
+  if(title=='전체'){
+    selectedlecture.value = '전체';
+  } else {
+    selectedlecture.value = lecturelist.value.find(lecture => lecture.title === title).idx;
+  }
+}
+
+const viewPage = (idx) => {
+  const data = { name: 'announceview', params: { idx } };
+  router.push(data);
+};
+
 const sortAsc = () => {
-  
+  ascdesc.value = true;
+  getPage(1);
 }
 
 const sortDesc = () => {
-  
+  ascdesc.value = false;
+  getdescPage(1);
 }
 
 watch(selectedlecture, async (newVal, oldVal) => {
@@ -112,10 +131,36 @@ const fetchannounceForAll = async (pageNum = 1) => {
   }
 };
 
+const fetchannounceForAlldesc = async (pageNum = 1) => {
+  try {
+    const response = await axios.get(`http://192.168.0.103:8080/announce/searchforalldesc?pageNum=${pageNum - 1}`);
+    announcelist.value = response.data.list;
+    announcelist.value.sort((a, b) => b.idx - a.idx);
+    totalElements.value = response.data.totalElements;
+    totalPages.value = response.data.totalPages;
+    currentPage.value = pageNum; // 페이지 번호 갱신
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 // 특정 강의를 선택했을 때의 요청
 const fetchannounceByLecture = async (lectureIdx, pageNum = 1) => {
   try {
     const response = await axios.get(`http://192.168.0.103:8080/announce/lecturesearch/${lectureIdx}?pageNum=${pageNum - 1}`);
+    announcelist.value = response.data.list;
+    announcelist.value.sort((a, b) => b.idx - a.idx);
+    totalElements.value = response.data.totalElements;
+    totalPages.value = response.data.totalPages;
+    currentPage.value = pageNum; // 페이지 번호 갱신
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const fetchannounceByLecturedesc = async (lectureIdx, pageNum = 1) => {
+  try {
+    const response = await axios.get(`http://192.168.0.103:8080/announce/lecturesearchdesc/${lectureIdx}?pageNum=${pageNum - 1}`);
     announcelist.value = response.data.list;
     announcelist.value.sort((a, b) => b.idx - a.idx);
     totalElements.value = response.data.totalElements;
@@ -140,8 +185,22 @@ const fetchannounce = async (pageNum = 1) => {
   }
 };
 
+const fetchannouncedesc = async (pageNum = 1) => {
+  try {
+    const response = await axios.get(`http://192.168.0.103:8080/announce/managerdesc?pageNum=${pageNum - 1}`);
+    announcelist.value = response.data.list;
+    announcelist.value.sort((a, b) => b.idx - a.idx);
+    totalElements.value = response.data.totalElements;
+    totalPages.value = response.data.totalPages;
+    currentPage.value = pageNum;
+    selectedlecture.value = null;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 const getPage = (index) => {
-  if(selectedlecture.value == null){
+  if (selectedlecture.value == null) {
     fetchannounce(index);
     return;
   } else if (selectedlecture.value == '전체') {
@@ -152,6 +211,19 @@ const getPage = (index) => {
     return;
   }
 };
+
+const getdescPage = (index) => {
+  if (selectedlecture.value == null) {
+    fetchannouncedesc(index);
+    return;
+  } else if (selectedlecture.value == '전체') {
+    fetchannounceForAlldesc(index);
+    return;
+  } else {
+    fetchannounceByLecturedesc(selectedlecture.value, index);
+    return;
+  }
+}
 
 // 페이지 그룹과 관련된 상태
 const maxPageGroup = computed(() => totalPageGroups.value - 1);

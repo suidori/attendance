@@ -95,6 +95,7 @@ public class AnnounceService {
         announceResponseDto.setWdate(dateTimeFormatter.format(announce.getWdate()));
 
         announceResponseDto.setUser((announce.getUser() != null) ? announce.getUser().getName() : "탈퇴한 회원");
+        announceResponseDto.setLecture((announce.getLecture()!=null)? announce.getLecture().getTitle() : "전체");
 
         return announceResponseDto;
 

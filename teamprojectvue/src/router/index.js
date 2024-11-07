@@ -21,6 +21,7 @@ import DeskCalander from '@/views/Desk/DeskCalander.vue'
 import StudentVacation from '@/views/student/StudentVacation.vue'
 import DeskAnnouncewrite from '@/views/Desk/DeskAnnouncewrite.vue'
 import DeskAnnounceList from '@/views/Desk/DeskAnnounceList.vue'
+import AnnounceView from '@/views/AnnounceView.vue'
 
 
 const router = createRouter({
@@ -35,6 +36,11 @@ const router = createRouter({
       path: '/loginview',
       name: 'loginview',
       component: LoginView
+    },
+    {
+      path: '/announceview/:idx',
+      name: 'announceview',
+      component: AnnounceView
     },
     {
       path: '/deskannouncewrite',
