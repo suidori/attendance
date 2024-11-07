@@ -6,13 +6,13 @@ user5~15 학생
 마스터
 -->
   <div>
+    <div class="font-[GmarketSansMedium]">
+
     <div class="m-5">
       <div class="h-[5vw]"></div>
       <RouterView />
-      <!-- 사이드배너 -->
-      <div class="" id="sidebann">
-        <div class="hidden"></div>
-      </div>
+
+
     </div>
   </div>
   <LayoutFooter></LayoutFooter>
@@ -56,25 +56,17 @@ const userrlvalue = computed(() => loginStore.userrl);
 
 console.log(`userrl = ${JSON.stringify(userrl)}`);
 
-// watch(
-//   () => route.fullPath, // 라우트 경로가 변경될 때 감지
-//   () => {
-//     usernameinput.value = false;
-//     setTimeout(() => {
-//       usernameinput.value = true;
-//     }, 500);
-//   }
-// );
-
 onMounted(async () => {
+  userdata();
+
   if (localStorage.getItem('token') !== null) {
     userdata();
     //토큰 체크
     logincheckfalse();
     //권한 체크
-    
+
     //사이드바 체크
-    
+
   }
   //  else{
   //   router.push({name:'loginview'})

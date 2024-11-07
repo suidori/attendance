@@ -1,11 +1,11 @@
 <template>
-  <div class="flex items-center justify-center p-8 w-full space-x-16 h-full">
+  <div class="flex items-center justify-center w-full space-x-16 h-full">
 
 
     <!-- 교직원/학생 로그인 -->
     <div class="w-2/5 min-w-64 h-96 ">
       <h3 class="mb-2 text-lg font-bold text-blue-700">교직원/학생 로그인</h3>
-      <div class="bg-white shadow-lgxl shadow-blue-300 rounded-3xl p-6 flex flex-col items-center bg-gradient-to-t from-sky-200 to-90% ">
+      <div class="bg-white shadow-xl shadow-blue-300 rounded-3xl p-6 flex flex-col items-center bg-gradient-to-t from-sky-200 to-90% ">
         <img src="../images/stu.png" alt="" class="w-24" />
 
         <p class="mt-2 text-sm text-gray-500 py-5 font-bold ">교직원/학생 전용 로그인입니다.</p>
