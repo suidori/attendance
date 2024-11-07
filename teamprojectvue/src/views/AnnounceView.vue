@@ -13,7 +13,7 @@
             <p class="w-full p-4 transition-all duration-300 ease-in-out border border-gray-300 rounded-lg resize-none py-6 font-bold text-blue-900">{{ announcement.body }}</p>
           </div>
           <div class="flex justify-end">
-            <button @click="router.push({name: 'deskannouncelist'})" type="button" class="p-2 text-white bg-blue-600 border-2 rounded-lg hover:opacity-85">
+            <button @click="router.go(-1)" type="button" class="p-2 text-white bg-blue-600 border-2 rounded-lg hover:opacity-85">
               뒤로가기
             </button>
           </div>

@@ -172,7 +172,7 @@ const getlecture = async () => {
     
     lecturelist.value = res.data.sort((a, b) => {
       if (a.enable === b.enable) {
-        return new Date(b.enddate) - new Date(a.enddate);
+        return a.title.localeCompare(b.title);
       }
       return a.enable ? -1 : 1;
     });
@@ -183,13 +183,12 @@ const getlecture = async () => {
   }
 };
 
-
 const desclecture = async () => {
   try {
     const res = await axios.get(`http://192.168.103:8080/lecture/list`);
     lecturelist.value = res.data.sort((a, b) => {
       if (a.enable === b.enable) {
-        return new Date(a.enddate) - new Date(b.enddate);
+        return new Date(b.enddate) - new Date(a.enddate);
       }
       return a.enable ? 1 : -1;
     });
@@ -199,7 +198,6 @@ const desclecture = async () => {
     console.error(e);
   }
 };
-
 
 const getmonthatt = async (lecture, month) => {
   try {
