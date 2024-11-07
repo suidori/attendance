@@ -1,0 +1,20 @@
+services:
+  spring-boot-app:
+    build:
+      context: ./management
+    ports:
+      - "8080:8080"
+    networks:
+      - team1network
+
+  vue-app:
+    build:
+      context: ./teamprojectvue
+    ports:
+      - "5173:5173"
+    networks:
+      - team1network
+
+networks:
+  team1network:
+    driver: bridge
