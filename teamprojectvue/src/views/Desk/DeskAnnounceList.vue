@@ -11,8 +11,9 @@
               {{ lecture.title }}
             </option>
           </select>
-          <button @click="fetchannounce(1)"
-            class="px-2 py-1 mr-1 text-white bg-blue-600 rounded hover:opacity-80">초기화</button>
+          <button @click="resetSort(1)" class="px-2 py-1 mr-1 text-white bg-blue-600 rounded hover:opacity-80">
+            초기화
+          </button>
         </div>
         <div class="overflow-x-auto">
           <table class="w-full mb-5 border border-collapse border-gray-300">
@@ -26,8 +27,12 @@
             </thead>
             <tbody>
               <tr v-for="(announce, index) in announcelist" :key="index" class="text-center">
-                <td @click="viewPage(announce.idx)" class="p-1 border border-gray-300 hover:underline hover:cursor-pointer hover:bg-gray-200">{{ announce.title }}</td>
-                <td @click="lectureclick(announce.lecture)" class="p-1 border border-gray-300 hover:underline hover:cursor-pointer hover:bg-gray-200">{{ announce.lecture }}</td>
+                <td @click="viewPage(announce.idx)"
+                  class="p-1 border border-gray-300 hover:underline hover:cursor-pointer hover:bg-gray-200">{{
+                  announce.title }}</td>
+                <td @click="lectureclick(announce.lecture)"
+                  class="p-1 border border-gray-300 hover:underline hover:cursor-pointer hover:bg-gray-200">{{
+                  announce.lecture }}</td>
                 <td class="p-1 border border-gray-300">{{ announce.user }}</td>
                 <td class="p-1 border border-gray-300">{{ announce.wdate }}</td>
               </tr>
@@ -42,7 +47,8 @@
           <button @click="prevPageGroup" :disabled="currentPageGroup === 0"
             class="px-3 py-1 bg-white border border-gray-300 hover:bg-gray-100">&lt;</button>
           <span v-for="page in currentPageNumbers" :key="page"
-            class="px-3 py-1 border border-gray-300 cursor-pointer hover:bg-gray-100" @click="(ascdesc) ? getPage(page) : getdescPage(page)">
+            class="px-3 py-1 border border-gray-300 cursor-pointer hover:bg-gray-100"
+            @click="(ascdesc) ? getPage(page) : getdescPage(page)">
             {{ page }}
           </span>
           <button @click="nextPageGroup" :disabled="currentPageGroup >= maxPageGroup"
@@ -71,6 +77,12 @@ const lecturelist = ref([]);
 const selectedlecture = ref(null);
 const ascdesc = ref(true);
 
+const resetSort = (pageNum) => {
+  ascdesc.value = true; // ascdesc 값을 true로 설정
+  fetchannounce(pageNum); // 페이지 번호 1로 초기화
+};
+
+
 const getlecture = async () => {
   try {
     const res = await axios.get(`http://192.168.103:8080/lecture/availlist`);
@@ -86,7 +98,7 @@ const getlecture = async () => {
 
 const lectureclick = (title) => {
 
-  if(title=='전체'){
+  if (title == '전체') {
     selectedlecture.value = '전체';
   } else {
     selectedlecture.value = lecturelist.value.find(lecture => lecture.title === title).idx;
