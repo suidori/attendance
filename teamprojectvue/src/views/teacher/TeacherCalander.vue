@@ -3,10 +3,12 @@
     <div class="flex justify-center ">
       <div v-if="lecturelist.length > 0" id="lecturelist" class="w-[15vw] p-4 border border-blue-500 bg-white">
         <h1>강의목록</h1>
-        <button @click="getlecture , isClicked = true" :class="{ 'bg-green-500': isClicked }" class="border border-green-500 hover:bg-green-500 mr-1">최신순</button>
-        <button @click="desclecture , isClicked = false" :class="{ 'bg-green-500': !isClicked }"  class="border border-green-500 hover:bg-green-500">과거순</button>
+        <button @click="getlecture, isClicked = true" :class="{ 'bg-green-500': isClicked }"
+          class="border border-green-500 hover:bg-green-500 mr-1">최신순</button>
+        <button @click="desclecture, isClicked = false" :class="{ 'bg-green-500': !isClicked }"
+          class="border border-green-500 hover:bg-green-500">과거순</button>
         <hr class="my-2 border-blue-500" />
-        <div  class="hover:bg-blue-700" @click="getmonthatt(lecture.idx, nowDat)" v-for="(lecture, index) in lecturelist"
+        <div class="hover:bg-blue-700" @click="getmonthatt(lecture.idx, nowDat)" v-for="(lecture, index) in lecturelist"
           :key="lecture.idx">
           {{ lecture.title }}
           <hr v-if="index < lecturelist.length - 1" class="my-2 border-blue-500" />
@@ -37,12 +39,6 @@
                   <td v-for="day in arr" :key="day" class="p-4 font-bold border-r min-w-20"
                     :style="{ color: isWeekend(getDayName(day)) }">
                     <div :style="{ color: getatt(student.attendance[day]) }">{{ getAttendanceType(student.user, day) }}
-                      <div v-if="appget(student.attendance[day])">
-                        <button @click="approve(student.useridx, day, true)" class="border border-black"
-                          :style="{ color: 'green' }">승인</button>
-                        <button @click="approve(student.useridx, day, null)" class="border border-black"
-                          :style="{ color: 'red' }">거절</button>
-                      </div>
                     </div>
                   </td>
                 </tr>
@@ -56,7 +52,7 @@
   </div>
   <div class="mb-64">
 
-</div>
+  </div>
 </template>
 
 <script setup>
@@ -83,15 +79,21 @@ const getDaysInMonth = (month, year) => {
   return new Date(year, month + 1, 0).getDate()
 }
 
-onMounted(() => {
+onMounted(async () => {
   updateDaysInMonth()
-})
+  await getlecture(); // 강의 목록 가져오기
+  if (lecturelist.value.length > 0) { // 강의 목록이 비어 있지 않은 경우
+    await getmonthatt(lecturelist.value[0].idx, nowDat.value); // 첫 번째 강의에 대한 출결 정보 가져오기
+  }
+});
 
 const updateDaysInMonth = () => {
   const daysInMonth = getDaysInMonth(currentMonth.value, currentYear.value)
   arr.value = Array.from({ length: daysInMonth }, (_, i) => i) // 0부터 일수까지의 배열 생성
   monthatt.value = [];
-  getmonthatt(selectedlecture.value, nowDat.value);
+  if (selectedlecture.value != null) {
+    getmonthatt(selectedlecture.value, nowDat.value);
+  }
 
 }
 
@@ -229,44 +231,7 @@ const getatt = (attendance) => {
   }
 };
 
-const appget = (attendance) => {
-  if (attendance && attendance.approval === false) {
-    return true;
-  }
-  return false;
-};
 
-const approve = async (useridx, day, isApproved) => {
-  const studentAttendance = monthatt.value.find(student => student.useridx === useridx); // useridx로 검색
-
-  if (studentAttendance && studentAttendance.attendance[day]) {
-    studentAttendance.attendance[day].approval = isApproved;
-
-    // 전송할 데이터 객체를 먼저 선언
-    const data = {
-      useridx: useridx, // useridx도 전송할 수 있음
-      adate: dayjs().year(currentYear.value).month(currentMonth.value).date(day + 1).format('YYYY-MM-DD'),  // day를 날짜 형식으로 변환
-      type: studentAttendance.attendance[day].type,
-      approval: isApproved,
-    };
-
-
-    try {
-      await axios.post('http://192.168.0.103:8080/attendance/updateApproval', data);
-    } catch (e) {
-      console.error('Approval update failed:', e);
-    }
-  }
-};
-
-
-
-onMounted(async () => {
-  await getlecture(); // 강의 목록 가져오기
-  if (lecturelist.value.length > 0) { // 강의 목록이 비어 있지 않은 경우
-    await getmonthatt(lecturelist.value[0].idx, nowDat.value); // 첫 번째 강의에 대한 출결 정보 가져오기
-  }
-});
 
 </script>
 

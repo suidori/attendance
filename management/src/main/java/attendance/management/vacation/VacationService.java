@@ -17,6 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -100,9 +101,9 @@ public class VacationService {
     }
 
     public VacationFileDto download(long idx) throws IOException {
-        Optional<Vacation> vacation = vacationRepository.findById(idx);
-        String fileName = vacation.orElseThrow(() -> new BizException(ErrorCode.FILE_NOT_FOUND)).getHwpfile();
-        Path filePath = Paths.get("request_hwp", fileName);
+        Vacation vacation = vacationRepository.findById(idx).orElseThrow(()->new BizException(ErrorCode.REQUEST_NOT_FOUND));
+        String fileName = vacation.getHwpfile();
+        Path filePath = Paths.get("request_hwp" + File.separator + vacation.getLecture().getTitle(), fileName);
         Resource resource = new UrlResource(filePath.toUri());
 
         if (!resource.exists()) {
