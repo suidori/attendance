@@ -17,8 +17,9 @@ export const userdata = async () => {
     console.log('유저정보' + JSON.stringify(res.data.name));
     const logincheck = useloginStore();
     logincheck.userN(JSON.stringify(res.data.name));
+
   } catch (e) {
-    localStorage.removeItem('token');
+    // localStorage.removeItem('token');
     const logincheck = useloginStore();
     logincheck.loginchecktrue();
   }
@@ -45,6 +46,8 @@ export const logincontrol = async (data) => {
   try {
     const response = await axios.post(`${url}/sign/login`, data);
     localStorage.setItem('token', response.data);
+
+    logincheckfalse()
 
     return response.data;
   } catch (e) {

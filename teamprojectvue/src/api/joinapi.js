@@ -17,9 +17,9 @@ export const checkI = async (userid) => {
 export const joinU = async (data) => {
   console.log(data);
   await axios.post(`${url}/sign/signin`, data);
-  if (localStorage.getItem('token') !== null) {
-    localStorage.removeItem('token');
-  }
+  // if (localStorage.getItem('token') !== null) {
+  //   localStorage.removeItem('token');
+  // }
 
   // } catch (e) {
   //   console.log(e)

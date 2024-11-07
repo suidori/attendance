@@ -7,7 +7,7 @@ user5~15 학생
 -->
   <div>
     <div class="m-5">
-      <div class="h-24"></div>
+      <div class=""></div>
       <RouterView />
       <!-- 사이드배너 -->
       <div class="" id="sidebann">
@@ -27,9 +27,9 @@ import { useloginStore } from './stores/loginpinia';
 import { onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { storeToRefs } from 'pinia';
-import { userrole } from './api/loginapi';
+// import { userrole } from './api/loginapi';
 import { userdata } from './api/loginapi';
-import { ref } from 'vue';
+
 
 const loginStore = useloginStore();
 
@@ -38,8 +38,6 @@ const router = useRouter();
 const { logincheckpinia,  userrl } = storeToRefs(loginStore);
 const { logincheckfalse } = loginStore;
 
-const sidecheck1 = ref(false);
-const sidecheck2 = ref(false);
 
 // watch(
 //   () => route.fullPath, // 라우트 경로가 변경될 때 감지
@@ -63,13 +61,11 @@ onMounted(async () => {
 
     if (userrl.value == 'ROLE_STUDENT') {
       console.log('학생계정');
-      sidecheck1.value = true;
-      sidecheck2.value = false;
+     
       router.push({ name: 'stdatt' });
     } else if (userrl.value == 'ROLE_TEACHER') {
       console.log('선생계정');
-      sidecheck1.value = false;
-      sidecheck2.value = true;
+     
       router.push({ name: 'teachertoday' });
     } else if (userrl.value == 'ROLE_MANAGER') {
       console.log('매니저계정');
@@ -95,13 +91,11 @@ const homelogin = () => {
 
     if (userrl.value == 'ROLE_STUDENT') {
       console.log('학생계정');
-      sidecheck1.value = true;
-      sidecheck2.value = false;
+    
       router.push({ name: 'stdatt' });
     } else if (userrl.value == 'ROLE_TEACHER') {
       console.log('선생계정');
-      sidecheck1.value = false;
-      sidecheck2.value = true;
+     
       router.push({ name: 'teachertoday' });
     } else if (userrl.value == 'ROLE_MANAGER') {
       console.log('매니저계정');

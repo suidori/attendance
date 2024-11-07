@@ -7,14 +7,18 @@
             <img src="../images/LOGO.png" alt="" class="h-8 max-md:w-28 cover cursor-pointer" @click="logoclick" />
             그린컴퓨터아트학원(대구지점)
           </div>
-          <template v-if="logincheckpinia">
-            <div class="absolute top-0 right-0 m-3 flex space-x-5 block">
+
+          <div v-if="logincheckpinia"></div>
+
+          <template v-else>
+            <div class="absolute top-0 right-0 m-3 flex space-x-5">
               <div class="text-2xl">{{ username }} 님 반갑습니다.</div>
               <div class="text-xl rounded hover:bg-red-400" @click="logout">
                 <RouterLink to="/loginview" class="px-3 flex text-white items-center font-[GmarketSansMedium]"> 로그아웃 </RouterLink>
               </div>
             </div>
           </template>
+
         </div>
       </div>
     </nav>
@@ -25,14 +29,14 @@
 import { useloginStore } from '../stores/loginpinia.js';
 import { storeToRefs } from 'pinia';
 import { useRouter } from 'vue-router';
-import { watchEffect } from 'vue';
+
 import { userrole } from '../api/loginapi';
 
 const loginStore = useloginStore();
 
 const router = useRouter();
 
-const { username, userrl } = storeToRefs(loginStore);
+const { username, userrl, logincheckpinia } = storeToRefs(loginStore);
 const { loginchecktrue } = loginStore;
 
 const logout = () => {
@@ -41,9 +45,9 @@ const logout = () => {
   router.push({ name: 'loginview' });
 };
 
-watchEffect(() => {
-  logout();
-});
+// watchEffect(() => {
+//   logout();
+// });
 
 const logoclick = async () => {
   console.log('로고클릭');
