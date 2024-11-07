@@ -1,24 +1,14 @@
 <template>
-  <!--
-user1,2 선생
-user3,4 매니저
-user5~15 학생
-마스터
--->
   <div>
-    <div class="m-5">
-      <div class=""></div>
+    <div class="font-[GmarketSansMedium]">
+
       <RouterView />
-      <!-- 사이드배너 -->
-      <div class="" id="sidebann">
-        <div class="hidden"></div>
-      </div>
+
+
     </div>
   </div>
   <layoutHeader></layoutHeader>
 
-  <!-- <StudentSideBar  class="" style="position: fixed; top:35%; left:3%" v-if="sidecheck1"/>
-<StudentSideBar  class="" style="position: fixed; top:35%; left:3%" v-if="sidecheck2"/> -->
 </template>
 
 <script setup>
@@ -38,16 +28,6 @@ const router = useRouter();
 const { logincheckpinia,  userrl } = storeToRefs(loginStore);
 const { logincheckfalse } = loginStore;
 
-
-// watch(
-//   () => route.fullPath, // 라우트 경로가 변경될 때 감지
-//   () => {
-//     usernameinput.value = false;
-//     setTimeout(() => {
-//       usernameinput.value = true;
-//     }, 500);
-//   }
-// );
 
 onMounted(async () => {
   userdata();

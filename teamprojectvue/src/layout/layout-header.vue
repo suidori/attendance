@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-[#eee] h-screen font-[GmarketSansMedium]">
+  <div class="bg-[#eee] font-[GmarketSansMedium]">
     <nav class="mx-0 shadow-md">
       <div class="bg-blue-300 h-12 p-3 fixed bottom-0 left-0 right-0">
         <div>
