@@ -35,6 +35,10 @@
             </tbody>
           </table>
         </div>
+
+        <button @click="sortAsc" class="px-4 py-2 text-white bg-green-600 rounded hover:opacity-80 mr-3">최신순</button>
+        <button @click="sortDesc" class="px-4 py-2 text-white bg-blue-600 rounded hover:opacity-80">과거순</button>
+
         <div class="flex justify-center mt-5 space-x-2">
           <button @click="prevPageGroup" :disabled="currentPageGroup === 0"
             class="px-3 py-1 bg-white border border-gray-300 hover:bg-gray-100">&lt;</button>
@@ -76,6 +80,14 @@ const getlecture = async () => {
     console.error(e);
   }
 };
+
+const sortAsc = () => {
+  
+}
+
+const sortDesc = () => {
+  
+}
 
 watch(selectedlecture, async (newVal, oldVal) => {
   if (newVal) {
