@@ -63,11 +63,11 @@ onMounted(async () => {
 
     if (userrl.value == 'ROLE_STUDENT') {
       console.log('학생계정');
-     
+
       router.push({ name: 'stdatt' });
     } else if (userrl.value == 'ROLE_TEACHER') {
       console.log('선생계정');
-     
+
       router.push({ name: 'teachertoday' });
     } else if (userrl.value == 'ROLE_MANAGER') {
       console.log('매니저계정');
@@ -93,11 +93,11 @@ const homelogin = () => {
 
     if (userrl.value == 'ROLE_STUDENT') {
       console.log('학생계정');
-    
+
       router.push({ name: 'stdatt' });
     } else if (userrl.value == 'ROLE_TEACHER') {
       console.log('선생계정');
-     
+
       router.push({ name: 'teachertoday' });
     } else if (userrl.value == 'ROLE_MANAGER') {
       console.log('매니저계정');

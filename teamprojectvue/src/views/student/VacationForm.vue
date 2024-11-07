@@ -3,24 +3,22 @@
     <StudentSideBar class="min-w-28"/>
 
   </div>
-  <div class>
+  <div>
+    <h1 class="md:ml-52">| 학생용 (VacationForm)</h1>
     <div class="w-1/2 mx-auto min-w-80">
       <div class="">
         <h1 class="pt-10 font-extrabold text-blue-900">휴가 신청서 제출</h1>
       </div>
       <hr class="border-t border-gray-300" />
       <div>
-        <p class="py-6 font-bold text-blue-900">1. 휴가 신청 날짜 기입</p>
+        <p class="py-6 font-bold text-blue-900">1. 휴가를 시작하는 날짜와 끝나는 날짜 기입</p>
         <div class="inline-flex">
-          <label for="date" class="mx-3">휴가 신청일</label>
-          <input
-          @input="datecheck(date)"
-          class="border-2 border-slate-600"
-          type="date"
-          v-model="date"
-          id="enddate" />
-          <p v-if="dateAvail" class="text-green-500">{{ selectedDate }}</p>
-          <p v-if="!dateAvail" class="text-red-500">{{ selectedDate }}</p>
+          <label for="startdate" class="mr-3">시작 날짜</label>
+          <input class="border-2 border-slate-600" type="date" v-model="startdate" id="startdate" />
+        </div>
+        <div class="inline-flex">
+          <label for="enddate" class="mx-3">끝나는 날짜</label>
+          <input class="border-2 border-slate-600" type="date" v-model="enddate" id="enddate" />
         </div>
         <div>
           <hr class="mt-6" />

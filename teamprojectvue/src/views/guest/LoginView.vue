@@ -2,31 +2,30 @@
   <div class="text-center">
     <div class="flex justify-center -m-5">
       <h1 class="font-mono font-black italic text-3xl tracking-tight flex flex-col">GREEN COMPUTER ARCADEMY</h1>
+
     </div>
     <div class="mx-auto mt-20 w-[40rem] p-4 transform bg-white shadow-md flex flex-col justify-center items-center">
-      <div class="my-3 mt-10 space-y-3 justify-between">
-        <p class="ml-10">
-          ID<input
-            class="ml-5 p-3 mb-5 w-80 transition duration-200 border-b border-gray-400 focus:outline-none"
-            type="text"
-            name="userid"
-            id="userid"
-            placeholder="아이디를 입력해주세요"
-            v-model="userid"
-          />
-        </p>
-        <p class="mr-12">
-          PASSWORD<input
-            class="ml-5 p-3 w-80 transition duration-200 border-b border-gray-400 focus:outline-none"
-            type="password"
-            name="password"
-            id="password"
-            v-model="password"
-            placeholder="비밀번호를 입력해주세요"
-            @keydown.enter="LoginSequence"
-          />
-        </p>
-      </div>
+      <div class=" my-3 mt-10 space-y-3 justify-between">
+          <p class="ml-10">ID<input
+              class="ml-5 p-3 mb-5 w-80 transition duration-200 border-b border-gray-400 focus:outline-none"
+              type="text"
+              name="userid"
+              id="userid"
+              placeholder="아이디를 입력해주세요"
+              v-model="userid"
+            />
+          </p>
+          <p class="mr-12">PASSWORD<input
+              class="ml-5 p-3 w-80 transition duration-200 border-b border-gray-400 focus:outline-none"
+              type="password"
+              name="password"
+              id="password"
+              v-model="password"
+              placeholder="비밀번호를 입력해주세요"
+              @keydown.enter="LoginSequence"
+            />
+          </p>
+        </div>
       <div class="m-2 my-5">
         <p class="pb-2 font-bold text-rose-600" v-if="loginError">{{ loginError }}</p>
         <input
