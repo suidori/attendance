@@ -6,6 +6,12 @@
     >
       휴가 요청 관리
     </div>
+    <div
+      @click="goAnnounce"
+      class="flex text-xl border-2 border-blue-300 pl-3 pr-3 hover:bg-blue-300 hover:opacity-80 hover:text-white cursor-pointer float-left rounded p-1"
+    >
+      공지사항
+    </div>
     <br />
     <div class="mt-5 flex justify-center">
       <div v-if="lecturelist.length > 0" id="lecturelist" class="w-[15vw] p-4 border bg-white border-blue-500">
@@ -48,7 +54,7 @@
             <button @click="downdate()">&lt;</button> {{ nowDat }}
             <button @click="update()">&gt;</button>
           </h1>
-          <h1 v-if="selectedtitle" class="text-green-500">{{ selectedtitle }}</h1>
+          <h1 v-if="selectedtitle" class="text-green-500">{{ selectedtitle }}  {{ selectedlecture.startDate }} ~ {{ selectedlecture.endDate }}</h1>
           <div class="w-full overflow-auto">
             <table class="w-full">
               <thead>
@@ -105,6 +111,11 @@ const goVacationManage = () => {
   router.push({ name: 'vacationmanage' });
 };
 
+
+const goAnnounce = () => {
+  router.push({ name: 'deskannounce' });
+};
+
 const getDaysInMonth = (month, year) => {
   return new Date(year, month + 1, 0).getDate();
 };
@@ -158,32 +169,45 @@ const update = () => {
 const getlecture = async () => {
   try {
     const res = await axios.get(`http://192.168.103:8080/lecture/list`);
-    lecturelist.value = res.data.sort((a, b) => b.idx - a.idx);
+    
+    lecturelist.value = res.data.sort((a, b) => {
+      if (a.enable === b.enable) {
+        return new Date(b.enddate) - new Date(a.enddate);
+      }
+      return a.enable ? -1 : 1;
+    });
+
     console.log(lecturelist.value);
   } catch (e) {
     console.error(e);
   }
 };
+
 
 const desclecture = async () => {
   try {
     const res = await axios.get(`http://192.168.103:8080/lecture/list`);
-    lecturelist.value = res.data.sort((a, b) => a.idx - b.idx);
+    lecturelist.value = res.data.sort((a, b) => {
+      if (a.enable === b.enable) {
+        return new Date(a.enddate) - new Date(b.enddate);
+      }
+      return a.enable ? 1 : -1;
+    });
+    
     console.log(lecturelist.value);
   } catch (e) {
     console.error(e);
   }
 };
 
+
 const getmonthatt = async (lecture, month) => {
   try {
-    console.log(lecture.idx, month);
     selectedtitle.value = lecture.title;
     selectedlecture.value = lecture;
     const res = await axios.get(`http://192.168.103:8080/attendance/monthview?idx=${lecture.idx}&month=${month}`);
     console.log(res.data);
     monthatt.value = processAttendanceData(res.data); // 데이터를 가공하는 함수를 호출
-    console.log('Processed Month Attendance:', monthatt.value);
   } catch (e) {
     console.log(e);
   }
@@ -193,8 +217,6 @@ const getAttendanceType = (useridx, day) => {
   // studentAttendance를 찾을 때 useridx를 정수로 변환하여 비교합니다.
   const studentAttendance = monthatt.value.find((student) => student.useridx === Number(useridx));
 
-  console.log('Student Attendance:', studentAttendance);
-  console.log('Month Attendance Data:', monthatt.value); // monthatt 배열 내용 확인
 
   if (!studentAttendance) return '-'; // 학생이 존재하지 않으면 '-'
 

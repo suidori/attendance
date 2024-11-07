@@ -41,9 +41,6 @@ const logout = () => {
   router.push({ name: 'loginview' });
 };
 
-watchEffect(() => {
-  logout();
-});
 
 const logoclick = async () => {
   console.log('로고클릭');

@@ -1,0 +1,172 @@
+<template>
+  <div class="font-sans flex justify-center">
+    <main class="flex justify-center" style="width: 1300px;">
+      <section class="flex-1 p-5 m-10 bg-white border-1 border-gray-500">
+        <h1 class="mb-5 text-2xl font-semibold">공지사항</h1>
+
+        <div v-if="lecturelist.length > 0">
+          <select class="border border-gray-500 mr-3" v-model="selectedlecture"
+            name="" id="">
+            <option value="전체">전체</option>
+            <option v-for="lecture in lecturelist" :key="lecture.idx" :value="lecture.idx">
+              {{ lecture.title }}
+            </option>
+          </select>
+          <button @click="fetchannounce(1)"
+            class="px-2 py-1 mr-1 text-white bg-blue-600 rounded hover:opacity-80">초기화</button>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full mb-5 border border-collapse border-gray-300">
+            <thead>
+              <tr class="bg-gray-100">
+                <th class="p-1 border border-gray-300">제목</th>
+                <th class="p-1 border border-gray-300">글쓴이</th>
+                <th class="p-1 border border-gray-300">작성일</th>
+                <th class="p-1 border border-gray-300">대상</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(announce, index) in announcelist" :key="index" class="text-center">
+                <td class="p-1 border border-gray-300">{{ announce.title }}</td>
+                <td class="p-1 border border-gray-300">{{ announce.user }}</td>
+                <td class="p-1 border border-gray-300">{{ announce.wdate }}</td>
+                <td class="p-1 border border-gray-300">{{ announce.lecture }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="flex justify-center mt-5 space-x-2">
+          <button @click="prevPageGroup" :disabled="currentPageGroup === 0"
+            class="px-3 py-1 bg-white border border-gray-300 hover:bg-gray-100">&lt;</button>
+          <span v-for="page in currentPageNumbers" :key="page"
+            class="px-3 py-1 border border-gray-300 cursor-pointer hover:bg-gray-100" @click="getPage(page)">
+            {{ page }}
+          </span>
+          <button @click="nextPageGroup" :disabled="currentPageGroup >= maxPageGroup"
+            class="px-3 py-1 bg-white border border-gray-300 hover:bg-gray-100">&gt;</button>
+        </div>
+      </section>
+    </main>
+  </div>
+</template>
+
+<script setup>
+import { ref, onMounted, computed, watch } from 'vue';
+import axios from 'axios';
+
+const announcelist = ref([]);
+const totalElements = ref(0);
+const totalPages = ref(0);
+const currentPage = ref(1); // 현재 페이지를 관리하는 상태
+const itemsPerPage = 10; // 페이지당 항목 수
+const currentPageGroup = ref(0); // 현재 페이지 그룹
+const totalPageGroups = computed(() => Math.ceil(totalPages.value / itemsPerPage));
+const lecturelist = ref([]);
+const selectedlecture = ref(null);
+
+const getlecture = async () => {
+  try {
+    const res = await axios.get(`http://192.168.103:8080/lecture/availlist`);
+
+    lecturelist.value = res.data.sort((a, b) => {
+      return a.title.localeCompare(b.title);
+    });
+
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+watch(selectedlecture, async (newVal, oldVal) => {
+  if (newVal) {
+    if (newVal === '전체') {
+      await fetchannounceForAll();
+    } else {
+      await fetchannounceByLecture(newVal);
+    }
+  }
+});
+
+const fetchannounceForAll = async (pageNum = 1) => {
+  try {
+    const response = await axios.get(`http://192.168.0.103:8080/announce/searchforall?pageNum=${pageNum - 1}`);
+    announcelist.value = response.data.list;
+    announcelist.value.sort((a, b) => b.idx - a.idx);
+    totalElements.value = response.data.totalElements;
+    totalPages.value = response.data.totalPages;
+    currentPage.value = pageNum; // 페이지 번호 갱신
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// 특정 강의를 선택했을 때의 요청
+const fetchannounceByLecture = async (lectureIdx, pageNum = 1) => {
+  try {
+    const response = await axios.get(`http://192.168.0.103:8080/announce/lecturesearch/${lectureIdx}?pageNum=${pageNum - 1}`);
+    announcelist.value = response.data.list;
+    announcelist.value.sort((a, b) => b.idx - a.idx);
+    totalElements.value = response.data.totalElements;
+    totalPages.value = response.data.totalPages;
+    currentPage.value = pageNum; // 페이지 번호 갱신
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const fetchannounce = async (pageNum = 1) => {
+  try {
+    const response = await axios.get(`http://192.168.0.103:8080/announce/manager?pageNum=${pageNum - 1}`);
+    announcelist.value = response.data.list;
+    announcelist.value.sort((a, b) => b.idx - a.idx);
+    totalElements.value = response.data.totalElements;
+    totalPages.value = response.data.totalPages;
+    currentPage.value = pageNum;
+    selectedlecture.value = null;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const getPage = (index) => {
+  if(selectedlecture.value == null){
+    fetchannounce(index);
+    return;
+  } else if (selectedlecture.value == '전체') {
+    fetchannounceForAll(index);
+    return;
+  } else {
+    fetchannounceByLecture(selectedlecture.value, index);
+    return;
+  }
+};
+
+// 페이지 그룹과 관련된 상태
+const maxPageGroup = computed(() => totalPageGroups.value - 1);
+const currentPageNumbers = computed(() => {
+  const start = currentPageGroup.value * itemsPerPage + 1;
+  const end = Math.min(start + itemsPerPage - 1, totalPages.value);
+  return Array.from({ length: end - start + 1 }, (_, i) => start + i);
+});
+
+// 이전 페이지 그룹으로 이동
+const prevPageGroup = () => {
+  if (currentPageGroup.value > 0) {
+    currentPageGroup.value--;
+    getPage(currentPage.value); // 첫 페이지로 이동
+  }
+};
+
+// 다음 페이지 그룹으로 이동
+const nextPageGroup = () => {
+  if (currentPageGroup.value < maxPageGroup.value) {
+    currentPageGroup.value++;
+    getPage(currentPage.value); // 첫 페이지로 이동
+  }
+};
+
+onMounted(() => {
+  fetchannounce(currentPage.value);
+  getlecture();
+});
+</script>

@@ -126,17 +126,6 @@ public class VacationService {
         return mapToVacationResponsePageDto(page);
     }
 
-    public VacationResponsePageDto teacherPage(Pageable pageable, String token) {
-        Long userIdx = jwtManager.extractUserIdxFromToken(token);
-        Optional<UserAndLecture> userAndLecture = userAndLectureRepository.findByUser_Idx(userIdx);
-        long lectureIdx = userAndLecture.orElseThrow(() -> new BizException(ErrorCode.USER_NOT_FOUND)).getLecture().getIdx();
-
-        Page<Vacation> page = vacationRepository.findByLecture_Idx(lectureIdx, pageable);
-
-        return mapToVacationResponsePageDto(page);
-
-    }
-
     private VacationResponsePageDto mapToVacationResponsePageDto(Page<Vacation> page) {
         List<VacationResponseDto> filteredList = page.getContent().stream()
                 .map(vacation -> {

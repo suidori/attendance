@@ -19,6 +19,8 @@ import TeacherToday from '@/views/teacher/TeacherToday.vue'
 import VacationManage from '@/component/VacationManage.vue'
 import DeskCalander from '@/views/Desk/DeskCalander.vue'
 import StudentVacation from '@/views/student/StudentVacation.vue'
+import DeskAnnouncewrite from '@/views/Desk/DeskAnnouncewrite.vue'
+import DeskAnnounceList from '@/views/Desk/DeskAnnounceList.vue'
 
 
 const router = createRouter({
@@ -33,6 +35,16 @@ const router = createRouter({
       path: '/loginview',
       name: 'loginview',
       component: LoginView
+    },
+    {
+      path: '/deskannouncewrite',
+      name: 'deskannouncewrite',
+      component: DeskAnnouncewrite
+    },
+    {
+      path: '/deskannouncelist',
+      name: 'deskannouncelist',
+      component: DeskAnnounceList
     },
     {
       path: '/studentvacation',

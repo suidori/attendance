@@ -86,10 +86,25 @@ public class LectureService {
         return lectureRepository.findAll();
     }
 
-    public List<Lecture> myLecture(LoginUserDetails loginUserDetails) {
-        Lecture lecture = userAndLectureRepository.findByUser_Idx(loginUserDetails.getIdx()).orElseThrow(()-> new BizException(ErrorCode.LECTURE_NOT_FOUND)).getLecture();
+    public List<LectureResponseListDto> myLecture(LoginUserDetails loginUserDetails) {
+        List<UserAndLecture> list = userAndLectureRepository.findByUser_Idx(loginUserDetails.getIdx());
 
-        return lectureRepository.findByIdx(lecture.getIdx());
+        List<LectureResponseListDto> lectureList = list.stream()
+                .map(userAndLecture -> {
+                    LectureResponseListDto dto = modelMapper.map(userAndLecture.getLecture(), LectureResponseListDto.class);
 
+                    String state = userAndLecture.getState() == 1 ? "수강중" : "수강 중이 아님";
+                    dto.setState(state);
+
+                    return dto;
+                })
+                .toList();
+
+        return lectureList;
+    }
+
+    public List<Lecture> availList() {
+        List<Lecture> list = lectureRepository.findByEnable(true);
+        return list;
     }
 }
