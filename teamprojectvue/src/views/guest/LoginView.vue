@@ -1,5 +1,5 @@
 <template>
-  <img src="/src/images/wall4.png" alt="" class="w-screen h-screen opacity-50" />
+  <img src="/src/images/wall5.png" alt="" class="w-screen h-screen opacity-50" />
   <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
     <div class="flex justify-center bg-opacity-30 bg-gray-300">
       <img src="/src/images/LOGO.png" alt="" class="w-28 ">
@@ -33,12 +33,12 @@
             />
           </p>
         </div>
-        <!-- 공지 섹션 -->
-        <div class="m-2 my-5">
-          <p class="pb-2 font-bold text-rose-600" v-if="loginError">{{ loginError }}</p>
+
+        <div class="m-2 my-5 justify-center block">
+          <p class="pb-2 font-bold text-rose-600 block" v-if="loginError">{{ loginError }}</p>
           <input
             @click="LoginSequence"
-            class="bg-blue-500 text-white font-bold py-2 px-16 rounded-lg shadow-md hover:bg-blue-300 transition duration-200 ease-in-out transform hover:scale-x-105"
+            class="mx-10 bg-blue-500 text-white font-bold py-2 px-16 rounded-lg shadow-md  hover:bg-blue-300 transition duration-200 ease-in-out transform hover:scale-x-105"
             type="button"
             value="로그인"
           />
