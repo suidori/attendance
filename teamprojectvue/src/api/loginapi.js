@@ -24,10 +24,10 @@ export const userdata = async () => {
 };
 
 export const userrole = async () => {
-
-
-  
   const token = localStorage.getItem('token');
+  if(token==null){
+    return;
+  }
 
   const res = await axios.get(`${url}/user/getrole`, {
     headers: {

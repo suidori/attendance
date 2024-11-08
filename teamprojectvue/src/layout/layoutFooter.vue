@@ -19,8 +19,8 @@
           <template v-else>
             <div class="absolute top-0 right-0 m-3 flex space-x-5">
               <div class="text-2xl">{{ username }} 님 반갑습니다.</div>
-              <div class="text-xl rounded hover:bg-red-400" @click="logout">
-                <RouterLink to="/loginview" class="px-3 flex text-white items-center font-[GmarketSansMedium]"> 로그아웃 </RouterLink>
+              <div class="text-xl rounded hover:bg-red-400 px-3 pt-1" @click="logout">
+                <RouterLink to="/loginview" class="flex text-white items-center font-[GmarketSansMedium]"> 로그아웃 </RouterLink>
               </div>
             </div>
           </template>
