@@ -25,6 +25,8 @@ export const userdata = async () => {
 
 export const userrole = async () => {
 
+
+  
   const token = localStorage.getItem('token');
 
   const res = await axios.get(`${url}/user/getrole`, {

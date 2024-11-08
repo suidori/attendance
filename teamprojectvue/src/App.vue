@@ -5,11 +5,9 @@ user3,4 매니저
 user5~15 학생
 마스터
 -->
-  <div  class="mt-24">
     <div class="font-[GmarketSansMedium]">
       <RouterView />
     </div>
-  </div>
   <LayoutFooter></LayoutFooter>
 
   <template v-if="userrlvalue =='ROLE_STUDENT'">
@@ -72,9 +70,13 @@ onMounted(async () => {
 
 const homelogin = async() => {
 
-  await userrole();
+  
+
+
 
   if (localStorage.getItem('token') !== null) {
+
+    await userrole();
     console.log('로그인 유지');
 
     if (userrl.value =='ROLE_STUDENT') {
@@ -96,8 +98,6 @@ const homelogin = async() => {
     router.push({ name: 'loginview' });
   }
 };
-
-
 </script>
 
 <style lang="scss" scoped></style>
