@@ -1,18 +1,36 @@
 <template>
   <img src="/src/images/wall2.jpg" alt="" class="w-screen h-screen opacity-50" />
-  <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+  <div style="width: 1100px;" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
     <div class="flex justify-center bg-opacity-30 bg-gray-300">
-      <img src="/src/images/LOGO.png" alt="" class="w-28 ">
-      <h1 class="font-mono font-black italic text-3xl tracking-tight flex items-center text-white drop-shadow-[0_1.5px_1.5px_rgba(0,0,0,1)] ml-5">GREEN COMPUTER ACADEMY</h1>
+      <img src="/src/images/LOGO.png" alt="" class="w-28" />
+      <h1 class="font-mono font-black italic text-3xl tracking-tight flex items-center text-white drop-shadow-[0_1.5px_1.5px_rgba(0,0,0,1)] ml-5">
+        GREEN COMPUTER ACADEMY
+      </h1>
     </div>
-    <div class="flex mt-8 mx-auto max-lg:w-[40rem] w-[55rem] h-[30rem] bg-white shadow-md rounded-lg">
+    <div style="width: 1100px;" 
+      class="flex mt-8 mx-auto max-lg:w-[40rem] h-[30rem] bg-white shadow-md rounded-lg">
       <!-- 로그인 섹션 -->
       <div class="w-[60%] p-4 flex flex-col items-center justify-center">
-        <div class=" my-3 mt-10 space-y-3">
+        <div class="space-y-3">
+          <div class="flex items-center mb-5 space-x-4">
+            <label class="flex items-center">
+              <input type="radio" name="option" checked />
+              <span class="text-gray-800 ml-2">학생</span>
+            </label>
+            <label class="flex items-center">
+              <input type="radio" name="option" />
+              <span class="text-gray-800 ml-2">선생님</span>
+            </label>
+            <label class="flex items-center">
+              <input type="radio" name="option" />
+              <span class="text-gray-800 ml-2">매니저</span>
+            </label>
+          </div>
+
           <div class="flex justify-between text-center">
             <p class="max-lg:text-left flex justify-center items-center">ID</p>
             <input
-              class=" ml-5 p-3 mb-5 w-80 transition duration-200 border-b border-gray-400 focus:outline-none"
+              class="ml-5 p-3 mb-5 w-80 transition duration-200 border-b border-gray-400 focus:outline-none"
               type="text"
               name="userid"
               id="userid"
@@ -53,17 +71,14 @@
       <div class="w-[40%] flex items-center justify-center bg-gray-100 p-4 rounded-r-lg shadow-inner">
         <div class="text-center">
           <div>
-          <p class="text-gray-600 text-sm font-semibold text-left py-2">공지사항</p>
-          <p class="text-gray-700 mt-2">현재 서비스 점검 중입니다. 이용에 불편을 드려 죄송합니다.</p>
-        </div>
-
+            <p class="text-gray-600 text-sm font-semibold text-left py-2">공지사항</p>
+            <p class="text-gray-700 mt-2">현재 서비스 점검 중입니다. 이용에 불편을 드려 죄송합니다.</p>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </template>
-
-
 
 <script setup>
 import { ref } from 'vue';

@@ -4,11 +4,17 @@
       <h2 class="text-lg font-bold mb-6 h-20">선생님 메뉴</h2>
       <ul class="space-y-3">
         <hr />
+        <RouterLink to="/teachertoday">
+          <li><a href="#" class="block text-sm pt-3">금일 출결 현황</a></li>
+        </RouterLink>
+        <hr />
         <RouterLink to="/attendancecheck">
           <li><a href="#" class="block text-sm pt-3">출결 관리</a></li>
         </RouterLink>
         <hr />
-        <li><a href="#" class="block text-sm">문의 게시판</a></li>
+        <RouterLink to="/teachercalander">
+          <li><a href="#" class="block text-sm pt-3">학생 출결 조회</a></li>
+        </RouterLink>
         <hr />
         <RouterLink to="/vacationform">
           <li><a href="#" class="block text-sm pt-3">휴가 제출 관리</a></li>
