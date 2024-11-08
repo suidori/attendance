@@ -1,7 +1,7 @@
 <template>
-  <img src="/src/images/wall2.jpg" alt="" class="w-screen h-screen opacity-50" />
+  <img src="/src/images/wall4.png" alt="" class="w-screen h-screen opacity-50" />
   <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-    <div class="flex justify-center bg-opacity-30 bg-gray-300 w-fit">
+    <div class="flex justify-center bg-opacity-30 bg-gray-300">
       <img src="/src/images/LOGO.png" alt="" class="w-28 ">
       <h1 class="font-mono font-black italic text-3xl tracking-tight flex items-center text-white drop-shadow-[0_1.5px_1.5px_rgba(0,0,0,1)] ml-5">GREEN COMPUTER ACADEMY</h1>
     </div>
