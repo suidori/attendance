@@ -1,13 +1,13 @@
 <template>
-  <img src="/src/images/wall4.jpg" alt="" class="w-screen h-screen opacity-50" />
-  <div style="width: 1100px;" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+  <img src="/src/images/wall4.png" alt="" class="absolute opacity-50 w-100"/>
+  <div class="absolute top-1/2 left-1/2  transform -translate-x-1/2 -translate-y-1/2">
     <div class="flex justify-center bg-opacity-30 bg-gray-300">
       <img src="/src/images/LOGO.png" alt="" class="w-28" />
       <h1 class="font-mono font-black italic text-3xl tracking-tight flex items-center text-white drop-shadow-[0_1.5px_1.5px_rgba(0,0,0,1)] ml-5">
         GREEN COMPUTER ACADEMY
       </h1>
     </div>
-    <div style="width: 1100px;"
+    <div style="width: 860px;"
       class="flex mt-8 mx-auto max-lg:w-[40rem] h-[30rem] bg-white shadow-md rounded-lg">
       <!-- 로그인 섹션 -->
       <div class="w-[60%] p-4 flex flex-col items-center justify-center">
