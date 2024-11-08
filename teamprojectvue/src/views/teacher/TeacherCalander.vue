@@ -21,8 +21,18 @@
         과거순
       </button>
       <hr class="my-2 border-blue-500" />
+
+
+
       <div
-        class="hover:bg-blue-700"
+
+      :class="{
+        'bg-blue-500 text-white': selectedlecture.value !== null && selectedlecture.idx === lecture.idx
+        
+      }"
+
+
+            class="hover:bg-blue-500 hover:text-white"
         @click="getmonthatt(lecture.idx, nowDat)"
         v-for="(lecture, index) in lecturelist"
         :key="lecture.idx"
@@ -119,6 +129,10 @@ onMounted(() => {
   updateDaysInMonth();
 });
 
+
+
+
+
 const updateDaysInMonth = () => {
   const daysInMonth = getDaysInMonth(currentMonth.value, currentYear.value);
   arr.value = Array.from({ length: daysInMonth }, (_, i) => i); // 0부터 일수까지의 배열 생성
@@ -191,11 +205,13 @@ const desclecture = async () => {
 
 const getmonthatt = async (idx, month) => {
   try {
+
     const res = await axios.get(
       `http://192.168.0.103:8080/attendance/monthview?idx=${idx}&month=${month}`
     );
     monthatt.value = processAttendanceData(res.data); // 데이터를 가공하는 함수를 호출
     selectedlecture.value = idx;
+
   } catch (e) {
     console.log(e);
   }

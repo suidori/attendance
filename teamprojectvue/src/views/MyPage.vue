@@ -2,7 +2,7 @@
   <div class="m-3 border border-gray-400 w-full p-10">
     <div class="">
       <h1 class="py-4 font-bold text-blue-800 mx-60">마이페이지</h1>
-      <hr class="mx-auto" />
+      <hr class="w-full mx-auto border-blue-900" />
 
       <div class="flex items-center justify-center p-6">
         <div class="bg-white flex p-3 rounded-xl">

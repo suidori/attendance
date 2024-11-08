@@ -18,14 +18,14 @@
           <button
             @click="getlecture(), (isClicked = true)"
             :class="{ 'bg-green-500': isClicked }"
-            class="border border-green-500 hover:bg-green-500 mr-1"
+            class="px-3 py-2 text-white bg-blue-600 rounded hover:opacity-80 mr-2"
           >
             최신순
           </button>
           <button
             @click="desclecture(), (isClicked = false)"
             :class="{ 'bg-green-500': !isClicked }"
-            class="border border-green-500 hover:bg-green-500"
+            class="px-3 py-2 text-white bg-blue-600 rounded hover:opacity-80"
           >
             과거순
           </button>
