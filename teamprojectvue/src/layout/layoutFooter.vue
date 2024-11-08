@@ -3,11 +3,17 @@
     <nav class="mx-0 shadow-md">
       <div class="bg-blue-300 h-12 p-3 fixed bottom-0 left-0 right-0">
         <div>
-          <div class="justify-center flex items-center">
-            <img src="../images/LOGO.png" alt="" class="h-8 max-md:w-28 cover cursor-pointer" @click="logoclick" />
-            그린컴퓨터아트학원(대구지점)
-          </div>
 
+          <div>
+          <a href="https://greenart.co.kr/" target="_blank">
+            <div  class="justify-center flex items-center">
+            <img src="../images/LOGO.png" alt="" class="h-8 max-md:w-28 cover cursor-pointer" />
+            <!-- @click="logoclick" -->
+            그린컴퓨터아트학원(대구지점)
+          </div> 
+        </a>
+        </div>
+         
           <div v-if="logincheckpinia"></div>
 
           <template v-else>
@@ -30,7 +36,7 @@ import { useloginStore } from '../stores/loginpinia.js';
 import { storeToRefs } from 'pinia';
 import { useRouter } from 'vue-router';
 
-import { userrole } from '../api/loginapi';
+import { userrole } from '../api/loginapi.js';
 
 const loginStore = useloginStore();
 
@@ -39,9 +45,11 @@ const router = useRouter();
 const { username, userrl, logincheckpinia } = storeToRefs(loginStore);
 const { loginchecktrue } = loginStore;
 
-const logout = () => {
-  localStorage.removeItem('token');
+const logout =async () => {
+
+   localStorage.removeItem('token');
   loginchecktrue();
+   userrole();
   router.push({ name: 'loginview' });
 };
 

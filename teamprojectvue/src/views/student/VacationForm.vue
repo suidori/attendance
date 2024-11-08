@@ -1,10 +1,9 @@
 <template>
   <div class="absolute max-md:hidden">
-    <StudentSideBar class="min-w-28"/>
 
   </div>
   <div>
-    <h1 class="md:ml-52">| 학생용 (VacationForm)</h1>
+    <!-- <h1 class="md:ml-52">| 학생용 (VacationForm)</h1> -->
     <div class="w-1/2 mx-auto min-w-80">
       <div class="">
         <h1 class="pt-10 font-extrabold text-blue-900">휴가 신청서 제출</h1>
@@ -73,8 +72,6 @@
 
 <script setup>
 import axios from 'axios';
-
-import StudentSideBar from '@/layout/StudentSideBar.vue';
 
 import { ref, computed } from 'vue';
 

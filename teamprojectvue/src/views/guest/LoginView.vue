@@ -43,7 +43,7 @@
             value="로그인"
           />
         </div>
-        
+
         <router-link to="jointermsofuse">
           <button class="text-sm text-blue-900">회원이 아니신가요?</button>
         </router-link>
@@ -71,10 +71,12 @@ import { useRouter } from 'vue-router';
 import { useloginStore } from '@/stores/loginpinia';
 import { storeToRefs } from 'pinia';
 import { userdata, userrole, logincontrol } from '@/api/loginapi';
+import { onMounted } from 'vue';
 
 const loginpinia = useloginStore();
 
 const { userrl } = storeToRefs(loginpinia);
+const { userL } = loginpinia;
 
 const userid = ref('');
 const password = ref('');
@@ -118,6 +120,10 @@ const LoginSequence = async () => {
     return;
   }
 };
+
+onMounted(async () => {
+  userL();
+});
 </script>
 
 <style lang="scss" scoped></style>

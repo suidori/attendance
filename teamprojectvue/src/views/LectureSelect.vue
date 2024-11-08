@@ -1,6 +1,4 @@
 <template>
-  <StudentSideBar class="min-w-28 absolute"/>
-
  <div class="w-2/3 mx-auto p-10">
  <div class="mb-4">
 
@@ -58,7 +56,6 @@
 </template>
 
 <script setup>
-import StudentSideBar from '@/layout/StudentSideBar.vue';
 import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 

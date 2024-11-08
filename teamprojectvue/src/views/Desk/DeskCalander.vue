@@ -1,4 +1,5 @@
 <template>
+  <div>
   <div class="m-3">
     <div
       @click="goVacationManage"
@@ -77,7 +78,9 @@
       </div>
     </div>
   </div>
-  <div class="mb-64"></div>
+  <div class="mb-64">
+  </div>
+</div>
 </template>
 
 <script setup>
@@ -113,11 +116,21 @@ onMounted(() => {
   updateDaysInMonth();
 });
 
+
+
 const updateDaysInMonth = () => {
+
+  // if(selectedlecture.value !==null){}
+
   const daysInMonth = getDaysInMonth(currentMonth.value, currentYear.value);
   arr.value = Array.from({ length: daysInMonth }, (_, i) => i); // 0부터 일수까지의 배열 생성
   monthatt.value = [];
+  
+  if(selectedlecture.value !== null){
   getmonthatt(selectedlecture.value, nowDat.value);
+  }
+
+
 };
 
 const getDayName = (item) => {
@@ -176,7 +189,12 @@ const desclecture = async () => {
 };
 
 const getmonthatt = async (lecture, month) => {
+
+  console.log(lecture)
+
+  
   try {
+
     console.log(lecture.idx, month);
     selectedtitle.value = lecture.title;
     selectedlecture.value = lecture;

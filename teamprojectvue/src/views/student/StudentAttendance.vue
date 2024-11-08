@@ -1,7 +1,6 @@
 <template>
     <div id="container" class="flex">
-
-        <StudentSideBar class="min-w-28 absolute"/>
+        <!-- <StudentSideBar class="min-w-28 absolute"/> -->
         <!-- <div id="leftmenu" class="p-4 border border-blue-500 w-36">
 
             <h1>메뉴</h1>
@@ -13,9 +12,9 @@
             </RouterLink>
 
         </div> -->
-        <div id="main" class="mx-auto items-center justify-center w-2/3">
+    
+        <div id="main" class="mx-auto items-center justify-center w-2/3 mt-10">
             <div id="user" class="">
-
                 <h1 v-if="user">{{user.name}} 학생 출결 관리</h1>
                 <p v-if="useravail" class="text-green-600">수강중: {{ attlist.at(0).lecture }}</p>
                 <p v-if="!useravail" class="text-red-600">{{ usererror }}</p>

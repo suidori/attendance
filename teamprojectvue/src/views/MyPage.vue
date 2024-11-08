@@ -1,6 +1,6 @@
 <template>
-  <StudentSideBar class="min-w-28 absolute" />
-
+  <div>
+<div class="m-auto w-[150vh]">
   <h1 class="py-4 font-bold text-blue-800 mx-60">마이페이지</h1>
   <hr class="w-2/3 mx-auto" />
 
@@ -16,35 +16,33 @@
         <!-- 이름 -->
         <div class="flex">
           <span class="w-24 font-bold text-gray-800">이름 </span>
-          <span class="text-gray-500">김철수</span>
+          <span class="text-gray-500">{{username}} ({{role}})</span>
         </div>
         <!-- 전화번호 -->
         <div class="flex">
           <span class="w-24 font-bold text-gray-800">전화번호</span>
-          <span class="text-gray-500">010-XXXX-XXXX</span>
+          <span class="text-gray-500">{{phoneNumber}}</span>
         </div>
         <!-- 이메일 -->
         <div class="flex">
           <span class="w-24 font-bold text-gray-800">e-mail</span>
-          <span class="text-gray-500">없음</span>
+          <span class="text-gray-500">{{email}}</span>
         </div>
       </div>
     </div>
   </div>
 
-  <hr class="w-2/3 mx-auto border-2 border-b-blue-900" />
+  <hr class="w-2/3 mx-auto border-blue-900" />
   <h1 class="py-4 font-bold text-blue-800 mx-60">수강중인 강좌</h1>
   <div class="flex flex-col items-center justify-center mx-60">
-    <div class="flex my-3">
-      <h class="flex items-center justify-center w-20 text-sm text-center text-white bg-blue-900 border rounded">강좌1</h>
-      <input type="text" name="강의정보" id="" class="h-10 mx-3 text-xs border w-96 rounded" placeholder=" 강의정보-강사:000 / 강의시간 0교시" />
+
+    <div v-for="(item ,index) in lecturelist" :key="item.lecturelist" class="flex my-3">
+      <h class="flex items-center justify-center w-20 text-sm text-center text-white bg-blue-900 border rounded">강좌{{index+1}}</h>
+      <div class="h-10 mx-3 text-xs border w-96 rounded p-3" >{{item.content}}</div>
     </div>
-    <div class="flex">
-      <h class="flex items-center justify-center w-20 text-sm text-center text-white bg-blue-900 border rounded">강좌2</h>
-      <input type="text" name="강의정보" id="" class="h-10 mx-3 text-xs border w-96 rounded" placeholder=" 강의정보-강사:000 / 강의시간 0교시" />
-    </div>
+
   </div>
-  <hr class="w-2/3 mx-auto border-2 border-b-blue-900 py-3" />
+  <hr class="w-2/3 mx-auto border-blue-900 py-3 mt-8" />
   <div>
     <h1 class="py-4 font-bold text-blue-800 ml-60">내 휴가신청 보기</h1>
     <div class="flex justify-center items-center">
@@ -52,12 +50,57 @@
         <a>링크 연결</a>
       </div>
     </div>
-
   </div>
+</div>
+</div>
 </template>
 
 <script setup>
-import StudentSideBar from '@/layout/StudentSideBar.vue'
+import { profiledata } from '@/api/student';
+import { getmylecture } from '@/api/student';
+import { onMounted, ref } from 'vue';
+
+
+const username = ref('')
+const phoneNumber = ref('')
+const email = ref('')
+const role = ref('')
+const lecturelist = ref([])
+
+onMounted( async() =>  {
+
+  const profileres = await profiledata()
+
+
+  username.value = profileres.data.name
+  phoneNumber.value = profileres.data.phoneNumber
+  email.value = profileres.data.email
+
+
+  if(profileres.data.role == "ROLE_STUDENT"){
+    role.value = '학원생'
+  }
+  else if(profileres.data.role =="ROLE_TEACHER"){
+
+    role.value = '선생님'
+  }
+  else{
+    role.value = "매니저"
+  }
+
+  
+
+  const arrres = await getmylecture();
+  
+  
+    lecturelist.value = arrres.data
+  
+
+  console.log(lecturelist.value[0].content)
+
+}
+)
+
 </script>
 
 <style lang="scss" scoped></style>
