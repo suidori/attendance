@@ -9,10 +9,10 @@ user5~15 학생
       class="font-[GmarketSansMedium] flex justify-center">
     <RouterView />
   </div>
-  <LayoutFooter></LayoutFooter>
+  <LayoutFooter class=""></LayoutFooter>
 
   <template v-if="userrlvalue == 'ROLE_STUDENT'">
-    <StudentSideBar class="" style="position: fixed; top: 1%; left: 11%" />
+    <StudentSideBar class="" style="position: fixed; top: 1%; left: 0%; bottom:0; top: 50%"/>
   </template>
   <template v-if="userrlvalue == 'ROLE_TEACHER'">
     <TeacherSideBar class="" style="position: fixed; top: 1%; left: 11%" />
