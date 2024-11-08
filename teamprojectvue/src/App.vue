@@ -5,7 +5,7 @@ user3,4 매니저
 user5~15 학생
 마스터
 -->
-  <div style="width: 1200px; margin:0 auto" 
+  <div style="width: 1200px; margin:0 auto"
       class="font-[GmarketSansMedium] flex justify-center">
     <RouterView />
   </div>

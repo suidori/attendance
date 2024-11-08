@@ -28,7 +28,7 @@ export const userrole = async () => {
   if(token==null){
     return;
   }
-  
+
   const res = await axios.get(`${url}/user/getrole`, {
     headers: {
       Authorization: `Bearer ${token}`

@@ -1,4 +1,5 @@
 <template>
+    <TopBar></TopBar>
     <div id="container" class="flex">
         <!-- <StudentSideBar class="min-w-28 absolute"/> -->
         <!-- <div id="leftmenu" class="p-4 border border-blue-500 w-36">
@@ -160,6 +161,7 @@ import { useRouter } from 'vue-router';
 import dayjs from 'dayjs';
 
 import StudentSideBar from '@/layout/StudentSideBar.vue';
+import TopBar from '@/layout/TopBar.vue';
 
 
 
