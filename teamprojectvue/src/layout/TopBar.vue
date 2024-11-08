@@ -1,10 +1,10 @@
 <template>
   <header class="bg-white shadow-md py-1 px-8 h-24">
-    <div class="flex items-center justify-between">
+    <div class="flex items-center justify-between font-[GmarketSansMedium]">
       <!-- 로고 -->
       <button type="button">
-        <router-link to="/">
-          <img src="../images/LOGO2.png" alt="" class="ml-28 h-20 w-auto my-1" />
+        <router-link to="#">
+          <img src="../images/LOGO2.png" alt="" class="pl-28 h-20 w-auto my-1" />
         </router-link>
       </button>
       <!-- 중간 메뉴-->
@@ -26,8 +26,8 @@
         <!-- 토글 알림 창-->
         <div
           v-if="showNotifications"
-          class="absolute top-full mt-2 right-10 w-80 bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden transition-all transform origin-top duration-300 ease-in-out"
-          :class="{ 'scale-y-100': showNotifications, 'scale-y-0': !showNotifications }"
+          class="absolute top-20 mt-2 right-10 w-80 bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden transition-all transform origin-top duration-300 ease-in-out"
+          :class="{ 'scale-y-100 ': showNotifications, 'scale-y-0': !showNotifications }"
         >
           <ul class="divide-y divide-gray-200">
             <li

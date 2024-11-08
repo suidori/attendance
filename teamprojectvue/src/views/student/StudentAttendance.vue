@@ -1,20 +1,5 @@
 <template>
-  <div id="container" class="w-11/12">
-    <!-- <StudentSideBar class="min-w-28 absolute"/> -->
-    <!-- <div id="leftmenu" class="p-4 border border-blue-500 w-36">
-
-            <h1>메뉴</h1>
-            <RouterLink to="/stdatt">
-                <h1>출결달력</h1>
-            </RouterLink>
-            <RouterLink to="/vacationform">
-                <h1>휴가신청</h1>
-            </RouterLink>
-
-        </div> -->
-    <div class="mb-32">
-      <TopBar class="absolute w-screen left-0"></TopBar>
-    </div>
+ 
     <div id="main" class="items-center justify-center mt-10 w-4/5 mx-auto">
       <div id="user" class="">
         <h1 v-if="user">{{ user.name }} 학생 출결 관리</h1>
@@ -214,7 +199,7 @@
         </div>
       </div>
     </div>
-  </div>
+ 
   <div class="mb-64"></div>
 </template>
 
@@ -225,7 +210,6 @@ import { useRouter } from 'vue-router';
 import dayjs from 'dayjs';
 
 import StudentSideBar from '@/layout/StudentSideBar.vue';
-import TopBar from '@/layout/TopBar.vue';
 
 const now = ref(dayjs());
 const columns = ref([]);

@@ -1,5 +1,5 @@
 <template>
-  <img src="/src/images/wall5.png" alt="" class="w-screen h-screen opacity-50" />
+  <img src="/src/images/wall5.png" alt="" class="h-screen w-screen absolute opacity-50" />
   <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
     <div class="flex justify-center bg-opacity-30 bg-gray-300">
       <img src="/src/images/LOGO.png" alt="" class="w-28" />
