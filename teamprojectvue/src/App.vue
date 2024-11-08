@@ -1,4 +1,5 @@
 <template>
+  <div class=" w-full">
   <!--
 user1,2 선생
 user3,4 매니저
@@ -6,7 +7,7 @@ user5~15 학생
 마스터
 -->
   <div style="width: 1200px; margin:0 auto"
-      class="font-[GmarketSansMedium] flex justify-center">
+      class=" font-[GmarketSansMedium] flex justify-center">
     <RouterView />
   </div>
   <LayoutFooter></LayoutFooter>
@@ -19,10 +20,12 @@ user5~15 학생
   </template>
   <template v-if="userrlvalue == 'ROLE_MANAGER'">
     <ManagerSideBar class="" style="position: fixed; top: 1%; left: 11%" />
+    
   </template>
 
   <!-- <StudentSideBar  class="" style="position: fixed; top:35%; left:3%" v-if="sidecheck1"/>
 <StudentSideBar  class="" style="position: fixed; top:35%; left:3%" v-if="sidecheck2"/> -->
+</div>
 </template>
 
 <script setup>
