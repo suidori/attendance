@@ -3,20 +3,9 @@
         <div>
 <h1 class=" text-blue-800 text-2xl font-bold mb-3">관리자 가입 허가</h1>
 <hr class="border-2 border-blue-800 ">
-
-
-
 <div>
-
 <div class=" m-auto" style="width: 1500px;">
-
-
-
 <div class="flex justify-center mt-16">
-
-  
-   
-
 <div class="w-96 bg border border-black rounded"><input  type="search" name="" id="" placeholder="강의명 또는 이름검색" 
     class="w-11/12 px-3 pt-1 pb-1 " required><span class=" ml-2 cursor-pointer">＠</span></div>
 </div>
@@ -26,11 +15,6 @@
     <input type="checkbox" name="" id="" class="inline-block "><h1 class="inline-block ml-7">전체선택</h1> 
     <!-- 위치수정 필요 -->
 </div>
-
-
-
-
-
     <!-- 리스트 항목 -->
     <!-- <ul v-for="item in arr" :key="item.id" class="w-full  flex justify-center "> -->
         <!-- <input type="checkbox" name="" id="" class="inline-block mr-7">
@@ -48,10 +32,6 @@
             <button class=" border border-blue-800 bg-blue-800 text-white font-bold m-1">가입승인</button>
         </li>
     </ul>
-
-
-
-
 </div>
         </div>
         <div class="flex justify-center">
@@ -65,15 +45,11 @@
               {{ num }}
             </li>
           </ul>
-
-
         </div>
     </div>   
-    
     </div>
     </div>
     <div class="mb-64">
-
 </div>
 </template>
 
@@ -84,12 +60,9 @@ const arr = ref([])
 const pageNum = ref(0)
 const totalpages = ref(10)
 
-
-
 </script>
 
 <style lang="scss" scoped>
-
 
 
 </style>

@@ -18,14 +18,14 @@
           <button
             @click="getlecture(), (isClicked = true)"
             :class="{ 'bg-green-500': isClicked }"
-            class="border border-green-500 hover:bg-green-500 mr-1"
+            class="px-3 py-2 text-white bg-blue-600 rounded hover:opacity-80 mr-2"
           >
             최신순
           </button>
           <button
             @click="desclecture(), (isClicked = false)"
             :class="{ 'bg-green-500': !isClicked }"
-            class="border border-green-500 hover:bg-green-500"
+            class="px-3 py-2 text-white bg-blue-600 rounded hover:opacity-80"
           >
             과거순
           </button>
@@ -50,6 +50,23 @@
         <div class="w-5/6 p-3 border-2 bg-white">
           <div class="w-full">
             <h1 class="p-5 text-3xl font-bold text-blue-800">-출결리스트-</h1>
+
+
+             <!-- 드롭박스 -->
+            <h1 class="flex justify-center m-3 text-3xl font-bold text-blue-800">
+              <select v-model="selectedYear" @change="updateDaysInMonth" class="p-2 mr-2">
+                <option v-for="year in availableYears" :key="year" :value="year">{{ year }}</option>
+              </select>
+              <select v-model="selectedMonth" @change="updateDaysInMonth" class="p-2 ml-2">
+                <option @click="dropdate(year ,index)" v-for="(monthName, index) in monthNames" :key="index" :value="index">
+                  {{ monthName }}
+                </option>
+              </select>
+            </h1>
+
+
+
+
             <hr class="border-2 border-blue-800" />
 
             <h1 class="flex justify-center m-3 text-3xl font-bold text-blue-800">
@@ -133,6 +150,16 @@ const selectedlecture = ref(null);
 
 const isClicked = ref(true);
 
+
+const selectedYear = ref(currentYear.value);
+const selectedMonth = ref(currentMonth.value);
+
+
+const availableYears = ref([]); // 가능한 연도들 (5년 전부터 5년 후까지)
+const monthNames = [
+  '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'
+];
+
 const goVacationManage = () => {
   router.push({ name: 'vacationmanage' });
 };
@@ -141,9 +168,14 @@ const getDaysInMonth = (month, year) => {
   return new Date(year, month + 1, 0).getDate();
 };
 
+
+
 onMounted(() => {
+  const currentYear = dayjs().year();
+  availableYears.value = Array.from({ length: 11 }, (_, i) => currentYear - 5 + i);
   updateDaysInMonth();
 });
+
 
 const updateDaysInMonth = () => {
   // if(selectedlecture.value !==null){}
