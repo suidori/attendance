@@ -50,6 +50,22 @@
         <div class="w-5/6 p-3 border-2 bg-white">
           <div class="w-full">
             <h1 class="p-5 text-3xl font-bold text-blue-800">-출결리스트-</h1>
+
+
+
+            <h1 class="flex justify-center m-3 text-3xl font-bold text-blue-800">
+              <select v-model="selectedYear" @change="updateDaysInMonth" class="p-2 mr-2">
+                <option v-for="year in availableYears" :key="year" :value="year">{{ year }}</option>
+              </select>
+              <select v-model="selectedMonth" @change="updateDaysInMonth" class="p-2 ml-2">
+                <option v-for="(monthName, index) in monthNames" :key="index" :value="index">
+                  {{ monthName }}
+                </option>
+              </select>
+            </h1>
+
+
+
             <hr class="border-2 border-blue-800" />
 
             <h1 class="flex justify-center m-3 text-3xl font-bold text-blue-800">
@@ -132,6 +148,27 @@ const selectedtitle = ref(null);
 const selectedlecture = ref(null);
 
 const isClicked = ref(true);
+
+
+
+
+const selectedYear = ref(currentYear.value);
+const selectedMonth = ref(currentMonth.value);
+
+
+const availableYears = ref([]); // 가능한 연도들 (5년 전부터 5년 후까지)
+const monthNames = [
+  '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'
+];
+
+// 연도 드롭다운에 사용할 값들 생성 (현재 연도 기준 +/- 5년)
+onMounted(() => {
+  const currentYear = dayjs().year();
+  availableYears.value = Array.from({ length: 11 }, (_, i) => currentYear - 5 + i);
+  updateDaysInMonth();
+});
+
+
 
 const goVacationManage = () => {
   router.push({ name: 'vacationmanage' });
