@@ -32,7 +32,7 @@
         v-for="(lecture, index) in lecturelist"
         :key="lecture.idx"
       >
-        {{ lecture.title }}{{console.log("div내에 lecture.idx "+lecture.idx)}} {{selectedlecture.value}}
+        {{ lecture.title }}
         <hr v-if="index < lecturelist.length - 1" class="my-2 border-blue-500" />
       </div>
     </div>
