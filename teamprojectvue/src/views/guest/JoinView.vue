@@ -129,7 +129,7 @@
         회원가입 -->
     </form>
   </div>
-  <div class="mb-64">
+  <div class="mb-60">
 
 </div>
 </template>
