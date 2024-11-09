@@ -222,11 +222,13 @@
     </div>
     <div>
       <button @click="joinSubmit" class="border-2 bg-blue-700 rounded-lg text-white font-bold p-2 px-6">동의</button>
-    </div>
-  </div>
-  <div class="mb-64">
+      <button @click="gologin" class="border-2 bg-red-700 rounded-lg text-white font-bold p-2 px-6">취소</button>
+      <div class="mb-52">
 
 </div>
+    </div>
+  </div>
+  
 </template>
 
 <script setup>
@@ -254,6 +256,12 @@ function joinSubmit(){
     alert('개인정보 동의에 체크하여 주세요')
   }
 }
+
+const gologin= ()=>{
+
+router.go(-1)
+}
+
 </script>
 
 <style lang="scss" scoped>

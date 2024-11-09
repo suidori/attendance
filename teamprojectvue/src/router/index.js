@@ -143,7 +143,16 @@ const router = createRouter({
       component: TeacherCalander
     },
 
-  ]
+  ],
+
+  scrollBehavior (to, from, savePositior){
+
+    return {top : 0}
+  }
+
+
 })
+
+
 
 export default router
