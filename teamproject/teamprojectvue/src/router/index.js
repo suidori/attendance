@@ -19,10 +19,8 @@ import TeacherToday from '@/views/teacher/TeacherToday.vue'
 import VacationManage from '@/component/VacationManage.vue'
 import DeskCalander from '@/views/Desk/DeskCalander.vue'
 import StudentVacation from '@/views/student/StudentVacation.vue'
-import DeskAnnouncewrite from '@/views/Desk/DeskAnnouncewrite.vue'
-import DeskAnnounceList from '@/views/Desk/DeskAnnounceList.vue'
-import AnnounceView from '@/views/AnnounceView.vue'
 
+import test from '@/views/Desk/test.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -38,19 +36,9 @@ const router = createRouter({
       component: LoginView
     },
     {
-      path: '/announceview/:idx',
-      name: 'announceview',
-      component: AnnounceView
-    },
-    {
-      path: '/deskannouncewrite',
-      name: 'deskannouncewrite',
-      component: DeskAnnouncewrite
-    },
-    {
-      path: '/deskannouncelist',
-      name: 'deskannouncelist',
-      component: DeskAnnounceList
+      path: '/test',
+      name: 'test',
+      component: test
     },
     {
       path: '/studentvacation',
@@ -155,7 +143,16 @@ const router = createRouter({
       component: TeacherCalander
     },
 
-  ]
+  ],
+
+  scrollBehavior (to, from, savePositior){
+
+    return {top : 0}
+  }
+
+
 })
+
+
 
 export default router

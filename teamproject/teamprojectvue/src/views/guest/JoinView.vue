@@ -124,12 +124,19 @@
       >
         회원가입
       </button>
+      <button
+        @click="cansel"
+        class="px-4 py-2 font-bold text-white bg-red-500 rounded hover:bg-red-700 focus:outline-none focus:shadow-outline"
+        type="button"
+      >
+        취소
+      </button>
       <!-- :disabled="!IdAvailable"
       >
         회원가입 -->
     </form>
   </div>
-  <div class="mb-64">
+  <div class="mb-60">
 
 </div>
 </template>
@@ -161,8 +168,6 @@ const phoneAvailable = ref(false)
 const phoneError = ref('')
 
 const phoneNumber = ref('')
-
-
 
 const checkphone = async () => {
 // 아이디가 비어있을 경우
@@ -202,8 +207,6 @@ if (!phoneNumbersecond.value || !phoneNumberthird.value) {
           }  
 }
 
-
-
 const checkid = async () => {
   // 아이디가 비어있을 경우
   if (!userid.value) {
@@ -211,7 +214,6 @@ const checkid = async () => {
     idAvailable.value = false
     return
   }
-
 
 
   const idResponse = await checkI( userid.value )
@@ -256,4 +258,12 @@ const joinuser = async () => {
 
 
 }
+
+
+const cansel = () => {
+
+  router.push({name:'loginview'})
+}
+
+
 </script>

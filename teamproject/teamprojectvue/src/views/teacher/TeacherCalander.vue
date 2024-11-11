@@ -22,24 +22,17 @@
       </button>
       <hr class="my-2 border-blue-500" />
 
-
-
-      <!-- 11/08(금) 동현) 스타일 해결좀... -->
       <div
-
       :class="{
-  'bg-blue-500 text-white': selectedlecture && selectedlecture.value === lecture.idx
+  'bg-blue-500 text-white': selectedlecture!==null && selectedlecture == lecture.idx
 }"
-
-
-
 
             class="hover:bg-blue-500 hover:text-white"
         @click="getmonthatt(lecture.idx, nowDat)"
         v-for="(lecture, index) in lecturelist"
         :key="lecture.idx"
       >
-        {{ lecture.title }}{{console.log("div내에 lecture.idx "+lecture.idx)}}
+        {{ lecture.title }}
         <hr v-if="index < lecturelist.length - 1" class="my-2 border-blue-500" />
       </div>
     </div>
@@ -132,9 +125,6 @@ onMounted(() => {
 });
 
 
-
-
-
 const updateDaysInMonth = () => {
   const daysInMonth = getDaysInMonth(currentMonth.value, currentYear.value);
   arr.value = Array.from({ length: daysInMonth }, (_, i) => i); // 0부터 일수까지의 배열 생성
@@ -207,19 +197,12 @@ const desclecture = async () => {
 
 const getmonthatt = async (idx, month) => {
 
-  
-
-  selectedlecture.value = idx;
-  console.log("요청한  selectedlecture.value ="+ selectedlecture.value)
-
   try {
-
-
     const res = await axios.get(
       `http://192.168.0.103:8080/attendance/monthview?idx=${idx}&month=${month}`
     );
     monthatt.value = processAttendanceData(res.data); // 데이터를 가공하는 함수를 호출
-    // selectedlecture.value = idx;
+    selectedlecture.value = idx;
     console.log("일루오나"+selectedlecture.value)
   } catch (e) {
     console.log(e);

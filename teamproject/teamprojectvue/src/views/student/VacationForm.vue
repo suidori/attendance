@@ -1,5 +1,6 @@
 <template>
-  <div class="m-3 border border-gray-400 w-full">
+
+  <div v-if="useravail" class="m-3 border border-gray-400 w-full">
     <!-- <h1 class="md:ml-52">| 학생용 (VacationForm)</h1> -->
     <div class="w-1/2 mx-auto min-w-80">
       <div class="">
@@ -69,13 +70,26 @@
     <hr class="w-1/2 mx-auto my-5" />
     <div class="flex items-center justify-center"></div>
   </div>
+
+
+  <div v-else class="mt-44 ">
+<h1 class="flex justify-center"> << 먼저 강좌를 선택하여 주시길 바랍니다. >>  </h1>
+<div class="flex justify-center">
+<button  class=" border-2 border-blue-800 m-5 p-2 pl-8 pr-8 rounded-md bg-blue-800 text-white" @click="golectureselect" >강좌 리스트 보러가기</button>
+      </div>
+
+  </div>
+
+
+
+
   <div class="mb-64"></div>
 </template>
 
 <script setup>
 import axios from 'axios';
-
-import { ref, computed } from 'vue';
+import dayjs from 'dayjs';
+import { ref, computed, onMounted } from 'vue';
 
 const phoneNumberfirst = ref('010');
 const phoneNumbersecond = ref('');
@@ -86,6 +100,12 @@ const personalNumFront = ref('');
 const personalNumBack = ref('');
 const dateAvail = ref(false);
 const selectedDate = ref('날짜를 선택 해 주세요');
+
+const user = ref(null);
+const now = ref(dayjs());
+const useravail = ref(false);
+const usererror = ref('');
+const attlist = ref([]);
 
 const datecheck = (date) => {
   if (!date) {
@@ -150,6 +170,42 @@ const sub = async () => {
     alert('에러');
   }
 };
+
+
+const showuser = async () => {
+  try {
+    const token = localStorage.getItem('token');
+
+    const resuser = await axios.get('http://192.168.103:8080/user/getuser', {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    console.log(resuser.data);
+    user.value = resuser.data;
+    const data = {
+      user: user.value,
+      month: dayjs(now.value).format('YYYY-MM')
+    };
+
+    const resatt = await axios.post('http://192.168.103:8080/attendance/getuser', data);
+
+    attlist.value = resatt.data;
+    useravail.value = true;
+    console.log(attlist.value);
+  } catch (e) {
+    console.log(e);
+    useravail.value = false;
+    usererror.value = '사용자를 찾을 수 없습니다.';
+    
+  }
+};
+
+onMounted(()=>{
+  showuser()
+
+})
+
 </script>
 
 <style lang="scss" scoped></style>

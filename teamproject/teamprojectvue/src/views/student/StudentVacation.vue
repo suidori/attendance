@@ -39,6 +39,7 @@
             class="px-4 py-2 text-white bg-blue-600 rounded hover:opacity-80">대기 중인 요청만 보기</button>
           <button v-if="unchecking" @click="fetchVacations(1)"
             class="px-4 py-2 text-white bg-blue-600 rounded hover:opacity-80">모든 요청 보기</button>
+            <button class="float-end px-4 py-2 text-white bg-blue-600 rounded hover:opacity-80" @click="govacationForm">휴가 신청</button>
         </div>
 
         <!-- Pagination -->
@@ -60,6 +61,7 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue';
 import axios from 'axios';
+import router from '@/router';
 
 const vacationList = ref([]);
 const totalElements = ref(0);
@@ -138,6 +140,13 @@ const nextPageGroup = () => {
   }
 };
 
+
+
+const govacationForm = () => {
+
+  router.push({name:'vacationform'})
+
+}
 
 onMounted(() => {
   fetchVacations(currentPage.value);

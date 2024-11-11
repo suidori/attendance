@@ -9,8 +9,8 @@
           <li><a href="#" class="block pt-3 text-sm">출결 관리</a></li>
         </RouterLink>
         <hr />
-        <RouterLink to="/vacationform">
-          <li><a href="#" class="block pt-3 text-sm">휴가 신청서 제출</a></li>
+        <RouterLink to="/studentvacation">
+          <li><a href="#" class="block pt-3 text-sm">휴가 신청 현황</a></li>
         </RouterLink>
         <hr />
         <RouterLink to="/lectureselect">
