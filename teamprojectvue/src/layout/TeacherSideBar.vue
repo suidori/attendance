@@ -19,19 +19,19 @@
               </div>
             </li>
           </RouterLink>
-          <hr class="border-gray-300"/>
-          <RouterLink to="/studentvacation">
+          <!-- <hr class="border-gray-300"/>
+          <RouterLink to="/vacationmanage">
             <li>
               <div
-                @click="setActiveItem('vacation')"
-                :class="{ 'bg-blue-200 rounded-md': activeItem === 'vacation' }"
+                @click="setActiveItem('vacationmanage')"
+                :class="{ 'bg-blue-200 rounded-md': activeItem === 'vacationmanage' }"
                 class="mt-2 py-1 text-sm flex items-center"
               >
                 <img src="../images/check.png" alt="" class="mr-2" />
-                휴가 제출 관리
+                휴가 제출 관리??
               </div>
             </li>
-          </RouterLink>
+          </RouterLink> -->
           <hr class="border-gray-300"/>
           <RouterLink to="/teachercalander">
             <li>

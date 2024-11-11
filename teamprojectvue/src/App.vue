@@ -17,7 +17,7 @@ user5~15 학생
   <LayoutFooter class=""></LayoutFooter>
 
   <template v-if="userrlvalue == 'ROLE_STUDENT'">
-    <StudentSideBar class="" style="position: fixed; top: 12%; left: 11%"/>
+    <StudentSideBar class="" style="position: fixed; top: 1%; left: 11%"/>
   </template>
   <template v-if="userrlvalue == 'ROLE_TEACHER'">
     <TeacherSideBar class="" style="position: fixed; top: 1%; left: 11%" />
