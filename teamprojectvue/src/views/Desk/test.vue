@@ -70,7 +70,15 @@
                   </svg>
                 </div>
               </button>
-              {{ nowDat }}
+              <select v-model="currentYear" @change="dropdate" class="p-2 border rounded mx-2">
+                <option v-for="year in availableYears" :key="year" :value="year">{{ year }}년</option>
+              </select>
+
+              <select v-model="currentMonth" @change="dropdate" class="p-2 border rounded mx-2">
+                <option v-for="(month, index) in monthNames" :key="index" :value="index">
+                  {{ month }}
+                </option>
+              </select>
               <button class="mb-2 ml-2 hover:scale-150" @click="update()">
                 <div>
                   <svg
@@ -92,7 +100,7 @@
             </h1>
             <h1 v-if="selectedtitle" class="text-green-500">{{ selectedtitle }}</h1>
 
-            <!-- 년도 및 월 선택 -->
+            <!-- 년도 및 월 선택
             <div class="flex justify-center">
               <select v-model="currentYear" @change="dropdate" class="p-2 border rounded mx-2">
                 <option v-for="year in availableYears" :key="year" :value="year">{{ year }}년</option>
@@ -103,7 +111,7 @@
                   {{ month }}
                 </option>
               </select>
-            </div>
+            </div> -->
 
             <div class="w-full overflow-auto">
               <table class="w-full">
