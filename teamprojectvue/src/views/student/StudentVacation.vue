@@ -1,6 +1,6 @@
 <template>
   <div class="flex justify-center font-sans">
-    <main class="flex justify-center" style="width: 1300px;">
+    <main v-if="useravail" class="flex justify-center" style="width: 1300px;">
       <section class="flex-1 p-5 m-10 bg-white border-gray-500 border-1">
         <h1 class="mb-5 text-2xl font-semibold">휴가 신청 현황</h1>
 
@@ -55,6 +55,14 @@
         </div>
       </section>
     </main>
+
+    <div v-else class="mt-44 ">
+<h1 class="flex justify-center"> << 먼저 강좌를 선택하여 주시길 바랍니다. >>  </h1>
+<div class="flex justify-center">
+<button  class=" border-2 border-blue-800 m-5 p-2 pl-8 pr-8 rounded-md bg-blue-800 text-white" @click="golectureselect" >강좌 리스트 보러가기</button>
+      </div>
+
+    </div>
   </div>
 </template>
 
@@ -62,6 +70,7 @@
 import { ref, onMounted, computed } from 'vue';
 import axios from 'axios';
 import router from '@/router';
+import dayjs from 'dayjs';
 
 const vacationList = ref([]);
 const totalElements = ref(0);
@@ -72,6 +81,14 @@ const currentPageGroup = ref(0); // 현재 페이지 그룹
 const totalPageGroups = computed(() => Math.ceil(totalPages.value / itemsPerPage)); // 총 페이지 그룹 수
 
 const unchecking = ref(false);
+
+const user = ref(null);
+const now = ref(dayjs());
+const useravail = ref(false);
+const usererror = ref('');
+const attlist = ref([]);
+
+
 
 const unChecked = async (pageNum = 1) => {
   unchecking.value = true;
@@ -148,7 +165,39 @@ const govacationForm = () => {
 
 }
 
+
+const showuser = async () => {
+  try {
+    const token = localStorage.getItem('token');
+
+    const resuser = await axios.get('http://192.168.103:8080/user/getuser', {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    console.log(resuser.data);
+    user.value = resuser.data;
+    const data = {
+      user: user.value,
+      month: dayjs(now.value).format('YYYY-MM')
+    };
+
+    const resatt = await axios.post('http://192.168.103:8080/attendance/getuser', data);
+
+    attlist.value = resatt.data;
+    useravail.value = true;
+    console.log(attlist.value);
+  } catch (e) {
+    console.log(e);
+    useravail.value = false;
+    usererror.value = '사용자를 찾을 수 없습니다.';
+    
+  }
+};
+
 onMounted(() => {
   fetchVacations(currentPage.value);
+  showuser()
 });
+
 </script>
