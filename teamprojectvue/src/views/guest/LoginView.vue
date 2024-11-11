@@ -13,18 +13,20 @@
       <div class="w-[60%] p-4 flex flex-col items-center justify-center">
         <div class="space-y-3">
           <div class="flex justify-center items-center mb-10 space-x-8">
-            <label class="flex items-center">
-              <input type="radio" name="option" checked />
-              <span class="text-gray-800 ml-2 mt-1">학생</span>
-            </label>
-            <label class="flex items-center">
-              <input type="radio" name="option" />
-              <span class="text-gray-800 ml-2 mt-1">선생님</span>
-            </label>
-            <label class="flex items-center">
-              <input type="radio" name="option" />
-              <span class="text-gray-800 ml-2 mt-1">매니저</span>
-            </label>
+
+          <form action="">
+          
+              <input @click="print" type="radio" id="role1" v-model="radiocheck"  name="role1"  value="ROLE_STUDENT"/>
+              <label for="role1" class="text-gray-800 ml-3 mr-6 mt-1">학생</label>
+         
+              <input @click="print" type="radio" id="role2" v-model="radiocheck"  name="role2"  value="ROLE_TEACHER" />
+              <label for="role2" class="text-gray-800 ml-3 mr-6 mt-1">선생님</label>
+           
+              <input @click="print" type="radio" id="role3" v-model="radiocheck"  name="role3"  value="ROLE_MANAGER"/>
+              <label for="role3" class="text-gray-800 ml-3 mr-6 mt-1">매니저</label>
+           
+          </form>
+
           </div>
 
           <div class="flex justify-between text-center">
@@ -51,7 +53,6 @@
             />
           </p>
         </div>
-
         <div class="m-2 my-5 justify-center block">
           <p class="pb-2 font-bold text-rose-600 block" v-if="loginError">{{ loginError }}</p>
           <input
@@ -61,17 +62,10 @@
             value="로그인"
           />
         </div>
-
         <router-link to="jointermsofuse">
           <button class="text-sm text-blue-900">회원이 아니신가요?</button>
         </router-link>
       </div>
-
-
-
-
-
-
       <!-- Notice Box Section -->
       <div class="w-[40%] flex items-center justify-center bg-gray-100 p-4 rounded-r-lg shadow-inner">
         <div class="text-center">
@@ -119,6 +113,9 @@ const contentcheck = ref(false)
 const contentlist = ref('')
 const setdate = ref('')
 
+const radiocheck = ref('ROLE_STUDENT')
+
+
 // const errorMessage = ref('') // 에러 메시지를 저장할 변수
 
 const LoginSequence = async () => {
@@ -133,6 +130,14 @@ const LoginSequence = async () => {
 
     await userdata();
     await userrole();
+
+     if(userrl.value !==radiocheck.value){
+     await userL();
+      await localStorage.removeItem('token')
+      alert("로그인 권한 체크확인 바랍니다.")
+    
+      return
+    }
 
     if (userrl.value == 'ROLE_STUDENT') {
       console.log('학생계정');
@@ -155,6 +160,8 @@ const LoginSequence = async () => {
     return;
   }
 };
+
+
 
 onMounted(async () => {
   userL();
