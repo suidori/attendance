@@ -52,7 +52,7 @@ const selectedlecture = ref("전체");
 
 const getlecture = async () => {
   try {
-    const res = await axios.get(`http://192.168.103:8080/lecture/availlist`);
+    const res = await axios.get(`http://greencomart.kro.kr:716/lecture/availlist`);
     
     lecturelist.value = res.data.sort((a, b) => {
       return a.title.localeCompare(b.title);
@@ -77,7 +77,7 @@ const sub = async () => {
 }
 
   try {
-    const res = await axios.post('http://192.168.0.103:8080/announce/save', data, {
+    const res = await axios.post('http://greencomart.kro.kr:716/announce/save', data, {
       headers: {
         Authorization: `Bearer ${token}`,
       }

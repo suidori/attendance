@@ -85,7 +85,7 @@ const resetSort = (pageNum) => {
 
 const getlecture = async () => {
   try {
-    const res = await axios.get(`http://192.168.103:8080/lecture/availlist`);
+    const res = await axios.get(`http://greencomart.kro.kr:716/lecture/availlist`);
 
     lecturelist.value = res.data.sort((a, b) => {
       return a.title.localeCompare(b.title);
@@ -132,7 +132,7 @@ watch(selectedlecture, async (newVal, oldVal) => {
 
 const fetchannounceForAll = async (pageNum = 1) => {
   try {
-    const response = await axios.get(`http://192.168.0.103:8080/announce/searchforall?pageNum=${pageNum - 1}`);
+    const response = await axios.get(`http://greencomart.kro.kr:716/announce/searchforall?pageNum=${pageNum - 1}`);
     announcelist.value = response.data.list;
     announcelist.value.sort((a, b) => b.idx - a.idx);
     totalElements.value = response.data.totalElements;
@@ -145,7 +145,7 @@ const fetchannounceForAll = async (pageNum = 1) => {
 
 const fetchannounceForAlldesc = async (pageNum = 1) => {
   try {
-    const response = await axios.get(`http://192.168.0.103:8080/announce/searchforalldesc?pageNum=${pageNum - 1}`);
+    const response = await axios.get(`http://greencomart.kro.kr:716/announce/searchforalldesc?pageNum=${pageNum - 1}`);
     announcelist.value = response.data.list;
     announcelist.value.sort((a, b) => b.idx - a.idx);
     totalElements.value = response.data.totalElements;
@@ -159,7 +159,7 @@ const fetchannounceForAlldesc = async (pageNum = 1) => {
 // 특정 강의를 선택했을 때의 요청
 const fetchannounceByLecture = async (lectureIdx, pageNum = 1) => {
   try {
-    const response = await axios.get(`http://192.168.0.103:8080/announce/lecturesearch/${lectureIdx}?pageNum=${pageNum - 1}`);
+    const response = await axios.get(`http://greencomart.kro.kr:716/announce/lecturesearch/${lectureIdx}?pageNum=${pageNum - 1}`);
     announcelist.value = response.data.list;
     announcelist.value.sort((a, b) => b.idx - a.idx);
     totalElements.value = response.data.totalElements;
@@ -172,7 +172,7 @@ const fetchannounceByLecture = async (lectureIdx, pageNum = 1) => {
 
 const fetchannounceByLecturedesc = async (lectureIdx, pageNum = 1) => {
   try {
-    const response = await axios.get(`http://192.168.0.103:8080/announce/lecturesearchdesc/${lectureIdx}?pageNum=${pageNum - 1}`);
+    const response = await axios.get(`http://greencomart.kro.kr:716/announce/lecturesearchdesc/${lectureIdx}?pageNum=${pageNum - 1}`);
     announcelist.value = response.data.list;
     announcelist.value.sort((a, b) => b.idx - a.idx);
     totalElements.value = response.data.totalElements;
@@ -185,7 +185,7 @@ const fetchannounceByLecturedesc = async (lectureIdx, pageNum = 1) => {
 
 const fetchannounce = async (pageNum = 1) => {
   try {
-    const response = await axios.get(`http://192.168.0.103:8080/announce/manager?pageNum=${pageNum - 1}`);
+    const response = await axios.get(`http://greencomart.kro.kr:716/announce/manager?pageNum=${pageNum - 1}`);
     announcelist.value = response.data.list;
     announcelist.value.sort((a, b) => b.idx - a.idx);
     totalElements.value = response.data.totalElements;
@@ -199,7 +199,7 @@ const fetchannounce = async (pageNum = 1) => {
 
 const fetchannouncedesc = async (pageNum = 1) => {
   try {
-    const response = await axios.get(`http://192.168.0.103:8080/announce/managerdesc?pageNum=${pageNum - 1}`);
+    const response = await axios.get(`http://greencomart.kro.kr:716/announce/managerdesc?pageNum=${pageNum - 1}`);
     announcelist.value = response.data.list;
     announcelist.value.sort((a, b) => b.idx - a.idx);
     totalElements.value = response.data.totalElements;

@@ -11,7 +11,7 @@
         <p class="py-6 font-bold text-blue-900">1. 휴가 날짜 기입</p>
         <div class="inline-flex">
           <label for="date" class="my-3 mr-3">휴가 날짜</label>
-          <input @input="datecheck" class="block p-3 w-44 border rounded-md h-10" type="date" v-model="date" id="date" />
+          <input @input="datecheck(date)" class="block p-3 w-44 border rounded-md h-10" type="date" v-model="date" id="date" />
           <p :class="dateavail ? 'text-green-500' : 'text-red-500'">{{ selectedDate }}</p>
         </div>
         <div>
@@ -156,7 +156,7 @@ const sub = async () => {
   };
 
   try {
-    const res = await axios.post('http://192.168.103:8080/vacation/request', data, {
+    const res = await axios.post('http://greencomart.kro.kr:716/vacation/request', data, {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -173,7 +173,7 @@ const showuser = async () => {
   try {
     const token = localStorage.getItem('token');
 
-    const resuser = await axios.get('http://192.168.103:8080/user/getuser', {
+    const resuser = await axios.get('http://greencomart.kro.kr:716/user/getuser', {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -185,7 +185,7 @@ const showuser = async () => {
       month: dayjs(now.value).format('YYYY-MM')
     };
 
-    const resatt = await axios.post('http://192.168.103:8080/attendance/getuser', data);
+    const resatt = await axios.post('http://greencomart.kro.kr:716/attendance/getuser', data);
 
     attlist.value = resatt.data;
     useravail.value = true;

@@ -245,7 +245,7 @@ const update = () => {
 
 const getlecture = async () => {
   try {
-    const res = await axios.get(`http://192.168.103:8080/lecture/list`);
+    const res = await axios.get(`http://greencomart.kro.kr:716/lecture/list`);
     lecturelist.value = res.data.sort((a, b) => b.idx - a.idx);
     console.log(lecturelist.value);
   } catch (e) {
@@ -255,7 +255,7 @@ const getlecture = async () => {
 
 const desclecture = async () => {
   try {
-    const res = await axios.get(`http://192.168.103:8080/lecture/list`);
+    const res = await axios.get(`http://greencomart.kro.kr:716/lecture/list`);
     lecturelist.value = res.data.sort((a, b) => a.idx - b.idx);
     console.log(lecturelist.value);
   } catch (e) {
@@ -268,7 +268,7 @@ const getmonthatt = async (lecture, month) => {
     selectedtitle.value = lecture.title;
     selectedlecture.value = lecture;
     const res = await axios.get(
-      `http://192.168.103:8080/attendance/monthview?idx=${lecture.idx}&month=${month}`
+      `http://greencomart.kro.kr:716/attendance/monthview?idx=${lecture.idx}&month=${month}`
     );
     console.log(res.data);
     monthatt.value = processAttendanceData(res.data); // 데이터를 가공하는 함수를 호출
@@ -358,7 +358,7 @@ const approve = async (useridx, day, isApproved) => {
     studentAttendance.attendance[day].approval = isApproved;
 
     try {
-      await axios.post('http://192.168.103:8080/attendance/updateApproval', {
+      await axios.post('http://greencomart.kro.kr:716/attendance/updateApproval', {
         useridx: useridx, // useridx도 전송할 수 있음
         adate: dayjs()
           .year(currentYear.value)

@@ -39,7 +39,7 @@ const announcement = ref({});
 
 const getView = async () => {
     try {
-        const res = await axios.get(`http://192.168.0.103:8080/announce/view/${route.params.idx}`);
+        const res = await axios.get(`http://greencomart.kro.kr:716/announce/view/${route.params.idx}`);
         announcement.value = res.data;
     }catch(e){
         console.error(e);

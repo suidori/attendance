@@ -305,7 +305,7 @@ const showuser = async () => {
   try {
     const token = localStorage.getItem('token');
 
-    const resuser = await axios.get('http://192.168.103:8080/user/getuser', {
+    const resuser = await axios.get('http://greencomart.kro.kr:716/user/getuser', {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -317,7 +317,7 @@ const showuser = async () => {
       month: dayjs(now.value).format('YYYY-MM')
     };
 
-    const resatt = await axios.post('http://192.168.103:8080/attendance/getuser', data);
+    const resatt = await axios.post('http://greencomart.kro.kr:716/attendance/getuser', data);
 
     attlist.value = resatt.data;
     useravail.value = true;
@@ -346,7 +346,7 @@ const attupdate = async () => {
   };
 
   try {
-    const res = await axios.post('http://192.168.103:8080/attendance/attupdate', data);
+    const res = await axios.post('http://greencomart.kro.kr:716/attendance/attupdate', data);
 
     console.log(res);
     alert(
@@ -369,7 +369,7 @@ const attdelete = async () => {
 
   try {
     const res = await axios.delete(
-      `http://192.168.103:8080/attendance/attdelete/${selectAtt.value.idx}`
+      `http://greencomart.kro.kr:716/attendance/attdelete/${selectAtt.value.idx}`
     );
 
     console.log(res);
