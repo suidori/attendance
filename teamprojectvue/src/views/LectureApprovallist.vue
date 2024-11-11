@@ -4,7 +4,7 @@
 <h1 class=" text-blue-800 text-2xl font-bold mb-3">관리자 가입 허가</h1>
 <hr class="border-2 border-blue-800 ">
 <div>
-<div class=" m-auto" style="width: 1500px;">
+<div class=" mx-auto" style="width: 1150px;">
 <div class="flex justify-center mt-16">
 <div class="w-96 bg border border-black rounded"><input  type="search" name="" id="" placeholder="강의명 또는 이름검색" 
     class="w-11/12 px-3 pt-1 pb-1 " required><span class=" ml-2 cursor-pointer">＠</span></div>

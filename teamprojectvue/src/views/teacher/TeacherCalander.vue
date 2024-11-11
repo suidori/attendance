@@ -1,7 +1,5 @@
 <template>
-  <div class="flex justify-center w-full">
-
-
+  <div class="flex justify-center w-full pb-14">
     <div class="w-4/5 p-3 border-2 bg-white">
       <h1 class="p-5 text-3xl font-bold text-blue-800">-출결리스트-</h1>
       <hr class="border-2 border-blue-800" />
@@ -66,11 +64,10 @@
       <hr class="my-2 border-blue-500" />
 
       <div
-      :class="{
-  'bg-blue-500 text-white': selectedlecture!==null && selectedlecture == lecture.idx
-}"
-
-            class="hover:bg-blue-500 hover:text-white"
+        :class="{
+          'bg-blue-500 text-white': selectedlecture !== null && selectedlecture == lecture.idx
+        }"
+        class="hover:bg-blue-500 hover:text-white"
         @click="getmonthatt(lecture.idx, nowDat)"
         v-for="(lecture, index) in lecturelist"
         :key="lecture.idx"
@@ -103,7 +100,18 @@ const selectedlecture = ref(null);
 
 const availableYears = ref([]);
 const monthNames = [
-  '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'
+  '1월',
+  '2월',
+  '3월',
+  '4월',
+  '5월',
+  '6월',
+  '7월',
+  '8월',
+  '9월',
+  '10월',
+  '11월',
+  '12월'
 ];
 
 const getDaysInMonth = (month, year) => {
@@ -116,7 +124,6 @@ onMounted(() => {
   updateDaysInMonth();
 });
 
-
 const updateDaysInMonth = () => {
   const daysInMonth = getDaysInMonth(currentMonth.value, currentYear.value);
   arr.value = Array.from({ length: daysInMonth }, (_, i) => i); // 0부터 일수까지의 배열 생성
@@ -126,10 +133,7 @@ const updateDaysInMonth = () => {
 
 const dropdate = () => {
   // currentYear와 currentMonth를 사용하여 nowDat을 업데이트
-  nowDat.value = dayjs()
-    .year(currentYear.value)
-    .month(currentMonth.value)
-    .format('YYYY-MM');
+  nowDat.value = dayjs().year(currentYear.value).month(currentMonth.value).format('YYYY-MM');
   updateDaysInMonth();
 };
 
@@ -158,10 +162,7 @@ const downdate = () => {
   if (currentMonth.value === 11) {
     currentYear.value -= 1; // 12월에서 11월로 넘어가면 연도를 감소시킴
   }
-  nowDat.value = dayjs()
-    .year(currentYear.value)
-    .month(currentMonth.value)
-    .format('YYYY-MM');
+  nowDat.value = dayjs().year(currentYear.value).month(currentMonth.value).format('YYYY-MM');
   updateDaysInMonth();
 };
 
@@ -171,10 +172,7 @@ const update = () => {
   if (currentMonth.value === 0) {
     currentYear.value += 1; // 1월에서 12월로 넘어가면 연도를 증가시킴
   }
-  nowDat.value = dayjs()
-    .year(currentYear.value)
-    .month(currentMonth.value)
-    .format('YYYY-MM');
+  nowDat.value = dayjs().year(currentYear.value).month(currentMonth.value).format('YYYY-MM');
   updateDaysInMonth();
 };
 
@@ -207,14 +205,13 @@ const desclecture = async () => {
 };
 
 const getmonthatt = async (idx, month) => {
-
   try {
     const res = await axios.get(
       `http://greencomart.kro.kr:716/attendance/monthview?idx=${idx}&month=${month}`
     );
     monthatt.value = processAttendanceData(res.data); // 데이터를 가공하는 함수를 호출
     selectedlecture.value = idx;
-    console.log("일루오나"+selectedlecture.value)
+    console.log('일루오나' + selectedlecture.value);
   } catch (e) {
     console.log(e);
   }

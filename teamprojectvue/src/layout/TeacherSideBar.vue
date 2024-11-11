@@ -19,7 +19,7 @@
               </div>
             </li>
           </RouterLink>
-          <hr class="border-gray-300"/>
+          <!-- <hr class="border-gray-300"/>
           <RouterLink to="/vacationmanage">
             <li>
               <div
@@ -31,7 +31,7 @@
                 휴가 제출 관리??
               </div>
             </li>
-          </RouterLink>
+          </RouterLink> -->
           <hr class="border-gray-300"/>
           <RouterLink to="/teachercalander">
             <li>
