@@ -132,7 +132,7 @@
             제출하기
           </button>
         </div>
-        <div id="attupdate" v-show="selectAtt" class="bg-blue-300 rounded-lg p-2">
+        <div id="attupdate" v-show="selectAtt" class="mx-1 w-2/5 bg-blue-300 rounded-lg p-2">
           <h1>{{ attDate }} 출결 수정</h1>
           <div>
             <label for="attendance" class="text-xs"

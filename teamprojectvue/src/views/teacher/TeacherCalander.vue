@@ -1,5 +1,64 @@
 <template>
   <div class="flex justify-center w-full">
+
+
+    <div class="w-4/5 p-3 border-2 bg-white">
+      <h1 class="p-5 text-3xl font-bold text-blue-800">-출결리스트-</h1>
+      <hr class="border-2 border-blue-800" />
+
+      <h1 class="flex justify-center m-3 text-3xl font-bold text-blue-800">
+        <button @click="downdate()">&lt;</button> {{ nowDat }}
+        <button @click="update()">&gt;</button>
+      </h1>
+      <div class="w-full overflow-auto">
+        <table class="w-full">
+          <thead>
+            <tr class="border">
+              <th class="w-1/4 p-4">이름</th>
+              <th
+                v-for="day in arr"
+                :key="day"
+                class="p-4"
+                :style="{ color: isWeekend(getDayName(day)) }"
+              >
+                {{ getDayName(day) }}
+              </th>
+            </tr>
+          </thead>
+          <tbody v-if="monthatt.length > 0">
+            <tr v-for="student in monthatt" :key="student.user" class="border bg-[#eee]">
+              <th class="w-1/4 p-4 bg-indigo-400">{{ student.user }}</th>
+              <td
+                v-for="day in arr"
+                :key="day"
+                class="p-4 font-bold border-r min-w-20"
+                :style="{ color: isWeekend(getDayName(day)) }"
+              >
+                <div :style="{ color: getatt(student.attendance[day]) }">
+                  {{ getAttendanceType(student.user, day) }}
+                  <div v-if="appget(student.attendance[day])">
+                    <button
+                      @click="approve(student.useridx, day, true)"
+                      class="border border-black"
+                      :style="{ color: 'green' }"
+                    >
+                      승인
+                    </button>
+                    <button
+                      @click="approve(student.useridx, day, null)"
+                      class="border border-black"
+                      :style="{ color: 'red' }"
+                    >
+                      거절
+                    </button>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
     <div
       v-if="lecturelist.length > 0"
       id="lecturelist"
@@ -34,64 +93,6 @@
       >
         {{ lecture.title }}
         <hr v-if="index < lecturelist.length - 1" class="my-2 border-blue-500" />
-      </div>
-    </div>
-
-    <div class="w-5/6 p-3 border-2 bg-white">
-      <h1 class="p-5 text-3xl font-bold text-blue-800">-출결리스트-</h1>
-      <hr class="border-2 border-blue-800" />
-
-      <h1 class="flex justify-center m-3 text-3xl font-bold text-blue-800">
-        <button @click="downdate()">&lt;</button> {{ nowDat }}
-        <button @click="update()">&gt;</button>
-      </h1>
-      <div class="w-full overflow-auto">
-        <table class="w-full">
-          <thead>
-            <tr class="border">
-              <th class="w-1/4 p-4">이름</th>
-              <th
-                v-for="day in arr"
-                :key="day"
-                class="p-4"
-                :style="{ color: isWeekend(getDayName(day)) }"
-              >
-                {{ getDayName(day) }}
-              </th>
-            </tr>
-          </thead>
-          <tbody v-if="monthatt.length > 0">
-            <tr v-for="student in monthatt" :key="student.user" class="border bg-[#eee]">
-              <th class="w-1/4 p-4 bg-red-400">{{ student.user }}</th>
-              <td
-                v-for="day in arr"
-                :key="day"
-                class="p-4 font-bold border-r min-w-20"
-                :style="{ color: isWeekend(getDayName(day)) }"
-              >
-                <div :style="{ color: getatt(student.attendance[day]) }">
-                  {{ getAttendanceType(student.user, day) }}
-                  <div v-if="appget(student.attendance[day])">
-                    <button
-                      @click="approve(student.useridx, day, true)"
-                      class="border border-black"
-                      :style="{ color: 'green' }"
-                    >
-                      승인
-                    </button>
-                    <button
-                      @click="approve(student.useridx, day, null)"
-                      class="border border-black"
-                      :style="{ color: 'red' }"
-                    >
-                      거절
-                    </button>
-                  </div>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
       </div>
     </div>
   </div>
@@ -219,7 +220,7 @@ const getAttendanceType = (username, day) => {
   const isWeekendDay = /^일/.test(dayName) || /^토/.test(dayName); // 주말 여부 확인
 
   // 주말이면 '-'
-  if (isWeekendDay) return '☕';
+  if (isWeekendDay) return ' ';
 
   // 해당 날짜에 출결 정보가 없다면 '출석' 반환
   if (!studentAttendance.attendance[day]) {
