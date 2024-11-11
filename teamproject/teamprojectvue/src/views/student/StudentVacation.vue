@@ -76,7 +76,12 @@ const unchecking = ref(false);
 const unChecked = async (pageNum = 1) => {
   unchecking.value = true;
   try {
-    const response = await axios.get(`http://greencomart.kro.kr:716/vacation/managerunchecked?pageNum=${pageNum - 1}`);
+    const token = localStorage.getItem('token');
+    const response = await axios.get(`http://greencomart.kro.kr:716/vacation/studentunchecked?pageNum=${pageNum - 1}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      }
+    });
     vacationList.value = response.data.list;
     totalElements.value = response.data.totalElements;
     totalPages.value = response.data.totalPages;

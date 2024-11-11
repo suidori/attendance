@@ -5,7 +5,7 @@
 </template>
 
 <script setup>
-import VacationManage from '@/component/VacationManage.vue';
+import VacationManage from '@/views/Desk/VacationManage.vue';
 
 
 </script>

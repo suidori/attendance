@@ -1,5 +1,6 @@
 package attendance.management.vacation;
 
+import attendance.management.attendance.AttendanceService;
 import attendance.management.sign.LoginUserDetails;
 import attendance.management.utility.PageUtil;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -103,6 +104,7 @@ public class VacationController {
     public ResponseEntity<String> accept(@PathVariable("idx") long idx) throws Exception {
         vacationService.accept(idx);
         String hwpName = vacationService.newHWP(idx);
+        vacationService.savevacation(idx);
         return ResponseEntity.ok(hwpName);
     }
 

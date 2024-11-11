@@ -9,6 +9,7 @@ import attendance.management.sign.LoginUserDetails;
 import attendance.management.user.User;
 import attendance.management.user.UserRepository;
 import attendance.management.userandlecture.UserAndLectureRepository;
+import attendance.management.vacation.Vacation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -150,5 +151,10 @@ public class AttendanceService {
         attendance.setTeacheraccept(true);
         attendanceRepository.save(attendance);
         return attendance;
+    }
+
+    public void saveVacation(Vacation vacation) {
+        Attendance attendance = new Attendance(null, "휴가", vacation.getReason(), vacation.getDate(),vacation.getUser(),vacation.getLecture(),false,true,true);
+        attendanceRepository.save(attendance);
     }
 }

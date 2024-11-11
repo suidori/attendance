@@ -16,7 +16,7 @@ import StudentAttendance from '@/views/student/StudentAttendance.vue'
 import TeacherCalander from '@/views/teacher/TeacherCalander.vue'
 import TeacherToday from '@/views/teacher/TeacherToday.vue'
 
-import VacationManage from '@/component/VacationManage.vue'
+import VacationManage from '@/views/Desk/VacationManage.vue'
 import DeskCalander from '@/views/Desk/DeskCalander.vue'
 import StudentVacation from '@/views/student/StudentVacation.vue'
 

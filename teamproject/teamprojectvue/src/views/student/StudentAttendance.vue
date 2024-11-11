@@ -403,10 +403,10 @@ const selectDateFn = (date, index) => {
 
 const selectAttFn = (event, items, date) => {
   // 사용자가 유효하지 않다면 바로 리턴
-  if (!useravail.value) return;
-  if (dayjs(date).format('YYYY-MM') != dayjs(now.value).format('YYYY-MM')) return;
-
   event.stopPropagation();
+  if (!useravail.value) return;
+  if (items.type == '휴가') return;
+  if (dayjs(date).format('YYYY-MM') != dayjs(now.value).format('YYYY-MM')) return;
 
   // 이미 선택된 출결 항목을 클릭하면 선택 취소
   if (selectAtt.value === items) {

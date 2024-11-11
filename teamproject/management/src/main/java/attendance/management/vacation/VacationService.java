@@ -1,5 +1,6 @@
 package attendance.management.vacation;
 
+import attendance.management.attendance.AttendanceService;
 import attendance.management.error.BizException;
 import attendance.management.error.ErrorCode;
 import attendance.management.jwt.JWTManager;
@@ -36,8 +37,7 @@ public class VacationService {
     private final ModelMapper modelMapper;
     private final VacationFileEditor vacationFileEditor;
     private final UserAndLectureRepository userAndLectureRepository;
-    private final JWTManager jwtManager;
-
+    private final AttendanceService attendanceService;
 
     public VacationResponseDto request(VacationReqDto vacationReqDto, LoginUserDetails loginUserDetails) {
         Vacation vacation = modelMapper.map(vacationReqDto, Vacation.class);
@@ -168,6 +168,11 @@ public class VacationService {
     public VacationResponsePageDto studentUnchecked(Pageable pageable, Long idx) {
         Page<Vacation> page = vacationRepository.findByAcceptAndUser_Idx(null, idx, pageable);
         return mapToVacationResponsePageDto(page);
+    }
+
+    public void savevacation(long idx) {
+        Vacation vacation = vacationRepository.findById(idx).orElseThrow(()->new BizException(ErrorCode.REQUEST_NOT_FOUND));
+        attendanceService.saveVacation(vacation);
     }
 }
 
