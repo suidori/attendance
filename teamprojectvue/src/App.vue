@@ -6,26 +6,27 @@ user3,4 매니저
 user5~15 학생
 마스터
 -->
+<div class="">
+<TopBar v-if="$route.name !== 'loginview'" class="w-full"></TopBar>
+</div>
+<div class=""></div>
   <div style="width: 1200px; margin:0 auto"
-      class=" font-[GmarketSansMedium] flex justify-center">
-    <RouterView />
+      class="font-[GmarketSansMedium] flex justify-center">
+    <RouterView/>
   </div>
-  <LayoutFooter></LayoutFooter>
+  <LayoutFooter class=""></LayoutFooter>
 
   <template v-if="userrlvalue == 'ROLE_STUDENT'">
-    <StudentSideBar class="" style="position: fixed; top: 1%; left: 11%" />
+    <StudentSideBar class="" style="position: fixed; top: 1%; left: 0%; bottom:0; top: 50%"/>
   </template>
   <template v-if="userrlvalue == 'ROLE_TEACHER'">
     <TeacherSideBar class="" style="position: fixed; top: 1%; left: 11%" />
   </template>
   <template v-if="userrlvalue == 'ROLE_MANAGER'">
     <ManagerSideBar class="" style="position: fixed; top: 1%; left: 11%" />
-    
+
   </template>
 
-  <!-- <StudentSideBar  class="" style="position: fixed; top:35%; left:3%" v-if="sidecheck1"/>
-<StudentSideBar  class="" style="position: fixed; top:35%; left:3%" v-if="sidecheck2"/> -->
-</div>
 </template>
 
 <script setup>
@@ -39,6 +40,7 @@ import { useRouter } from 'vue-router';
 import { storeToRefs } from 'pinia';
 import { userdata, userrole } from './api/loginapi';
 import { computed } from 'vue';
+import TopBar from './layout/TopBar.vue';
 
 const router = useRouter();
 
@@ -72,6 +74,10 @@ const homelogin = async () => {
     router.push({ name: 'loginview' });
   }
 };
+
+
+
+
 
 onMounted(async () => {
   userdata();
