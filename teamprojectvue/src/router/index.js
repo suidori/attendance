@@ -20,6 +20,7 @@ import VacationManage from '@/component/VacationManage.vue'
 import DeskCalander from '@/views/Desk/DeskCalander.vue'
 import StudentVacation from '@/views/student/StudentVacation.vue'
 
+import test from '@/views/Desk/test.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -33,6 +34,11 @@ const router = createRouter({
       path: '/loginview',
       name: 'loginview',
       component: LoginView
+    },
+    {
+      path: '/test',
+      name: 'test',
+      component: test
     },
     {
       path: '/studentvacation',
@@ -136,8 +142,21 @@ const router = createRouter({
       name: 'teachercalander',
       component: TeacherCalander
     },
+    {
+      path: '/studentvacation',
+      name: 'studentvacation',
+      component: StudentVacation
+    },
+  ],
 
-  ]
+  scrollBehavior (to, from, savePositior){
+
+    return {top : 0}
+  }
+
+
 })
+
+
 
 export default router

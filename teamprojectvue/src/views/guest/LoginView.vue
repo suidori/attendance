@@ -8,22 +8,22 @@
       </h1>
     </div>
     <div style="width: 860px;"
-      class="flex mt-8 mx-auto max-lg:w-[40rem] h-[30rem] bg-white shadow-md rounded-lg">
+      class="flex mt-8 mx-auto max-lg:w-[40rem] h-[25rem] bg-white shadow-md rounded-lg">
       <!-- 로그인 섹션 -->
       <div class="w-[60%] p-4 flex flex-col items-center justify-center">
         <div class="space-y-3">
-          <div class="flex items-center mb-5 space-x-4">
+          <div class="flex justify-center items-center mb-10 space-x-8">
             <label class="flex items-center">
               <input type="radio" name="option" checked />
-              <span class="text-gray-800 ml-2">학생</span>
+              <span class="text-gray-800 ml-2 mt-1">학생</span>
             </label>
             <label class="flex items-center">
               <input type="radio" name="option" />
-              <span class="text-gray-800 ml-2">선생님</span>
+              <span class="text-gray-800 ml-2 mt-1">선생님</span>
             </label>
             <label class="flex items-center">
               <input type="radio" name="option" />
-              <span class="text-gray-800 ml-2">매니저</span>
+              <span class="text-gray-800 ml-2 mt-1">매니저</span>
             </label>
           </div>
 
@@ -67,12 +67,28 @@
         </router-link>
       </div>
 
+
+
+
+
+
       <!-- Notice Box Section -->
       <div class="w-[40%] flex items-center justify-center bg-gray-100 p-4 rounded-r-lg shadow-inner">
         <div class="text-center">
           <div>
-            <p class="text-gray-600 text-sm font-semibold text-left py-2">공지사항</p>
-            <p class="text-gray-700 mt-2">현재 서비스 점검 중입니다. 이용에 불편을 드려 죄송합니다.</p>
+
+          
+          <div v-if= "contentcheck">
+            <ul  v-for="item in arr" :key="item.idx">
+             <li>{{contentlist}}</li>
+             <li>{{setdate}}</li>
+              </ul>
+            </div>
+           <div v-else >
+             <p class="text-gray-600 text-sm font-semibold text-left py-2">공지사항</p>
+             <p class="text-gray-700 mt-2">현재 서비스 점검 중입니다. 이용에 불편을 드려 죄송합니다.</p>
+          </div>
+
           </div>
         </div>
       </div>
@@ -98,6 +114,10 @@ const password = ref('');
 
 const loginError = ref('');
 const router = useRouter();
+
+const contentcheck = ref(false)
+const contentlist = ref('')
+const setdate = ref('')
 
 // const errorMessage = ref('') // 에러 메시지를 저장할 변수
 
