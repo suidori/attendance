@@ -142,7 +142,11 @@ const router = createRouter({
       name: 'teachercalander',
       component: TeacherCalander
     },
-
+    {
+      path: '/studentvacation',
+      name: 'studentvacation',
+      component: StudentVacation
+    },
   ],
 
   scrollBehavior (to, from, savePositior){

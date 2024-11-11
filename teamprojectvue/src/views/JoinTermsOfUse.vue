@@ -17,7 +17,7 @@
         <p class="text-xl font-bold">03.</p>
         <p class="text-sm">아이디 및<br>패스워드 설정</p>
       </div>
-      <div class="step flex flex-col items-center text-center bg-gray-100 text-gray-500 rounded-tr-lg rounded-br-lg w-1/4">
+      <div class="step flex flex-col items-center p-4 text-center bg-gray-100 text-gray-500 rounded-tr-lg rounded-br-lg w-1/4">
         <p class="text-xl font-bold">04.</p>
         <p class="text-sm">회원가입 완료</p>
       </div>
@@ -225,10 +225,12 @@
       <button @click="gologin" class="border-2 bg-red-700 rounded-lg text-white font-bold p-2 px-6">취소</button>
       <div class="mb-52">
 
-</div>
     </div>
+    <div class="p-10"></div>
   </div>
-  
+
+
+</div>
 </template>
 
 <script setup>

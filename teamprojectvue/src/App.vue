@@ -6,9 +6,9 @@ user3,4 매니저
 user5~15 학생
 마스터
 -->
-<!-- <div class="">
-<TopBar v-if="$route.name !== 'loginview'" class="w-full"></TopBar>
-</div> -->
+<div class="">
+<TopBar v-if="$route.name !== 'loginview'" class="w-full hidden"></TopBar>
+</div>
 <div class=""></div>
   <div style="width: 1200px; margin:0 auto"
       class="font-[GmarketSansMedium] flex justify-center">
@@ -17,7 +17,7 @@ user5~15 학생
   <LayoutFooter class=""></LayoutFooter>
 
   <template v-if="userrlvalue == 'ROLE_STUDENT'">
-    <StudentSideBar class="" style="position: fixed; top: 1%; left: 11%" />
+    <StudentSideBar class="" style="position: fixed; top: 1%; left: 11%"/>
   </template>
   <template v-if="userrlvalue == 'ROLE_TEACHER'">
     <TeacherSideBar class="" style="position: fixed; top: 1%; left: 11%" />
@@ -26,7 +26,6 @@ user5~15 학생
     <ManagerSideBar class="" style="position: fixed; top: 1%; left: 11%" />
 
   </template>
-
 </div>
 </template>
 
@@ -81,11 +80,6 @@ const homelogin = async () => {
 
 
 onMounted(async () => {
-
-  
-
-
-
   userdata();
   if (localStorage.getItem('token') !== null) {
     userdata();

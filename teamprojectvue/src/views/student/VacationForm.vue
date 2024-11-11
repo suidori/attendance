@@ -13,10 +13,10 @@
           <label for="startdate" class="my-3 mr-3">휴가 날짜</label>
           <input class="block p-3 w-44 border rounded-md h-10" type="date" v-model="startdate" id="startdate" />
         </div>
-        <!-- <div class="inline-flex">
+        <div class="inline-flex">
           <label for="enddate" class="mx-3">끝나는 날짜</label>
           <input class="border-2 border-slate-600" type="date" v-model="enddate" id="enddate" />
-        </div> -->
+        </div>
         <div>
           <hr class="mt-6" />
           <p class="py-6 font-bold text-blue-900">2. 휴가 사유를 입력해 주세요.</p>
