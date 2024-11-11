@@ -1,6 +1,6 @@
 <template>
  <!-- <div class="border-2 w-full m-20"> -->
-    <div id="main" class="items-center justify-center mt-10 ml-10 w-[1500px] mx-auto ">
+    <div id="main" class="items-center justify-center mt-28 ml-10 w-[1500px] mx-auto ">
       <div id="user" class="">
         <h1 v-if="user">{{ user.name }} 학생 출결 관리</h1>
         <p v-if="useravail" class="text-green-600">수강중: {{ attlist.at(0).lecture }}</p>
@@ -132,7 +132,7 @@
             제출하기
           </button>
         </div>
-        <div id="attupdate" v-show="selectAtt" class="bg-blue-300 rounded-lg p-2">
+        <div id="attupdate" v-show="selectAtt" class="mx-1 w-2/5 bg-blue-300 rounded-lg p-2">
           <h1>{{ attDate }} 출결 수정</h1>
           <div>
             <label for="attendance" class="text-xs"
