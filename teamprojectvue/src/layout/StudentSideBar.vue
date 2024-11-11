@@ -1,37 +1,41 @@
 <template>
+  <div class="flex">
+    <!-- Sidebar -->
+    <div class="bg-gray-800 w-64 h-screen p-5">
+      <h2 class="text-white text-2xl font-bold mb-6">Sidebar</h2>
+      
+      <nav class="text-white">
+        <div class="mb-4 flex items-center space-x-3">
+          <span class="material-icons text-gray-400">home</span>
+          <span>Home</span>
+        </div>
+        <div class="mb-4 flex items-center space-x-3">
+          <span class="material-icons text-gray-400">search</span>
+          <span>Search</span>
+        </div>
+        <div class="mb-4 flex items-center space-x-3">
+          <span class="material-icons text-gray-400">settings</span>
+          <span>Settings</span>
+        </div>
+        <div class="mb-4 flex items-center space-x-3">
+          <span class="material-icons text-gray-400">person</span>
+          <span>Profile</span>
+        </div>
+      </nav>
+    </div>
 
-  <div class="bg-blue-900 w-36 ">
-    <aside class="p-4 text-white">
-      <h2 class="h-20 mb-6 text-lg font-bold">학생 메뉴</h2>
-      <ul class="space-y-3">
-        <hr />
-        <RouterLink to="/stdatt">
-          <li><a href="#" class="block pt-3 text-sm">출결 관리</a></li>
-        </RouterLink>
-        <hr />
-        <RouterLink to="/vacationform">
-          <li><a href="#" class="block pt-3 text-sm">휴가 신청서 제출</a></li>
-        </RouterLink>
-        <hr />
-        <RouterLink to="/lectureselect">
-          <li><a href="#" class="block pt-3 text-sm">과정 선택</a></li>
-        </RouterLink>
-        <hr />
-        <RouterLink to="/mypage">
-          <li><a href="#" class="block pt-3 text-sm">마이페이지</a></li>
-        </RouterLink>
-        <!-- <hr />
-        <li><a href="#" class="block text-sm">공지 사항</a></li> -->
-      </ul>
-      <div class="mt-20 text-xs">
-        <p>주소 : 대구광역시 중구 중앙대로 394, <br> 제일빌딩 5F</p>
-        <p>전화 : 053-572-1005</p>
-        <p>FAX : 053-422-9122</p>
-      </div>
-    </aside>
+    <!-- Main Content -->
+    <div class="flex-1 p-10">
+      <h1 class="text-3xl font-bold">Main Content</h1>
+      <p class="mt-4 text-gray-600">This is where your main content will go.</p>
+    </div>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+// 스크립트 필요 없음, 고정된 사이드바이기 때문에 toggle 기능 불필요
+</script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+</style>
