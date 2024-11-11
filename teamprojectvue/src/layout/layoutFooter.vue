@@ -9,7 +9,7 @@
         </div>
           <div>
           <a href="https://greenart.co.kr/" target="_blank">
-            <div  class="justify-center flex items-center">
+            <div  class="absolute flex items-center left-[41%]">
             <img src="../images/LOGO.png" alt="" class="h-8 max-md:w-28 cover cursor-pointer" />
             <!-- @click="logoclick" -->
             그린컴퓨터아트학원(대구지점)
@@ -22,7 +22,7 @@
           <template v-else>
             <div class="flex space-x-5">
               <div class="text-2xl">{{ username }} {{ mapUserRole(userrl)}}님 반갑습니다.</div>
-              <div class="text-xl rounded hover:bg-red-400 px-3 pt-1" @click="logout">
+              <div class="text-xl rounded hover:bg-blue-800 px-3 pt-1" @click="logout">
                 <RouterLink to="/loginview" class="flex text-white items-center font-[GmarketSansMedium]"> 로그아웃 </RouterLink>
               </div>
             </div>

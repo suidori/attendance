@@ -1,12 +1,13 @@
 <template>
- <!-- <div class="border-2 w-full m-20"> -->
-    <div id="main" class="items-center justify-center mt-28 ml-10 w-[1500px] mx-auto ">
-      <div id="user" class="">
-        <h1 v-if="user">{{ user.name }} 학생 출결 관리</h1>
-        <p v-if="useravail" class="text-green-600">수강중: {{ attlist.at(0).lecture }}</p>
-        <p v-if="!useravail" class="text-red-600">{{ usererror }}</p>
-      </div>
-
+  <div class="border p-10">
+    <div id="user" class="">
+      <h1 v-if="user">{{ user.name }} 학생 출결 관리</h1>
+      <p v-if="useravail" class="text-green-600">수강중: {{ attlist.at(0).lecture }}</p>
+      <p v-if="!useravail" class="text-red-600">{{ usererror }}</p>
+    </div>
+    <hr class="border-b border-blue-400 mt-4" />
+    <div id="main" class="items-center justify-center mt-10 w-[68rem]">
+      <p v-if="useravail">- {{ attlist.at(0).lecture }} 강좌 출결 관리 -</p>
 
       <div v-if="useravail" id="attendance" class="flex">
         <div id="calander" class="w-full p-4 bg-white rounded-lg shadow-md min-w-72">
@@ -201,17 +202,19 @@
         </div>
       </div>
 
-      <div v-else class="mt-44 ">
-<h1 class="flex justify-center"> << 먼저 강좌를 선택하여 주시길 바랍니다. >>  </h1>
-<div class="flex justify-center">
-<button  class=" border-2 border-blue-800 m-5 p-2 pl-8 pr-8 rounded-md bg-blue-800 text-white" @click="golectureselect" >강좌 리스트 보러가기</button>
+      <div v-else class="mt-44">
+        <h1 class="flex justify-center"><< 먼저 강좌를 선택하여 주시길 바랍니다. >></h1>
+        <div class="flex justify-center">
+          <button
+            class="border-2 border-blue-800 m-5 p-2 pl-8 pr-8 rounded-md bg-blue-800 text-white"
+            @click="golectureselect"
+          >
+            강좌 리스트 보러가기
+          </button>
+        </div>
       </div>
-
     </div>
-
-
-
-    </div>
+  </div>
   <!-- </div> -->
   <div class="mb-64"></div>
 </template>
@@ -326,7 +329,6 @@ const showuser = async () => {
     console.log(e);
     useravail.value = false;
     usererror.value = '사용자를 찾을 수 없습니다.';
-    
   }
 };
 
@@ -425,11 +427,8 @@ const selectAttFn = (event, items, date) => {
 };
 
 const golectureselect = () => {
-
-  router.push({name:'lectureselect'})
-
-}
-
+  router.push({ name: 'lectureselect' });
+};
 
 onMounted(() => {
   showuser();
