@@ -76,7 +76,7 @@
             </li>
           </RouterLink>
           <hr class="border-gray-300"/>
-          <RouterLink to="/">
+          <RouterLink to="/DeskAnnounceList">
             <li>
               <div
 

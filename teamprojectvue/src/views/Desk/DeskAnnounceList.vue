@@ -62,10 +62,12 @@
 
 <script setup>
 import { ref, onMounted, computed, watch } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import axios from 'axios';
 
+const route = useRoute()
 const router = useRouter();
+
 
 const announcelist = ref([]);
 const totalElements = ref(0);
@@ -77,6 +79,7 @@ const totalPageGroups = computed(() => Math.ceil(totalPages.value / itemsPerPage
 const lecturelist = ref([]);
 const selectedlecture = ref(null);
 const ascdesc = ref(true);
+
 
 const resetSort = (pageNum) => {
   ascdesc.value = true; // ascdesc 값을 true로 설정
@@ -106,10 +109,16 @@ const lectureclick = (title) => {
   }
 }
 
-const viewPage = (idx) => {
-  const data = { name: 'announceview', params: { idx } };
-  router.push(data);
+
+const viewPage = (annoidx) => {
+
+const idx = Number(annoidx)
+
+console.log(idx)
+
+  router.push({name: 'announceview', params: { idx }});
 };
+
 
 const sortAsc = () => {
   ascdesc.value = true;

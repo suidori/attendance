@@ -7,8 +7,46 @@
       <hr class="border-2 border-blue-800" />
 
       <h1 class="flex justify-center m-3 text-3xl font-bold text-blue-800">
-        <button @click="downdate()">&lt;</button> {{ nowDat }}
-        <button @click="update()">&gt;</button>
+        <button class="mb-2 mr-2 hover:scale-150" @click="downdate()">
+                <div>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="size-6"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="m18.75 4.5-7.5 7.5 7.5 7.5m-6-15L5.25 12l7.5 7.5"
+                    />
+                  </svg>
+                </div>
+              </button>
+        
+        {{ nowDat }}
+
+
+        <button class="mb-2 ml-2 hover:scale-150" @click="update()">
+                <div>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="size-6"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5"
+                    />
+                  </svg>
+                </div>
+              </button>
       </h1>
       <div class="w-full overflow-auto">
         <table class="w-full">
