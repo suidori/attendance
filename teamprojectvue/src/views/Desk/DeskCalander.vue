@@ -206,6 +206,8 @@ const updateDaysInMonth = () => {
   }
 };
 
+
+
 const getDayName = (item) => {
   return dayjs()
     .year(currentYear.value)
