@@ -1,89 +1,115 @@
 <template>
-  <div class="m-3">
-    <div
-      @click="goVacationManage"
-      class="flex text-xl border-2 border-blue-300 pl-3 pr-3 hover:bg-blue-300 hover:opacity-80 hover:text-white cursor-pointer float-left ml-[17.3%] rounded p-1"
-    >
-      휴가 요청 관리
-    </div>
-    <div
-      @click="goAnnounce"
-      class="flex text-xl border-2 border-blue-300 pl-3 pr-3 hover:bg-blue-300 hover:opacity-80 hover:text-white cursor-pointer float-left rounded p-1"
-    >
-      공지사항
-    </div>
-    <br />
-    <div class="mt-5 flex justify-center">
-      <div v-if="lecturelist.length > 0" id="lecturelist" class="w-[15vw] p-4 border bg-white border-blue-500">
-        <h1>강의목록</h1>
-        <button
-          @click="getlecture(), (isClicked = true)"
-          :class="{ 'bg-green-500': isClicked }"
-          class="border border-green-500 hover:bg-green-500 mr-1"
-        >
-          최신순
-        </button>
-        <button
-          @click="desclecture(), (isClicked = false)"
-          :class="{ 'bg-green-500': !isClicked }"
-          class="border border-green-500 hover:bg-green-500"
-        >
-          과거순
-        </button>
-        <hr class="my-2 border-blue-500" />
+  <div class="w-full">
+    <div class="m-3">
+      <span
+        @click="goVacationManage"
+        class="text-xl border-2 border-blue-300 pl-3 pr-3 hover:bg-blue-300 hover:opacity-80
+         hover:text-white cursor-pointer rounded p-1"
+      >
+        휴가 요청 관리
+      </span>
+      <div class="mt-5 flex justify-center">
         <div
-          :class="{ 'bg-blue-500 text-white': selectedlecture !== null && selectedlecture.title == lecture.title }"
-          class="hover:bg-blue-500 hover:text-white"
-          @click="getmonthatt(lecture, nowDat)"
-          v-for="(lecture, index) in lecturelist"
-          :key="lecture.idx"
+          v-if="lecturelist.length > 0"
+          id="lecturelist"
+          class="w-1/6 p-4 border bg-white border-blue-500"
         >
-          {{ lecture.title }}
-          <br />
-          <div class="mb-3">
-            <hr v-if="index < lecturelist.length - 1" class="my-2 border-blue-500" />
+          <h1>강의목록</h1>
+          <button
+            @click="getlecture(), (isClicked = true)"
+            :class="{ 'bg-green-500': isClicked }"
+            class="px-3 py-2 text-white bg-blue-600 rounded hover:opacity-80 mr-2"
+          >
+            최신순
+          </button>
+          <button
+            @click="desclecture(), (isClicked = false)"
+            :class="{ 'bg-green-500': !isClicked }"
+            class="px-3 py-2 text-white bg-blue-600 rounded hover:opacity-80"
+          >
+            과거순
+          </button>
+          <hr class="my-2 border-blue-500" />
+          <div
+            :class="{
+              'bg-blue-500 text-white':
+                selectedlecture !== null && selectedlecture.title == lecture.title
+            }"
+            class="hover:bg-blue-500 hover:text-white"
+            @click="getmonthatt(lecture, nowDat)"
+            v-for="(lecture, index) in lecturelist"
+            :key="lecture.idx"
+          >
+            {{ lecture.title }}
+            <br />
+            <div class="mb-3">
+              <hr v-if="index < lecturelist.length - 1" class="my-2 border-blue-500" />
+            </div>
           </div>
         </div>
-      </div>
-      <div class="w-6/12 p-3 border-2 bg-white">
-        <div class="w-full">
-          <h1 class="p-5 text-3xl font-bold text-blue-800">-출결리스트-</h1>
-          <hr class="border-2 border-blue-800" />
+        <div class="w-5/6 p-3 border-2 bg-white">
+          <div class="w-full">
+            <h1 class="p-5 text-3xl font-bold text-blue-800">-출결리스트-</h1>
+            <hr class="border-2 border-blue-800" />
 
-          <h1 class="flex justify-center m-3 text-3xl font-bold text-blue-800">
-            <button @click="downdate()">&lt;</button> {{ nowDat }}
-            <button @click="update()">&gt;</button>
-          </h1>
-          <h1 v-if="selectedtitle" class="text-green-500">{{ selectedtitle }}  {{ selectedlecture.startDate }} ~ {{ selectedlecture.endDate }}</h1>
-          <div class="w-full overflow-auto">
-            <table class="w-full">
-              <thead>
-                <tr class="border">
-                  <th class="w-1/4 p-4">이름</th>
-                  <th v-for="day in arr" :key="day" class="p-4" :style="{ color: isWeekend(getDayName(day)) }">{{ getDayName(day) }}</th>
-                </tr>
-              </thead>
-              <tbody v-if="monthatt.length > 0">
-                <tr v-for="student in monthatt" :key="student.user" class="border bg-[#eee]">
-                  <th class="w-1/4 p-4 bg-red-400">{{ student.user }}</th>
-                  <td v-for="day in arr" :key="day" class="p-4 font-bold border-r min-w-20" :style="{ color: isWeekend(getDayName(day)) }">
-                    <div :style="{ color: getatt(student.attendance[day]) }">
-                      {{ getAttendanceType(student.useridx, day) }}
-                      <div v-if="appget(student.attendance[day])">
-                        <button @click="approve(student.useridx, day, true)" class="border border-black" :style="{ color: 'green' }">승인</button>
-                        <button @click="approve(student.useridx, day, null)" class="border border-black" :style="{ color: 'red' }">거절</button>
+            <h1 class="flex justify-center m-3 text-3xl font-bold text-blue-800">
+              <button @click="downdate()">&lt;</button> {{ nowDat }}
+              <button @click="update()">&gt;</button>
+            </h1>
+            <h1 v-if="selectedtitle" class="text-green-500">{{ selectedtitle }}</h1>
+            <div class="w-full overflow-auto">
+              <table class="w-full">
+                <thead>
+                  <tr class="border">
+                    <th class="w-1/4 p-4">이름</th>
+                    <th
+                      v-for="day in arr"
+                      :key="day"
+                      class="p-4"
+                      :style="{ color: isWeekend(getDayName(day)) }"
+                    >
+                      {{ getDayName(day) }}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody v-if="monthatt.length > 0">
+                  <tr v-for="student in monthatt" :key="student.user" class="border bg-[#eee]">
+                    <th class="w-1/4 p-4 bg-red-400">{{ student.user }}</th>
+                    <td
+                      v-for="day in arr"
+                      :key="day"
+                      class="p-4 font-bold border-r min-w-20"
+                      :style="{ color: isWeekend(getDayName(day)) }"
+                    >
+                      <div :style="{ color: getatt(student.attendance[day]) }">
+                        {{ getAttendanceType(student.useridx, day) }}
+                        <div v-if="appget(student.attendance[day])">
+                          <button
+                            @click="approve(student.useridx, day, true)"
+                            class="border border-black"
+                            :style="{ color: 'green' }"
+                          >
+                            승인
+                          </button>
+                          <button
+                            @click="approve(student.useridx, day, null)"
+                            class="border border-black"
+                            :style="{ color: 'red' }"
+                          >
+                            거절
+                          </button>
+                        </div>
                       </div>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="mb-64"></div>
 </template>
 
 <script setup>
@@ -111,11 +137,6 @@ const goVacationManage = () => {
   router.push({ name: 'vacationmanage' });
 };
 
-
-const goAnnounce = () => {
-  router.push({ name: 'deskannounce' });
-};
-
 const getDaysInMonth = (month, year) => {
   return new Date(year, month + 1, 0).getDate();
 };
@@ -125,10 +146,15 @@ onMounted(() => {
 });
 
 const updateDaysInMonth = () => {
+  // if(selectedlecture.value !==null){}
+
   const daysInMonth = getDaysInMonth(currentMonth.value, currentYear.value);
   arr.value = Array.from({ length: daysInMonth }, (_, i) => i); // 0부터 일수까지의 배열 생성
   monthatt.value = [];
-  getmonthatt(selectedlecture.value, nowDat.value);
+
+  if (selectedlecture.value !== null) {
+    getmonthatt(selectedlecture.value, nowDat.value);
+  }
 };
 
 const getDayName = (item) => {
@@ -169,14 +195,7 @@ const update = () => {
 const getlecture = async () => {
   try {
     const res = await axios.get(`http://192.168.103:8080/lecture/list`);
-    
-    lecturelist.value = res.data.sort((a, b) => {
-      if (a.enable === b.enable) {
-        return a.title.localeCompare(b.title);
-      }
-      return a.enable ? -1 : 1;
-    });
-
+    lecturelist.value = res.data.sort((a, b) => b.idx - a.idx);
     console.log(lecturelist.value);
   } catch (e) {
     console.error(e);
@@ -186,13 +205,7 @@ const getlecture = async () => {
 const desclecture = async () => {
   try {
     const res = await axios.get(`http://192.168.103:8080/lecture/list`);
-    lecturelist.value = res.data.sort((a, b) => {
-      if (a.enable === b.enable) {
-        return new Date(b.enddate) - new Date(a.enddate);
-      }
-      return a.enable ? 1 : -1;
-    });
-    
+    lecturelist.value = res.data.sort((a, b) => a.idx - b.idx);
     console.log(lecturelist.value);
   } catch (e) {
     console.error(e);
@@ -203,7 +216,9 @@ const getmonthatt = async (lecture, month) => {
   try {
     selectedtitle.value = lecture.title;
     selectedlecture.value = lecture;
-    const res = await axios.get(`http://192.168.103:8080/attendance/monthview?idx=${lecture.idx}&month=${month}`);
+    const res = await axios.get(
+      `http://192.168.103:8080/attendance/monthview?idx=${lecture.idx}&month=${month}`
+    );
     console.log(res.data);
     monthatt.value = processAttendanceData(res.data); // 데이터를 가공하는 함수를 호출
   } catch (e) {
@@ -255,7 +270,8 @@ const processAttendanceData = (data) => {
     // 각 날짜에 대해 출결 정보 저장
     attendanceMap[useridx].attendance[day] = {
       type,
-      approval: approval === null ? null : approval === 'true' ? true : approval === 'false' ? false : null
+      approval:
+        approval === null ? null : approval === 'true' ? true : approval === 'false' ? false : null
     };
   });
 

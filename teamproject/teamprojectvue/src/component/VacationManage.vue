@@ -5,10 +5,10 @@
         <h1 class="mb-5 text-2xl font-semibold">휴가 신청 관리</h1>
         
         <div class="flex mb-5">
-          <button @click="nameSearch(1)" class="px-2 py-1 mr-1 text-white bg-blue-600 rounded hover:opacity-80">검색</button>
+          <button @click="nameSearch(pageNum)" class="px-2 py-1 mr-1 text-white bg-blue-600 rounded hover:opacity-80">검색</button>
           <input type="text" 
                  v-model="username" 
-                 @input="nameSearch(1)" 
+                 @input="nameSearch(pageNum)" 
                  placeholder="이름 검색" 
                  class="flex-1 p-2 border border-gray-300 rounded" />
         </div>
@@ -108,12 +108,17 @@ const currentPageGroup = ref(0); // 현재 페이지 그룹
 const totalPageGroups = computed(() => Math.ceil(totalPages.value / itemsPerPage)); // 총 페이지 그룹 수
 const username = ref('');
 
+
 const unchecking = ref(false);
 
 const unChecked = async (pageNum = 1) => {
   unchecking.value = true;
   try {
+
     const response = await axios.get(`http://192.168.0.103:8080/vacation/managerunchecked?pageNum=${pageNum - 1}`);
+
+    console.log(response)
+
     vacationList.value = response.data.list; 
     totalElements.value = response.data.totalElements;
     totalPages.value = response.data.totalPages;

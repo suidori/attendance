@@ -6,13 +6,28 @@ export const useloginStore = defineStore('loginpinia', () => {
   const username = ref('');
   const userrl = ref('');
 
+  const doLogin = (name,role)=>{
+    username.value = name;
+    userrl.value = role;
+  }
+
   const userN = (usernamedata) => {
     username.value = usernamedata;
   };
 
   const userR = (userroledata) => {
+    
     userrl.value = userroledata;
   };
+
+
+
+  const userL = ()=> {
+
+   if(localStorage.getItem('token') !==null) {
+    userrl.value = null
+   }
+  }
 
   const check = () => {
     return logincheckpinia.value;
@@ -39,6 +54,8 @@ export const useloginStore = defineStore('loginpinia', () => {
     userR,
     logincheckpinia,
     username,
-    userrl
+    userrl,
+    doLogin,
+    userL,
   };
 });

@@ -1,35 +1,15 @@
 <template>
-  <img src="/src/images/wall4.png" alt="" class="absolute opacity-50 w-100"/>
-  <div class="absolute top-1/2 left-1/2  transform -translate-x-1/2 -translate-y-1/2">
-    <div class="flex justify-center bg-opacity-30 bg-gray-300">
-      <img src="/src/images/LOGO.png" alt="" class="w-28" />
-      <h1 class="font-mono font-black italic text-3xl tracking-tight flex items-center text-white drop-shadow-[0_1.5px_1.5px_rgba(0,0,0,1)] ml-5">
-        GREEN COMPUTER ACADEMY
-      </h1>
+  <img src="/src/images/wall2.jpg" alt="" class="w-screen h-screen opacity-50" />
+  <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+    <div class="flex justify-center">
+      <h1 class="font-mono font-black italic text-3xl tracking-tight flex flex-col">GREEN COMPUTER ARCADEMY</h1>
     </div>
-    <div style="width: 860px;"
-      class="flex mt-8 mx-auto max-lg:w-[40rem] h-[30rem] bg-white shadow-md rounded-lg">
-      <!-- 로그인 섹션 -->
-      <div class="w-[60%] p-4 flex flex-col items-center justify-center">
-        <div class="space-y-3">
-          <div class="flex items-center mb-5 space-x-4">
-            <label class="flex items-center">
-              <input type="radio" name="option" checked />
-              <span class="text-gray-800 ml-2">학생</span>
-            </label>
-            <label class="flex items-center">
-              <input type="radio" name="option" />
-              <span class="text-gray-800 ml-2">선생님</span>
-            </label>
-            <label class="flex items-center">
-              <input type="radio" name="option" />
-              <span class="text-gray-800 ml-2">매니저</span>
-            </label>
-          </div>
-
-          <div class="flex justify-between text-center">
-            <p class="max-lg:text-left flex justify-center items-center">ID</p>
-            <input
+    <div>
+      <!-- 박스 내부 -->
+      <div class="mx-auto mt-8 w-[40rem] p-4 transform bg-white shadow-md flex flex-col justify-center items-center rounded-lg">
+        <div class="my-3 mt-10 space-y-3 justify-between text-right">
+          <p class="">
+            ID<input
               class="ml-5 p-3 mb-5 w-80 transition duration-200 border-b border-gray-400 focus:outline-none"
               type="text"
               name="userid"
@@ -37,10 +17,9 @@
               placeholder="아이디를 입력해주세요"
               v-model="userid"
             />
-          </div>
-          <p>
-            PASSWORD
-            <input
+          </p>
+          <p class="">
+            PASSWORD<input
               class="ml-5 p-3 w-80 transition duration-200 border-b border-gray-400 focus:outline-none"
               type="password"
               name="password"
@@ -51,7 +30,10 @@
             />
           </p>
         </div>
-        <!-- 공지 섹션 -->
+        <div>
+          <!-- 여기 안에 공지 내용을 넣기-->
+        </div>
+
         <div class="m-2 my-5">
           <p class="pb-2 font-bold text-rose-600" v-if="loginError">{{ loginError }}</p>
           <input
@@ -61,20 +43,7 @@
             value="로그인"
           />
         </div>
-
-        <router-link to="jointermsofuse">
-          <button class="text-sm text-blue-900">회원이 아니신가요?</button>
-        </router-link>
-      </div>
-
-      <!-- Notice Box Section -->
-      <div class="w-[40%] flex items-center justify-center bg-gray-100 p-4 rounded-r-lg shadow-inner">
-        <div class="text-center">
-          <div>
-            <p class="text-gray-600 text-sm font-semibold text-left py-2">공지사항</p>
-            <p class="text-gray-700 mt-2">현재 서비스 점검 중입니다. 이용에 불편을 드려 죄송합니다.</p>
-          </div>
-        </div>
+        <router-link to="jointermsofuse"> <button class="text-sm text-blue-900">회원이 아니신가요?</button></router-link>
       </div>
     </div>
   </div>
@@ -86,12 +55,10 @@ import { useRouter } from 'vue-router';
 import { useloginStore } from '@/stores/loginpinia';
 import { storeToRefs } from 'pinia';
 import { userdata, userrole, logincontrol } from '@/api/loginapi';
-import { onMounted } from 'vue';
 
 const loginpinia = useloginStore();
 
 const { userrl } = storeToRefs(loginpinia);
-const { userL } = loginpinia;
 
 const userid = ref('');
 const password = ref('');
@@ -135,10 +102,6 @@ const LoginSequence = async () => {
     return;
   }
 };
-
-onMounted(async () => {
-  userL();
-});
 </script>
 
 <style lang="scss" scoped></style>
