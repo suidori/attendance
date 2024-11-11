@@ -12,11 +12,11 @@
         <h1 class="text-3xl p-10">회원가입 완료</h1>
         <div class="bg-blue-200 p-10">
             <p>정상적으로 회원가입이 완료되었습니다.</p>
-            <p>로그인 후 이용하세요.</p>
+            <p>등록되어 있는 강좌를 선택해 주시길 바랍니다.</p>
         </div>
         <div class="p-10">
             <!-- <button class="border border-1 p-3 mr-5 pr-10 pl-10 rounded" @click="gologinhome">메인으로</button> -->
-            <button class="border border-1  p-3 mr-5 pr-7 pl-7 bg-blue-800 text-white rounded" @click="gologinview">로그인하기</button>
+            <button class="border border-1  p-3 mr-3 pr-7 pl-7 bg-blue-800 text-white rounded" @click="gologinview">강좌등록하러 가기</button>
         </div>
     </div>
     </div>
@@ -41,7 +41,7 @@ const router = useRouter()
 
 const gologinview = () => {
 
-    router.push({name:'loginview'})
+    router.push({name:'lectureselect'})
 }
 
 
