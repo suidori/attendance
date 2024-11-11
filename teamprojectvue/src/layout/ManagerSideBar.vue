@@ -9,8 +9,8 @@
           <li><a href="#" class="block pt-3 text-sm">출결리스트</a></li>
         </RouterLink>
         <hr />
-        <RouterLink to="/vacationform">
-          <li><a href="#" class="block pt-3 text-sm">휴가 신청서 제출</a></li>
+        <RouterLink to="/VacationManage">
+          <li><a href="#" class="block pt-3 text-sm">휴가 신청서 리스트</a></li>
         </RouterLink>
         <hr />
         <RouterLink to="/lectureselect">
@@ -19,6 +19,10 @@
         <hr />
         <RouterLink to="/mypage">
           <li><a href="#" class="block pt-3 text-sm">마이페이지</a></li>
+        </RouterLink>
+        <hr>
+        <RouterLink to="/deskannouncelist">
+          <li><a href="#" class="block pt-3 text-sm">공지사항 리스트</a></li>
         </RouterLink>
         <!-- <hr />
         <li><a href="#" class="block text-sm">공지 사항</a></li> -->

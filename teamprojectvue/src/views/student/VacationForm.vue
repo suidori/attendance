@@ -10,12 +10,9 @@
       <div>
         <p class="py-6 font-bold text-blue-900">1. 휴가 날짜 기입</p>
         <div class="inline-flex">
-          <label for="startdate" class="my-3 mr-3">휴가 날짜</label>
-          <input class="block p-3 w-44 border rounded-md h-10" type="date" v-model="startdate" id="startdate" />
-        </div>
-        <div class="inline-flex">
-          <label for="enddate" class="mx-3">끝나는 날짜</label>
-          <input class="border-2 border-slate-600" type="date" v-model="enddate" id="enddate" />
+          <label for="date" class="my-3 mr-3">휴가 날짜</label>
+          <input @input="datecheck(date)" class="block p-3 w-44 border rounded-md h-10" type="date" v-model="date" id="date" />
+          <p :class="dateavail ? 'text-green-500' : 'text-red-500'">{{ selectedDate }}</p>
         </div>
         <div>
           <hr class="mt-6" />
@@ -87,9 +84,12 @@
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router';
 import axios from 'axios';
 import dayjs from 'dayjs';
 import { ref, computed, onMounted } from 'vue';
+
+const router = useRouter()
 
 const phoneNumberfirst = ref('010');
 const phoneNumbersecond = ref('');
@@ -106,6 +106,9 @@ const now = ref(dayjs());
 const useravail = ref(false);
 const usererror = ref('');
 const attlist = ref([]);
+
+
+
 
 const datecheck = (date) => {
   if (!date) {
@@ -165,6 +168,10 @@ const sub = async () => {
       }
     });
     console.log(res);
+
+    alert('휴가신청이 완료되었습니다.')
+    router.push({name:'studentvacation'})
+
   } catch (e) {
     console.log(e);
     alert('에러');
@@ -201,10 +208,11 @@ const showuser = async () => {
   }
 };
 
+
 onMounted(()=>{
   showuser()
-
 })
+
 
 </script>
 

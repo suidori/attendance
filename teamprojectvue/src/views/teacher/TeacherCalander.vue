@@ -42,8 +42,51 @@
       <hr class="border-2 border-blue-800" />
 
       <h1 class="flex justify-center m-3 text-3xl font-bold text-blue-800">
-        <button @click="downdate()">&lt;</button> {{ nowDat }}
-        <button @click="update()">&gt;</button>
+        <button class="mb-2 mr-2 hover:scale-150" @click="downdate()">
+                <div>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="size-6"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="m18.75 4.5-7.5 7.5 7.5 7.5m-6-15L5.25 12l7.5 7.5"
+                    />
+                  </svg>
+                </div>
+              </button>
+        <select v-model="currentYear" @change="dropdate" class="p-2 border rounded mx-2">
+                <option v-for="year in availableYears" :key="year" :value="year">{{ year }}년</option>
+              </select>
+
+              <select v-model="currentMonth" @change="dropdate" class="p-2 border rounded mx-2">
+                <option v-for="(month, index) in monthNames" :key="index" :value="index">
+                  {{ month }}
+                </option>
+              </select>
+              <button class="mb-2 ml-2 hover:scale-150" @click="update()">
+                <div>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="size-6"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5"
+                    />
+                  </svg>
+                </div>
+              </button>
       </h1>
       <div class="w-full overflow-auto">
         <table class="w-full">
@@ -71,22 +114,6 @@
               >
                 <div :style="{ color: getatt(student.attendance[day]) }">
                   {{ getAttendanceType(student.user, day) }}
-                  <div v-if="appget(student.attendance[day])">
-                    <button
-                      @click="approve(student.useridx, day, true)"
-                      class="border border-black"
-                      :style="{ color: 'green' }"
-                    >
-                      승인
-                    </button>
-                    <button
-                      @click="approve(student.useridx, day, null)"
-                      class="border border-black"
-                      :style="{ color: 'red' }"
-                    >
-                      거절
-                    </button>
-                  </div>
                 </div>
               </td>
             </tr>
@@ -116,11 +143,18 @@ const currentYear = ref(dayjs().year());
 const lecturelist = ref([]);
 const selectedlecture = ref(null);
 
+const availableYears = ref([]);
+const monthNames = [
+  '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'
+];
+
 const getDaysInMonth = (month, year) => {
   return new Date(year, month + 1, 0).getDate();
 };
 
 onMounted(() => {
+  const currentYearValue = dayjs().year();
+  availableYears.value = Array.from({ length: 11 }, (_, i) => currentYearValue - 5 + i);
   updateDaysInMonth();
 });
 
@@ -130,6 +164,15 @@ const updateDaysInMonth = () => {
   arr.value = Array.from({ length: daysInMonth }, (_, i) => i); // 0부터 일수까지의 배열 생성
   monthatt.value = [];
   getmonthatt(selectedlecture.value, nowDat.value);
+};
+
+const dropdate = () => {
+  // currentYear와 currentMonth를 사용하여 nowDat을 업데이트
+  nowDat.value = dayjs()
+    .year(currentYear.value)
+    .month(currentMonth.value)
+    .format('YYYY-MM');
+  updateDaysInMonth();
 };
 
 const getDayName = (item) => {
@@ -151,26 +194,36 @@ const isWeekend = (test) => {
   }
 };
 
-const count = ref(0);
-
 const downdate = () => {
-  count.value = count.value - 1;
-  nowDat.value = dayjs().add(count.value, 'month').format('YYYY-MM');
+  // 한 달을 감소시키고, currentMonth 및 nowDat을 업데이트
   currentMonth.value = (currentMonth.value - 1 + 12) % 12;
+  if (currentMonth.value === 11) {
+    currentYear.value -= 1; // 12월에서 11월로 넘어가면 연도를 감소시킴
+  }
+  nowDat.value = dayjs()
+    .year(currentYear.value)
+    .month(currentMonth.value)
+    .format('YYYY-MM');
   updateDaysInMonth();
 };
 
 const update = () => {
-  count.value = count.value + 1;
-  nowDat.value = dayjs().add(count.value, 'month').format('YYYY-MM');
+  // 한 달을 증가시키고, currentMonth 및 nowDat을 업데이트
   currentMonth.value = (currentMonth.value + 1) % 12;
+  if (currentMonth.value === 0) {
+    currentYear.value += 1; // 1월에서 12월로 넘어가면 연도를 증가시킴
+  }
+  nowDat.value = dayjs()
+    .year(currentYear.value)
+    .month(currentMonth.value)
+    .format('YYYY-MM');
   updateDaysInMonth();
 };
 
 const getlecture = async () => {
   try {
     const token = localStorage.getItem('token');
-    const res = await axios.get(`http://192.168.0.103:8080/lecture/mylecture`, {
+    const res = await axios.get(`http://greencomart.kro.kr:716/lecture/mylecture`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -184,7 +237,7 @@ const getlecture = async () => {
 const desclecture = async () => {
   try {
     const token = localStorage.getItem('token');
-    const res = await axios.get(`http://192.168.0.103:8080/lecture/mylecture`, {
+    const res = await axios.get(`http://greencomart.kro.kr:716/lecture/mylecture`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -199,7 +252,7 @@ const getmonthatt = async (idx, month) => {
 
   try {
     const res = await axios.get(
-      `http://192.168.0.103:8080/attendance/monthview?idx=${idx}&month=${month}`
+      `http://greencomart.kro.kr:716/attendance/monthview?idx=${idx}&month=${month}`
     );
     monthatt.value = processAttendanceData(res.data); // 데이터를 가공하는 함수를 호출
     selectedlecture.value = idx;
@@ -267,39 +320,6 @@ const getatt = (attendance) => {
     return 'green';
   } else {
     return 'black';
-  }
-};
-
-const appget = (attendance) => {
-  if (attendance && attendance.approval === false) {
-    return true;
-  }
-  return false;
-};
-
-const approve = async (useridx, day, isApproved) => {
-  const studentAttendance = monthatt.value.find((student) => student.useridx === useridx); // useridx로 검색
-
-  if (studentAttendance && studentAttendance.attendance[day]) {
-    studentAttendance.attendance[day].approval = isApproved;
-
-    // 전송할 데이터 객체를 먼저 선언
-    const data = {
-      useridx: useridx, // useridx도 전송할 수 있음
-      adate: dayjs()
-        .year(currentYear.value)
-        .month(currentMonth.value)
-        .date(day + 1)
-        .format('YYYY-MM-DD'), // day를 날짜 형식으로 변환
-      type: studentAttendance.attendance[day].type,
-      approval: isApproved
-    };
-
-    try {
-      await axios.post('http://192.168.0.103:8080/attendance/updateApproval', data);
-    } catch (e) {
-      console.error('Approval update failed:', e);
-    }
   }
 };
 

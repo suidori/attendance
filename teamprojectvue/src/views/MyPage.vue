@@ -33,21 +33,21 @@
       </div>
 
       <hr class="w-full mx-auto border-blue-900" />
-      <h1 class="py-4 font-bold text-blue-800 mx-60">수강중인 강좌</h1>
-      <div class="flex flex-col items-center justify-center mx-60">
-        <div v-if="lecturecheck" v-for="(item, index) in lecturelist" :key="item.lecturelist" class="flex my-3">
+      <h1 class="py-4 font-bold text-blue-800 mx-60 mt-5">수강중인 강좌</h1>
+      <div class="flex flex-col items-center justify-center mx-60 mb-5">
+        <div v-if="lecturecheck" v-for="(item, index) in lecturelist" :key="item.lecturelist"  class="flex my-3">
           <h class="flex items-center justify-center w-20 text-sm text-center text-white bg-blue-900 border rounded">강좌{{ index + 1 }}</h>
           <div class="h-10 mx-3 text-xs border w-96 rounded p-3">{{ item.content }}</div>
         </div>
-
+        <div v-else-if="managercheck">
+           <h1>매니저 계정입니다.</h1>
+        </div>
         <div v-else>
          <h1>수강중인 강좌가 없습니다.</h1>
         </div>
-
-
       </div>
-      <hr class="w-full mx-auto border-blue-900 py-3 mt-8" />
-      <div>
+      <!-- <hr class="w-full mx-auto border-blue-900 py-3 mt-8" /> -->
+      <!-- <div>
         <h1 class="py-4 font-bold text-blue-800 ml-60">내 휴가신청 보기</h1>
 
         <div class="flex justify-center items-center">
@@ -55,7 +55,7 @@
             <h1>휴가 리스트</h1>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -71,6 +71,8 @@ const email = ref('');
 const role = ref('');
 const lecturelist = ref([]);
 const lecturecheck = ref(false)
+const managercheck = ref(false)
+
 
 onMounted(async () => {
   const profileres = await profiledata();
@@ -85,6 +87,7 @@ onMounted(async () => {
     role.value = '선생님';
   } else {
     role.value = '매니저';
+    managercheck.value = true
   }
 
   const arrres = await getmylecture();

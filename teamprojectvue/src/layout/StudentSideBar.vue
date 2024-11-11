@@ -20,7 +20,7 @@
             </li>
           </RouterLink>
           <hr class="border-gray-300"/>
-          <RouterLink to="/vacationform">
+          <RouterLink to="/studentvacation">
             <li>
               <div
                 @click="setActiveItem('vacation')"
@@ -60,7 +60,6 @@
               </div>
             </li>
           </RouterLink>
-          <RouterLink to="studentvacation">연습페이지로</RouterLink>
         </ul>
         <div class="mt-20 text-xs">
 
