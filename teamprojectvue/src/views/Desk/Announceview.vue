@@ -23,12 +23,9 @@
             {{body}}
           </div>
         </div>
-        
+    </div>  
     </div>
-          
-        </div>
     </div>
-
     <div @click="godeskannouncelist"
              class="flex text-xl border-2  border-blue-300 pl-3 pr-3 my-8
              hover:bg-blue-300 hover:opacity-80
