@@ -1,12 +1,14 @@
 <template>
- 
-    <div id="main" class="items-center justify-center mt-10 w-4/5 mx-auto">
+ <!-- <div class="border-2 w-full m-20"> -->
+    <div id="main" class="items-center justify-center mt-10 ml-10 w-[1500px] mx-auto ">
       <div id="user" class="">
         <h1 v-if="user">{{ user.name }} 학생 출결 관리</h1>
         <p v-if="useravail" class="text-green-600">수강중: {{ attlist.at(0).lecture }}</p>
         <p v-if="!useravail" class="text-red-600">{{ usererror }}</p>
       </div>
-      <div id="attendance" class="flex">
+
+
+      <div v-if="useravail" id="attendance" class="flex">
         <div id="calander" class="w-full p-4 bg-white rounded-lg shadow-md min-w-72">
           <h1 class="mb-4 text-xl font-bold text-center">
             <button @click="subMonth()" class="mr-2">
@@ -62,7 +64,7 @@
           </div>
         </div>
 
-        <div id="attadd" v-show="selectDate" class="mx-6 bg-blue-300 rounded-lg p-2">
+        <div id="attadd" v-show="selectDate" class="mx-6 w-2/5 bg-blue-300 rounded-lg p-2">
           <h1>{{ selectDate }} 출결 등록</h1>
           <div class="">
             <label for="attendance" class="text-xs"
@@ -198,8 +200,19 @@
           </button>
         </div>
       </div>
+
+      <div v-else class="mt-44 ">
+<h1 class="flex justify-center"> << 먼저 강좌를 선택하여 주시길 바랍니다. >>  </h1>
+<div class="flex justify-center">
+<button  class=" border-2 border-blue-800 m-5 p-2 pl-8 pr-8 rounded-md bg-blue-800 text-white" @click="golectureselect" >강좌 리스트 보러가기</button>
+      </div>
+
     </div>
- 
+
+
+
+    </div>
+  <!-- </div> -->
   <div class="mb-64"></div>
 </template>
 
@@ -209,7 +222,7 @@ import axios from 'axios';
 import { useRouter } from 'vue-router';
 import dayjs from 'dayjs';
 
-import StudentSideBar from '@/layout/StudentSideBar.vue';
+// import StudentSideBar from '@/layout/StudentSideBar.vue';
 
 const now = ref(dayjs());
 const columns = ref([]);
@@ -313,6 +326,7 @@ const showuser = async () => {
     console.log(e);
     useravail.value = false;
     usererror.value = '사용자를 찾을 수 없습니다.';
+    
   }
 };
 
@@ -409,6 +423,13 @@ const selectAttFn = (event, items, date) => {
     approval.value = items.approval == null ? null : false;
   }
 };
+
+const golectureselect = () => {
+
+  router.push({name:'lectureselect'})
+
+}
+
 
 onMounted(() => {
   showuser();

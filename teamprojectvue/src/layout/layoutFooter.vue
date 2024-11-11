@@ -18,7 +18,7 @@
 
           <template v-else>
             <div class="absolute top-0 right-0 m-3 flex space-x-5">
-              <div class="text-2xl">{{ username }} 님 반갑습니다.</div>
+              <div class="text-2xl">{{ username }} {{ mapUserRole(userrl)}}님 반갑습니다.</div>
               <div class="text-xl rounded hover:bg-red-400 px-3 pt-1" @click="logout">
                 <RouterLink to="/loginview" class="flex text-white items-center font-[GmarketSansMedium]"> 로그아웃 </RouterLink>
               </div>
@@ -53,37 +53,54 @@ const logout =async () => {
   router.push({ name: 'loginview' });
 };
 
+
+function mapUserRole(userRole) { //role에 따라 출력을 바꿔주는 펑션기능
+  switch (userRole) {
+    case 'ROLE_STUDENT':
+      return '학원생';
+    case 'ROLE_TEACHER':
+      return '선생';
+    case 'ROLE_MANAGER':
+      return '매니저';
+    default:
+      return ' '; 
+  }
+}
+
+
 // watchEffect(() => {
 //   logout();
 // });
 
-const logoclick = async () => {
-  console.log('로고클릭');
+// const logoclick = async () => {
+//   console.log('로고클릭');
 
-  if (localStorage.getItem('token') !== null) {
-    rolecheck();
-  } else {
-    console.log('서버연결 오류');
-    router.push({ name: 'loginview' });
-  }
-};
+//   if (localStorage.getItem('token') !== null) {
+//     rolecheck();
+//   } else {
+//     console.log('서버연결 오류');
+//     router.push({ name: 'loginview' });
+//   }
+// };
 
-const rolecheck = async () => {
-  await userrole();
 
-  if (userrl.value == 'ROLE_STUDENT') {
-    console.log('학생계정');
-    router.push({ name: 'stdatt' });
-  } else if (userrl.value == 'ROLE_TEACHER') {
-    console.log('선생계정');
-    router.push({ name: 'teachertoday' });
-  } else if (userrl.value == 'ROLE_MANAGER') {
-    console.log('매니저계정');
-    router.push({ name: 'deskcalander' });
-  } else {
-    console.log('맵핑문제');
-  }
-};
+
+// const rolecheck = async () => {
+  // await userrole();
+
+//   if (userrl.value == 'ROLE_STUDENT') {
+//     console.log('학생계정');
+//     router.push({ name: 'stdatt' });
+//   } else if (userrl.value == 'ROLE_TEACHER') {
+//     console.log('선생계정');
+//     router.push({ name: 'teachertoday' });
+//   } else if (userrl.value == 'ROLE_MANAGER') {
+//     console.log('매니저계정');
+//     router.push({ name: 'deskcalander' });
+//   } else {
+//     console.log('맵핑문제');
+//   }
+// };
 </script>
 
 <style lang="scss" scoped></style>

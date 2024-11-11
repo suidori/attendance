@@ -23,6 +23,7 @@ export const userdata = async () => {
   }
 };
 
+
 export const userrole = async () => {
   const token = localStorage.getItem('token');
   if(token==null){
@@ -35,9 +36,12 @@ export const userrole = async () => {
     }
   });
 
+  
   const logincheck = useloginStore();
   console.log(res.data);
   logincheck.userR(res.data);
+
+
 };
 
 export const logincontrol = async (data) => {

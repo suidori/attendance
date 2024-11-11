@@ -6,9 +6,9 @@ user3,4 매니저
 user5~15 학생
 마스터
 -->
-<div class="">
+<!-- <div class="">
 <TopBar v-if="$route.name !== 'loginview'" class="w-full"></TopBar>
-</div>
+</div> -->
 <div class=""></div>
   <div style="width: 1200px; margin:0 auto"
       class="font-[GmarketSansMedium] flex justify-center">
@@ -17,7 +17,7 @@ user5~15 학생
   <LayoutFooter class=""></LayoutFooter>
 
   <template v-if="userrlvalue == 'ROLE_STUDENT'">
-    <StudentSideBar class="" style="position: fixed; top: 1%; left: 0%; bottom:0; top: 50%"/>
+    <StudentSideBar class="" style="position: fixed; top: 1%; left: 11%" />
   </template>
   <template v-if="userrlvalue == 'ROLE_TEACHER'">
     <TeacherSideBar class="" style="position: fixed; top: 1%; left: 11%" />
@@ -27,6 +27,7 @@ user5~15 학생
 
   </template>
 
+</div>
 </template>
 
 <script setup>
@@ -40,7 +41,7 @@ import { useRouter } from 'vue-router';
 import { storeToRefs } from 'pinia';
 import { userdata, userrole } from './api/loginapi';
 import { computed } from 'vue';
-import TopBar from './layout/TopBar.vue';
+// import TopBar from './layout/TopBar.vue';
 
 const router = useRouter();
 

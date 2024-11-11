@@ -11,10 +11,10 @@
     <div class="bg-white shadow p-6 rounded-lg">
       <h2 class="text-xl font-bold mb-4 inline-block">강좌 선택</h2>
 
-      <button @click="golectureinsert()" class="ml-10 inline-block bg-yellow-500 text-white py-2 px-4 rounded-lg hover:bg-yellow-700">
+      <!-- <button @click="golectureinsert()" class="ml-10 inline-block bg-yellow-500 text-white py-2 px-4 rounded-lg hover:bg-yellow-700">
         강좌 생성
       </button>
-      <button @click="golecturelist()" class="ml-10 inline-block bg-red-300 text-white py-2 px-4 rounded-lg hover:bg-yellow-700">강좌 리스트</button>
+      <button @click="golecturelist()" class="ml-10 inline-block bg-red-300 text-white py-2 px-4 rounded-lg hover:bg-yellow-700">강좌 리스트</button> -->
 
       <!-- Search Bar -->
       <div class="mb-4">
