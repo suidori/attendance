@@ -31,8 +31,8 @@ public class LectureController {
 
     @PostMapping("join")
     public ResponseEntity<UserAndLecture> join(@RequestBody LectureReqDto lectureReqDto,
-                                               @RequestHeader("Authorization") String token) {
-        UserAndLecture lecture = lectureService.join(lectureReqDto, token);
+                                               @AuthenticationPrincipal LoginUserDetails loginUserDetails) {
+        UserAndLecture lecture = lectureService.join(lectureReqDto, loginUserDetails);
         return ResponseEntity.ok(lecture);
     }
 

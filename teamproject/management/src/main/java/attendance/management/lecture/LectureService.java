@@ -46,7 +46,7 @@ public class LectureService {
         return lecture;
     }
 
-    public UserAndLecture join(LectureReqDto lectureReqDto, String token) {
+    public UserAndLecture join(LectureReqDto lectureReqDto, LoginUserDetails loginUserDetails) {
         Lecture lecture = lectureRepository
                 .findByTitle(lectureReqDto.getTitle())
                 .orElseThrow(() -> new BizException(ErrorCode.LECTURE_NOT_FOUND));
@@ -59,16 +59,15 @@ public class LectureService {
             throw new BizException(ErrorCode.PASSWORD_MISMATCH);
         }
 
-        Long userIdx = jwtManager.extractUserIdxFromToken(token);
-
         User user = userRepository
-                .findById(userIdx)
+                .findById(loginUserDetails.getIdx())
                 .orElseThrow(() -> new BizException(ErrorCode.USER_NOT_FOUND));
 
-        Optional<UserAndLecture> userAndLecture = userAndLectureRepository.findByUser_IdxAndState(userIdx, 1);
+        Optional<UserAndLecture> userAndLecture = userAndLectureRepository.findByUser_IdxAndState(user.getIdx(), 1);
 
         userAndLecture.ifPresent(
-                userAndLecture1 -> userAndLecture1.setState(0)
+                userAndLecture1 -> {userAndLecture1.setState(0);
+                userAndLectureRepository.save(userAndLecture1);}
         );
 
         UserAndLecture userAndLecture1 = UserAndLecture.builder()

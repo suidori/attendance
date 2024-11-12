@@ -19,7 +19,6 @@ public enum ErrorCode {
     LECTURE_NOT_ENABLE(HttpStatus.NOT_ACCEPTABLE, "닫힌 강좌입니다."),
     ATTENDANCE_NOT_FOUND(HttpStatus.NOT_FOUND, "존재하지 않는 요청입니다."),
 
-
     ;
 
     private HttpStatus httpStatus;
