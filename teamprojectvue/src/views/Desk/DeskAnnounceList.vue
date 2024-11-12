@@ -1,5 +1,5 @@
 <template>
-  <div class="font-sans flex justify-center">
+  <div class="ml-4 font-sans flex justify-center">
     <main class="flex justify-center w-[74.5rem]">
       <section class="flex-1 p-6 m-2 bg-white border border-gray-500">
         <h1 class="mb-5 text-2xl font-semibold">공지사항</h1>

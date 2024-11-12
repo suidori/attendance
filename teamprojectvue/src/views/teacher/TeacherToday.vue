@@ -1,5 +1,5 @@
 <template>
-  <div class="m-3 border border-gray-400 w-full">
+  <div class="ml-5 m-3 border border-gray-400 w-full">
     <div class="">
       <div class="m-10">
         <div class="flex justify-between">

@@ -67,8 +67,6 @@
     <hr class="w-1/2 mx-auto my-5" />
     <div class="flex items-center justify-center"></div>
   </div>
-
-
   <div v-else class="mt-44 ">
 <h1 class="flex justify-center"> << 먼저 강좌를 선택하여 주시길 바랍니다. >>  </h1>
 <div class="flex justify-center">

@@ -1,5 +1,5 @@
 <template>
-  <div class="border p-10">
+  <div class="ml-3 border p-10">
     <div id="user" class="">
       <h1 v-if="user">{{ user.name }} 학생 출결 관리</h1>
       <p v-if="useravail" class="text-green-600">수강중: {{ attlist.at(0).lecture }}</p>

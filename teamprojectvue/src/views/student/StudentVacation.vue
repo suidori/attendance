@@ -1,7 +1,7 @@
 <template>
-  <div class="flex justify-center font-sans">
-    <main v-if="useravail" class="flex justify-center" style="width: 1300px;">
-      <section class="flex-1 p-5 m-10 bg-white border-gray-500 border-1">
+  <div class=" flex justify-center font-sans border border-gray-400">
+    <main v-if="useravail" class="flex justify-center w-[1150px]" >
+      <section class="flex-1 p-5  bg-white border-gray-500 border-1">
         <h1 class="mb-5 text-2xl font-semibold">휴가 신청 현황</h1>
 
         <div class="overflow-x-auto">

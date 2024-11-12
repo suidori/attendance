@@ -119,14 +119,14 @@
       <div class="flex justify-center my-4">
       <button
         @click="joinuser"
-        class="px-8 py-2 mt-4 font-bold text-white bg-blue-500 rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline"
+        class="mr-3 px-4 py-2 mt-4 font-bold text-white bg-blue-500 rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline"
         type="button"
       >
         회원가입
       </button>
       <button
         @click="cansel"
-        class="px-4 py-2 font-bold text-white bg-red-500 rounded hover:bg-red-700 focus:outline-none focus:shadow-outline"
+        class="px-8 py-2 mt-4 font-bold text-white bg-red-500 rounded hover:bg-red-700 focus:outline-none focus:shadow-outline"
         type="button"
       >
         취소
