@@ -39,7 +39,7 @@
               v-model="personalNumFront"
             />
             <span class="mx-1">-</span>
-            <input type="text" id="personalnum-back" class="block p-3 w-8 border rounded-md h-7" maxlength="1" v-model="personalNumBack" />
+            <input type="text" id="personalnum-back" class="block pl-2 w-8 border rounded-md h-7" maxlength="1" v-model="personalNumBack" />
             <span>●●●●●●</span>
           </div>
           <div class="m-3">
@@ -105,9 +105,6 @@ const useravail = ref(false);
 const usererror = ref('');
 const attlist = ref([]);
 
-
-
-
 const datecheck = (date) => {
   if (!date) {
     dateAvail.value = false;
@@ -135,6 +132,7 @@ const datecheck = (date) => {
   if (inputDate >= sevenDaysAfterToday) {
     dateAvail.value = true;
     selectedDate.value = '선택되었습니다.';
+    console.log('Date Available:', dateAvail.value);
   } else {
     dateAvail.value = false;
     selectedDate.value = '휴가 신청은 최소 일주일 전에 가능합니다.';
