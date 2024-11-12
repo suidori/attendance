@@ -1,5 +1,6 @@
 package attendance.management.lecture;
 
+import attendance.management.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,5 +33,6 @@ public class Lecture {
     private String password;
 
     private boolean enable;
+
 
 }

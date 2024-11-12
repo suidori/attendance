@@ -1,9 +1,9 @@
-package attendance.management.question;
+package attendance.management.announce;
 
 import lombok.Data;
 
 @Data
-public class QuestionResponseDto {
+public class AnnounceResponseDto {
 
     private Long idx;
     private String title;
@@ -11,6 +11,4 @@ public class QuestionResponseDto {
     private String wdate;
     private String user;
     private String lecture;
-    private String response;
-
 }

@@ -31,8 +31,8 @@ public class LectureController {
 
     @PostMapping("join")
     public ResponseEntity<UserAndLecture> join(@RequestBody LectureReqDto lectureReqDto,
-                                               @RequestHeader("Authorization") String token) {
-        UserAndLecture lecture = lectureService.join(lectureReqDto, token);
+                                               @AuthenticationPrincipal LoginUserDetails loginUserDetails) {
+        UserAndLecture lecture = lectureService.join(lectureReqDto, loginUserDetails);
         return ResponseEntity.ok(lecture);
     }
 
@@ -41,8 +41,13 @@ public class LectureController {
         return ResponseEntity.ok(lectureService.findAll());
     }
 
+    @GetMapping("/availlist")
+    public ResponseEntity<List<Lecture>> availList() {
+        return ResponseEntity.ok(lectureService.availList());
+    }
+
     @GetMapping("/mylecture")
-    public ResponseEntity<List<Lecture>> myLecture(@AuthenticationPrincipal LoginUserDetails loginUserDetails) {
+    public ResponseEntity<List<LectureResponseListDto>> myLecture(@AuthenticationPrincipal LoginUserDetails loginUserDetails) {
         if (loginUserDetails == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }

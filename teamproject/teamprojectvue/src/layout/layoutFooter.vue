@@ -21,10 +21,10 @@
 
           <template v-else>
             <div class="flex space-x-5">
-              <div class="text-2xl">{{ username }} {{ mapUserRole(userrl)}}님 반갑습니다.</div>
-              <div class="text-xl rounded hover:bg-blue-800 px-3 pt-1" @click="logout">
+              <div class="text-2xl mr-10">{{ username }} {{ mapUserRole(userrl)}}님 반갑습니다.</div>
+              <!-- <div class="text-xl rounded hover:bg-blue-800 px-3 pt-1" @click="logout">
                 <RouterLink to="/loginview" class="flex text-white items-center font-[GmarketSansMedium]"> 로그아웃 </RouterLink>
-              </div>
+              </div> -->
             </div>
           </template>
 
@@ -37,24 +37,24 @@
 <script setup>
 import { useloginStore } from '../stores/loginpinia.js';
 import { storeToRefs } from 'pinia';
-import { useRouter } from 'vue-router';
+// import { useRouter } from 'vue-router';
 
-import { userrole } from '../api/loginapi.js';
+// import { userrole } from '../api/loginapi.js';
 
 const loginStore = useloginStore();
 
-const router = useRouter();
+// const router = useRouter();
 
 const { username, userrl, logincheckpinia } = storeToRefs(loginStore);
-const { loginchecktrue } = loginStore;
+// const { loginchecktrue } = loginStore;
 
-const logout =async () => {
+// const logout =async () => {
 
-   localStorage.removeItem('token');
-  loginchecktrue();
-   userrole();
-  router.push({ name: 'loginview' });
-};
+//    localStorage.removeItem('token');
+//   loginchecktrue();
+//    userrole();
+//   router.push({ name: 'loginview' });
+// };
 
 
 function mapUserRole(userRole) { //role에 따라 출력을 바꿔주는 펑션기능

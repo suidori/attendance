@@ -3,9 +3,9 @@
     <div class="bg-blue-50 rounded-md">
       <img src="../images/LOGO2.png" alt="Logo" />
     </div>
-    <div class="bg-blue-300">
+    <div class="bg-blue-300 h-[650px]">
       <aside class="p-3 text-gray-950 font-bold font-[GmarketSansMedium]">
-        <div class="h-16 text-lg font-bold"> 선생님 메뉴</div>
+        <div class="h-16 text-lg font-bold"> 선생님</div>
         <ul class="space-y-3 bg-slate-100 p-1 rounded-lg flex flex-col justify-center">
           <RouterLink to="/teachertoday">
             <li>
@@ -19,19 +19,6 @@
               </div>
             </li>
           </RouterLink>
-          <!-- <hr class="border-gray-300"/>
-          <RouterLink to="/vacationmanage">
-            <li>
-              <div
-                @click="setActiveItem('vacationmanage')"
-                :class="{ 'bg-blue-200 rounded-md': activeItem === 'vacationmanage' }"
-                class="mt-2 py-1 text-sm flex items-center"
-              >
-                <img src="../images/check.png" alt="" class="mr-2" />
-                휴가 제출 관리??
-              </div>
-            </li>
-          </RouterLink> -->
           <hr class="border-gray-300"/>
           <RouterLink to="/teachercalander">
             <li>
@@ -76,7 +63,7 @@
             </li>
           </RouterLink>
           <hr class="border-gray-300"/>
-          <RouterLink to="/DeskAnnounceList">
+          <RouterLink to="/teacherannouncelist">
             <li>
               <div
 
@@ -95,17 +82,44 @@
 
         </div>
       </aside>
+      <div @click="logout" class=" font-[GmarketSansMedium] mt-24 border-gray-300 bg-slate-100 m-3 rounded-md cursor-pointer hover:bg-red-400"><span class="p-2 pb-1 flex justify-center ">로그아웃</span></div>
     </div>
   </div>
 </template>
 
 <script setup>
+import { useloginStore } from '../stores/loginpinia.js';
+import { userrole } from '../api/loginapi.js';
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { storeToRefs } from 'pinia';
+
+
+const router = useRouter()
+
+const loginStore = useloginStore()
+
+const {userrl} = storeToRefs(loginStore)
+
+const { loginchecktrue } = loginStore;
+
 
 const activeItem = ref(''); // Tracks the active item
+
 
 // Sets the active item based on the button clicked
 const setActiveItem = (item) => {
   activeItem.value = item;
 };
+
+const logout =async () => {
+
+userrl.value =null
+
+localStorage.removeItem('token');
+loginchecktrue();
+ userrole();
+ router.push({ name: 'loginview' });
+};
+
 </script>

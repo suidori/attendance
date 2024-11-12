@@ -1,5 +1,5 @@
 <template>
-    <div class="w-[1500px]">
+    <div class="ml-2 w-[1500px]">
     <div class="m-3 border border-gray-400  h-full w-full">
     <div class="">
       <div class="m-10">
@@ -60,7 +60,7 @@ const lecture = ref('')
 
 const godeskannouncelist = () => {
 
-    router.push({name:'deskannouncelist'})
+    router.go(-1)
 }
 
 onMounted( async()=>{

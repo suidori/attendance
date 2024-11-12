@@ -1,4 +1,4 @@
-package attendance.management.question;
+package attendance.management.announce;
 
 import attendance.management.lecture.Lecture;
 import attendance.management.user.User;
@@ -11,12 +11,12 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "question")
+@Table(name = "announce")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Question {
+public class Announce {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,7 +35,5 @@ public class Question {
     @ManyToOne
     @JoinColumn(name = "lectureidx")
     private Lecture lecture;
-
-    private boolean response;
 
 }

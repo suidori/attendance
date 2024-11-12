@@ -1,5 +1,5 @@
 <template>
-  <div class="m-3 border border-gray-400 w-full">
+  <div class="ml-5 m-3 border border-gray-400 w-full">
     <div class="">
       <div class="m-10">
         <div class="flex justify-between">
@@ -74,7 +74,7 @@ const getuser = async () => {
   try {
     const token = localStorage.getItem('token');
 
-    const res = await axios.get(`http://192.168.103:8080/user/getuser`, {
+    const res = await axios.get(`http://greencomart.kro.kr:716/user/getuser`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -87,7 +87,7 @@ const getuser = async () => {
 
 const teachercheck = async (idx) => {
   try {
-    await axios.post(`http://192.168.0.103:8080/attendance/teacheraccept/${idx}`);
+    await axios.post(`http://greencomart.kro.kr:716/attendance/teacheraccept/${idx}`);
 
     const item = arr.value.find((student) => student.idx === idx);
     if (item) {
@@ -106,7 +106,7 @@ onMounted(() => {
 const todayview = async () => {
   try {
     const token = localStorage.getItem('token');
-    const res = await axios.get(`http://192.168.0.103:8080/attendance/todayteacherview`, {
+    const res = await axios.get(`http://greencomart.kro.kr:716/attendance/todayteacherview`, {
       headers: {
         Authorization: `Bearer ${token}`
       }

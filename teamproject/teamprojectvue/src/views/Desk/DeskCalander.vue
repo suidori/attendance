@@ -1,17 +1,11 @@
 <template>
-  <div class="w-[74rem]">
+  <div class="w-[74rem] mb-24">
     <div class="m-3">
-      <span
-        @click="goVacationManage"
-        class="text-xl border-2 border-blue-300 pl-3 pr-3 hover:bg-blue-300 hover:opacity-80 hover:text-white cursor-pointer rounded p-1"
-      >
-        휴가 요청 관리
-      </span>
-      <div class="mt-5 flex justify-center">
+      <div class="mt-5 ">
         <div
           v-if="lecturelist.length > 0"
           id="lecturelist"
-          class="w-1/6 p-4 border bg-white border-blue-500"
+          class="w-1/6 p-4 border float-start  bg-white border-blue-500"
         >
           <h1>강의목록</h1>
           <button
@@ -46,7 +40,10 @@
             </div>
           </div>
         </div>
-        <div class="w-5/6 p-3 border-2 bg-white">
+
+
+
+        <div class="float-right w-5/6 p-3 border-2 bg-white">
           <div class="w-full">
             <h1 class="p-5 text-3xl font-bold text-blue-800">-출결리스트-</h1>
             <hr class="border-2 border-blue-800" />
@@ -98,7 +95,7 @@
                 </div>
               </button>
             </h1>
-            <h1 v-if="selectedtitle" class="text-green-500">{{ selectedtitle }}</h1>
+            <h1 v-if="selectedtitle" class="text-green-600 text-2xl">{{ selectedtitle }}</h1>
 
             <!-- 년도 및 월 선택
             <div class="flex justify-center">
@@ -113,7 +110,7 @@
               </select>
             </div> -->
 
-            <div class="w-full overflow-auto">
+            <div class="w-full  overflow-auto">
               <table class="w-full">
                 <thead>
                   <tr class="border">
@@ -130,14 +127,14 @@
                 </thead>
                 <tbody v-if="monthatt.length > 0">
                   <tr v-for="student in monthatt" :key="student.user" class="border bg-[#eee]">
-                    <th class="w-1/4 p-4 bg-red-400">{{ student.user }}</th>
+                    <th class="w-1/4 p-4 bg-indigo-400">{{ student.user }}</th>
                     <td
                       v-for="day in arr"
                       :key="day"
                       class="p-4 font-bold border-r min-w-20"
                       :style="{ color: isWeekend(getDayName(day)) }"
                     >
-                      <div :style="{ color: getatt(student.attendance[day]) }">
+                      <div class="text-center" :style="{ color: getatt(student.attendance[day]) }">
                         {{ getAttendanceType(student.useridx, day) }}
                         <div v-if="appget(student.attendance[day])">
                           <button
@@ -164,6 +161,10 @@
           </div>
         </div>
       </div>
+
+
+      
+
       <div class="mb-20"></div>
     </div>
   </div>
@@ -195,10 +196,6 @@ const availableYears = ref([]);
 const monthNames = [
   '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'
 ];
-
-const goVacationManage = () => {
-  router.push({ name: 'vacationmanage' });
-};
 
 const getDaysInMonth = (month, year) => {
   return new Date(year, month + 1, 0).getDate();
@@ -279,7 +276,7 @@ const update = () => {
 
 const getlecture = async () => {
   try {
-    const res = await axios.get(`http://192.168.103:8080/lecture/list`);
+    const res = await axios.get(`http://greencomart.kro.kr:716/lecture/list`);
     lecturelist.value = res.data.sort((a, b) => b.idx - a.idx);
     console.log(lecturelist.value);
   } catch (e) {
@@ -289,7 +286,7 @@ const getlecture = async () => {
 
 const desclecture = async () => {
   try {
-    const res = await axios.get(`http://192.168.103:8080/lecture/list`);
+    const res = await axios.get(`http://greencomart.kro.kr:716/lecture/list`);
     lecturelist.value = res.data.sort((a, b) => a.idx - b.idx);
     console.log(lecturelist.value);
   } catch (e) {
@@ -298,18 +295,14 @@ const desclecture = async () => {
 };
 
 const getmonthatt = async (lecture, month) => {
-  console.log(lecture);
-
   try {
-    console.log(lecture.idx, month);
     selectedtitle.value = lecture.title;
     selectedlecture.value = lecture;
     const res = await axios.get(
-      `http://192.168.103:8080/attendance/monthview?idx=${lecture.idx}&month=${month}`
+      `http://greencomart.kro.kr:716/attendance/monthview?idx=${lecture.idx}&month=${month}`
     );
     console.log(res.data);
     monthatt.value = processAttendanceData(res.data); // 데이터를 가공하는 함수를 호출
-    console.log('Processed Month Attendance:', monthatt.value);
   } catch (e) {
     console.log(e);
   }
@@ -319,8 +312,6 @@ const getAttendanceType = (useridx, day) => {
   // studentAttendance를 찾을 때 useridx를 정수로 변환하여 비교합니다.
   const studentAttendance = monthatt.value.find((student) => student.useridx === Number(useridx));
 
-  console.log('Student Attendance:', studentAttendance);
-  console.log('Month Attendance Data:', monthatt.value); // monthatt 배열 내용 확인
 
   if (!studentAttendance) return '-'; // 학생이 존재하지 않으면 '-'
 
@@ -329,7 +320,7 @@ const getAttendanceType = (useridx, day) => {
   const isWeekendDay = /^일/.test(dayName) || /^토/.test(dayName); // 주말 여부 확인
 
   // 주말이면 '-'
-  if (isWeekendDay) return '✖';
+  if (isWeekendDay) return '■';
 
   // 해당 날짜에 대해 출결 정보가 없으면 '-'
   const attendanceInfo = studentAttendance.attendance[day];
@@ -398,7 +389,7 @@ const approve = async (useridx, day, isApproved) => {
     studentAttendance.attendance[day].approval = isApproved;
 
     try {
-      await axios.post('http://192.168.103:8080/attendance/updateApproval', {
+      await axios.post('http://greencomart.kro.kr:716/attendance/updateApproval', {
         useridx: useridx, // useridx도 전송할 수 있음
         adate: dayjs()
           .year(currentYear.value)

@@ -28,7 +28,7 @@
                 </td>
                 <td class="p-1 border border-gray-300">
                   <a v-if="vacation.accept === '허가됨'"
-                    :href="`http://192.168.0.103:8080/vacation/download/hwp/${vacation.idx}`"
+                    :href="`http://greencomart.kro.kr:716/vacation/download/hwp/${vacation.idx}`"
                     class="px-2 py-1 text-white bg-blue-800 rounded hover:opacity-80" target="_blank">다운로드</a>
                   <span v-else>—</span>
                 </td>
@@ -93,7 +93,12 @@ const attlist = ref([]);
 const unChecked = async (pageNum = 1) => {
   unchecking.value = true;
   try {
-    const response = await axios.get(`http://192.168.0.103:8080/vacation/managerunchecked?pageNum=${pageNum - 1}`);
+    const token = localStorage.getItem('token');
+    const response = await axios.get(`http://greencomart.kro.kr:716/vacation/studentunchecked?pageNum=${pageNum - 1}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      }
+    });
     vacationList.value = response.data.list;
     totalElements.value = response.data.totalElements;
     totalPages.value = response.data.totalPages;
@@ -107,7 +112,7 @@ const fetchVacations = async (pageNum = 1) => {
   unchecking.value = false;
   try {
     const token = localStorage.getItem('token');
-    const response = await axios.get(`http://192.168.0.103:8080/vacation/student?pageNum=${pageNum - 1}`, {
+    const response = await axios.get(`http://greencomart.kro.kr:716/vacation/student?pageNum=${pageNum - 1}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       }

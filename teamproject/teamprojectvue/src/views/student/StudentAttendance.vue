@@ -1,5 +1,5 @@
 <template>
-  <div class="border p-10">
+  <div class="ml-3 border p-10">
     <div id="user" class="">
       <h1 v-if="user">{{ user.name }} 학생 출결 관리</h1>
       <p v-if="useravail" class="text-green-600">수강중: {{ attlist.at(0).lecture }}</p>
@@ -308,7 +308,7 @@ const showuser = async () => {
   try {
     const token = localStorage.getItem('token');
 
-    const resuser = await axios.get('http://192.168.103:8080/user/getuser', {
+    const resuser = await axios.get('http://greencomart.kro.kr:716/user/getuser', {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -320,7 +320,7 @@ const showuser = async () => {
       month: dayjs(now.value).format('YYYY-MM')
     };
 
-    const resatt = await axios.post('http://192.168.103:8080/attendance/getuser', data);
+    const resatt = await axios.post('http://greencomart.kro.kr:716/attendance/getuser', data);
 
     attlist.value = resatt.data;
     useravail.value = true;
@@ -348,7 +348,7 @@ const attupdate = async () => {
   };
 
   try {
-    const res = await axios.post('http://192.168.103:8080/attendance/attupdate', data);
+    const res = await axios.post('http://greencomart.kro.kr:716/attendance/attupdate', data);
 
     console.log(res);
     alert(
@@ -371,7 +371,7 @@ const attdelete = async () => {
 
   try {
     const res = await axios.delete(
-      `http://192.168.103:8080/attendance/attdelete/${selectAtt.value.idx}`
+      `http://greencomart.kro.kr:716/attendance/attdelete/${selectAtt.value.idx}`
     );
 
     console.log(res);
@@ -405,10 +405,10 @@ const selectDateFn = (date, index) => {
 
 const selectAttFn = (event, items, date) => {
   // 사용자가 유효하지 않다면 바로 리턴
-  if (!useravail.value) return;
-  if (dayjs(date).format('YYYY-MM') != dayjs(now.value).format('YYYY-MM')) return;
-
   event.stopPropagation();
+  if (!useravail.value) return;
+  if (items.type == '휴가') return;
+  if (dayjs(date).format('YYYY-MM') != dayjs(now.value).format('YYYY-MM')) return;
 
   // 이미 선택된 출결 항목을 클릭하면 선택 취소
   if (selectAtt.value === items) {

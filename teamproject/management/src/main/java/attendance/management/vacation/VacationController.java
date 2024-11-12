@@ -1,5 +1,6 @@
 package attendance.management.vacation;
 
+import attendance.management.attendance.AttendanceService;
 import attendance.management.sign.LoginUserDetails;
 import attendance.management.utility.PageUtil;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -72,16 +73,6 @@ public class VacationController {
         return ResponseEntity.ok(vacationResponsePageDto);
     }
 
-    @GetMapping("/teacher")
-    public ResponseEntity<VacationResponsePageDto> teacherFindAll(
-            @RequestParam(name = "pageNum", defaultValue = "0") int pageNum,
-            @RequestParam(name = "size", defaultValue = "10") int size,
-            @RequestHeader("Authorization") String token
-    ) {
-        VacationResponsePageDto vacationResponsePageDto = vacationService.teacherPage(PageUtil.getPageable(pageNum, size), token);
-        return ResponseEntity.ok(vacationResponsePageDto);
-    }
-
     @GetMapping("/manager")
     public ResponseEntity<VacationResponsePageDto> managerFindAll(
             @RequestParam(name = "pageNum", defaultValue = "0") int pageNum,
@@ -113,6 +104,7 @@ public class VacationController {
     public ResponseEntity<String> accept(@PathVariable("idx") long idx) throws Exception {
         vacationService.accept(idx);
         String hwpName = vacationService.newHWP(idx);
+        vacationService.savevacation(idx);
         return ResponseEntity.ok(hwpName);
     }
 

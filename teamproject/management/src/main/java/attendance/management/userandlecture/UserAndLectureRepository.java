@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @Repository
 public interface UserAndLectureRepository extends JpaRepository<UserAndLecture, Long> {
-    Optional<UserAndLecture> findByUser_Idx(Long userIdx);
+    List<UserAndLecture> findByUser_Idx(Long userIdx);
 
     Optional<UserAndLecture> findByUser_IdxAndState(Long userIdx, int state);
 

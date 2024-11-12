@@ -54,7 +54,7 @@ public class VacationFileEditor {
 
         int count = 1;
 
-        File directory = new File("request_hwp");
+        File directory = new File("request_hwp" + File.separator + vacation.getLecture().getTitle());
 
         if(!directory.exists())
             directory.mkdirs();
@@ -71,7 +71,7 @@ public class VacationFileEditor {
 
         String title = nowDate + '_' + body[2] + "_휴가신청서(" + count + ").hwp";
 
-        HWPWriter.toFile(hwpFile, savePath(title));
+        HWPWriter.toFile(hwpFile, savePath(title, vacation.getLecture().getTitle()));
 
         vacation.setHwpfile(title);
         vacationRepository.save(vacation);
@@ -94,8 +94,8 @@ public class VacationFileEditor {
         }
     }
 
-    private static String savePath(String filename) {
-        return "request_hwp" + File.separator + filename;
+    private static String savePath(String filename, String lecturetitle) {
+        return "request_hwp" + File.separator + lecturetitle + File.separator + filename;
     }
 
 }

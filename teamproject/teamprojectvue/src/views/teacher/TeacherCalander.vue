@@ -1,8 +1,50 @@
 <template>
   <div class="flex justify-center w-full pb-14">
+
+
+
+    <div
+      v-if="lecturelist.length > 0"
+      id="lecturelist"
+      class="w-1/6 p-4 border border-blue-500 bg-white"
+    >
+      <h1>강의목록</h1>
+      <button
+        @click="getlecture, (isClicked = true)"
+        :class="{ 'bg-green-500': isClicked }"
+        class="px-4 py-2 text-white bg-blue-600 rounded hover:opacity-80 mr-2"
+      >
+        최신순
+      </button>
+      <button
+        @click="desclecture, (isClicked = false)"
+        :class="{ 'bg-green-500': !isClicked }"
+        class="px-4 py-2 text-white bg-blue-600 rounded hover:opacity-80"
+      >
+        과거순
+      </button>
+      <hr class="my-2 border-blue-500" />
+
+      <div
+        :class="{
+          'bg-blue-500 text-white': selectedlecture !== null && selectedlecture == lecture.idx
+        }"
+        class="hover:bg-blue-500 hover:text-white"
+        @click="getmonthatt(lecture.idx, nowDat)"
+        v-for="(lecture, index) in lecturelist"
+        :key="lecture.idx"
+      >
+        {{ lecture.title }}
+        <hr v-if="index < lecturelist.length - 1" class="my-2 border-blue-500" />
+      </div>
+    </div>
+
+
+
     <div class="w-4/5 p-3 border-2 bg-white">
       <h1 class="p-5 text-3xl font-bold text-blue-800">-출결리스트-</h1>
       <hr class="border-2 border-blue-800" />
+
 
       <h1 class="flex justify-center m-3 text-3xl font-bold text-blue-800">
         <button class="mb-2 mr-2 hover:scale-150" @click="downdate()">
@@ -23,7 +65,7 @@
                   </svg>
                 </div>
               </button>
-        
+
         {{ nowDat }}
 
 
@@ -70,7 +112,7 @@
                 class="p-4 font-bold border-r min-w-20"
                 :style="{ color: isWeekend(getDayName(day)) }"
               >
-                <div :style="{ color: getatt(student.attendance[day]) }">
+                <div class="text-center" :style="{ color: getatt(student.attendance[day]) }">
                   {{ getAttendanceType(student.user, day) }}
                 </div>
               </td>
@@ -79,41 +121,7 @@
         </table>
       </div>
     </div>
-    <div
-      v-if="lecturelist.length > 0"
-      id="lecturelist"
-      class="w-1/6 p-4 border border-blue-500 bg-white"
-    >
-      <h1>강의목록</h1>
-      <button
-        @click="getlecture, (isClicked = true)"
-        :class="{ 'bg-green-500': isClicked }"
-        class="px-4 py-2 text-white bg-blue-600 rounded hover:opacity-80 mr-2"
-      >
-        최신순
-      </button>
-      <button
-        @click="desclecture, (isClicked = false)"
-        :class="{ 'bg-green-500': !isClicked }"
-        class="px-4 py-2 text-white bg-blue-600 rounded hover:opacity-80"
-      >
-        과거순
-      </button>
-      <hr class="my-2 border-blue-500" />
-
-      <div
-        :class="{
-          'bg-blue-500 text-white': selectedlecture !== null && selectedlecture == lecture.idx
-        }"
-        class="hover:bg-blue-500 hover:text-white"
-        @click="getmonthatt(lecture.idx, nowDat)"
-        v-for="(lecture, index) in lecturelist"
-        :key="lecture.idx"
-      >
-        {{ lecture.title }}
-        <hr v-if="index < lecturelist.length - 1" class="my-2 border-blue-500" />
-      </div>
-    </div>
+    
   </div>
 </template>
 
@@ -265,7 +273,7 @@ const getAttendanceType = (username, day) => {
   const isWeekendDay = /^일/.test(dayName) || /^토/.test(dayName); // 주말 여부 확인
 
   // 주말이면 '-'
-  if (isWeekendDay) return '☕';
+  if (isWeekendDay) return '■';
 
   // 해당 날짜에 출결 정보가 없다면 '출석' 반환
   if (!studentAttendance.attendance[day]) {

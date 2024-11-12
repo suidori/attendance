@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-auto p-10 w-full">
+  <div class="mx-auto w-[74.5rem] p-5">
     <div class="mb-4">
       <h1 class="text-2xl font-bold mb-2">과정 선택</h1>
       <hr class="border-t-2 border-blue-600" />
@@ -43,7 +43,7 @@
         <!-- 모달 헤더 -->
         <div class="flex justify-between items-center">
           <h2 class="text-xl font-bold"> {{ selectedCourse?.description }}</h2>
-          
+
           <button @click="closeModal" class="text-gray-400 hover:text-gray-600 hover:scale-105 text-4xl">&times;</button>
         </div>
         <!-- 모달 내용 -->
@@ -108,7 +108,7 @@
       <h2 class="text-xl font-bold mb-4">{{ selectedCourse?.description }}</h2>
       <p>신청하시겠습니까?</p>
       <div class="text-right mt-4">
-        <button @click="applyForCourse" class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600">확인</button>
+        <button @click="lecturejoin" class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600">확인</button>
         <button @click="closeConfirmModal" class="ml-2 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">취소</button>
       </div>
     </div>
@@ -120,6 +120,7 @@ import { ref, computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useloginStore } from '@/stores/loginpinia';
 import { storeToRefs } from 'pinia';
+import axios from 'axios';
 
 const loginstore = useloginStore();
 
@@ -142,11 +143,22 @@ const courses = ref([
   { name: '강좌12', description: '고급 인공지능 강좌', image: '/src/images/img12.jpg' },
 ]);
 
+const selectedlecture = ref(null);
+const password = ref('');
+
+
+
+
+
 
 const {userrl} =  storeToRefs(loginstore);
+const lectureinfo = (lecture) => {
+  if (selectedlecture.value == null) { selectedlecture.value = lecture; }
+  else { selectedlecture.value = null }
+}
 
 
-const filteredCourses = computed(() => 
+const filteredCourses = computed(() =>
   courses.value.filter((course) => course.name.toLowerCase().includes(search.value.toLowerCase()))
 );
 
@@ -157,12 +169,44 @@ const golectureinsert = () => {
 const golecturelist = () => {
   router.push({ name: 'lectureapprovallist' });
 };
+const getavaillecture = async () => {
+  try {
+    const res = await axios.get('http://greencomart.kro.kr:716/lecture/availlist');
+    courses.value = res.data;
+  } catch (e) {
+    console.log(e)
+  }
+}
 
-onMounted(()=>{
+const lecturejoin = async (idx) => {
+  try {
+    const data = {
+      "idx": idx,
+      "password": password.value
+    }
+    const token = localStorage.getItem('token');
+    const res = await axios.post('http://greencomart.kro.kr:716/lecture/join', data, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    console.log(res.data);
+    alert('가입되었습니다.')
+    selectedlecture.value=null;
+  } catch (e) {
+    if(e.response.data.message=='틀린 비밀번호입니다.'){
+      alert(e.response.data.message)
+      password.value='';
+    }else{console.log(e)}
+  }
+}
 
-  if(userrl.value =='ROLE_STUDENT'){
+onMounted(() => {
+
+  if (userrl.value == 'ROLE_STUDENT') {
     buttonchek.value = false
   }
+  getavaillecture()
 })
 
 // 모달 열기/닫기 상태를 관리하는 ref
@@ -172,7 +216,8 @@ const isConfirmModalOpen = ref(false);
 
 // 모달 열기 함수
 function openModal(course) {
-  selectedCourse.value = course;  
+  
+  selectedCourse.value = course;
   isModalOpen.value = true;
 }
 
@@ -189,12 +234,7 @@ function closeConfirmModal(){
   isConfirmModalOpen.value = false;
   isModalOpen.value = false;
 }
-function applyForCourse(){
-  alert('신청되었습니다');
-  //여기에 진짜 신청되는 기능 추가
-  isConfirmModalOpen.value = false;
-  isModalOpen.value = false;
-}
+
 </script>
 
 <style scoped></style>

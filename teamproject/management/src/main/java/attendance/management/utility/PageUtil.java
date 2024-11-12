@@ -10,4 +10,11 @@ public class PageUtil {
         Pageable pageable = PageRequest.of(pageNum, size, sort);
         return pageable;
     }
+
+    public static Pageable getPageableASC(int pageNum, int size) {
+        Sort sort = Sort.by(Sort.Direction.ASC, "idx");
+        Pageable pageable = PageRequest.of(pageNum, size, sort);
+        return pageable;
+    }
+
 }

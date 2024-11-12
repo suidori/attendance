@@ -1,5 +1,6 @@
 package attendance.management.vacation;
 
+import attendance.management.attendance.AttendanceService;
 import attendance.management.error.BizException;
 import attendance.management.error.ErrorCode;
 import attendance.management.jwt.JWTManager;
@@ -17,6 +18,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -35,8 +37,7 @@ public class VacationService {
     private final ModelMapper modelMapper;
     private final VacationFileEditor vacationFileEditor;
     private final UserAndLectureRepository userAndLectureRepository;
-    private final JWTManager jwtManager;
-
+    private final AttendanceService attendanceService;
 
     public VacationResponseDto request(VacationReqDto vacationReqDto, LoginUserDetails loginUserDetails) {
         Vacation vacation = modelMapper.map(vacationReqDto, Vacation.class);
@@ -100,9 +101,9 @@ public class VacationService {
     }
 
     public VacationFileDto download(long idx) throws IOException {
-        Optional<Vacation> vacation = vacationRepository.findById(idx);
-        String fileName = vacation.orElseThrow(() -> new BizException(ErrorCode.FILE_NOT_FOUND)).getHwpfile();
-        Path filePath = Paths.get("request_hwp", fileName);
+        Vacation vacation = vacationRepository.findById(idx).orElseThrow(()->new BizException(ErrorCode.REQUEST_NOT_FOUND));
+        String fileName = vacation.getHwpfile();
+        Path filePath = Paths.get("request_hwp" + File.separator + vacation.getLecture().getTitle(), fileName);
         Resource resource = new UrlResource(filePath.toUri());
 
         if (!resource.exists()) {
@@ -124,17 +125,6 @@ public class VacationService {
         Page<Vacation> page = vacationRepository.findAll(pageable);
 
         return mapToVacationResponsePageDto(page);
-    }
-
-    public VacationResponsePageDto teacherPage(Pageable pageable, String token) {
-        Long userIdx = jwtManager.extractUserIdxFromToken(token);
-        Optional<UserAndLecture> userAndLecture = userAndLectureRepository.findByUser_Idx(userIdx);
-        long lectureIdx = userAndLecture.orElseThrow(() -> new BizException(ErrorCode.USER_NOT_FOUND)).getLecture().getIdx();
-
-        Page<Vacation> page = vacationRepository.findByLecture_Idx(lectureIdx, pageable);
-
-        return mapToVacationResponsePageDto(page);
-
     }
 
     private VacationResponsePageDto mapToVacationResponsePageDto(Page<Vacation> page) {
@@ -178,6 +168,11 @@ public class VacationService {
     public VacationResponsePageDto studentUnchecked(Pageable pageable, Long idx) {
         Page<Vacation> page = vacationRepository.findByAcceptAndUser_Idx(null, idx, pageable);
         return mapToVacationResponsePageDto(page);
+    }
+
+    public void savevacation(long idx) {
+        Vacation vacation = vacationRepository.findById(idx).orElseThrow(()->new BizException(ErrorCode.REQUEST_NOT_FOUND));
+        attendanceService.saveVacation(vacation);
     }
 }
 

@@ -67,8 +67,6 @@
     <hr class="w-1/2 mx-auto my-5" />
     <div class="flex items-center justify-center"></div>
   </div>
-
-
   <div v-else class="mt-44 ">
 <h1 class="flex justify-center"> << 먼저 강좌를 선택하여 주시길 바랍니다. >>  </h1>
 <div class="flex justify-center">
@@ -162,7 +160,7 @@ const sub = async () => {
   };
 
   try {
-    const res = await axios.post('http://192.168.103:8080/vacation/request', data, {
+    const res = await axios.post('http://greencomart.kro.kr:716/vacation/request', data, {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -183,7 +181,7 @@ const showuser = async () => {
   try {
     const token = localStorage.getItem('token');
 
-    const resuser = await axios.get('http://192.168.103:8080/user/getuser', {
+    const resuser = await axios.get('http://greencomart.kro.kr:716/user/getuser', {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -195,7 +193,7 @@ const showuser = async () => {
       month: dayjs(now.value).format('YYYY-MM')
     };
 
-    const resatt = await axios.post('http://192.168.103:8080/attendance/getuser', data);
+    const resatt = await axios.post('http://greencomart.kro.kr:716/attendance/getuser', data);
 
     attlist.value = resatt.data;
     useravail.value = true;
