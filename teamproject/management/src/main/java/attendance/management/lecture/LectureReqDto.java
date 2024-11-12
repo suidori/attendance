@@ -8,6 +8,8 @@ import java.time.LocalTime;
 @Data
 public class LectureReqDto {
 
+    private Long idx;
+
     private String title;
 
     private String content;

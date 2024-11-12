@@ -48,7 +48,7 @@ public class LectureService {
 
     public UserAndLecture join(LectureReqDto lectureReqDto, LoginUserDetails loginUserDetails) {
         Lecture lecture = lectureRepository
-                .findByTitle(lectureReqDto.getTitle())
+                .findById(lectureReqDto.getIdx())
                 .orElseThrow(() -> new BizException(ErrorCode.LECTURE_NOT_FOUND));
 
         if (!lecture.isEnable()) {

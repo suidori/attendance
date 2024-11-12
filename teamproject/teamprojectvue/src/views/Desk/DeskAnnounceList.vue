@@ -63,7 +63,6 @@
 <script setup>
 import { ref, onMounted, computed, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { useRouter } from 'vue-router';
 import axios from 'axios';
 
 const route = useRoute()

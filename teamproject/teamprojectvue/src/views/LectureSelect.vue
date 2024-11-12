@@ -26,25 +26,31 @@
 
       <!-- Course Cards -->
       <div class="mx-auto grid grid-cols-4 gap-4">
-        <div v-for="course in filteredCourses" :key="course.name" class="p-4 bg-white shadow rounded-lg">
-          <div class="relative h-32 mb-4">
-            <img :src="course.image" alt="Course Image" class="w-full h-full object-cover rounded-lg" />
-          </div>
-          <h3 class="text-lg font-bold mb-2">{{ course.name }}</h3>
-          <p class="text-gray-600 text-sm">{{ course.description }}</p>
-          <button class="mt-4 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">자세히 보기</button>
+        <div v-for="course in courses" :key="course.name" class="p-4 bg-white shadow rounded-lg">
+          <h3 class="text-lg font-bold mb-2">{{ course.title }}</h3>
+          <p class="text-gray-600 text-sm">{{ course.content }}</p>
+          <p>{{ course.startDate }} 부터 {{ course.endDate }} 까지</p>
+          <button @click="lectureinfo(course)" class="mt-4 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">자세히 보기</button>
         </div>
       </div>
     </div>
   </div>
-
+<div class="bg-green-500" v-if="selectedlecture">
+  <p>{{ selectedlecture.title }}</p>
+  <p>{{ selectedlecture.content }}</p>
+  <p>{{selectedlecture.startDate}} 부터 {{ selectedlecture.endDate }} 까지</p>
+  <p>{{selectedlecture.startTime}} 부터 {{ selectedlecture.endTime }} 까지</p>
+  <input type="text" placeholder="0000" v-model="password" />
+  <button @click="lecturejoin(selectedlecture.idx)" class="mt-4 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">수강하기</button>
+</div>
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useloginStore } from '@/stores/loginpinia';
 import { storeToRefs } from 'pinia';
+import axios from 'axios';
 
 const loginstore = useloginStore()
 
@@ -53,28 +59,20 @@ const router = useRouter();
 const buttonchek = ref(true)
 
 const search = ref('');
-const courses = ref([
-  { name: '강좌1', description: '기초 프로그래밍 강좌', image: '/src/images/AtenCheck.png' },
-  { name: '강좌2', description: '심화 프로그래밍 강좌', image: 'https://via.placeholder.com/150' },
-  { name: '강좌3', description: '웹 개발 강좌', image: 'https://via.placeholder.com/150' },
-  { name: '강좌4', description: '데이터 분석 강좌', image: 'https://via.placeholder.com/150' },
-  { name: '강좌5', description: '머신러닝 기초 강좌', image: 'https://via.placeholder.com/150' },
-  { name: '강좌6', description: '고급 머신러닝 강좌', image: 'https://via.placeholder.com/150' },
-  { name: '강좌7', description: '네트워크 기초 강좌', image: 'https://via.placeholder.com/150' },
-  { name: '강좌8', description: '보안 기초 강좌', image: 'https://via.placeholder.com/150' },
-  { name: '강좌9', description: '클라우드 컴퓨팅 강좌', image: 'https://via.placeholder.com/150' },
-  { name: '강좌10', description: '빅데이터 분석 강좌', image: 'https://via.placeholder.com/150' },
-  { name: '강좌11', description: '인공지능 기초 강좌', image: 'https://via.placeholder.com/150' },
-  { name: '강좌12', description: '고급 인공지능 강좌', image: 'https://via.placeholder.com/150' },
-]);
+const courses = ref([]);
+const selectedlecture = ref(null);
+const password = ref('');
 
 
 const {userrl} =  storeToRefs(loginstore)
 
 
-const filteredCourses = computed(() => 
-  courses.value.filter((course) => course.name.toLowerCase().includes(search.value.toLowerCase()))
-);
+
+const lectureinfo = (lecture) => {
+  if(selectedlecture.value == null) {selectedlecture.value = lecture;}
+  else{selectedlecture.value=null}
+}
+
 
 const golectureinsert = () => {
   router.push({ name: 'lectureinsert' });
@@ -84,12 +82,39 @@ const golecturelist = () => {
   router.push({ name: 'lectureapprovallist' });
 };
 
+const getavaillecture = async () => {
+  try{
+    const res = await axios.get('http://greencomart.kro.kr:716/lecture/availlist');
+    courses.value = res.data;
+  }catch(e){
+    console.log(e)
+  }
+}
+
+const lecturejoin = async (idx) => {
+  try{ 
+    const data = {
+      "idx": idx,
+      "password": password.value
+    }
+    const token = localStorage.getItem('token');
+    const res = await axios.post('http://greencomart.kro.kr:716/lecture/join', data, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    console.log(res.data);
+  }catch(e){
+    console.log(e)
+  }
+}
+
 onMounted(()=>{
 
   if(userrl.value =='ROLE_STUDENT'){
     buttonchek.value = false
   }
-
+  getavaillecture()
 })
 
 </script>
