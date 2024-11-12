@@ -131,13 +131,18 @@ const LoginSequence = async () => {
     await userdata();
     await userrole();
 
-     if(userrl.value !==radiocheck.value){
-     await userL();
-      await localStorage.removeItem('token')
-      alert("로그인 권한 체크확인 바랍니다.")
-    
-      return
-    }
+    //  if(userrl.value !==radiocheck.value){
+
+    //   alert("로그인 권한 체크확인 바랍니다.")
+
+
+
+    //  userL();
+    //  localStorage.removeItem('token')
+    //  return
+     
+      
+    // }
 
     if (userrl.value == 'ROLE_STUDENT') {
       console.log('학생계정');
@@ -164,6 +169,7 @@ const LoginSequence = async () => {
 
 
 onMounted(async () => {
+  
   userL();
 });
 </script>
