@@ -1,14 +1,7 @@
 <template>
   <div class="w-[74rem] mb-24">
     <div class="m-3">
-      <span
-        @click="goVacationManage"
-        class="text-xl border-2 border-blue-300 pl-3 pr-3 hover:bg-blue-300 hover:opacity-80 hover:text-white cursor-pointer rounded p-1"
-      >
-        휴가 요청 관리
-      </span>
       <div class="mt-5 ">
-        
         <div
           v-if="lecturelist.length > 0"
           id="lecturelist"
@@ -141,7 +134,7 @@
                       class="p-4 font-bold border-r min-w-20"
                       :style="{ color: isWeekend(getDayName(day)) }"
                     >
-                      <div :style="{ color: getatt(student.attendance[day]) }">
+                      <div class="text-center" :style="{ color: getatt(student.attendance[day]) }">
                         {{ getAttendanceType(student.useridx, day) }}
                         <div v-if="appget(student.attendance[day])">
                           <button
@@ -203,10 +196,6 @@ const availableYears = ref([]);
 const monthNames = [
   '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'
 ];
-
-const goVacationManage = () => {
-  router.push({ name: 'vacationmanage' });
-};
 
 const getDaysInMonth = (month, year) => {
   return new Date(year, month + 1, 0).getDate();
@@ -331,7 +320,7 @@ const getAttendanceType = (useridx, day) => {
   const isWeekendDay = /^일/.test(dayName) || /^토/.test(dayName); // 주말 여부 확인
 
   // 주말이면 '-'
-  if (isWeekendDay) return '✖';
+  if (isWeekendDay) return '■';
 
   // 해당 날짜에 대해 출결 정보가 없으면 '-'
   const attendanceInfo = studentAttendance.attendance[day];

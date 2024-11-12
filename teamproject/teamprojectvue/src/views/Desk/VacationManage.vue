@@ -48,7 +48,7 @@
                 <td class="p-1 border border-gray-300">{{ vacation.user }}</td>
                 <td class="p-1 border border-gray-300">{{ vacation.lecture }}</td>
                 <td class="p-1 border border-gray-300">{{ vacation.reason }}</td>
-                <td class="p-1 border border-gray-300">{{ vacation.startdate }}</td>
+                <td class="p-1 border border-gray-300">{{ vacation.date }}</td>
                 <td class="p-1 border border-gray-300">
                   <button v-if="vacation.accept == '대기중'" 
                           @click="handleApprove(vacation.idx)"

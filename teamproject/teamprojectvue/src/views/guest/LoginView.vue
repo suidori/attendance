@@ -70,18 +70,13 @@
       <div class="w-[40%] flex items-center justify-center bg-gray-100 p-4 rounded-r-lg shadow-inner">
         <div class="text-center">
           <div>
-
-          
-          <div v-if= "contentcheck">
-            <ul  v-for="item in arr" :key="item.idx">
-             <li>{{contentlist}}</li>
-             <li>{{setdate}}</li>
+          <div v-if= "arr">
+            <p class="text-gray-600 text-sm font-semibold text-left py-2">공지사항</p>
+            <ul v-for="(item, index) in arr" :key="item.idx">
+             <li v-if="index<5" class="text-[1vw] text-left mt-1">{{item.title}}</li>
+             <li v-if="index < 5" class="text-[0.7vw] text-right mb-1">{{ item.wdate.substring(0, 8) }}</li>
               </ul>
             </div>
-           <div v-else >
-             <p class="text-gray-600 text-sm font-semibold text-left py-2">공지사항</p>
-             <p class="text-gray-700 mt-2">현재 서비스 점검 중입니다. 이용에 불편을 드려 죄송합니다.</p>
-          </div>
 
           </div>
         </div>
@@ -97,6 +92,7 @@ import { useloginStore } from '@/stores/loginpinia';
 import { storeToRefs } from 'pinia';
 import { userdata, userrole, logincontrol } from '@/api/loginapi';
 import { onMounted } from 'vue';
+import axios from 'axios';
 
 const loginpinia = useloginStore();
 
@@ -109,14 +105,14 @@ const password = ref('');
 const loginError = ref('');
 const router = useRouter();
 
-const contentcheck = ref(false)
-const contentlist = ref('')
-const setdate = ref('')
+const arr = ref([]);
 
 const radiocheck = ref('ROLE_STUDENT')
 
-
-// const errorMessage = ref('') // 에러 메시지를 저장할 변수
+const getannounce = async () => {
+  const res = await axios.get(`http://greencomart.kro.kr:716/announce/searchforall`);
+  arr.value = res.data.list;
+}
 
 const LoginSequence = async () => {
   const data = {
@@ -169,7 +165,7 @@ const LoginSequence = async () => {
 
 
 onMounted(async () => {
-  
+  getannounce();
   userL();
 });
 </script>

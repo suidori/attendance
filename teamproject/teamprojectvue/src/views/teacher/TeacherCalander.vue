@@ -112,7 +112,7 @@
                 class="p-4 font-bold border-r min-w-20"
                 :style="{ color: isWeekend(getDayName(day)) }"
               >
-                <div :style="{ color: getatt(student.attendance[day]) }">
+                <div class="text-center" :style="{ color: getatt(student.attendance[day]) }">
                   {{ getAttendanceType(student.user, day) }}
                 </div>
               </td>
@@ -273,7 +273,7 @@ const getAttendanceType = (username, day) => {
   const isWeekendDay = /^일/.test(dayName) || /^토/.test(dayName); // 주말 여부 확인
 
   // 주말이면 '-'
-  if (isWeekendDay) return '☕';
+  if (isWeekendDay) return '■';
 
   // 해당 날짜에 출결 정보가 없다면 '출석' 반환
   if (!studentAttendance.attendance[day]) {
