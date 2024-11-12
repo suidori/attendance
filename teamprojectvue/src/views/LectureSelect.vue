@@ -39,7 +39,7 @@
 
  <!-- 모달 창 (v-if로 조건부 렌더링) -->
  <div v-if="isModalOpen" @click.self="closeModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">
-      <div class="bg-white rounded-lg p-6 w-1/3">
+      <div class="bg-white rounded-lg p-6 w-1/3 max-h-[80vh] overflow-y-auto">
         <!-- 모달 헤더 -->
         <div class="flex justify-between items-center">
           <h2 class="text-xl font-bold"> {{ selectedCourse?.description }}</h2>
@@ -51,6 +51,7 @@
           <h1 class="text-xl">강좌를 설명 (예시문)</h1><br>
           <!-- <img :src="courses.image" alt="Course Image"> -->
           <p class="text-sm">IT 업계 미래를 여는 첫걸음! “{{ selectedCourse?.description }}”<br>
+            <img :src="selectedCourse.image" alt="Course Image" class="w-full max-h-60 overflow-y-hidden rounded-lg mb-4" />
             (아래는 예시문 입니다)<br><br>
 안녕하세요! 이번 기회를 통해 여러분께 최고의 강의, {{ selectedCourse?.description }}를 소개합니다. 이 강좌는 최신 기술 트렌드와 실무에 기반한 커리큘럼을 제공하여 여러분의 커리어를 새롭게 도약시킬 수 있는 기회를 드립니다.<br>
 <br>
