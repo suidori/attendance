@@ -48,11 +48,49 @@
         </div>
         <!-- 모달 내용 -->
         <div class="mt-4">
-          <p>강좌를 신청 하시겠습니까?</p>
+          <h1 class="text-xl">강좌를 설명 (예시문)</h1><br>
+          <!-- <img :src="courses.image" alt="Course Image"> -->
+          <p class="text-sm">IT 업계 미래를 여는 첫걸음! “{{ selectedCourse?.description }}”<br>
+            (아래는 예시문 입니다)<br><br>
+안녕하세요! 이번 기회를 통해 여러분께 최고의 강의, {{ selectedCourse?.description }}를 소개합니다. 이 강좌는 최신 기술 트렌드와 실무에 기반한 커리큘럼을 제공하여 여러분의 커리어를 새롭게 도약시킬 수 있는 기회를 드립니다.<br>
+<br>
+
+강의 개요<br>
+<br>
+• 강의 기간: 주 3회, 총 3개월 (온라인 및 오프라인 수업 지원)<br>
+• 총 수강 시간: 120시간 (한 수업당 2시간씩 진행)<br>
+• 수강 인원: 30명 소수 정예<br>
+• 수강료: 초기 등록 시 20% 할인 혜택 제공!<br>
+강의 특징<br>
+<br>
+• 전문 강사진<br>
+실무 경험이 풍부한 IT 전문가 이정훈 강사님이 강의를 이끌어 갑니다. 이 강사님은 세계적 IT 기업에서 다년간 경력을 쌓아온 데이터 과학자로, 최신 IT 트렌드와 실무 팁을 생생하게 전달합니다. 또한, 개별적인 질문과 피드백을 적극 제공하여 학습을 돕습니다.<br>
+<br>
+• 맞춤형 커리큘럼<br>
+이번 강좌는 초급 프로그래밍 기초부터 심화 데이터 분석 기법까지 단계별 학습을 제공하여, 프로그래밍과 데이터 분석을 한 번에 완벽히 배우고 싶은 분들께 최적의 커리큘럼입니다. 특히, Python, JavaScript, SQL 등의 필수 언어부터, 최신 인공지능과 머신러닝 기법을 활용한 데이터 분석 실습까지 다루고 있습니다.<br>
+<br>
+• 실무 프로젝트 기반 학습<br>
+각 이론 수업 뒤에 실습 과제를 제공하여, 이론을 바탕으로 한 실제 사례와 문제 해결 능력을 길러드립니다. 마지막 프로젝트에서는 실제 회사와 유사한 데이터 분석 과제를 수행하며 실무 적응력을 높일 수 있습니다.<br>
+<br>
+<!-- 학습 목표<br>
+<br>
+1. 프로그래밍 기본기: Python과 JavaScript의 기본 문법과 알고리즘, 함수형 프로그래밍 등 기초부터 시작하여 전문가 수준까지 성장할 수 있도록 지도합니다.<br>
+2. 데이터 분석 역량 강화: 통계, 데이터 시각화, 머신러닝 기초 등을 학습하고 이를 통해 데이터 기반 의사결정 역량을 키워나갑니다.<br>
+3. 프로젝트 완성 및 포트폴리오 제작: 프로젝트를 통해 실무를 익히고, 수강생만의 포트폴리오를 제작하여 실질적인 성과물을 남길 수 있습니다.<br>
+이 강좌를 통해 여러분이 얻게 될 것들<br> -->
+<!-- <br>
+• 최신 IT 기술에 대한 깊이 있는 이해<br>
+• 실무에 즉시 적용 가능한 프로그래밍 및 데이터 분석 스킬<br>
+• 전문가와 동료들과의 네트워크 확장 및 팀 협업 경험<br>
+• 본인만의 포트폴리오 구축 기회와 미래의 커리어 성장 발판<br><br>
+강의 수강생들께는 24시간 질문 답변 지원과 수료 후 직무 자문 서비스를 제공하여, 학습 이후에도 꾸준히 성장할 수 있도록 돕습니다.<br>
+<br>
+지금 바로 신청하세요! 빠르게 변하는 IT 산업에서 나만의 경쟁력을 강화할 수 있는 기회가 될 것입니다. -->
+</p>
         </div>
         <!-- 모달 버튼 -->
-        <div class="mt-6 text-right">
-          <button @click="openConfirmModal" class="px-4 py-2 bg-green-500 text-white rounded">
+        <div class="mt-6 text-right mx-4">
+          <button @click="openConfirmModal" class="px-4 py-2 mx-2 bg-green-500 text-white rounded">
             신청
           </button>
           <button @click="closeModal" class="px-4 py-2 bg-red-500 text-white rounded">
@@ -67,7 +105,7 @@
   <div v-if="isConfirmModalOpen" @click.self="closeConfirmModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">
     <div class="bg-white rounded-lg p-8 w-1/3">
       <h2 class="text-xl font-bold mb-4">{{ selectedCourse?.description }}</h2>
-      <p>재확인</p>
+      <p>신청하시겠습니까?</p>
       <div class="text-right mt-4">
         <button @click="applyForCourse" class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600">확인</button>
         <button @click="closeConfirmModal" class="ml-2 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">취소</button>
