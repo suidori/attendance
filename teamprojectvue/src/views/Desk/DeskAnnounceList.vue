@@ -1,7 +1,7 @@
 <template>
   <div class="font-sans flex justify-center">
-    <main class="flex justify-center" style="width: 1100px;">
-      <section class="flex-1 p-5 m-10 bg-white border-1 border-gray-500">
+    <main class="flex justify-center w-[74.5rem]">
+      <section class="flex-1 p-6 m-2 bg-white border border-gray-500">
         <h1 class="mb-5 text-2xl font-semibold">공지사항</h1>
 
         <div v-if="lecturelist.length > 0">

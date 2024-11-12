@@ -68,7 +68,7 @@
                 class="my-2 py-1 text-sm flex items-center"
               >
                 <img src="../images/announ.png" alt="" class="mr-2" />
-                공지사항 리스트
+                <p class="text-[0.8rem]">공지사항 리스트</p>
               </div>
             </li>
           </RouterLink>

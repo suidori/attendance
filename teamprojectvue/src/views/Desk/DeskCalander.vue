@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full">
+  <div class="w-[74rem]">
     <div class="m-3">
       <span
         @click="goVacationManage"
