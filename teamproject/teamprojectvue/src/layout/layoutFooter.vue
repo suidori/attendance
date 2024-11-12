@@ -1,12 +1,15 @@
 <template>
   <div class="bg-[#eee] font-[GmarketSansMedium]">
     <nav class="mx-0 shadow-md">
-      <div class="bg-blue-300 h-12 p-3 fixed bottom-0 left-0 right-0">
-        <div>
-
+      <div class="bg-blue-300 h-12 p-2 fixed bottom-0 left-0 right-0">
+        <div class="flex justify-between items-start">
+          <div class="text-xs">
+          <p>주소 : 대구광역시 중구 중앙대로 394, 제일빌딩 5F</p>
+          <p>전화 : 053-572-1005 / FAX : 053-422-9122</p>
+        </div>
           <div>
           <a href="https://greenart.co.kr/" target="_blank">
-            <div  class="justify-center flex items-center">
+            <div  class="absolute flex items-center left-[41%]">
             <img src="../images/LOGO.png" alt="" class="h-8 max-md:w-28 cover cursor-pointer" />
             <!-- @click="logoclick" -->
             그린컴퓨터아트학원(대구지점)
@@ -17,9 +20,9 @@
           <div v-if="logincheckpinia"></div>
 
           <template v-else>
-            <div class="absolute top-0 right-0 m-3 flex space-x-5">
+            <div class="flex space-x-5">
               <div class="text-2xl">{{ username }} {{ mapUserRole(userrl)}}님 반갑습니다.</div>
-              <div class="text-xl rounded hover:bg-red-400 px-3 pt-1" @click="logout">
+              <div class="text-xl rounded hover:bg-blue-800 px-3 pt-1" @click="logout">
                 <RouterLink to="/loginview" class="flex text-white items-center font-[GmarketSansMedium]"> 로그아웃 </RouterLink>
               </div>
             </div>
@@ -63,7 +66,7 @@ function mapUserRole(userRole) { //role에 따라 출력을 바꿔주는 펑션�
     case 'ROLE_MANAGER':
       return '매니저';
     default:
-      return ' '; 
+      return ' ';
   }
 }
 

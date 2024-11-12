@@ -1,7 +1,7 @@
 <template>
-  <div class="font-sans flex justify-center">
-    <main class="flex justify-center" style="width: 1300px;">
-      <section class="flex-1 p-5 m-10 bg-white border-1 border-gray-500">
+  <div class="ml-4 font-sans flex justify-center">
+    <main class="flex justify-center w-[74.5rem]">
+      <section class="flex-1 p-6 m-2 bg-white border border-gray-500">
         <h1 class="mb-5 text-2xl font-semibold">공지사항</h1>
 
         <div v-if="lecturelist.length > 0">
@@ -42,6 +42,7 @@
 
         <button @click="sortAsc" class="px-4 py-2 text-white bg-green-600 rounded hover:opacity-80 mr-3">최신순</button>
         <button @click="sortDesc" class="px-4 py-2 text-white bg-blue-600 rounded hover:opacity-80">과거순</button>
+        <button @click="gowrite" class="float-end px-4 py-2 text-white bg-blue-600 rounded hover:opacity-80" >공지사항 작성</button>
 
         <div class="flex justify-center mt-5 space-x-2">
           <button @click="prevPageGroup" :disabled="currentPageGroup === 0"
@@ -61,10 +62,13 @@
 
 <script setup>
 import { ref, onMounted, computed, watch } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
 
+const route = useRoute()
 const router = useRouter();
+
 
 const announcelist = ref([]);
 const totalElements = ref(0);
@@ -76,6 +80,7 @@ const totalPageGroups = computed(() => Math.ceil(totalPages.value / itemsPerPage
 const lecturelist = ref([]);
 const selectedlecture = ref(null);
 const ascdesc = ref(true);
+
 
 const resetSort = (pageNum) => {
   ascdesc.value = true; // ascdesc 값을 true로 설정
@@ -105,10 +110,16 @@ const lectureclick = (title) => {
   }
 }
 
-const viewPage = (idx) => {
-  const data = { name: 'announceview', params: { idx } };
-  router.push(data);
+
+const viewPage = (annoidx) => {
+
+const idx = Number(annoidx)
+
+console.log(idx)
+
+  router.push({name: 'announceview', params: { idx }});
 };
+
 
 const sortAsc = () => {
   ascdesc.value = true;
@@ -260,6 +271,13 @@ const nextPageGroup = () => {
     getPage(currentPage.value); // 첫 페이지로 이동
   }
 };
+
+
+const gowrite = () => {
+
+  router.push({name:'deskannouncewrite'})
+}
+
 
 onMounted(() => {
   fetchannounce(currentPage.value);

@@ -9,7 +9,7 @@
         <p class="py-6 font-bold text-blue-900">제목</p>
         <div>
           <input type="text" v-model="title" placeholder="제목을 입력하세요"
-            class="w-1/2 transition-all duration-300 ease-in-out border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:border-transparent">
+            class="w-1/2 transition-all duration-300 ease-in-out border border-gray-300 rounded-md resize-none focus:outline-none focus:ring-2 focus:border-transparent">
         </div>
         <div>
           <p class="py-6 font-bold text-blue-900">내용</p>
@@ -53,7 +53,7 @@ const selectedlecture = ref("전체");
 const getlecture = async () => {
   try {
     const res = await axios.get(`http://greencomart.kro.kr:716/lecture/availlist`);
-    
+
     lecturelist.value = res.data.sort((a, b) => {
       return a.title.localeCompare(b.title);
     });

@@ -1,5 +1,5 @@
 <template>
-  <div class="w-3/4 max-w-2xl mt-10 p-8 mx-auto bg-white rounded shadow-2xl min-w-80 max-lg:w-1/2">
+  <div class="w-3/4 max-w-2xl mt-5 p-8 mx-auto bg-white rounded shadow-2xl min-w-80 max-lg:w-1/2">
     <h1 class="mb-4 text-3xl  font-bold text-center">GREEN COMPUTER ACADEMY</h1>
     <form @submit.prevent="joinuser">
       <div class="mb-6">
@@ -23,7 +23,7 @@
       <hr class="m-1">
 
       <div class="mb-4">
-        <label for="name" class="block mb-2 text-sm font-bold text-gray-700"
+        <label for="name" class=" block py-2 text-sm font-bold text-gray-700"
           >이름
           <p class="inline text-red-500">*</p>
         </label>
@@ -49,7 +49,7 @@
           id="userid"
           placeholder="아이디를 입력하세요"
           v-model="userid"
-          class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+          class="w-full px-3 py-2 mr-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
         />
       
       
@@ -106,7 +106,7 @@
          <p v-if="phoneAvailable" class="text-sm text-green-500">사용 가능한 전화번호입니다.</p>
       </div>
 
-      <div class="mb-4">
+      <div class="">
         <label for="email" class="block mb-2 text-sm font-bold text-gray-700">이메일</label>
         <input
           type="email"
@@ -116,24 +116,22 @@
           class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
         />
       </div>
-      
+      <div class="flex justify-center my-4">
       <button
         @click="joinuser"
-        class="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline"
+        class="mr-3 px-4 py-2 mt-4 font-bold text-white bg-blue-500 rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline"
         type="button"
       >
         회원가입
       </button>
       <button
         @click="cansel"
-        class="px-4 py-2 font-bold text-white bg-red-500 rounded hover:bg-red-700 focus:outline-none focus:shadow-outline"
+        class="px-8 py-2 mt-4 font-bold text-white bg-red-500 rounded hover:bg-red-700 focus:outline-none focus:shadow-outline"
         type="button"
       >
         취소
       </button>
-      <!-- :disabled="!IdAvailable"
-      >
-        회원가입 -->
+    </div>
     </form>
   </div>
   <div class="mb-60">

@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full">
+  <div class="w-[74rem]">
     <div class="m-3">
       <span
         @click="goVacationManage"
@@ -49,11 +49,8 @@
         <div class="w-5/6 p-3 border-2 bg-white">
           <div class="w-full">
             <h1 class="p-5 text-3xl font-bold text-blue-800">-출결리스트-</h1>
-
-            <div @click="gotest" class="test border-2 inline-block cursor-pointer">연습 링크</div>
-
             <hr class="border-2 border-blue-800" />
-            <!-- &lt; &gt; -->
+
             <h1 class="flex justify-center m-3 text-3xl font-bold text-blue-800">
               <button class="mb-2 mr-2 hover:scale-150" @click="downdate()">
                 <div>
@@ -73,7 +70,15 @@
                   </svg>
                 </div>
               </button>
-              {{ nowDat }}
+              <select v-model="currentYear" @change="dropdate" class="p-2 border rounded mx-2">
+                <option v-for="year in availableYears" :key="year" :value="year">{{ year }}년</option>
+              </select>
+
+              <select v-model="currentMonth" @change="dropdate" class="p-2 border rounded mx-2">
+                <option v-for="(month, index) in monthNames" :key="index" :value="index">
+                  {{ month }}
+                </option>
+              </select>
               <button class="mb-2 ml-2 hover:scale-150" @click="update()">
                 <div>
                   <svg
@@ -94,6 +99,20 @@
               </button>
             </h1>
             <h1 v-if="selectedtitle" class="text-green-500">{{ selectedtitle }}</h1>
+
+            <!-- 년도 및 월 선택
+            <div class="flex justify-center">
+              <select v-model="currentYear" @change="dropdate" class="p-2 border rounded mx-2">
+                <option v-for="year in availableYears" :key="year" :value="year">{{ year }}년</option>
+              </select>
+
+              <select v-model="currentMonth" @change="dropdate" class="p-2 border rounded mx-2">
+                <option v-for="(month, index) in monthNames" :key="index" :value="index">
+                  {{ month }}
+                </option>
+              </select>
+            </div> -->
+
             <div class="w-full overflow-auto">
               <table class="w-full">
                 <thead>
@@ -171,14 +190,11 @@ const selectedlecture = ref(null);
 
 const isClicked = ref(true);
 
-const availableYears = ref([]); // 가능한 연도들 (5년 전부터 5년 후까지)
+const availableYears = ref([]);
 
-
-const gotest = () => {
-
-  router.push({name:'test'})
-
-}
+const monthNames = [
+  '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'
+];
 
 const goVacationManage = () => {
   router.push({ name: 'vacationmanage' });
@@ -189,14 +205,12 @@ const getDaysInMonth = (month, year) => {
 };
 
 onMounted(() => {
-  const currentYear = dayjs().year();
-  availableYears.value = Array.from({ length: 11 }, (_, i) => currentYear - 5 + i);
+  const currentYearValue = dayjs().year();
+  availableYears.value = Array.from({ length: 11 }, (_, i) => currentYearValue - 5 + i);
   updateDaysInMonth();
 });
 
 const updateDaysInMonth = () => {
-  // if(selectedlecture.value !==null){}
-
   const daysInMonth = getDaysInMonth(currentMonth.value, currentYear.value);
   arr.value = Array.from({ length: daysInMonth }, (_, i) => i); // 0부터 일수까지의 배열 생성
   monthatt.value = [];
@@ -206,6 +220,14 @@ const updateDaysInMonth = () => {
   }
 };
 
+const dropdate = () => {
+  // currentYear와 currentMonth를 사용하여 nowDat을 업데이트
+  nowDat.value = dayjs()
+    .year(currentYear.value)
+    .month(currentMonth.value)
+    .format('YYYY-MM');
+  updateDaysInMonth();
+};
 
 
 const getDayName = (item) => {
@@ -227,21 +249,33 @@ const isWeekend = (test) => {
   }
 };
 
-const count = ref(0);
 
 const downdate = () => {
-  count.value = count.value - 1;
-  nowDat.value = dayjs().add(count.value, 'month').format('YYYY-MM');
+  // 한 달을 감소시키고, currentMonth 및 nowDat을 업데이트
   currentMonth.value = (currentMonth.value - 1 + 12) % 12;
+  if (currentMonth.value === 11) {
+    currentYear.value -= 1; // 12월에서 11월로 넘어가면 연도를 감소시킴
+  }
+  nowDat.value = dayjs()
+    .year(currentYear.value)
+    .month(currentMonth.value)
+    .format('YYYY-MM');
   updateDaysInMonth();
 };
 
 const update = () => {
-  count.value = count.value + 1;
-  nowDat.value = dayjs().add(count.value, 'month').format('YYYY-MM');
+  // 한 달을 증가시키고, currentMonth 및 nowDat을 업데이트
   currentMonth.value = (currentMonth.value + 1) % 12;
+  if (currentMonth.value === 0) {
+    currentYear.value += 1; // 1월에서 12월로 넘어가면 연도를 증가시킴
+  }
+  nowDat.value = dayjs()
+    .year(currentYear.value)
+    .month(currentMonth.value)
+    .format('YYYY-MM');
   updateDaysInMonth();
 };
+
 
 const getlecture = async () => {
   try {
@@ -377,6 +411,7 @@ const approve = async (useridx, day, isApproved) => {
 onMounted(() => {
   getlecture();
 });
+
 </script>
 
 <style lang="scss" scoped></style>

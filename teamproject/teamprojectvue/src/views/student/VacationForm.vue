@@ -67,8 +67,6 @@
     <hr class="w-1/2 mx-auto my-5" />
     <div class="flex items-center justify-center"></div>
   </div>
-
-
   <div v-else class="mt-44 ">
 <h1 class="flex justify-center"> << 먼저 강좌를 선택하여 주시길 바랍니다. >>  </h1>
 <div class="flex justify-center">
@@ -84,9 +82,12 @@
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router';
 import axios from 'axios';
 import dayjs from 'dayjs';
 import { ref, computed, onMounted } from 'vue';
+
+const router = useRouter()
 
 const phoneNumberfirst = ref('010');
 const phoneNumbersecond = ref('');
@@ -103,6 +104,9 @@ const now = ref(dayjs());
 const useravail = ref(false);
 const usererror = ref('');
 const attlist = ref([]);
+
+
+
 
 const datecheck = (date) => {
   if (!date) {
@@ -162,6 +166,10 @@ const sub = async () => {
       }
     });
     console.log(res);
+
+    alert('휴가신청이 완료되었습니다.')
+    router.push({name:'studentvacation'})
+
   } catch (e) {
     console.log(e);
     alert('에러');
@@ -198,10 +206,11 @@ const showuser = async () => {
   }
 };
 
+
 onMounted(()=>{
   showuser()
-
 })
+
 
 </script>
 
