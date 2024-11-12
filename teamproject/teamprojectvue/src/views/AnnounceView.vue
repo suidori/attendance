@@ -1,56 +1,82 @@
 <template>
-    <div class>
-      <div class="w-1/2 mx-auto min-w-80">
-        <div class="">
-          <h1 class="pt-10 font-extrabold text-blue-900">공지사항</h1>
+    <div class="ml-2 w-[1500px]">
+    <div class="m-3 border border-gray-400  h-full w-full">
+    <div class="">
+      <div class="m-10">
+        <div class="flex justify-between">
+          <h1 class="m-3 inline-block" >
+            <span class="font-bold"></span>
+          </h1>
+          <h1 class="m-3 inline-block" >
+            -공지사항-
+          </h1>
         </div>
-        <hr class="border-t border-gray-300" />
-        <div>
-          <p class="py-6 font-bold text-blue-900">{{announcement.title}}</p>
-          <p class="text-green-600">{{ announcement.lecture }}</p>
-          <p>{{announcement.user}} {{ announcement.wdate }}</p>
-          <div>
-            <p class="w-full p-4 transition-all duration-300 ease-in-out border border-gray-300 rounded-lg resize-none py-6 font-bold text-blue-900">{{ announcement.body }}</p>
-          </div>
-          <div class="flex justify-end">
-            <button @click="router.go(-1)" type="button" class="p-2 text-white bg-blue-600 border-2 rounded-lg hover:opacity-85">
-              뒤로가기
-            </button>
+        <div class="w-full ">
+        <div class="border p-5 w-full  border-gray-400 inline-block">
+        <hr class="m-1 mr-2 ml-2 border border-blue-500" />
+        <div class="overflow-x-auto">
+          <h1 class="font-bold m-2 ml-5 text-2xl ">{{title}} <span class="text-sm">({{lecture}})</span> <span class="text-sm mt-2 mr-5 float-end inline-block">{{user}} {{wdate}} </span> </h1>
+        
+          <hr class="m-1 mr-2 ml-2 border border-blue-500" />
+          <div class="p-5">
+          <div class=" mt-8 mb-10">
+            {{body}}
           </div>
         </div>
+    </div>  
+    </div>
+    </div>
+    <div @click="godeskannouncelist"
+             class="flex text-xl border-2  border-blue-300 pl-3 pr-3 my-8
+             hover:bg-blue-300 hover:opacity-80
+              hover:text-white cursor-pointer float-left rounded p-1"
+          >
+             공지사항 리스트 
+          </div>
       </div>
-      <hr class="w-1/2 mx-auto my-5">
+      <div class="">
+      </div>
     </div>
-    <div class="mb-64">
-  
-    </div>
-  </template>
-  
-  <script setup>
+  </div>
+</div>
+</template>
 
-import axios from 'axios';
-import { onMounted, ref} from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+<script setup>
+import { onMounted } from 'vue';
+import { useRoute } from 'vue-router';
+import { getAnnounceview } from '@/api/boradapi';
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 
-const route = useRoute();
-const router = useRouter();
+const route = useRoute()
+const router = useRouter()
 
-const announcement = ref({});
+const title = ref('')
+const body = ref('')
+const wdate = ref('')
+const user = ref('')
+const lecture = ref('')
 
-const getView = async () => {
-    try {
-        const res = await axios.get(`http://greencomart.kro.kr:716/announce/view/${route.params.idx}`);
-        announcement.value = res.data;
-    }catch(e){
-        console.error(e);
-    }
+
+const godeskannouncelist = () => {
+
+    router.push({name:'deskannouncelist'})
 }
 
-onMounted(() => {
-  getView();
-});
+onMounted( async()=>{
 
-  </script>
-  
-  <style lang="scss" scoped></style>
-  
+   const res =  await getAnnounceview(route.params.idx)
+
+   title.value = res.data.title
+   body.value = res.data.body
+   wdate.value = res.data.wdate
+   user.value = res.data.user
+   lecture.value = res.data.lecture
+
+})
+
+</script>
+
+<style lang="scss" scoped>
+
+</style>

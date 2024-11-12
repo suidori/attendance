@@ -62,6 +62,19 @@ public class AnnounceController {
         return ResponseEntity.ok(announceResponsePageDto);
     }
 
+    @GetMapping("/teacherdesc")
+    public ResponseEntity<AnnounceResponsePageDto> teacherFindAlldesc(
+            @RequestParam(name = "pageNum", defaultValue = "0") int pageNum,
+            @RequestParam(name = "size", defaultValue = "10") int size,
+            @AuthenticationPrincipal LoginUserDetails loginUserDetails
+    ) {
+        if(loginUserDetails==null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        AnnounceResponsePageDto announceResponsePageDto = announceService.teacherPage(PageUtil.getPageableASC(pageNum, size), loginUserDetails);
+        return ResponseEntity.ok(announceResponsePageDto);
+    }
+
     @GetMapping("/manager")
     public ResponseEntity<AnnounceResponsePageDto> managerFindAll(
             @RequestParam(name = "pageNum", defaultValue = "0") int pageNum,
