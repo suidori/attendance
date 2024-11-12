@@ -1,5 +1,5 @@
 <template>
-  <div class="w-[74rem]">
+  <div class="w-[74rem] mb-24">
     <div class="m-3">
       <span
         @click="goVacationManage"
@@ -7,11 +7,12 @@
       >
         휴가 요청 관리
       </span>
-      <div class="mt-5 flex justify-center">
+      <div class="mt-5 ">
+        
         <div
           v-if="lecturelist.length > 0"
           id="lecturelist"
-          class="w-1/6 p-4 border bg-white border-blue-500"
+          class="w-1/6 p-4 border float-start  bg-white border-blue-500"
         >
           <h1>강의목록</h1>
           <button
@@ -46,7 +47,10 @@
             </div>
           </div>
         </div>
-        <div class="w-5/6 p-3 border-2 bg-white">
+
+
+
+        <div class="float-right w-5/6 p-3 border-2 bg-white">
           <div class="w-full">
             <h1 class="p-5 text-3xl font-bold text-blue-800">-출결리스트-</h1>
             <hr class="border-2 border-blue-800" />
@@ -98,7 +102,7 @@
                 </div>
               </button>
             </h1>
-            <h1 v-if="selectedtitle" class="text-green-500">{{ selectedtitle }}</h1>
+            <h1 v-if="selectedtitle" class="text-green-600 text-2xl">{{ selectedtitle }}</h1>
 
             <!-- 년도 및 월 선택
             <div class="flex justify-center">
@@ -113,7 +117,7 @@
               </select>
             </div> -->
 
-            <div class="w-full overflow-auto">
+            <div class="w-full  overflow-auto">
               <table class="w-full">
                 <thead>
                   <tr class="border">
@@ -130,7 +134,7 @@
                 </thead>
                 <tbody v-if="monthatt.length > 0">
                   <tr v-for="student in monthatt" :key="student.user" class="border bg-[#eee]">
-                    <th class="w-1/4 p-4 bg-red-400">{{ student.user }}</th>
+                    <th class="w-1/4 p-4 bg-indigo-400">{{ student.user }}</th>
                     <td
                       v-for="day in arr"
                       :key="day"
@@ -164,6 +168,10 @@
           </div>
         </div>
       </div>
+
+
+      
+
       <div class="mb-20"></div>
     </div>
   </div>
