@@ -1,6 +1,6 @@
 <template>
  
-  <div class="ml-7 mx-auto p-5 w-full border border-gray-400">
+  <div class="ml-7 mb-20 mx-auto p-5 w-full border border-gray-400">
     <div class="mb-4">
       <h1 class="text-2xl font-bold mb-2">과정 선택</h1>
       <hr class="border-t-2 border-blue-600" />
