@@ -191,6 +191,8 @@ function closeConfirmModal(){
 function applyForCourse(){
   alert('신청되었습니다');
   //여기에 진짜 신청되는 기능 추가
+  isConfirmModalOpen.value = false;
+  isModalOpen.value = false;
 }
 </script>
 
