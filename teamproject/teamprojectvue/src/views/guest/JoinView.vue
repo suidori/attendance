@@ -238,6 +238,16 @@ const checkid = async () => {
 
 const joinuser = async () => {
 
+if(!idAvailable.value){
+  alert('아이디를 다시 확인해주세요')
+  return;
+}
+
+if(!phoneAvailable.value){
+  alert('전화번호를 다시 확인해주세요')
+  return;
+}
+
   const data = {
     userid: userid.value,
     password: password.value,

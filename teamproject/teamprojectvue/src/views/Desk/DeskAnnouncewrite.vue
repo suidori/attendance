@@ -45,10 +45,12 @@
 import axios from 'axios';
 
 import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 const lecturelist = ref([]);
 const title = ref('');
 const body = ref('');
 const selectedlecture = ref("전체");
+const router = useRouter();
 
 const getlecture = async () => {
   try {
@@ -83,6 +85,7 @@ const sub = async () => {
       }
     })
     console.log(res)
+    router.push({name:'deskannouncelist'})
   } catch (e) {
     console.log(e)
     alert('에러')

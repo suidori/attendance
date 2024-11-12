@@ -1,5 +1,5 @@
 <template>
- 
+
   <div class="ml-5 mb-20 mx-auto p-5 w-full border border-gray-400">
     <div class="mb-4">
       <h1 class="text-2xl font-bold mb-2">과정 선택</h1>
@@ -16,33 +16,52 @@
 
       <!-- Search Bar -->
       <div class="mb-4">
-        <input
-          v-model="search"
-          type="text"
-          placeholder="검색"
-          class="w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
+        <input v-model="search" type="text" placeholder="검색"
+          class="w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
       </div>
 
       <!-- Course Cards -->
       <div class="mx-auto grid grid-cols-4 gap-4">
         <div v-for="course in courses" :key="course.name" class="p-4 bg-white shadow rounded-lg">
           <h3 class="text-lg font-bold mb-2">{{ course.title }}</h3>
-          <p class="text-gray-600 text-sm">{{ course.content }}</p>
-          <p>{{ course.startDate }} 부터 {{ course.endDate }} 까지</p>
-          <button @click="lectureinfo(course)" class="mt-4 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">자세히 보기</button>
+          <p class="text-sm">{{ course.content }}</p>
+          <p class="text-sm text-gray-600">{{ course.startDate }} 부터 {{ course.endDate }} 까지</p>
+          <button @click="lectureinfo(course)"
+            class="mt-4 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">자세히 보기</button>
         </div>
       </div>
     </div>
   </div>
-<div class="bg-green-500" v-if="selectedlecture">
-  <p>{{ selectedlecture.title }}</p>
-  <p>{{ selectedlecture.content }}</p>
-  <p>{{selectedlecture.startDate}} 부터 {{ selectedlecture.endDate }} 까지</p>
-  <p>{{selectedlecture.startTime}} 부터 {{ selectedlecture.endTime }} 까지</p>
-  <input type="text" placeholder="0000" v-model="password" />
-  <button @click="lecturejoin(selectedlecture.idx)" class="mt-4 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">수강하기</button>
-</div>
+  <div v-if="selectedlecture" @click.self="closeModal"
+    class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-lg p-6 w-1/3">
+      <!-- 모달 헤더 -->
+      <div class="flex justify-between items-center">
+        <h2 class="text-xl font-bold"> {{ selectedlecture?.title }}</h2>
+
+        <button @click="closeModal" class="text-gray-400 hover:text-gray-600 hover:scale-105 text-4xl">&times;</button>
+      </div>
+      <!-- 모달 내용 -->
+      <div class="mt-4">
+        <h1 class="text-xl">강좌 설명</h1><br>
+        <!-- <img :src="courses.image" alt="Course Image"> -->
+        <p class="text-lg">IT 업계 미래를 여는 첫걸음! “{{ selectedlecture?.content }}”</p>
+        <p>기간: {{ selectedlecture.startDate }} 부터 {{ selectedlecture.endDate }} 까지</p>
+        <p>수업시간: {{ selectedlecture.startTime }} 부터 {{ selectedlecture.endTime }} 까지</p>
+        <input class="border border-gray-300" maxlength="4" type="text" placeholder="비밀번호" v-model="password" />
+      </div>
+      <!-- 모달 버튼 -->
+
+      <div class="mt-6 text-right mx-4">
+        <button @click="lecturejoin(selectedlecture.idx)" class="px-4 py-2 mx-2 bg-green-500 text-white rounded">
+          신청
+        </button>
+        <button @click="closeModal" class="px-4 py-2 bg-red-500 text-white rounded">
+          닫기
+        </button>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup>
@@ -64,35 +83,38 @@ const selectedlecture = ref(null);
 const password = ref('');
 
 
-const {userrl} =  storeToRefs(loginstore)
+const { userrl } = storeToRefs(loginstore)
 
 
 
 const lectureinfo = (lecture) => {
-  if(selectedlecture.value == null) {selectedlecture.value = lecture;}
-  else{selectedlecture.value=null}
+  if (selectedlecture.value == null) { selectedlecture.value = lecture; }
+  else { selectedlecture.value = null }
 }
 
+const closeModal = () => {
+  selectedlecture.value = null;
+}
 
-const golectureinsert = () => {
-  router.push({ name: 'lectureinsert' });
-};
+// const golectureinsert = () => {
+//   router.push({ name: 'lectureinsert' });
+// };
 
-const golecturelist = () => {
-  router.push({ name: 'lectureapprovallist' });
-};
+// const golecturelist = () => {
+//   router.push({ name: 'lectureapprovallist' });
+// };
 
 const getavaillecture = async () => {
-  try{
+  try {
     const res = await axios.get('http://greencomart.kro.kr:716/lecture/availlist');
     courses.value = res.data;
-  }catch(e){
+  } catch (e) {
     console.log(e)
   }
 }
 
 const lecturejoin = async (idx) => {
-  try{ 
+  try {
     const data = {
       "idx": idx,
       "password": password.value
@@ -104,14 +126,19 @@ const lecturejoin = async (idx) => {
       }
     });
     console.log(res.data);
-  }catch(e){
-    console.log(e)
+    alert('가입되었습니다.')
+    selectedlecture.value=null;
+  } catch (e) {
+    if(e.response.data.message=='틀린 비밀번호입니다.'){
+      alert(e.response.data.message)
+      password.value='';
+    }else{console.log(e)}
   }
 }
 
-onMounted(()=>{
+onMounted(() => {
 
-  if(userrl.value =='ROLE_STUDENT'){
+  if (userrl.value == 'ROLE_STUDENT') {
     buttonchek.value = false
   }
   getavaillecture()

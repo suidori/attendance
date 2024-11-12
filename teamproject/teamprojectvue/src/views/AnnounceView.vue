@@ -60,7 +60,7 @@ const lecture = ref('')
 
 const godeskannouncelist = () => {
 
-    router.push({name:'deskannouncelist'})
+    router.go(-1)
 }
 
 onMounted( async()=>{
