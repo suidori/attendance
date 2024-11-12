@@ -60,6 +60,19 @@
               </div>
             </li>
           </RouterLink>
+          <hr class="border-gray-300"/>
+          <RouterLink to="/studentannouncelist">
+            <li>
+              <div
+                @click="setActiveItem('studentannouncelist')"
+                :class="{ 'bg-blue-200 rounded-md': activeItem === 'studentannouncelist' }"
+                class="my-2 py-1 text-sm flex items-center"
+              >
+                <img src="../images/announ.png" alt="" class="mr-2" />
+                공지사항
+              </div>
+            </li>
+          </RouterLink>
         </ul>
         <div class="mt-20 text-xs">
 

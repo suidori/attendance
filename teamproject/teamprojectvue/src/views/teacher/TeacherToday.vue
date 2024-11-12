@@ -20,7 +20,6 @@
                 <th class="p-2 pr-4 pl-4 border border-gray-300">출결 상태</th>
                 <th class="p-2 pr-4 pl-4 border border-gray-300">사유</th>
                 <th class="p-2 pr-4 pl-4 border border-gray-300">교사 확인</th>
-                <th class="p-2 pr-4 pl-4 border border-gray-300">행정실 확인</th>
                 <th class="p-2 pr-4 pl-4 border border-gray-300">출석 인정</th>
                 <th class="p-2 pr-4 pl-4 border-t border-b border-gray-300">체크</th>
               </tr>
@@ -31,7 +30,6 @@
                 <td class="p-2 border border-gray-300 text-center">{{ students.type }}</td>
                 <td class="p-2 border border-gray-300">{{ students.reason }}</td>
                 <td class="p-2 border border-gray-300 text-center">{{ students.teacheraccept }}</td>
-                <td class="p-2 border border-gray-300 text-center">{{ students.manageraccept }}</td>
                 <td class="p-2 border border-gray-300 text-center">{{ students.approval }}</td>
                 <td class="p-2 border-t border-b border-gray-300 flex justify-center">
                   <button

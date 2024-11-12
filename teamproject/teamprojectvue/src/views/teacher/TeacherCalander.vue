@@ -3,37 +3,22 @@
 
 
 
-    <div
-      v-if="lecturelist.length > 0"
-      id="lecturelist"
-      class="w-1/6 p-4 border border-blue-500 bg-white"
-    >
+    <div v-if="lecturelist.length > 0" id="lecturelist" class="w-1/6 p-4 border border-blue-500 bg-white">
       <h1>강의목록</h1>
-      <button
-        @click="getlecture, (isClicked = true)"
-        :class="{ 'bg-green-500': isClicked }"
-        class="px-4 py-2 text-white bg-blue-600 rounded hover:opacity-80 mr-2"
-      >
+      <button @click="getlecture, (isClicked = true)" :class="{ 'bg-green-500': isClicked }"
+        class="px-4 py-2 text-white bg-blue-600 rounded hover:opacity-80 mr-2">
         최신순
       </button>
-      <button
-        @click="desclecture, (isClicked = false)"
-        :class="{ 'bg-green-500': !isClicked }"
-        class="px-4 py-2 text-white bg-blue-600 rounded hover:opacity-80"
-      >
+      <button @click="desclecture, (isClicked = false)" :class="{ 'bg-green-500': !isClicked }"
+        class="px-4 py-2 text-white bg-blue-600 rounded hover:opacity-80">
         과거순
       </button>
       <hr class="my-2 border-blue-500" />
 
-      <div
-        :class="{
-          'bg-blue-500 text-white': selectedlecture !== null && selectedlecture == lecture.idx
-        }"
-        class="hover:bg-blue-500 hover:text-white"
-        @click="getmonthatt(lecture.idx, nowDat)"
-        v-for="(lecture, index) in lecturelist"
-        :key="lecture.idx"
-      >
+      <div :class="{
+        'bg-blue-500 text-white': selectedlecture !== null && selectedlecture == lecture.idx
+      }" class="hover:bg-blue-500 hover:text-white" @click="getmonthatt(lecture.idx, nowDat)"
+        v-for="(lecture, index) in lecturelist" :key="lecture.idx">
         {{ lecture.title }}
         <hr v-if="index < lecturelist.length - 1" class="my-2 border-blue-500" />
       </div>
@@ -48,57 +33,39 @@
 
       <h1 class="flex justify-center m-3 text-3xl font-bold text-blue-800">
         <button class="mb-2 mr-2 hover:scale-150" @click="downdate()">
-                <div>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="1.5"
-                    stroke="currentColor"
-                    class="size-6"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="m18.75 4.5-7.5 7.5 7.5 7.5m-6-15L5.25 12l7.5 7.5"
-                    />
-                  </svg>
-                </div>
-              </button>
-
-        {{ nowDat }}
+          <div>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="m18.75 4.5-7.5 7.5 7.5 7.5m-6-15L5.25 12l7.5 7.5" />
+            </svg>
+          </div>
+        </button>
+        <select v-model="currentYear" @change="dropdate" class="p-2 border rounded mx-2">
+                <option v-for="year in availableYears" :key="year" :value="year">{{ year }}년</option>
+              </select>
+        <select v-model="currentMonth" @change="dropdate" class="p-2 border rounded mx-2">
+          <option v-for="(month, index) in monthNames" :key="index" :value="index">
+            {{ month }}
+          </option>
+        </select>
 
 
         <button class="mb-2 ml-2 hover:scale-150" @click="update()">
-                <div>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="1.5"
-                    stroke="currentColor"
-                    class="size-6"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5"
-                    />
-                  </svg>
-                </div>
-              </button>
+          <div>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5" />
+            </svg>
+          </div>
+        </button>
       </h1>
       <div class="w-full overflow-auto">
         <table class="w-full">
           <thead>
             <tr class="border">
               <th class="w-1/4 p-4">이름</th>
-              <th
-                v-for="day in arr"
-                :key="day"
-                class="p-4"
-                :style="{ color: isWeekend(getDayName(day)) }"
-              >
+              <th v-for="day in arr" :key="day" class="p-4" :style="{ color: isWeekend(getDayName(day)) }">
                 {{ getDayName(day) }}
               </th>
             </tr>
@@ -106,12 +73,8 @@
           <tbody v-if="monthatt.length > 0">
             <tr v-for="student in monthatt" :key="student.user" class="border bg-[#eee]">
               <th class="w-1/4 p-4 bg-indigo-400">{{ student.user }}</th>
-              <td
-                v-for="day in arr"
-                :key="day"
-                class="p-4 font-bold border-r min-w-20"
-                :style="{ color: isWeekend(getDayName(day)) }"
-              >
+              <td v-for="day in arr" :key="day" class="p-4 font-bold border-r min-w-20"
+                :style="{ color: isWeekend(getDayName(day)) }">
                 <div class="text-center" :style="{ color: getatt(student.attendance[day]) }">
                   {{ getAttendanceType(student.user, day) }}
                 </div>
@@ -121,7 +84,7 @@
         </table>
       </div>
     </div>
-    
+
   </div>
 </template>
 
