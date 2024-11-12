@@ -7,46 +7,9 @@
       >
         휴가 요청 관리
       </span>
-      <div class="mt-5 flex justify-center">
-        <div
-          v-if="lecturelist.length > 0"
-          id="lecturelist"
-          class="w-1/6 p-4 border bg-white border-blue-500"
-        >
-          <h1>강의목록</h1>
-          <button
-            @click="getlecture(), (isClicked = true)"
-            :class="{ 'bg-green-500': isClicked }"
-            class="px-3 py-2 text-white bg-blue-600 rounded hover:opacity-80 mr-2"
-          >
-            최신순
-          </button>
-          <button
-            @click="desclecture(), (isClicked = false)"
-            :class="{ 'bg-green-500': !isClicked }"
-            class="px-3 py-2 text-white bg-blue-600 rounded hover:opacity-80"
-          >
-            과거순
-          </button>
-          <hr class="my-2 border-blue-500" />
-          <div
-            :class="{
-              'bg-blue-500 text-white':
-                selectedlecture !== null && selectedlecture.title == lecture.title
-            }"
-            class="hover:bg-blue-500 hover:text-white"
-            @click="getmonthatt(lecture, nowDat)"
-            v-for="(lecture, index) in lecturelist"
-            :key="lecture.idx"
-          >
-            {{ lecture.title }}
-            <br />
-            <div class="mb-3">
-              <hr v-if="index < lecturelist.length - 1" class="my-2 border-blue-500" />
-            </div>
-          </div>
-        </div>
-        <div class="w-5/6 p-3 border-2 bg-white">
+      <div class="mt-5 ">
+        
+        <div class="float-start w-5/6 p-3 border-2 bg-white">
           <div class="w-full">
             <h1 class="p-5 text-3xl font-bold text-blue-800">-출결리스트-</h1>
             <hr class="border-2 border-blue-800" />
@@ -113,7 +76,7 @@
               </select>
             </div> -->
 
-            <div class="w-full overflow-auto">
+            <div class="w-full  overflow-auto">
               <table class="w-full">
                 <thead>
                   <tr class="border">
@@ -164,6 +127,47 @@
           </div>
         </div>
       </div>
+
+
+      <div
+          v-if="lecturelist.length > 0"
+          id="lecturelist"
+          class="w-1/6 p-4 border float-end bg-white border-blue-500"
+        >
+          <h1>강의목록</h1>
+          <button
+            @click="getlecture(), (isClicked = true)"
+            :class="{ 'bg-green-500': isClicked }"
+            class="px-3 py-2 text-white bg-blue-600 rounded hover:opacity-80 mr-2"
+          >
+            최신순
+          </button>
+          <button
+            @click="desclecture(), (isClicked = false)"
+            :class="{ 'bg-green-500': !isClicked }"
+            class="px-3 py-2 text-white bg-blue-600 rounded hover:opacity-80"
+          >
+            과거순
+          </button>
+          <hr class="my-2 border-blue-500" />
+          <div
+            :class="{
+              'bg-blue-500 text-white':
+                selectedlecture !== null && selectedlecture.title == lecture.title
+            }"
+            class="hover:bg-blue-500 hover:text-white"
+            @click="getmonthatt(lecture, nowDat)"
+            v-for="(lecture, index) in lecturelist"
+            :key="lecture.idx"
+          >
+            {{ lecture.title }}
+            <br />
+            <div class="mb-3">
+              <hr v-if="index < lecturelist.length - 1" class="my-2 border-blue-500" />
+            </div>
+          </div>
+        </div>
+
       <div class="mb-20"></div>
     </div>
   </div>
