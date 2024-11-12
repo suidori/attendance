@@ -31,8 +31,46 @@
           </div>
           <h3 class="text-lg font-bold mb-2">{{ course.name }}</h3>
           <p class="text-gray-600 text-sm">{{ course.description }}</p>
-          <button class="mt-4 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">자세히 보기</button>
+          <button @click="openModal(course)" class="mt-4 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">자세히 보기</button>
         </div>
+      </div>
+    </div>
+  </div>
+
+ <!-- 모달 창 (v-if로 조건부 렌더링) -->
+ <div v-if="isModalOpen" @click.self="closeModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">
+      <div class="bg-white rounded-lg p-6 w-1/3">
+        <!-- 모달 헤더 -->
+        <div class="flex justify-between items-center">
+          <h2 class="text-xl font-bold"> {{ selectedCourse?.description }}</h2>
+          
+          <button @click="closeModal" class="text-gray-400 hover:text-gray-600 hover:scale-105 text-4xl">&times;</button>
+        </div>
+        <!-- 모달 내용 -->
+        <div class="mt-4">
+          <p>강좌를 신청 하시겠습니까?</p>
+        </div>
+        <!-- 모달 버튼 -->
+        <div class="mt-6 text-right">
+          <button @click="openConfirmModal" class="px-4 py-2 bg-green-500 text-white rounded">
+            신청
+          </button>
+          <button @click="closeModal" class="px-4 py-2 bg-red-500 text-white rounded">
+            닫기
+          </button>
+        </div>
+      </div>
+    </div>
+
+
+  <!-- 재확인 모달 -->
+  <div v-if="isConfirmModalOpen" @click.self="closeConfirmModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-lg p-8 w-1/3">
+      <h2 class="text-xl font-bold mb-4">{{ selectedCourse?.description }}</h2>
+      <p>재확인</p>
+      <div class="text-right mt-4">
+        <button @click="applyForCourse" class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600">확인</button>
+        <button @click="closeConfirmModal" class="ml-2 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">취소</button>
       </div>
     </div>
   </div>
@@ -44,12 +82,11 @@ import { useRouter } from 'vue-router';
 import { useloginStore } from '@/stores/loginpinia';
 import { storeToRefs } from 'pinia';
 
-const loginstore = useloginStore()
+const loginstore = useloginStore();
 
 const router = useRouter();
 
-const buttonchek = ref(true)
-
+const buttonchek = ref(true);
 const search = ref('');
 const courses = ref([
   { name: '강좌1', description: '기초 프로그래밍 강좌', image: '/src/images/img1.jpg' },
@@ -67,7 +104,7 @@ const courses = ref([
 ]);
 
 
-const {userrl} =  storeToRefs(loginstore)
+const {userrl} =  storeToRefs(loginstore);
 
 
 const filteredCourses = computed(() => 
@@ -87,9 +124,36 @@ onMounted(()=>{
   if(userrl.value =='ROLE_STUDENT'){
     buttonchek.value = false
   }
-
 })
 
+// 모달 열기/닫기 상태를 관리하는 ref
+const isModalOpen = ref(false);
+const selectedCourse = ref(null);
+const isConfirmModalOpen = ref(false);
+
+// 모달 열기 함수
+function openModal(course) {
+  selectedCourse.value = course;  
+  isModalOpen.value = true;
+}
+
+// 모달 닫기 함수
+function closeModal() {
+  isModalOpen.value = false;
+  selectedCourse.value = null;
+}
+
+function openConfirmModal(){
+  isConfirmModalOpen.value = true;
+}
+function closeConfirmModal(){
+  isConfirmModalOpen.value = false;
+  isModalOpen.value = false;
+}
+function applyForCourse(){
+  alert('신청되었습니다');
+  //여기에 진짜 신청되는 기능 추가
+}
 </script>
 
 <style scoped></style>
