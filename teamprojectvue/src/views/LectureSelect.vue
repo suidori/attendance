@@ -46,18 +46,18 @@ const router = useRouter();
 
 const search = ref('');
 const courses = ref([
-  { name: '강좌1', description: '기초 프로그래밍 강좌', image: '/src/images/AtenCheck.png' },
-  { name: '강좌2', description: '심화 프로그래밍 강좌', image: 'https://via.placeholder.com/150' },
-  { name: '강좌3', description: '웹 개발 강좌', image: 'https://via.placeholder.com/150' },
-  { name: '강좌4', description: '데이터 분석 강좌', image: 'https://via.placeholder.com/150' },
-  { name: '강좌5', description: '머신러닝 기초 강좌', image: 'https://via.placeholder.com/150' },
-  { name: '강좌6', description: '고급 머신러닝 강좌', image: 'https://via.placeholder.com/150' },
-  { name: '강좌7', description: '네트워크 기초 강좌', image: 'https://via.placeholder.com/150' },
-  { name: '강좌8', description: '보안 기초 강좌', image: 'https://via.placeholder.com/150' },
-  { name: '강좌9', description: '클라우드 컴퓨팅 강좌', image: 'https://via.placeholder.com/150' },
-  { name: '강좌10', description: '빅데이터 분석 강좌', image: 'https://via.placeholder.com/150' },
-  { name: '강좌11', description: '인공지능 기초 강좌', image: 'https://via.placeholder.com/150' },
-  { name: '강좌12', description: '고급 인공지능 강좌', image: 'https://via.placeholder.com/150' },
+  { name: '강좌1', description: '기초 프로그래밍 강좌', image: '/src/images/img1.jpg' },
+  { name: '강좌2', description: '심화 프로그래밍 강좌', image: '/src/images/img2.jpg' },
+  { name: '강좌3', description: '웹 개발 강좌', image: '/src/images/img3.jpg' },
+  { name: '강좌4', description: '데이터 분석 강좌', image: '/src/images/img4.jpg' },
+  { name: '강좌5', description: '머신러닝 기초 강좌', image: '/src/images/img5.jpg' },
+  { name: '강좌6', description: '고급 머신러닝 강좌', image: '/src/images/img6.jpg' },
+  { name: '강좌7', description: '네트워크 기초 강좌', image: '/src/images/img7.jpg' },
+  { name: '강좌8', description: '보안 기초 강좌', image: '/src/images/img8.jpg' },
+  { name: '강좌9', description: '클라우드 컴퓨팅 강좌', image: '/src/images/img9.jpg' },
+  { name: '강좌10', description: '빅데이터 분석 강좌', image: '/src/images/img10.jpg' },
+  { name: '강좌11', description: '인공지능 기초 강좌', image: '/src/images/img11.jpg' },
+  { name: '강좌12', description: '고급 인공지능 강좌', image: '/src/images/img12.jpg' },
 ]);
 
 const filteredCourses = computed(() => 
