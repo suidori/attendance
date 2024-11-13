@@ -1,32 +1,30 @@
 <template>
-  <div class=" w-full">
-  <!--
+  <div class="w-full">
+    <!--
 user1,2 선생
 user3,4 매니저
 user5~15 학생
 마스터
 -->
-<div class="">
-<TopBar v-if="$route.name !== 'loginview'" class="w-full hidden"></TopBar>
-</div>
-<div class=""></div>
-  <div style="width: 1200px; margin:0 auto"
-      class="font-[GmarketSansMedium] flex justify-center">
-    <RouterView/>
+    <div class="">
+      <TopBar v-if="$route.name !== 'loginview'" class="w-full hidden"></TopBar>
+    </div>
+    <div class=""></div>
+    <div style="width: 1200px; margin: 0 auto" class="font-[GmarketSansMedium] flex justify-center">
+      <RouterView />
+    </div>
+    <LayoutFooter class=""></LayoutFooter>
+
+    <template v-if="userrlvalue == 'ROLE_STUDENT'">
+      <StudentSideBar class="" style="position: fixed; top: 1%; left: 11%" />
+    </template>
+    <template v-if="userrlvalue == 'ROLE_TEACHER'">
+      <TeacherSideBar class="" style="position: fixed; top: 1%; left: 11%" />
+    </template>
+    <template v-if="userrlvalue == 'ROLE_MANAGER'">
+      <ManagerSideBar class="" style="position: fixed; top: 1%; left: 11%" />
+    </template>
   </div>
-  <LayoutFooter class=""></LayoutFooter>
-
-  <template v-if="userrlvalue == 'ROLE_STUDENT'">
-    <StudentSideBar class="" style="position: fixed; top: 1%; left: 11%"/>
-  </template>
-  <template v-if="userrlvalue == 'ROLE_TEACHER'">
-    <TeacherSideBar class="" style="position: fixed; top: 1%; left: 11%" />
-  </template>
-  <template v-if="userrlvalue == 'ROLE_MANAGER'">
-    <ManagerSideBar class="" style="position: fixed; top: 1%; left: 11%" />
-
-  </template>
-</div>
 </template>
 
 <script setup>
@@ -74,10 +72,6 @@ const homelogin = async () => {
     router.push({ name: 'loginview' });
   }
 };
-
-
-
-
 
 onMounted(async () => {
   userdata();
