@@ -1,11 +1,11 @@
 <template>
-  <div class="ml-4 font-sans flex justify-center">
+  <div class="flex justify-center ml-4 font-sans">
     <main class="flex justify-center w-[74.5rem]">
       <section class="flex-1 p-6 m-2 bg-white border border-gray-500">
         <h1 class="mb-5 text-2xl font-semibold">공지사항</h1>
 
         <div v-if="lecturelist.length > 0">
-          <select class="border border-gray-500 mr-3" v-model="selectedlecture" name="" id="">
+          <select class="mr-3 border border-gray-500" v-model="selectedlecture" name="" id="">
             <option value="전체">전체</option>
             <option v-for="lecture in lecturelist" :key="lecture.idx" :value="lecture.idx">
               {{ lecture.title }}
@@ -40,8 +40,9 @@
           </table>
         </div>
 
-        <button @click="sortAsc" class="px-4 py-2 text-white bg-green-600 rounded hover:opacity-80 mr-3">최신순</button>
+        <button @click="sortAsc" class="px-4 py-2 mr-3 text-white bg-green-600 rounded hover:opacity-80">최신순</button>
         <button @click="sortDesc" class="px-4 py-2 text-white bg-blue-600 rounded hover:opacity-80">과거순</button>
+        <button @click="gowrite" class="px-4 py-2 text-white bg-blue-600 rounded float-end hover:opacity-80" >공지사항 작성</button>
 
         <div class="flex justify-center mt-5 space-x-2">
           <button @click="prevPageGroup" :disabled="currentPageGroup === 0"
@@ -284,6 +285,11 @@ const nextPageGroup = () => {
     getPage(currentPage.value); // 첫 페이지로 이동
   }
 };
+
+const gowrite = () => {
+
+router.push({name:'teacherannouncewrite'})
+}
 
 
 onMounted(() => {

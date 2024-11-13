@@ -1,18 +1,18 @@
 <template>
   <div class="w-40 rounded-sm">
-    <div class="bg-blue-50 rounded-md">
+    <div class="rounded-md bg-blue-50">
       <img src="../images/LOGO2.png" alt="Logo" />
     </div>
     <div class="bg-blue-300 h-[650px]">
       <aside class="p-3 text-gray-950 font-bold font-[GmarketSansMedium]">
         <div class="h-16 text-lg font-bold"> 선생님</div>
-        <ul class="space-y-3 bg-slate-100 p-1 rounded-lg flex flex-col justify-center">
+        <ul class="flex flex-col justify-center p-1 space-y-3 rounded-lg bg-slate-100">
           <RouterLink to="/teachertoday">
             <li>
               <div
                 @click="setActiveItem('attendance')"
                 :class="{ 'bg-blue-200 rounded-md': activeItem === 'attendance' }"
-                class="my-1 py-1 text-sm flex items-center mt-2"
+                class="flex items-center py-1 my-1 mt-2 text-sm"
               >
                 <img src="../images/AtenCheck.png" alt="" class="mr-2" />
                 금일 출결 현황
@@ -23,13 +23,25 @@
           <RouterLink to="/teachercalander">
             <li>
               <div
-
                 @click="setActiveItem('course')"
                 :class="{ 'bg-blue-200 rounded-md': activeItem === 'course' }"
-                class="mt-2 py-1 text-sm flex items-center"
+                class="flex items-center py-1 mt-2 text-sm"
               >
                 <img src="../images/stuhead.png" alt="" class="mr-2" />
                 학생 출결 조회
+              </div>
+            </li>
+          </RouterLink>
+          <hr class="border-gray-300"/>
+          <RouterLink to="/teachervacation">
+            <li>
+              <div
+                @click="setActiveItem('vacation')"
+                :class="{ 'bg-blue-200 rounded-md': activeItem === 'vacation' }"
+                class="flex items-center py-1 mt-2 text-sm"
+              >
+                <img src="../images/VacaSub.png" alt="" class="mr-2" />
+                휴가 신청 현황
               </div>
             </li>
           </RouterLink>
@@ -41,7 +53,7 @@
 
                 @click="setActiveItem('lectureselect')"
                 :class="{ 'bg-blue-200 rounded-md': activeItem === 'lectureselect' }"
-                class="my-2 py-1 text-sm flex items-center"
+                class="flex items-center py-1 my-2 text-sm"
               >
                 <img src="../images/wlearn.png" alt="" class="mr-2" />
                 강좌 관리
@@ -55,7 +67,7 @@
 
                 @click="setActiveItem('mypage')"
                 :class="{ 'bg-blue-200 rounded-md': activeItem === 'mypage' }"
-                class="my-2 py-1 text-sm flex items-center"
+                class="flex items-center py-1 my-2 text-sm"
               >
                 <img src="../images/mycon.png" alt="" class="mr-2" />
                 마이페이지
@@ -69,7 +81,7 @@
 
                 @click="setActiveItem('announcement')"
                 :class="{ 'bg-blue-200 rounded-md': activeItem === 'announcement' }"
-                class="my-2 py-1 text-sm flex items-center"
+                class="flex items-center py-1 my-2 text-sm"
               >
                 <img src="../images/announ.png" alt="" class="mr-2" />
                 공지사항
@@ -82,7 +94,7 @@
 
         </div>
       </aside>
-      <div @click="logout" class=" font-[GmarketSansMedium] mt-24 border-gray-300 bg-slate-100 m-3 rounded-md cursor-pointer hover:bg-red-400"><span class="p-2 pb-1 flex justify-center ">로그아웃</span></div>
+      <div @click="logout" class=" font-[GmarketSansMedium] mt-9 border-gray-300 bg-slate-100 m-3 rounded-md cursor-pointer hover:bg-red-400"><span class="flex justify-center p-2 pb-1 ">로그아웃</span></div>
     </div>
   </div>
 </template>

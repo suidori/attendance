@@ -73,6 +73,18 @@ public class VacationController {
         return ResponseEntity.ok(vacationResponsePageDto);
     }
 
+    @GetMapping("/teacher")
+    public ResponseEntity<VacationResponsePageDto> teacherFindAll(
+            @RequestParam(name = "pageNum", defaultValue = "0") int pageNum,
+            @RequestParam(name = "size", defaultValue = "10") int size,
+            @AuthenticationPrincipal LoginUserDetails loginUserDetails){
+        if(loginUserDetails==null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        VacationResponsePageDto vacationResponsePageDto = vacationService.teacherPage(PageUtil.getPageable(pageNum, size), loginUserDetails);
+        return ResponseEntity.ok(vacationResponsePageDto);
+    }
+
     @GetMapping("/manager")
     public ResponseEntity<VacationResponsePageDto> managerFindAll(
             @RequestParam(name = "pageNum", defaultValue = "0") int pageNum,
