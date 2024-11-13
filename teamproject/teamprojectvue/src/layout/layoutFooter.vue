@@ -30,7 +30,7 @@
             </div>
           </template>
           <button
-            @click.stop="doInstall"
+            @click.stop="handleInstallClick"
             class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow-lg flex items-center space-x-2 -mt-1"
           >
             <svg
@@ -56,6 +56,7 @@
 </template>
 
 <script setup>
+import { watchEffect } from 'vue';
 import { useloginStore } from '../stores/loginpinia.js';
 import { storeToRefs } from 'pinia';
 // import { useRouter } from 'vue-router';
@@ -122,33 +123,24 @@ function mapUserRole(userRole) {
 //     console.log('맵핑문제');
 //   }
 // };
-</script>
-<script>
-export default {
-  data() {
-    return {
-      deferredPrompt: null
-    };
-  },
-  mounted() {
-    window.addEventListener('beforeinstallprompt', (event) => {
-      event.preventDefault();
-      this.deferredPrompt = event;
-    });
-  },
-  methods: {
-    async handleInstallClick() {
-      if (this.deferredPrompt) {
-        this.deferredPrompt.prompt();
-        const choiceResult = await this.deferredPrompt.userChoice;
-        if (choiceResult.outcome === 'accepted') {
-          console.log('User accepted the install prompt');
-          this.deferredPrompt = null;
-        }
-      } else {
-        alert('홈 화면에 추가할 수 없습니다.');
-      }
+
+let deferredPrompt = null;
+watchEffect(() => {
+  window.addEventListener('beforeinstallprompt', (event) => {
+    event.preventDefault();
+    deferredPrompt = event;
+  });
+});
+const handleInstallClick = async () => {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    const choiceResult = await this.deferredPrompt.userChoice;
+    if (choiceResult.outcome === 'accepted') {
+      console.log('User accepted the install prompt');
+      deferredPrompt = null;
     }
+  } else {
+    alert('홈 화면에 추가할 수 없습니다.');
   }
 };
 </script>
