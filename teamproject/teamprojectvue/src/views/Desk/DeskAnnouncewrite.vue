@@ -75,7 +75,7 @@ const sub = async () => {
   const data = {
     "title": title.value,
     "body": body.value,
-    "lecture": (selectedlecture.value == "전체") ? null : selectedlecture.value
+    "lecture": (selectedlecture.value == "전체") ? null : lecturelist.value.find(lecture => lecture.title == selectedlecture.value).idx
 }
 
   try {

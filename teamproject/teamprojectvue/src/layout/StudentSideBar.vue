@@ -78,7 +78,7 @@
 
         </div>
       </aside>
-      <div @click="logout" class=" font-[GmarketSansMedium] mt-44 border-gray-300 bg-slate-100 m-3 rounded-md cursor-pointer hover:bg-red-400"><span class="p-2 pb-1 flex justify-center ">로그아웃</span></div>
+      <div @click="logout" class=" font-[GmarketSansMedium] mt-24 border-gray-300 bg-slate-100 m-3 rounded-md cursor-pointer hover:bg-red-400"><span class="p-2 pb-1 flex justify-center ">로그아웃</span></div>
     </div>
   </div>
 </template>
