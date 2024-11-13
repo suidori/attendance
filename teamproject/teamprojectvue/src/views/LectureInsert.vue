@@ -721,7 +721,7 @@ const insertlecture = async () => {
       password: postpassword.value
     };
 
-    const res = await axios.post(`http://192.168.0.5:8080/lecture/save`, data, head);
+    const res = await axios.post(`http://greencomart.kro.kr:716:8080/lecture/save`, data, head);
 
     if (res.status == 200) {
       alert('강좌가 등록 되었습니다.');
@@ -749,7 +749,7 @@ const chengelecturetime = async () => {
     }
   };
 
-  const res = await axios.post(`http://192.168.0.5:8080/lecture/save`, data, head);
+  const res = await axios.post(`http://greencomart.kro.kr:716:8080/lecture/save`, data, head);
 
   alert('시간변경이 완료되었습니다.');
   changemodal.value = true;

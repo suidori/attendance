@@ -66,7 +66,7 @@ import dayjs from 'dayjs';
 const arr = ref([]);
 const user = ref(null);
 
-const now = ref(dayjs().format('YYYY년DD월MM일'));
+const now = ref(dayjs().format('YYYY년MM월DD일'));
 
 const getuser = async () => {
   try {
