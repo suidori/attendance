@@ -4,26 +4,23 @@
       <div class="mt-5 ">
         <div v-if="lecturelist.length > 0" id="lecturelist"
           class="w-1/6 p-4 bg-white border border-blue-500 float-start">
-          <h1>강의목록</h1>
-          <button @click="getlecture(), (isClicked = true)" :class="{ 'bg-green-500': isClicked }"
-            class="px-3 py-2 mr-2 text-white bg-blue-600 rounded hover:opacity-80">
+          <h1 class="text-3xl font-bold text-blue-800 my-5">강의목록</h1>
+          <button @click="getlecture(), (isClicked = true)" :class="{ 'bg-green-600': isClicked }"
+            class="p-1 mr-2 text-white bg-blue-400 rounded hover:opacity-80">
             최신순
           </button>
-          <button @click="desclecture(), (isClicked = false)" :class="{ 'bg-green-500': !isClicked }"
-            class="px-3 py-2 text-white bg-blue-600 rounded hover:opacity-80">
+          <button @click="desclecture(), (isClicked = false)" :class="{ 'bg-green-600': !isClicked }"
+            class="p-1 text-white bg-blue-400 rounded hover:opacity-80">
             과거순
           </button>
           <hr class="my-2 border-blue-500" />
           <div :class="{
-            'bg-blue-500 text-white':
+            'bg-[#e7e7e7]':
               selectedlecture !== null && selectedlecture.title == lecture.title
-          }" class="hover:bg-blue-500 hover:text-white" @click="getmonthatt(lecture, nowDat)"
-            v-for="(lecture, index) in lecturelist" :key="lecture.idx">
-            {{ lecture.title }}
+          }" class="cursor-pointer hover:bg-[#e7e7e7] my-2" @click="getmonthatt(lecture, nowDat)"
+            v-for="(lecture) in lecturelist" :key="lecture.idx">
+            - {{ lecture.title }}
             <br />
-            <div class="mb-3">
-              <hr v-if="index < lecturelist.length - 1" class="my-2 border-blue-500" />
-            </div>
           </div>
         </div>
 
@@ -31,7 +28,7 @@
 
         <div class="float-right w-5/6 p-3 bg-white border-2">
           <div class="w-full">
-            <h1 class="p-5 text-3xl font-bold text-blue-800">-출결리스트-</h1>
+            <h1 class="p-5 text-3xl font-bold text-blue-800">-출결 리스트-</h1>
             <hr class="border-2 border-blue-800" />
 
             <h1 class="relative flex justify-center m-3 text-3xl font-bold text-blue-800">
@@ -62,53 +59,43 @@
                   </svg>
                 </div>
               </button>
-              <p class="absolute right-0 text-sm text-black bg-yellow-200">✔- 정상 출석<br>
-                <span class="text-green-600">■</span>- 지각, 조퇴, 외출<br>
+              <p class="absolute right-0 text-sm text-black bg-yellow-100">◯- 정상 출석<br>
+                <span class="text-green-600">■</span>- 부분 출석<br>
                 <span class="text-red-600">■</span>- 결석<br>
-                <span class="text-blue-600">■</span>- 출석 인정됨
+                <span class="text-blue-600">■</span>- 출석 인정
               </p>
             </h1>
-            <h1 v-if="selectedtitle" class="text-2xl text-green-600">{{ selectedtitle }}</h1>
-
-            <!-- 년도 및 월 선택
-            <div class="flex justify-center">
-              <select v-model="currentYear" @change="dropdate" class="p-2 mx-2 border rounded">
-                <option v-for="year in availableYears" :key="year" :value="year">{{ year }}년</option>
-              </select>
-
-              <select v-model="currentMonth" @change="dropdate" class="p-2 mx-2 border rounded">
-                <option v-for="(month, index) in monthNames" :key="index" :value="index">
-                  {{ month }}
-                </option>
-              </select>
-            </div> -->
+            <h1 v-if="selectedtitle" class="text-2xl text-green-600 font-bold mb-3 ml-5">◆ {{ selectedtitle }}</h1>
+            <h1 v-else class="text-2xl text-green-600">&nbsp;</h1>
 
             <div class="w-full h-[30vw] overflow-auto">
               <table class="w-full">
                 <thead>
-                  <tr class="border">
-                    <th class="w-1/4 p-4">이름</th>
-                    <th v-for="day in arr" :key="day" class="p-4"
-                      :style="{ color: isWeekend(getDayName(day)), backgroundColor: (day +1 == dayjs().format('DD')) ? 'rgb(255,253,157)' : '#eee' }">
+                  <tr class="border border-black">
+                    <th class="w-1/4 p-4 border border-black">이름</th>
+                    <th class="min-w-[4vw] bg-[#d1d0d0]">출결 현황</th>
+                    <th v-for="day in arr" :key="day" class="p-4 border border-black min-w-[4vw]"
+                      :style="{ color: isWeekend(getDayName(day)), backgroundColor: '#d1d0d0' }">
                       {{ getDayName(day) }}
                     </th>
                   </tr>
                 </thead>
                 <tbody v-if="monthatt.length > 0">
-                  <tr v-for="student in monthatt" :key="student.user" class="border bg-[#eee]">
-                    <th class="w-1/4 p-4 bg-indigo-400">{{ student.user }}</th>
-                    <td v-for="day in arr" :key="day" class="p-4 font-bold border-r min-w-20"
-                      :style="{ backgroundColor: (day + 1 == dayjs().format('DD')) ? 'rgb(255,253,157)' : '#eee' }">
+                  <tr v-for="student in monthatt" :key="student.user" class="border border-black bg-[#eee]">
+                    <th class="w-1/4 p-4 h-[2vw] bg-orange-200 border border-black">{{ student.user }}</th>
+                    <th class="border border-black min-w-[4vw] text-sm" v-html="getAttendanceSummary(student.useridx)"></th>
+                    <td v-for="day in arr" :key="day" class="font-bold border-black border-r min-w-[4vw]"
+                      :style="{ backgroundColor: backgroundColor(day)}">
                       <div class="text-center" :style="{ color: getatt(student.attendance[day]) }">
                         {{ getAttendanceType(student.useridx, day) }}
                         <div v-if="appget(student.attendance[day])">
                           <button @click="approve(student.useridx, day, true)"
-                            class="my-2 text-white bg-blue-300 border border-black rounded hover:opacity-80"
+                            class="my-2 text-white bg-blue-300 border border-black rounded hover:opacity-80 text-sm"
                             :style="{ color: 'green' }">
                             승인
                           </button>
                           <button @click="approve(student.useridx, day, null)"
-                            class="text-white bg-blue-300 border border-black rounded hover:opacity-80"
+                            class="text-white bg-blue-300 border border-black rounded hover:opacity-80 text-sm ml-1"
                             :style="{ color: 'red' }">
                             거절
                           </button>
@@ -183,6 +170,13 @@ const updateDaysInMonth = () => {
   }
 };
 
+const backgroundColor = (day) => {
+  if(nowDat.value == dayjs().format('YYYY-MM') && (day + 1 == dayjs().format('DD')) ) {
+    return 'rgb(255,253,157)';
+  } else return '#eee';
+
+}
+
 const dropdate = () => {
   // currentYear와 currentMonth를 사용하여 nowDat을 업데이트
   nowDat.value = dayjs()
@@ -198,19 +192,24 @@ const getDayName = (item) => {
     .year(currentYear.value)
     .month(currentMonth.value)
     .date(item + 1)
-    .format('ddd-DD')
-    .replace('-', '\n'); // 줄바꿈
+    .format('DD (ddd)'); // 줄바꿈
 };
 
 const isWeekend = (test) => {
-  if (/^일/.test(test)) {
-    return 'red';
-  } else if (/^토/.test(test)) {
-    return 'blue';
+  if (/^\d{2} \([가-힣]+\)$/.test(test)) {  // "01 (금)" 형식에 맞는 정규식
+    const dayOfWeek = test.match(/\(([^)]+)\)/)[1]; // 괄호 안의 요일을 추출
+    if (dayOfWeek === '일') {
+      return 'red';  // 일요일이면 빨간색
+    } else if (dayOfWeek === '토') {
+      return 'blue'; // 토요일이면 파란색
+    } else {
+      return 'black'; // 그 외의 요일은 검정색
+    }
   } else {
-    return 'black';
+    return 'black';  // 올바르지 않은 형식은 검정색 처리
   }
 };
+
 
 
 const downdate = () => {
@@ -283,7 +282,8 @@ const getAttendanceType = (useridx, day) => {
 
   // 주말인지 확인
   const dayName = getDayName(day); // 날짜 이름 가져오기
-  const isWeekendDay = /^일/.test(dayName) || /^토/.test(dayName); // 주말 여부 확인
+  const isWeekendDay = /\((일|토)\)/.test(dayName);
+
 
   // 주말이면 '-'
   if (isWeekendDay) return '';
@@ -291,7 +291,7 @@ const getAttendanceType = (useridx, day) => {
   // 해당 날짜에 대해 출결 정보가 없으면 '-'
   const attendanceInfo = studentAttendance.attendance[day];
   if (!attendanceInfo) {
-    return '✔';
+    return '◯';
   }
 
   // 출결 정보가 있다면 해당 유형 반환
@@ -369,6 +369,52 @@ const approve = async (useridx, day, isApproved) => {
       console.error('Approval update failed:', e);
     }
   }
+};
+
+const getAbsentCount = (useridx) => {
+  // 특정 학생의 출결 데이터에서 조건에 맞는 갯수를 세는 함수
+  const studentAttendance = monthatt.value.find((student) => student.useridx === useridx);
+  
+  if (!studentAttendance) return 0; // 학생이 존재하지 않으면 0 반환
+
+  // 조건: approval이 true가 아니고, type이 '결석'인 데이터
+  let count = 0;
+  Object.values(studentAttendance.attendance).forEach((attendance) => {
+    // approval이 true가 아니고 type이 '결석'인 항목
+    if (attendance.approval !== true && attendance.type === '결석') {
+      count++;
+    }
+  });
+
+  return count;
+};
+
+const getNotAbsentOrEmptyCount = (useridx) => {
+  // 특정 학생의 출결 데이터에서 조건에 맞는 갯수를 세는 함수
+  const studentAttendance = monthatt.value.find((student) => student.useridx === useridx);
+  
+  if (!studentAttendance) return 0; // 학생이 존재하지 않으면 0 반환
+
+  // 조건: approval이 true가 아니고, type이 '결석'이 아니고, ''이 아닌 데이터
+  let count = 0;
+  Object.values(studentAttendance.attendance).forEach((attendance) => {
+    // approval이 true가 아니고 type이 '결석'이 아니고, ''이 아닌 항목
+    if (attendance.approval !== true && attendance.type !== '결석' && attendance.type !== '') {
+      count++;
+    }
+  });
+
+  return count;
+};
+
+const getAttendanceSummary = (useridx) => {
+  const absentCount = getAbsentCount(useridx);
+  const notAbsentOrEmptyCount = getNotAbsentOrEmptyCount(useridx);
+
+  const totalAbsent = absentCount + Math.floor(notAbsentOrEmptyCount / 3);
+  const partialAttendance = notAbsentOrEmptyCount % 3;
+
+  return `결석 ${totalAbsent}<br>부분출석 ${partialAttendance}`;
 };
 
 onMounted(() => {

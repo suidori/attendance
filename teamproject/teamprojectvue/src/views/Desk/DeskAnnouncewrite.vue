@@ -1,15 +1,16 @@
 <template>
-  <div class>
+  <div class=" w-full">
+    <div class="m-5 border border-black">
     <div class="w-1/2 mx-auto min-w-80">
       <div class="">
-        <h1 class="pt-10 font-extrabold text-blue-900">공지사항</h1>
+        <h1 class="pt-10 font-extrabold text-blue-900">공지사항 작성</h1>
       </div>
       <hr class="border-t border-gray-300" />
       <div>
-        <p class="py-6 font-bold text-blue-900">제목</p>
+        <p class="py-4 font-bold text-blue-900">제목</p>
         <div>
           <input type="text" v-model="title" placeholder="제목을 입력하세요"
-            class="w-1/2 transition-all duration-300 ease-in-out border border-gray-300 rounded-md resize-none focus:outline-none focus:ring-2 focus:border-transparent">
+            class="w-full transition-all duration-300 ease-in-out border border-gray-300 rounded-md resize-none focus:outline-none focus:ring-2 focus:border-transparent">
         </div>
         <div>
           <p class="py-6 font-bold text-blue-900">내용</p>
@@ -26,7 +27,7 @@
           </select>
         </div>
         <div class="flex justify-end">
-          <button @click="sub" type="button" class="p-2 text-white bg-blue-600 border-2 rounded-lg hover:opacity-85">
+          <button @click="sub" type="button" class="p-2 pl-5 pr-5 text-white bg-blue-600 border-2 rounded-lg hover:opacity-85">
             제출
           </button>
         </div>
@@ -37,7 +38,7 @@
     </div>
   </div>
   <div class="mb-64">
-
+  </div>
   </div>
 </template>
 

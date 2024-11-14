@@ -1,13 +1,13 @@
 <template>
   <div class="ml-3 border p-10">
     <div id="user" class="">
-      <h1 v-if="user">{{ user.name }} 학생 출결 관리</h1>
-      <p v-if="useravail" class="text-green-600">수강중: {{ attlist.at(0).lecture }}</p>
-      <p v-if="!useravail" class="text-red-600">{{ usererror }}</p>
+      <h1 class="text-3xl font-bold" v-if="user">{{ user.name }} 학생 출결 관리</h1>
+      
     </div>
     <hr class="border-b border-blue-400 mt-4" />
     <div id="main" class="items-center justify-center mt-10 w-[68rem]">
-      <p v-if="useravail">- {{ attlist.at(0).lecture }} 강좌 출결 관리 -</p>
+      <p v-if="useravail" class="text-green-600 text-2xl font-bold">◆ {{ attlist.at(0).lecture }}</p>
+      <p v-if="!useravail" class="text-red-600 text-2xl font-bold">◆ {{ usererror }}</p>
 
       <div v-if="useravail" id="attendance" class="flex">
         <div id="calander" class="w-full p-4 bg-white rounded-lg shadow-md min-w-72">
@@ -29,15 +29,17 @@
             <div class="p-2 px-4">금</div>
             <div class="p-2 px-4 text-blue-500">토</div>
           </div>
-          <div class="grid grid-cols-7 gap-2" v-for="group in groupColumns" :key="group.length">
+          <div class="grid grid-cols-7 border border-black" v-for="group in groupColumns" :key="group.length">
             <div
               @click="selectDateFn(column, index)"
               v-for="(column, index) in group"
               :key="column.format('YYYY-MM-DD')"
-              class="p-2 text-center cursor-pointer hover:bg-blue-200 min-h-24 max-h-36"
+              class="p-2 text-center cursor-pointer hover:bg-blue-200 min-h-24 max-h-36 border-x border-black"
               :class="{
                 'text-red-600': index % 7 == 0,
                 'text-blue-600': index % 7 == 6,
+                'bg-gray-200': index % 7 == 0 || index % 7 == 6,
+                'bg-red-200': column.format('YYYY-MM-DD') == dayjs().format('YYYY-MM-DD'),
                 'opacity-20': !column.isSame(now, 'month')
               }"
             >
@@ -224,9 +226,11 @@ import { ref, watch, onMounted } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
 import dayjs from 'dayjs';
+import 'dayjs/locale/ko';
+
 
 // import StudentSideBar from '@/layout/StudentSideBar.vue';
-
+dayjs.locale('ko');
 const now = ref(dayjs());
 const columns = ref([]);
 const groupColumns = ref([]);

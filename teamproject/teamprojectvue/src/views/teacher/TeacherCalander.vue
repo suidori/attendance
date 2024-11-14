@@ -1,30 +1,29 @@
 <template>
   <div class="flex justify-center w-full">
         <div v-if="lecturelist.length > 0" id="lecturelist" class="w-1/6 p-4 bg-white border border-blue-500">
-          <h1>강의목록</h1>
-          <button @click="getlecture, (isClicked = true)" :class="{ 'bg-green-500': isClicked }"
-            class="px-4 py-2 mr-2 text-white bg-blue-600 rounded hover:opacity-80">
+          <h1 class="text-3xl font-bold text-blue-800 my-5">강의목록</h1>
+          <button @click="getlecture(), (isClicked = true)" :class="{ 'bg-green-600': isClicked }"
+            class="p-1 mr-2 text-white bg-blue-400 rounded hover:opacity-80">
             최신순
           </button>
-          <button @click="desclecture, (isClicked = false)" :class="{ 'bg-green-500': !isClicked }"
-            class="px-4 py-2 text-white bg-blue-600 rounded hover:opacity-80">
+          <button @click="desclecture(), (isClicked = false)" :class="{ 'bg-green-600': !isClicked }"
+            class="p-1 text-white bg-blue-400 rounded hover:opacity-80">
             과거순
           </button>
           <hr class="my-2 border-blue-500" />
 
           <div :class="{
-            'bg-blue-500 text-white': selectedlecture !== null && selectedlecture == lecture.idx
-          }" class="hover:bg-blue-500 hover:text-white" @click="getmonthatt(lecture.idx, nowDat)"
-            v-for="(lecture, index) in lecturelist" :key="lecture.idx">
-            {{ lecture.title }}
-            <hr v-if="index < lecturelist.length - 1" class="my-2 border-blue-500" />
+            'bg-[#e7e7e7]': selectedlecture !== null && selectedlecture == lecture.idx
+          }" class="hover:bg-[#e7e7e7] my-2" @click="getmonthatt(lecture.idx, nowDat)"
+            v-for="(lecture) in lecturelist" :key="lecture.idx">
+            - {{ lecture.title }}
           </div>
         </div>
 
 
 
         <div class="w-4/5 p-3 bg-white border-2">
-          <h1 class="p-5 text-3xl font-bold text-blue-800">-출결리스트-</h1>
+          <h1 class="p-5 text-3xl font-bold text-blue-800">-출결 리스트-</h1>
           <hr class="border-2 border-blue-800" />
 
           <h1 class="relative flex justify-center m-3 text-3xl font-bold text-blue-800">
@@ -56,31 +55,33 @@
                 </svg>
               </div>
             </button>
-            <p class="absolute right-0 text-sm text-black bg-yellow-200">✔- 정상 출석<br>
-              <span class="text-green-600">■</span>- 지각, 조퇴, 외출<br>
+            <p class="absolute right-0 text-sm text-black bg-yellow-100">◯- 정상 출석<br>
+              <span class="text-green-600">■</span>- 부분 출석<br>
               <span class="text-red-600">■</span>- 결석<br>
-              <span class="text-blue-600">■</span>- 출석 인정됨
+              <span class="text-blue-600">■</span>- 출석 인정
             </p>
           </h1>
-          <h1 v-if="selectedlecture" class="text-2xl text-green-600">{{ lecturelist.find(lecture => lecture.idx ==
+          <h1 v-if="selectedlecture" class="text-2xl text-green-600 font-bold mb-3 ml-5">◆ {{ lecturelist.find(lecture => lecture.idx ==
             selectedlecture).title }}</h1>
 
           <div class="w-full h-[30vw] overflow-auto">
             <table class="w-full">
               <thead>
-                <tr class="border">
+                <tr class="border border-black">
                   <th class="w-1/4 p-4">이름</th>
-                  <th v-for="day in arr" :key="day" class="p-4"
-                    :style="{ color: isWeekend(getDayName(day)), backgroundColor: (day + 1 == dayjs().format('DD')) ? 'rgb(255,253,157)' : '#eee' }">
+                  <th class="min-w-[4vw] bg-[#d1d0d0]">출결 현황</th>
+                  <th v-for="day in arr" :key="day" class="p-4 border border-black"
+                    :style="{ color: isWeekend(getDayName(day)), backgroundColor: '#d1d0d0'}">
                     {{ getDayName(day) }}
                   </th>
                 </tr>
               </thead>
               <tbody v-if="monthatt.length > 0">
-                <tr v-for="student in monthatt" :key="student.user" class="border bg-[#eee]">
-                  <th class="w-1/4 p-4 bg-indigo-400">{{ student.user }}</th>
-                  <td v-for="day in arr" :key="day" class="p-4 font-bold border-r min-w-20 "
-                    :style="{ backgroundColor: (day + 1 == dayjs().format('DD')) ? 'rgb(255,253,157)' : '#eee' }">
+                <tr v-for="student in monthatt" :key="student.user" class="border border-black bg-[#eee]">
+                  <th class="w-1/4 p-4 border border-black bg-orange-200">{{ student.user }}</th>
+                  <th class="border border-black min-w-[4vw] text-sm" v-html="getAttendanceSummary(student.useridx)"></th>
+                  <td v-for="day in arr" :key="day" class="p-4 font-bold border-black border-r min-w-20 "
+                    :style="{ backgroundColor: backgroundColor(day) }">
                     <div class="text-center" :style="{ color: getatt(student.attendance[day]) }">
                       {{ getAttendanceType(student.user, day) }}
                     </div>
@@ -150,6 +151,13 @@ const updateDaysInMonth = () => {
   getmonthatt(selectedlecture.value, nowDat.value);
 };
 
+const backgroundColor = (day) => {
+  if(nowDat.value == dayjs().format('YYYY-MM') && (day + 1 == dayjs().format('DD')) ) {
+    return 'rgb(255,253,157)';
+  } else return '#eee';
+
+}
+
 const dropdate = () => {
   // currentYear와 currentMonth를 사용하여 nowDat을 업데이트
   nowDat.value = dayjs().year(currentYear.value).month(currentMonth.value).format('YYYY-MM');
@@ -161,17 +169,21 @@ const getDayName = (item) => {
     .year(currentYear.value)
     .month(currentMonth.value)
     .date(item + 1)
-    .format('ddd-DD')
-    .replace('-', '\n'); // 줄바꿈
+    .format('DD (ddd)');
 };
 
 const isWeekend = (test) => {
-  if (/^일/.test(test)) {
-    return 'red';
-  } else if (/^토/.test(test)) {
-    return 'blue';
+  if (/^\d{2} \([가-힣]+\)$/.test(test)) {  // "01 (금)" 형식에 맞는 정규식
+    const dayOfWeek = test.match(/\(([^)]+)\)/)[1]; // 괄호 안의 요일을 추출
+    if (dayOfWeek === '일') {
+      return 'red';  // 일요일이면 빨간색
+    } else if (dayOfWeek === '토') {
+      return 'blue'; // 토요일이면 파란색
+    } else {
+      return 'black'; // 그 외의 요일은 검정색
+    }
   } else {
-    return 'black';
+    return 'black';  // 올바르지 않은 형식은 검정색 처리
   }
 };
 
@@ -243,14 +255,14 @@ const getAttendanceType = (username, day) => {
 
   // 주말인지 확인
   const dayName = getDayName(day); // 날짜 이름 가져오기
-  const isWeekendDay = /^일/.test(dayName) || /^토/.test(dayName); // 주말 여부 확인
+  const isWeekendDay = /\((일|토)\)/.test(dayName);
 
   // 주말이면 ''
   if (isWeekendDay) return '';
 
   // 해당 날짜에 출결 정보가 없다면 '출석' 반환
   if (!studentAttendance.attendance[day]) {
-    return '✔';
+    return '◯';
   }
 
   // 출결 정보가 있다면 해당 유형 반환
@@ -295,6 +307,52 @@ const getatt = (attendance) => {
   } else {
     return 'black';
   }
+};
+
+const getAbsentCount = (useridx) => {
+  // 특정 학생의 출결 데이터에서 조건에 맞는 갯수를 세는 함수
+  const studentAttendance = monthatt.value.find((student) => student.useridx === useridx);
+  
+  if (!studentAttendance) return 0; // 학생이 존재하지 않으면 0 반환
+
+  // 조건: approval이 true가 아니고, type이 '결석'인 데이터
+  let count = 0;
+  Object.values(studentAttendance.attendance).forEach((attendance) => {
+    // approval이 true가 아니고 type이 '결석'인 항목
+    if (attendance.approval !== true && attendance.type === '결석') {
+      count++;
+    }
+  });
+
+  return count;
+};
+
+const getNotAbsentOrEmptyCount = (useridx) => {
+  // 특정 학생의 출결 데이터에서 조건에 맞는 갯수를 세는 함수
+  const studentAttendance = monthatt.value.find((student) => student.useridx === useridx);
+  
+  if (!studentAttendance) return 0; // 학생이 존재하지 않으면 0 반환
+
+  // 조건: approval이 true가 아니고, type이 '결석'이 아니고, ''이 아닌 데이터
+  let count = 0;
+  Object.values(studentAttendance.attendance).forEach((attendance) => {
+    // approval이 true가 아니고 type이 '결석'이 아니고, ''이 아닌 항목
+    if (attendance.approval !== true && attendance.type !== '결석' && attendance.type !== '') {
+      count++;
+    }
+  });
+
+  return count;
+};
+
+const getAttendanceSummary = (useridx) => {
+  const absentCount = getAbsentCount(useridx);
+  const notAbsentOrEmptyCount = getNotAbsentOrEmptyCount(useridx);
+
+  const totalAbsent = absentCount + Math.floor(notAbsentOrEmptyCount / 3);
+  const partialAttendance = notAbsentOrEmptyCount % 3;
+
+  return `결석 ${totalAbsent}<br>부분출석 ${partialAttendance}`;
 };
 
 onMounted(async () => {

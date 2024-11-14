@@ -19,7 +19,6 @@
         </div>
         <div v-if="lecturelist.length>0">
           <select v-model="selectedlecture" name="" id="">
-            <option value="전체">전체</option>
             <option v-for="lecture in lecturelist" :key="lecture.idx" :value="lecture.title">
               {{ lecture.title }}
             </option>
@@ -49,7 +48,7 @@ import { useRouter } from 'vue-router';
 const lecturelist = ref([]);
 const title = ref('');
 const body = ref('');
-const selectedlecture = ref("전체");
+const selectedlecture = ref('');
 const router = useRouter();
 
 const getlecture = async () => {
@@ -80,7 +79,7 @@ const sub = async () => {
   const data = {
     "title": title.value,
     "body": body.value,
-    "lecture": (selectedlecture.value == "전체") ? null : lecturelist.value.find(lecture => lecture.title == selectedlecture.value).idx
+    "lecture": lecturelist.value.find(lecture => lecture.title == selectedlecture.value).idx
 }
 
   try {

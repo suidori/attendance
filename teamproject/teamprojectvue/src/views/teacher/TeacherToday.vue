@@ -3,8 +3,8 @@
     <div class="">
       <div class="m-10">
         <div class="flex justify-between">
-          <h1 class="m-3 inline-block" v-if="user">
-            <span class="font-bold">{{ user.name }}</span> 선생님, 환영합니다.
+          <h1 class="m-3 inline-block text-2xl font-bold" v-if="user">
+            <span class="font-bold ">{{ user.name }}</span> 선생님, 환영합니다.
           </h1>
           <h1 class="m-3 inline-block" v-if="user">
             {{ now }}
