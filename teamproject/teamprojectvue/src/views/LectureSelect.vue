@@ -156,30 +156,30 @@ onMounted(() => {
 })
 
 // 모달 열기/닫기 상태를 관리하는 ref
-const isModalOpen = ref(false);
+// const isModalOpen = ref(false);
 const selectedCourse = ref(null);
 const isConfirmModalOpen = ref(false);
 
-// 모달 열기 함수
-function openModal(course) {
+// // 모달 열기 함수
+// function openModal(course) {
 
-  selectedCourse.value = course;
-  isModalOpen.value = true;
-}
+//   selectedCourse.value = course;
+//   isModalOpen.value = true;
+// }
 
-// 모달 닫기 함수
-function closeModal() {
-  isModalOpen.value = false;
-  selectedCourse.value = null;
-}
+// // 모달 닫기 함수
+// function closeModal() {
+//   isModalOpen.value = false;
+//   selectedCourse.value = null;
+// }
 
-function openConfirmModal(){
-  isConfirmModalOpen.value = true;
-}
-function closeConfirmModal(){
-  isConfirmModalOpen.value = false;
-  isModalOpen.value = false;
-}
+// function openConfirmModal(){
+//   isConfirmModalOpen.value = true;
+// }
+// function closeConfirmModal(){
+//   isConfirmModalOpen.value = false;
+//   isModalOpen.value = false;
+// }
 
 </script>
 
