@@ -1,127 +1,95 @@
 <template>
-  <div class="flex justify-center w-full pb-14">
+  <div class="flex justify-center w-full">
+        <div v-if="lecturelist.length > 0" id="lecturelist" class="w-1/6 p-4 bg-white border border-blue-500">
+          <h1>강의목록</h1>
+          <button @click="getlecture, (isClicked = true)" :class="{ 'bg-green-500': isClicked }"
+            class="px-4 py-2 mr-2 text-white bg-blue-600 rounded hover:opacity-80">
+            최신순
+          </button>
+          <button @click="desclecture, (isClicked = false)" :class="{ 'bg-green-500': !isClicked }"
+            class="px-4 py-2 text-white bg-blue-600 rounded hover:opacity-80">
+            과거순
+          </button>
+          <hr class="my-2 border-blue-500" />
+
+          <div :class="{
+            'bg-blue-500 text-white': selectedlecture !== null && selectedlecture == lecture.idx
+          }" class="hover:bg-blue-500 hover:text-white" @click="getmonthatt(lecture.idx, nowDat)"
+            v-for="(lecture, index) in lecturelist" :key="lecture.idx">
+            {{ lecture.title }}
+            <hr v-if="index < lecturelist.length - 1" class="my-2 border-blue-500" />
+          </div>
+        </div>
 
 
 
-    <div
-      v-if="lecturelist.length > 0"
-      id="lecturelist"
-      class="w-1/6 p-4 border border-blue-500 bg-white"
-    >
-      <h1>강의목록</h1>
-      <button
-        @click="getlecture, (isClicked = true)"
-        :class="{ 'bg-green-500': isClicked }"
-        class="px-4 py-2 text-white bg-blue-600 rounded hover:opacity-80 mr-2"
-      >
-        최신순
-      </button>
-      <button
-        @click="desclecture, (isClicked = false)"
-        :class="{ 'bg-green-500': !isClicked }"
-        class="px-4 py-2 text-white bg-blue-600 rounded hover:opacity-80"
-      >
-        과거순
-      </button>
-      <hr class="my-2 border-blue-500" />
+        <div class="w-4/5 p-3 bg-white border-2">
+          <h1 class="p-5 text-3xl font-bold text-blue-800">-출결리스트-</h1>
+          <hr class="border-2 border-blue-800" />
 
-      <div
-        :class="{
-          'bg-blue-500 text-white': selectedlecture !== null && selectedlecture == lecture.idx
-        }"
-        class="hover:bg-blue-500 hover:text-white"
-        @click="getmonthatt(lecture.idx, nowDat)"
-        v-for="(lecture, index) in lecturelist"
-        :key="lecture.idx"
-      >
-        {{ lecture.title }}
-        <hr v-if="index < lecturelist.length - 1" class="my-2 border-blue-500" />
-      </div>
-    </div>
+          <h1 class="relative flex justify-center m-3 text-3xl font-bold text-blue-800">
+            <button class="mb-2 mr-2 hover:scale-150" @click="downdate()">
+              <div>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                  stroke="currentColor" class="size-6">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="m18.75 4.5-7.5 7.5 7.5 7.5m-6-15L5.25 12l7.5 7.5" />
+                </svg>
+              </div>
+            </button>
+            <select v-model="currentYear" @change="dropdate" class="p-2 mx-2 border rounded">
+              <option v-for="year in availableYears" :key="year" :value="year">{{ year }}년</option>
+            </select>
+            <select v-model="currentMonth" @change="dropdate" class="p-2 mx-2 border rounded">
+              <option v-for="(month, index) in monthNames" :key="index" :value="index">
+                {{ month }}
+              </option>
+            </select>
 
 
+            <button class="mb-2 ml-2 hover:scale-150" @click="update()">
+              <div>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                  stroke="currentColor" class="size-6">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5" />
+                </svg>
+              </div>
+            </button>
+            <p class="absolute right-0 text-sm text-black bg-yellow-200">✔- 정상 출석<br>
+              <span class="text-green-600">■</span>- 지각, 조퇴, 외출<br>
+              <span class="text-red-600">■</span>- 결석<br>
+              <span class="text-blue-600">■</span>- 출석 인정됨
+            </p>
+          </h1>
+          <h1 v-if="selectedlecture" class="text-2xl text-green-600">{{ lecturelist.find(lecture => lecture.idx ==
+            selectedlecture).title }}</h1>
 
-    <div class="w-4/5 p-3 border-2 bg-white">
-      <h1 class="p-5 text-3xl font-bold text-blue-800">-출결리스트-</h1>
-      <hr class="border-2 border-blue-800" />
-
-
-      <h1 class="flex justify-center m-3 text-3xl font-bold text-blue-800">
-        <button class="mb-2 mr-2 hover:scale-150" @click="downdate()">
-                <div>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="1.5"
-                    stroke="currentColor"
-                    class="size-6"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="m18.75 4.5-7.5 7.5 7.5 7.5m-6-15L5.25 12l7.5 7.5"
-                    />
-                  </svg>
-                </div>
-              </button>
-
-        {{ nowDat }}
-
-
-        <button class="mb-2 ml-2 hover:scale-150" @click="update()">
-                <div>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="1.5"
-                    stroke="currentColor"
-                    class="size-6"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5"
-                    />
-                  </svg>
-                </div>
-              </button>
-      </h1>
-      <div class="w-full overflow-auto">
-        <table class="w-full">
-          <thead>
-            <tr class="border">
-              <th class="w-1/4 p-4">이름</th>
-              <th
-                v-for="day in arr"
-                :key="day"
-                class="p-4"
-                :style="{ color: isWeekend(getDayName(day)) }"
-              >
-                {{ getDayName(day) }}
-              </th>
-            </tr>
-          </thead>
-          <tbody v-if="monthatt.length > 0">
-            <tr v-for="student in monthatt" :key="student.user" class="border bg-[#eee]">
-              <th class="w-1/4 p-4 bg-indigo-400">{{ student.user }}</th>
-              <td
-                v-for="day in arr"
-                :key="day"
-                class="p-4 font-bold border-r min-w-20"
-                :style="{ color: isWeekend(getDayName(day)) }"
-              >
-                <div class="text-center" :style="{ color: getatt(student.attendance[day]) }">
-                  {{ getAttendanceType(student.user, day) }}
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    
+          <div class="w-full h-[30vw] overflow-auto">
+            <table class="w-full">
+              <thead>
+                <tr class="border">
+                  <th class="w-1/4 p-4">이름</th>
+                  <th v-for="day in arr" :key="day" class="p-4"
+                    :style="{ color: isWeekend(getDayName(day)), backgroundColor: (day + 1 == dayjs().format('DD')) ? 'rgb(255,253,157)' : '#eee' }">
+                    {{ getDayName(day) }}
+                  </th>
+                </tr>
+              </thead>
+              <tbody v-if="monthatt.length > 0">
+                <tr v-for="student in monthatt" :key="student.user" class="border bg-[#eee]">
+                  <th class="w-1/4 p-4 bg-indigo-400">{{ student.user }}</th>
+                  <td v-for="day in arr" :key="day" class="p-4 font-bold border-r min-w-20 "
+                    :style="{ backgroundColor: (day + 1 == dayjs().format('DD')) ? 'rgb(255,253,157)' : '#eee' }">
+                    <div class="text-center" :style="{ color: getatt(student.attendance[day]) }">
+                      {{ getAttendanceType(student.user, day) }}
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
   </div>
 </template>
 
@@ -130,9 +98,14 @@ import { ref, onMounted } from 'vue';
 import dayjs from 'dayjs';
 import axios from 'axios';
 import 'dayjs/locale/ko';
+import timezone from 'dayjs/plugin/timezone';
+import utc from 'dayjs/plugin/utc';
 
 const isClicked = ref(true);
 
+dayjs.extend(utc);
+dayjs.extend(timezone);
+dayjs.tz.setDefault("Asia/Seoul");
 dayjs.locale('ko');
 
 const arr = ref([]); // 날짜 배열
@@ -272,8 +245,8 @@ const getAttendanceType = (username, day) => {
   const dayName = getDayName(day); // 날짜 이름 가져오기
   const isWeekendDay = /^일/.test(dayName) || /^토/.test(dayName); // 주말 여부 확인
 
-  // 주말이면 '-'
-  if (isWeekendDay) return '■';
+  // 주말이면 ''
+  if (isWeekendDay) return '';
 
   // 해당 날짜에 출결 정보가 없다면 '출석' 반환
   if (!studentAttendance.attendance[day]) {

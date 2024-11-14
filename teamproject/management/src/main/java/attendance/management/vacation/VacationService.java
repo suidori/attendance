@@ -174,5 +174,16 @@ public class VacationService {
         Vacation vacation = vacationRepository.findById(idx).orElseThrow(()->new BizException(ErrorCode.REQUEST_NOT_FOUND));
         attendanceService.saveVacation(vacation);
     }
+
+    public VacationResponsePageDto teacherPage(Pageable pageable, LoginUserDetails loginUserDetails) {
+
+        UserAndLecture userAndLecture = userAndLectureRepository
+                .findByUser_IdxAndState(loginUserDetails.getIdx(), 1)
+                .orElseThrow(()->new BizException(ErrorCode.LECTURE_NOT_FOUND));
+
+        Page<Vacation> page = vacationRepository.findByLecture_Idx(userAndLecture.getLecture().getIdx(), pageable);
+        return mapToVacationResponsePageDto(page);
+
+    }
 }
 

@@ -16,7 +16,7 @@ export const userdata = async () => {
       }
     });
     console.log('res' + JSON.stringify(res.data.role));
-    doLogin(res.data.name, res.data.role);
+    doLogin(res.data.name, res.data.role, res.data.accept);
   } catch (e) {
     const logincheck = useloginStore();
     logincheck.loginchecktrue();
