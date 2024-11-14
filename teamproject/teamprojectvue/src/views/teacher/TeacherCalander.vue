@@ -71,7 +71,7 @@
                 <tr class="border">
                   <th class="w-1/4 p-4">이름</th>
                   <th v-for="day in arr" :key="day" class="p-4"
-                    :style="{ color: isWeekend(getDayName(day)), backgroundColor: (day == dayjs().format('DD')) ? 'rgb(255,253,157)' : '#eee' }">
+                    :style="{ color: isWeekend(getDayName(day)), backgroundColor: (day + 1 == dayjs().format('DD')) ? 'rgb(255,253,157)' : '#eee' }">
                     {{ getDayName(day) }}
                   </th>
                 </tr>
@@ -80,7 +80,7 @@
                 <tr v-for="student in monthatt" :key="student.user" class="border bg-[#eee]">
                   <th class="w-1/4 p-4 bg-indigo-400">{{ student.user }}</th>
                   <td v-for="day in arr" :key="day" class="p-4 font-bold border-r min-w-20 "
-                    :style="{ backgroundColor: (day == dayjs().format('DD')) ? 'rgb(255,253,157)' : '#eee' }">
+                    :style="{ backgroundColor: (day + 1 == dayjs().format('DD')) ? 'rgb(255,253,157)' : '#eee' }">
                     <div class="text-center" :style="{ color: getatt(student.attendance[day]) }">
                       {{ getAttendanceType(student.user, day) }}
                     </div>
@@ -98,9 +98,14 @@ import { ref, onMounted } from 'vue';
 import dayjs from 'dayjs';
 import axios from 'axios';
 import 'dayjs/locale/ko';
+import timezone from 'dayjs/plugin/timezone';
+import utc from 'dayjs/plugin/utc';
 
 const isClicked = ref(true);
 
+dayjs.extend(utc);
+dayjs.extend(timezone);
+dayjs.tz.setDefault("Asia/Seoul");
 dayjs.locale('ko');
 
 const arr = ref([]); // 날짜 배열
