@@ -63,6 +63,8 @@ import axios from 'axios';
 import { onMounted, ref } from 'vue';
 import dayjs from 'dayjs';
 
+import { useRouter } from 'vue-router';
+
 const arr = ref([]);
 const user = ref(null);
 
@@ -99,6 +101,10 @@ const teachercheck = async (idx) => {
 onMounted(() => {
   getuser();
   todayview();
+
+  if(localStorage.getItem('token')==null){
+    router.push({name:'loginview'})
+  }
 });
 
 const todayview = async () => {
