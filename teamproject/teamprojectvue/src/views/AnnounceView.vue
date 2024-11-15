@@ -73,6 +73,10 @@ onMounted( async()=>{
    user.value = res.data.user
    lecture.value = res.data.lecture
 
+
+   if(localStorage.getItem('token')==null){
+    router.push({name:'loginview'})
+  }
 })
 
 </script>

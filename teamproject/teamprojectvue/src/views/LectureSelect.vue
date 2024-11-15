@@ -145,6 +145,10 @@ onMounted(() => {
     ismanager.value = true;
   }
   getavaillecture()
+
+  if(localStorage.getItem('token')==null){
+    router.push({name:'loginview'})
+  }
 })
 
 </script>

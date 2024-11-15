@@ -128,6 +128,9 @@
 <script setup>
 import { onMounted, onUnmounted, ref } from 'vue';
 import axios from 'axios';
+import { useRouter } from 'vue-router';
+
+const router = useRouter()
 
 //모달창 변수
 const modal = ref(false);
@@ -245,6 +248,14 @@ const getavaillecture = async () => {
     console.log(e);
   }
 }
+
+onMounted(()=>{
+
+  if(localStorage.getItem('token')==null){
+    router.push({name:'loginview'})
+  }
+
+})
 </script>
 
 <style lang="scss" scoped></style>

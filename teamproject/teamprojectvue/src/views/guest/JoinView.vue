@@ -140,7 +140,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { checkPhapi } from '@/api/joinapi';
 import { checkI } from '@/api/joinapi';
@@ -272,6 +272,7 @@ const cansel = () => {
 
   router.push({name:'loginview'})
 }
+
 
 
 </script>

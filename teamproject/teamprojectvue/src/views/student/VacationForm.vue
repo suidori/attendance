@@ -209,6 +209,10 @@ const showuser = async () => {
 
 onMounted(()=>{
   showuser()
+
+  if(localStorage.getItem('token')==null){
+    router.push({name:'loginview'})
+  }
 })
 
 

@@ -295,5 +295,9 @@ router.push({name:'teacherannouncewrite'})
 onMounted(() => {
   fetchannounce(currentPage.value);
   getlecture();
+  
+  if(localStorage.getItem('token')==null){
+    router.push({name:'loginview'})
+  }
 });
 </script>
