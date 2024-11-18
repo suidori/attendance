@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import LoginView from '../views/guest/LoginView.vue'
 // import LoginHome from '@/views/LoginHome.vue'
-import LaboView from '@/views/LaboView.vue'
 import VacationForm from '@/views/student/VacationForm.vue'
 import JoinView from '@/views/guest/JoinView.vue'
 import Mypage from '@/views/MyPage.vue'
@@ -117,11 +116,6 @@ const router = createRouter({
       component: JoinView
     },
     {
-      path: '/laboview',
-      name: 'laboview',
-      component: LaboView
-    },
-    {
       path: '/vacationform',
       name: 'vacationform',
       component: VacationForm
@@ -184,14 +178,12 @@ const router = createRouter({
     },
   ],
 
-  scrollBehavior (to, from, savePositior){
+
+  scrollBehavior (to, from, savePositior){ //라우터시 스크롤 맨위로 올라가게해줌
 
     return {top : 0}
   }
-
-
 })
-
 
 
 export default router

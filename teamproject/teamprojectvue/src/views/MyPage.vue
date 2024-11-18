@@ -11,7 +11,7 @@
             <img v-if="role === '학원생'" src="../images/stude.jpg" alt="Student Image" class="w-40" />
             <img v-else-if="role === '선생님'" src="../images/Teacha.jpg" alt="Teacher Image" class="w-40" />
             <img v-else-if="role === '매니저'" src="../images/manager.jpg" alt="Manager Image" class="w-40" />
-            <img v-else src="../images/default.jpg" alt="Default Image" class="w-40" />
+            <!-- <img v-else src="../images/default.jpg" alt="Default Image" class="w-40" />/ -->
           </aside>
 
           <!-- 사용자 정보 영역 -->

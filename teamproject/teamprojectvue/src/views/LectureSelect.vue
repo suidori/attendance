@@ -68,7 +68,8 @@ import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useloginStore } from '@/stores/loginpinia';
 import { storeToRefs } from 'pinia';
-import axios from 'axios';
+import { getavaillectureapi } from '@/api/lectureapi';
+import { lecturejoinapi } from '@/api/lectureapi';
 
 const loginstore = useloginStore()
 
@@ -82,10 +83,7 @@ const selectedlecture = ref(null);
 const password = ref('');
 const ismanager = ref(false);
 
-
 const { userrl } = storeToRefs(loginstore)
-
-
 
 const lectureinfo = (lecture) => {
   if (selectedlecture.value == null) { selectedlecture.value = lecture; }
@@ -105,8 +103,9 @@ const golectureinsert = () => {
 // };
 
 const getavaillecture = async () => {
+
   try {
-    const res = await axios.get('http://greencomart.kro.kr:716/lecture/availlist');
+    const res = await getavaillectureapi()
     courses.value = res.data;
   } catch (e) {
     console.log(e)
@@ -119,15 +118,13 @@ const lecturejoin = async (idx) => {
       "idx": idx,
       "password": password.value
     }
-    const token = localStorage.getItem('token');
-    const res = await axios.post('http://greencomart.kro.kr:716/lecture/join', data, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
+
+    const res = await lecturejoinapi(data)
     console.log(res.data);
     alert('가입되었습니다.')
     selectedlecture.value=null;
+
+
   } catch (e) {
     if(e.response.data.message=='틀린 비밀번호입니다.'){
       alert(e.response.data.message)
@@ -135,6 +132,7 @@ const lecturejoin = async (idx) => {
     }else{console.log(e)}
   }
 }
+
 
 onMounted(() => {
 

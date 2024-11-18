@@ -59,8 +59,10 @@
 </template>
 
 <script setup>
-import axios from 'axios';
 import { onMounted, ref } from 'vue';
+import { getuserapi } from '@/api/teacher';
+import { teachercheckapi } from '@/api/teacher';
+import { todayviewapi } from '@/api/teacher';
 import dayjs from 'dayjs';
 
 const arr = ref([]);
@@ -69,14 +71,9 @@ const user = ref(null);
 const now = ref(dayjs().format('YYYY년MM월DD일'));
 
 const getuser = async () => {
-  try {
-    const token = localStorage.getItem('token');
 
-    const res = await axios.get(`http://greencomart.kro.kr:716/user/getuser`, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
+  try {
+    const res = getuserapi()
     user.value = res.data;
   } catch (e) {
     console.log(e);
@@ -84,10 +81,13 @@ const getuser = async () => {
 };
 
 const teachercheck = async (idx) => {
+
   try {
-    await axios.post(`http://greencomart.kro.kr:716/attendance/teacheraccept/${idx}`);
+    
+       await teachercheckapi(idx)
 
     const item = arr.value.find((student) => student.idx === idx);
+
     if (item) {
       item.teacheraccept = '담당교사 확인 완료';
     }
@@ -96,19 +96,10 @@ const teachercheck = async (idx) => {
   }
 };
 
-onMounted(() => {
-  getuser();
-  todayview();
-});
-
 const todayview = async () => {
   try {
-    const token = localStorage.getItem('token');
-    const res = await axios.get(`http://greencomart.kro.kr:716/attendance/todayteacherview`, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
+  
+    const res = await todayviewapi()
 
     const sortedData = res.data.sort((a, b) => {
       if (a.teacheraccept === '담당교사 확인 대기중' && b.teacheraccept !== '담당교사 확인 대기중') {
@@ -125,6 +116,12 @@ const todayview = async () => {
     console.error(e);
   }
 };
+
+onMounted(() => {
+  getuser();
+  todayview();
+});
+
 </script>
 
 <style lang="scss" scoped></style>

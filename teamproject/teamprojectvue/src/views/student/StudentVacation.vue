@@ -56,7 +56,7 @@
       </section>
     </main>
 
-    <div v-else class="mt-44 ">
+    <div v-else class="mt-44 w-[1150px]">
 <h1 class="flex justify-center"> << 먼저 강좌를 선택하여 주시길 바랍니다. >>  </h1>
 <div class="flex justify-center">
 <button  class=" border-2 border-blue-800 m-5 p-2 pl-8 pr-8 rounded-md bg-blue-800 text-white" @click="golectureselect" >강좌 리스트 보러가기</button>

@@ -30,7 +30,7 @@
                 </td>
                 <td class="p-1 border border-gray-300">
                   <a v-if="vacation.accept === '허가됨'"
-                    :href="`http://greencomart.kro.kr:716/vacation/download/hwp/${vacation.idx}`"
+                    :href="`${url}/vacation/download/hwp/${vacation.idx}`"
                     class="px-2 py-1 text-white bg-blue-800 rounded hover:opacity-80" target="_blank">다운로드</a>
                   <span v-else>—</span>
                 </td>
@@ -53,7 +53,7 @@
       </section>
     </main>
 
-    <div v-else class="mt-44 ">
+    <div v-else class="mt-44 w-[1150px]">
 <h1 class="flex justify-center"> << 먼저 강좌를 선택하여 주시길 바랍니다. >>  </h1>
 <div class="flex justify-center">
 <button  class="p-2 pl-8 pr-8 m-5 text-white bg-blue-800 border-2 border-blue-800 rounded-md " @click="golectureselect" >강좌 리스트 보러가기</button>
@@ -65,8 +65,14 @@
 
 <script setup>
 import { ref, onMounted, computed } from 'vue';
-import axios from 'axios';
+import { fetchVacationsapi } from '@/api/teacher';
+import { showuserapi } from '@/api/teacher';
+import { getattlistapi } from '@/api/teacher';
+import { GLOBAL_URL } from '@/api/utils';
+
 import dayjs from 'dayjs';
+
+const url = `${GLOBAL_URL}`
 
 const vacationList = ref([]);
 const totalElements = ref(0);
@@ -85,14 +91,13 @@ const usererror = ref('');
 const attlist = ref([]);
 
 const fetchVacations = async (pageNum = 1) => {
+
   unchecking.value = false;
+
   try {
-    const token = localStorage.getItem('token');
-    const response = await axios.get(`http://greencomart.kro.kr:716/vacation/teacher?pageNum=${pageNum - 1}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      }
-    });
+
+    const response = await fetchVacationsapi(pageNum)
+    
     vacationList.value = response.data.list;
     vacationList.value.sort((a, b) => b.idx - a.idx);
     totalElements.value = response.data.totalElements;
@@ -133,33 +138,28 @@ const nextPageGroup = () => {
   }
 };
 
-
 const showuser = async () => {
   try {
-    const token = localStorage.getItem('token');
+    const resuser = showuserapi()
 
-    const resuser = await axios.get('http://greencomart.kro.kr:716/user/getuser', {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
     console.log(resuser.data);
     user.value = resuser.data;
+
     const data = {
       user: user.value,
       month: dayjs(now.value).format('YYYY-MM')
     };
 
-    const resatt = await axios.post('http://greencomart.kro.kr:716/attendance/getuser', data);
+    const resatt = await getattlistapi(data)
 
-    attlist.value = resatt.data;
+    attlist.value = resatt;
     useravail.value = true;
     console.log(attlist.value);
+
   } catch (e) {
     console.log(e);
     useravail.value = false;
     usererror.value = '사용자를 찾을 수 없습니다.';
-    
   }
 };
 

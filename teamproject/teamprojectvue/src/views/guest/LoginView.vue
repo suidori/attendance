@@ -79,7 +79,8 @@ import { useloginStore } from '@/stores/loginpinia';
 import { storeToRefs } from 'pinia';
 import { userdata, userrole, logincontrol } from '@/api/loginapi';
 import { onMounted } from 'vue';
-import axios from 'axios';
+import { loginannounceapi } from '@/api/announceapi';
+
 
 const loginpinia = useloginStore();
 
@@ -97,7 +98,8 @@ const arr = ref([]);
 const radiocheck = ref('ROLE_STUDENT')
 
 const getannounce = async () => {
-  const res = await axios.get(`http://greencomart.kro.kr:716/announce/searchforall`);
+
+  const res = await loginannounceapi();
   arr.value = res.data.list;
 }
 
@@ -147,8 +149,6 @@ const LoginSequence = async () => {
     return;
   }
 };
-
-
 
 onMounted(async () => {
   getannounce();

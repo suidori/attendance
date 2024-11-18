@@ -138,11 +138,6 @@ const getDaysInMonth = (month, year) => {
   return new Date(year, month + 1, 0).getDate();
 };
 
-onMounted(() => {
-  const currentYearValue = dayjs().year();
-  availableYears.value = Array.from({ length: 11 }, (_, i) => currentYearValue - 5 + i);
-  updateDaysInMonth();
-});
 
 const updateDaysInMonth = () => {
   const daysInMonth = getDaysInMonth(currentMonth.value, currentYear.value);
@@ -345,6 +340,7 @@ const getNotAbsentOrEmptyCount = (useridx) => {
   return count;
 };
 
+
 const getAttendanceSummary = (useridx) => {
   const absentCount = getAbsentCount(useridx);
   const notAbsentOrEmptyCount = getNotAbsentOrEmptyCount(useridx);
@@ -355,13 +351,20 @@ const getAttendanceSummary = (useridx) => {
   return `결석 ${totalAbsent}<br>부분출석 ${partialAttendance}`;
 };
 
+
 onMounted(async () => {
   await getlecture(); // 강의 목록 가져오기
+
+  const currentYearValue = dayjs().year();
+  availableYears.value = Array.from({ length: 11 }, (_, i) => currentYearValue - 5 + i);
+  updateDaysInMonth();
+
   if (lecturelist.value.length > 0) {
     // 강의 목록이 비어 있지 않은 경우
     await getmonthatt(lecturelist.value[0].idx, nowDat.value); // 첫 번째 강의에 대한 출결 정보 가져오기
   }
 });
+
 </script>
 
 <style lang="scss" scoped></style>
