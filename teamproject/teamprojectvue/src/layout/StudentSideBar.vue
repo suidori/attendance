@@ -1,11 +1,11 @@
 <template>
-  <div class="w-40 rounded-sm">
+  <div class="w-[11vw] rounded-sm">
     <div class="bg-blue-50 rounded-md">
       <img src="../images/LOGO2.png" alt="Logo" />
     </div>
-    <div class="bg-blue-300 h-[650px]">
+    <div class="bg-indigo-900 h-[650px] bottom-10 ">
       <aside class="p-3 text-gray-950 font-bold font-[GmarketSansMedium]">
-        <div class="h-16 text-lg font-bold"> 학생</div>
+        <div class="h-16 text-lg font-bold text-white"> 학생</div>
         <ul class="space-y-3 bg-slate-100 p-1 rounded-lg flex flex-col justify-center">
           <RouterLink to="/stdatt">
             <li>

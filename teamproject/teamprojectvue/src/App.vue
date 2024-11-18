@@ -10,7 +10,7 @@ user5~15 학생
       <TopBar v-if="$route.name !== 'loginview'" class="w-full hidden"></TopBar>
     </div>
     <div class=""></div>
-    <div style="width: 1200px; margin: 0 auto" class="font-[GmarketSansMedium] flex justify-center">
+    <div class="font-[GmarketSansMedium] flex justify-center">
       <RouterView />
     </div>
     <LayoutFooter class=""></LayoutFooter>
