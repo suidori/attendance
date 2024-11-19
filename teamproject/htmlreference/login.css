@@ -1,0 +1,129 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#headercontainer {
+  display: flex;
+  width: 100vw;
+  height: 24.72vh;
+  background-image: linear-gradient(rgba(40, 40, 40, 0), rgba(50, 63, 121, 1)),
+    url("/img/header.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+#headerlogo {
+  margin: 2vw 4vh;
+  height: 7vh;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+#headermenu {
+  display: flex;
+  list-style: none;
+  margin: 2.22vh 7.24vw 0 auto;
+  padding: 0;
+}
+
+#headermenu li {
+  margin-left: 1.04vw;
+  font-size: 2.19vh;
+}
+
+#headermenu a {
+  border-left: 0.156vw solid #ffffff;
+  text-decoration: none;
+  color: #ffffff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+#container {
+  margin-top: 11.4vh;
+}
+
+#login {
+  display: flex;
+  justify-content: center;
+}
+
+#login img {
+  height: 11.56vh;
+}
+
+#login span {
+  border-left: 0.42vw solid #3c4983;
+  text-decoration: none;
+  color: #3c4983;
+  font-size: 2.13vh;
+  margin-left: 2.26vw;
+  padding-left: 0.78vw;
+}
+
+#left {
+  margin-right: 1.93vw;
+}
+
+#right {
+  margin-left: 1.93vw;
+}
+
+#card {
+  width: 28.73vw; /* 551.24px => 28.73vw */
+  height: 33.83vh;
+  background: linear-gradient(to top left, #e4f1ff, #fafdff);
+  border-radius: 1.56vw;
+  box-shadow: 0 0 0.52vw rgba(0, 0, 0, 0.2);
+}
+
+#card > img {
+  margin: 8.27vh 6.87vw auto; /* 89px => 8.27vh, 132px => 6.87vw */
+}
+
+#vertical-line {
+  width: 0.52vw;
+  background: linear-gradient(
+    to right,
+    rgba(244, 244, 244, 0),
+    rgba(244, 244, 244, 1) 50%,
+    rgba(244, 244, 244, 0)
+  );
+  height: 33.83vh;
+  margin-top: 2.51vh;
+}
+
+#loginselect {
+  display: flex;
+  align-items: center;
+  margin-left: 2.04vw;
+}
+
+#loginselect img {
+  margin-right: 0.89vw;
+}
+
+#logintext {
+  display: flex;
+  flex-direction: column;
+}
+
+#logintext h1 {
+  color: #3c4983;
+}
+
+#register {
+  margin: 3.61vh auto;
+  text-align: center;
+}
+
+#register p {
+  color: #3c4983;
+}
+
+#register div {
+  background-color: #3c4983;
+  display: inline-block;
+  padding: 0.52vh 1.04vw;
+  color: white;
+}
