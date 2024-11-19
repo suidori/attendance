@@ -101,7 +101,9 @@ import axios from 'axios';
 import 'dayjs/locale/ko';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
+import { useRouter } from 'vue-router';
 
+const router = useRouter()
 const isClicked = ref(true);
 
 dayjs.extend(utc);
@@ -361,7 +363,14 @@ onMounted(async () => {
     // 강의 목록이 비어 있지 않은 경우
     await getmonthatt(lecturelist.value[0].idx, nowDat.value); // 첫 번째 강의에 대한 출결 정보 가져오기
   }
-});
+
+  if(localStorage.getItem('token')==null){
+    router.push({name:'loginview'})
+  }
+
+}
+
+);
 </script>
 
 <style lang="scss" scoped></style>

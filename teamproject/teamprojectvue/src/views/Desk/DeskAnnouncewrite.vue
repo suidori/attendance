@@ -18,7 +18,7 @@
             class="w-full p-4 transition-all duration-300 ease-in-out border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:border-transparent"
             placeholder="내용을 입력하세요"></textarea>
         </div>
-        <div v-if="lecturelist.length>0">
+        <div class="mb-24" v-if="lecturelist.length>0">
           <select v-model="selectedlecture" name="" id="">
             <option value="전체">전체</option>
             <option v-for="lecture in lecturelist" :key="lecture.idx" :value="lecture.title">
@@ -26,8 +26,14 @@
             </option>
           </select>
         </div>
+       
+        
+       
         <div class="flex justify-end">
-          <button @click="sub" type="button" class="p-2 pl-5 pr-5 text-white bg-blue-600 border-2 rounded-lg hover:opacity-85">
+          <button @click="goback" type="button" class="flex justify-start p-2 pl-5 pr-5 text-white bg-red-600 border-2 rounded-lg hover:opacity-85">
+            취소
+          </button>
+          <button @click="sub" type="button" class="flex justify-end p-2 pl-5 pr-5 text-white bg-blue-600 border-2 rounded-lg hover:opacity-85">
             제출
           </button>
         </div>
@@ -68,7 +74,17 @@ const getlecture = async () => {
 
 onMounted(() => {
   getlecture();
+
+  if(localStorage.getItem('token')==null){
+    router.push({name:'loginview'})
+  }
 });
+
+const goback = ()=>{
+
+  router.go(-1)
+
+}
 
 const sub = async () => {
 

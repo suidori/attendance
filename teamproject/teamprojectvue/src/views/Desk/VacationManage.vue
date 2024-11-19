@@ -96,6 +96,10 @@
 import { ref, onMounted, computed } from 'vue';
 import axios from 'axios';
 
+import { useRouter } from 'vue-router';
+
+const router = useRouter()
+
 const vacationList = ref([]);
 const totalElements = ref(0);
 const totalPages = ref(0);
@@ -255,5 +259,9 @@ const toggleAllCheckboxes = (isChecked) => {
 
 onMounted(() => {
   fetchVacations(currentPage.value);
+
+  if(localStorage.getItem('token')==null){
+    router.push({name:'loginview'})
+  }
 });
 </script>

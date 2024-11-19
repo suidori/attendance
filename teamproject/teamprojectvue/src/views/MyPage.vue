@@ -61,7 +61,9 @@
 import { profiledata } from '@/api/student';
 import { getmylecture } from '@/api/student';
 import { onMounted, ref } from 'vue';
+import { useRouter } from 'vue-router';
 
+const router = useRouter()
 const username = ref('');
 const phoneNumber = ref('');
 const email = ref('');
@@ -104,7 +106,9 @@ onMounted(async () => {
     lecturecheck.value = true;
   }
 
-
+  if(localStorage.getItem('token')==null){
+    router.push({name:'loginview'})
+  }
 
 });
 </script>

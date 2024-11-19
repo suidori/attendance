@@ -67,7 +67,9 @@
 import { ref, onMounted, computed } from 'vue';
 import axios from 'axios';
 import dayjs from 'dayjs';
+import { useRouter } from 'vue-router';
 
+const router = useRouter()
 const vacationList = ref([]);
 const totalElements = ref(0);
 const totalPages = ref(0);
@@ -166,6 +168,10 @@ const showuser = async () => {
 onMounted(() => {
   fetchVacations(currentPage.value);
   showuser()
+
+  if(localStorage.getItem('token')==null){
+    router.push({name:'loginview'})
+  }
 });
 
 </script>

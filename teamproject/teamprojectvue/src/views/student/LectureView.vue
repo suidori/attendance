@@ -47,7 +47,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
@@ -64,6 +64,13 @@ const golectureinsert = () => {
 const golecturelist = () => {
   router.push({ name: 'lectureapprovallist' });
 };
+
+onMounted(()=>{
+
+  if(localStorage.getItem('token')==null){
+    router.push({name:'loginview'})
+  }
+})
 </script>
 
 <style scoped></style>
