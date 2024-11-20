@@ -1,5 +1,5 @@
 <template>
-  <div class="ml-4 font-sans flex justify-center">  
+  <div class="flex justify-center ml-4 font-sans">  
     <main class="flex justify-center w-[74.5rem]">
       <section class="flex-1 p-5 m-2 bg-white border border-gray-500">
         <h1 class="mb-5 text-2xl font-semibold">휴가 신청 관리</h1>
@@ -24,10 +24,10 @@
                          @change="toggleAllCheckboxes($event.target.checked)" 
                          class="w-4 h-4 transform scale-150"/>
                 </th>
-                <th class="p-1 border border-gray-300">작성일</th>
                 <th class="p-1 border border-gray-300">이름</th>
                 <th class="p-1 border border-gray-300">강좌 이름</th>
                 <th class="p-1 border border-gray-300">사유</th>
+                <th class="p-1 border border-gray-300">작성일</th>
                 <th class="p-1 border border-gray-300">휴가신청일</th>
                 <th class="p-1 border border-gray-300">휴가 승인</th>
                 <th class="p-1 border border-gray-300">휴가 신청서</th>
@@ -44,10 +44,10 @@
                          class="w-4 h-4 transform scale-150" />
                   <span v-else>&nbsp;</span>
                 </td>
-                <td class="p-1 border border-gray-300">{{ vacation.wdate }}</td>
                 <td class="p-1 border border-gray-300">{{ vacation.user }}</td>
                 <td class="p-1 border border-gray-300">{{ vacation.lecture }}</td>
                 <td class="p-1 border border-gray-300">{{ vacation.reason }}</td>
+                <td class="p-1 border border-gray-300">{{ vacation.wdate }}</td>
                 <td class="p-1 border border-gray-300">{{ vacation.date }}</td>
                 <td class="p-1 border border-gray-300">
                   <button v-if="vacation.accept == '대기중'" 

@@ -1,7 +1,7 @@
 <template>
-  <div class=" flex justify-center font-sans border border-gray-400">
+  <div class="flex justify-center font-sans border border-gray-400 ">
     <main v-if="useravail" class="flex justify-center w-[1150px]" >
-      <section class="flex-1 p-5  bg-white border-gray-500 border-1">
+      <section class="flex-1 p-5 bg-white border-gray-500 border-1">
         <h1 class="mb-5 text-2xl font-semibold">휴가 신청 현황</h1>
 
         <div class="overflow-x-auto">
@@ -9,8 +9,8 @@
             <thead>
               <tr class="bg-gray-100">
                 <th class="p-1 border border-gray-300">휴가 신청일</th>
-                <th class="p-1 border border-gray-300">사유</th>
                 <th class="p-1 border border-gray-300">휴가 당일</th>
+                <th class="p-1 border border-gray-300">사유</th>
                 <th class="p-1 border border-gray-300">승인 대기</th>
                 <th class="p-1 border border-gray-300">휴가 신청서</th>
               </tr>
@@ -18,8 +18,8 @@
             <tbody>
               <tr v-for="(vacation, index) in vacationList" :key="index" class="text-center">
                 <td class="p-1 border border-gray-300">{{ vacation.wdate }}</td>
-                <td class="p-1 border border-gray-300">{{ vacation.reason }}</td>
                 <td class="p-1 border border-gray-300">{{ vacation.date }}</td>
+                <td class="p-1 border border-gray-300">{{ vacation.reason }}</td>
                 <td class="p-1 border border-gray-300">
                   <span v-if="vacation.accept == '대기중'" class="text-blue-600">대기중</span>
                   <span v-else :class="vacation.accept === '허가됨' ? 'text-green-600' : 'text-red-600'">
@@ -29,7 +29,7 @@
                 <td class="p-1 border border-gray-300">
                   <a v-if="vacation.accept === '허가됨'"
                     :href="`http://greencomart.kro.kr:716/vacation/download/hwp/${vacation.idx}`"
-                    class="px-2 py-1 text-white bg-blue-800 rounded hover:opacity-80" target="_blank">다운로드</a>
+                    class="px-2 py-1 text-white bg-blue-800 rounded hover:opacity-80" target="_blank">미리보기</a>
                   <span v-else>—</span>
                 </td>
               </tr>
@@ -39,7 +39,7 @@
             class="px-4 py-2 text-white bg-blue-600 rounded hover:opacity-80">대기 중인 요청만 보기</button>
           <button v-if="unchecking" @click="fetchVacations(1)"
             class="px-4 py-2 text-white bg-blue-600 rounded hover:opacity-80">모든 요청 보기</button>
-            <button class="float-end px-4 py-2 text-white bg-blue-600 rounded hover:opacity-80" @click="govacationForm">휴가 신청</button>
+            <button class="px-4 py-2 text-white bg-blue-600 rounded float-end hover:opacity-80" @click="govacationForm">휴가 신청</button>
         </div>
 
         <!-- Pagination -->
@@ -59,7 +59,7 @@
     <div v-else class="mt-44 w-[1100px] mb-24">
 <h1 class="flex justify-center"> << 먼저 강좌를 선택하여 주시길 바랍니다. >>  </h1>
 <div class="flex justify-center">
-<button  class=" border-2 border-blue-800 m-5 p-2 pl-8 pr-8 rounded-md bg-blue-800 text-white" @click="golectureselect" >강좌 리스트 보러가기</button>
+<button  class="p-2 pl-8 pr-8 m-5 text-white bg-blue-800 border-2 border-blue-800 rounded-md " @click="golectureselect" >강좌 리스트 보러가기</button>
       </div>
 
     </div>
