@@ -45,13 +45,26 @@ const router = useRouter();
 const loginStore = useloginStore();
 const { userrl } = storeToRefs(loginStore);
 const { logincheckfalse } = loginStore;
+const { userL,} = loginStore;
 
 const userrlvalue = computed(() => loginStore.userrl);
 
 console.log(`userrl = ${JSON.stringify(userrl)}`);
 
 const homelogin = async () => {
+  try {
   await userrole();
+} catch (e) {
+  // e.response나 e.data가 있을 경우에만 접근하도록 처리
+  if (e && e.response && e.response.data && e.response.data.status === 401) {
+    // 401 오류인 경우 처리
+    localStorage.removeItem('token');
+    userL();  // 로그아웃 함수 (로그아웃 관련 로직이 제대로 구현되어 있어야 함)
+    router.push({ name: 'loginview' });  // 로그인 화면으로 이동
+  } else {
+    console.error('Unexpected error:', e);  // 예상치 못한 에러가 발생했을 때 로그 출력
+  }
+}
 
   if (localStorage.getItem('token') !== null) {
     console.log('로그인 유지');

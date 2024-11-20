@@ -1,5 +1,6 @@
 <template>
-  <div class>
+  <div class=" w-full">
+    <div class="m-5 border border-black">
     <div class="w-1/2 mx-auto min-w-80">
       <div class="">
         <h1 class="pt-10 font-extrabold text-blue-900">공지사항</h1>
@@ -9,7 +10,7 @@
         <p class="py-6 font-bold text-blue-900">제목</p>
         <div>
           <input type="text" v-model="title" placeholder="제목을 입력하세요"
-            class="w-1/2 transition-all duration-300 ease-in-out border border-gray-300 rounded-md resize-none focus:outline-none focus:ring-2 focus:border-transparent">
+            class="w-full transition-all duration-300 ease-in-out border border-gray-300 rounded-md resize-none focus:outline-none focus:ring-2 focus:border-transparent">
         </div>
         <div>
           <p class="py-6 font-bold text-blue-900">내용</p>
@@ -24,8 +25,13 @@
             </option>
           </select>
         </div>
+
+        
         <div class="flex justify-end">
-          <button @click="sub" type="button" class="p-2 text-white bg-blue-600 border-2 rounded-lg hover:opacity-85">
+          <button @click="goback" type="button" class="flex justify-start p-2 pl-5 pr-5 text-white bg-red-600 border-2 rounded-lg hover:opacity-85">
+            취소
+          </button>
+          <button @click="sub" type="button" class="flex justify-end p-2 pl-5 pr-5 text-white bg-blue-600 border-2 rounded-lg hover:opacity-85">
             제출
           </button>
         </div>
@@ -36,7 +42,7 @@
     </div>
   </div>
   <div class="mb-64">
-
+  </div>
   </div>
 </template>
 
@@ -69,9 +75,11 @@ const getlecture = async () => {
   }
 };
 
-onMounted(() => {
-  getlecture();
-});
+const goback = ()=>{
+
+router.go(-1)
+
+}
 
 const sub = async () => {
 
@@ -95,6 +103,13 @@ const sub = async () => {
     alert('에러')
   }
 }
+
+onMounted(() => {
+  getlecture();
+  if(localStorage.getItem('token')==null){
+    router.push({name:'loginview'})
+  }
+});
 </script>
 
 <style lang="scss" scoped></style>

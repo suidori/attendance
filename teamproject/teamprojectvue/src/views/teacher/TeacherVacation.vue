@@ -71,7 +71,9 @@ import { getattlistapi } from '@/api/teacher';
 import { GLOBAL_URL } from '@/api/utils';
 
 import dayjs from 'dayjs';
+import { useRouter } from 'vue-router';
 
+const router = useRouter()
 const url = `${GLOBAL_URL}`
 
 const vacationList = ref([]);
@@ -97,7 +99,7 @@ const fetchVacations = async (pageNum = 1) => {
   try {
 
     const response = await fetchVacationsapi(pageNum)
-    
+
     vacationList.value = response.data.list;
     vacationList.value.sort((a, b) => b.idx - a.idx);
     totalElements.value = response.data.totalElements;
@@ -166,6 +168,10 @@ const showuser = async () => {
 onMounted(() => {
   fetchVacations(currentPage.value);
   showuser()
+
+  if(localStorage.getItem('token')==null){
+    router.push({name:'loginview'})
+  }
 });
 
 </script>

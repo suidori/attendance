@@ -129,6 +129,10 @@
 import { onMounted, onUnmounted, ref } from 'vue';
 import { insertlectureapi } from '@/api/lectureapi';
 import { getavaillecturelistapi } from '@/api/lectureapi';
+import axios from 'axios';
+import { useRouter } from 'vue-router';
+
+const router = useRouter()
 
 //모달창 변수
 const modal = ref(false);
@@ -193,6 +197,16 @@ const modalClose = () => {
   resetdata();
 };
 
+const changemodalClose = () => {
+  changemodal.value = false;
+
+  resetdata();
+};
+
+const endlecture = () => {
+  console.log('강좌종료 메서드');
+};
+
 const insertlecture = async () => {
 
   const token = await localStorage.getItem('token'); //전역스코프 pinia 써서 토큰 저장한걸 불러오게 해야함
@@ -244,6 +258,14 @@ const getavaillecture = async () => {
     console.log(e);
   }
 }
+
+onMounted(()=>{
+
+  if(localStorage.getItem('token')==null){
+    router.push({name:'loginview'})
+  }
+
+})
 </script>
 
 <style lang="scss" scoped></style>

@@ -30,6 +30,7 @@
 </template>
 
 <script setup>
+import { onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter()
@@ -45,6 +46,13 @@ const gologinview = () => {
     router.push({name:'loginview'})
 }
 
+onMounted(()=>{
+
+    if(localStorage.getItem('token')==null){
+    router.push({name:'loginview'})
+  }
+
+})
 
 </script>
 

@@ -65,6 +65,8 @@ import { teachercheckapi } from '@/api/teacher';
 import { todayviewapi } from '@/api/teacher';
 import dayjs from 'dayjs';
 
+import { useRouter } from 'vue-router';
+
 const arr = ref([]);
 const user = ref(null);
 
@@ -83,7 +85,7 @@ const getuser = async () => {
 const teachercheck = async (idx) => {
 
   try {
-    
+
        await teachercheckapi(idx)
 
     const item = arr.value.find((student) => student.idx === idx);
@@ -96,9 +98,18 @@ const teachercheck = async (idx) => {
   }
 };
 
+onMounted(() => {
+  getuser();
+  todayview();
+
+  if(localStorage.getItem('token')==null){
+    router.push({name:'loginview'})
+  }
+});
+
 const todayview = async () => {
   try {
-  
+
     const res = await todayviewapi()
 
     const sortedData = res.data.sort((a, b) => {
@@ -116,12 +127,6 @@ const todayview = async () => {
     console.error(e);
   }
 };
-
-onMounted(() => {
-  getuser();
-  todayview();
-});
-
 </script>
 
 <style lang="scss" scoped></style>

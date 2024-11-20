@@ -1,7 +1,7 @@
 <template>
   <div class="flex justify-center w-full">
         <div v-if="lecturelist.length > 0" id="lecturelist" class="w-1/6 p-4 bg-white border border-blue-500">
-          <h1 class="text-3xl font-bold text-blue-800 my-5">강의목록</h1>
+          <h1 class="my-5 text-3xl font-bold text-blue-800">강의목록</h1>
           <button @click="getlecture(), (isClicked = true)" :class="{ 'bg-green-600': isClicked }"
             class="p-1 mr-2 text-white bg-blue-400 rounded hover:opacity-80">
             최신순
@@ -61,16 +61,16 @@
               <span class="text-blue-600">■</span>- 출석 인정
             </p>
           </h1>
-          <h1 v-if="selectedlecture" class="text-2xl text-green-600 font-bold mb-3 ml-5">◆ {{ lecturelist.find(lecture => lecture.idx ==
+          <h1 v-if="selectedlecture" class="mb-3 ml-5 text-2xl font-bold text-green-600">◆ {{ lecturelist.find(lecture => lecture.idx ==
             selectedlecture).title }}</h1>
 
           <div class="w-full h-[30vw] overflow-auto">
             <table class="w-full">
               <thead>
                 <tr class="border border-black">
-                  <th class="w-1/4 p-4">이름</th>
-                  <th class="min-w-[4vw] bg-[#d1d0d0]">출결 현황</th>
-                  <th v-for="day in arr" :key="day" class="p-4 border border-black"
+                  <th class="w-1/4 ">이름</th>
+                  <th class="min-w-[3.5vw] bg-[#d1d0d0] text-xs">출결 현황</th>
+                  <th v-for="day in arr" :key="day" class="text-xs border border-black min-w-[1.4vw]"
                     :style="{ color: isWeekend(getDayName(day)), backgroundColor: '#d1d0d0'}">
                     {{ getDayName(day) }}
                   </th>
@@ -78,11 +78,11 @@
               </thead>
               <tbody v-if="monthatt.length > 0">
                 <tr v-for="student in monthatt" :key="student.user" class="border border-black bg-[#eee]">
-                  <th class="w-1/4 p-4 border border-black bg-orange-200">{{ student.user }}</th>
-                  <th class="border border-black min-w-[4vw] text-sm" v-html="getAttendanceSummary(student.useridx)"></th>
-                  <td v-for="day in arr" :key="day" class="p-4 font-bold border-black border-r min-w-20 "
+                  <th class="w-1/4 text-sm bg-orange-200 border border-black">{{ student.user }}</th>
+                  <th class="border border-black min-w-[3.5vw] text-xs" v-html="getAttendanceSummary(student.useridx)"></th>
+                  <td v-for="day in arr" :key="day" class="font-bold border-r border-black "
                     :style="{ backgroundColor: backgroundColor(day) }">
-                    <div class="text-center" :style="{ color: getatt(student.attendance[day]) }">
+                    <div class="text-sm text-center" :style="{ color: getatt(student.attendance[day]) }">
                       {{ getAttendanceType(student.user, day) }}
                     </div>
                   </td>
@@ -101,7 +101,9 @@ import axios from 'axios';
 import 'dayjs/locale/ko';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
+import { useRouter } from 'vue-router';
 
+const router = useRouter()
 const isClicked = ref(true);
 
 dayjs.extend(utc);
@@ -138,6 +140,11 @@ const getDaysInMonth = (month, year) => {
   return new Date(year, month + 1, 0).getDate();
 };
 
+onMounted(() => {
+  const currentYearValue = dayjs().year();
+  availableYears.value = Array.from({ length: 11 }, (_, i) => currentYearValue - 5 + i);
+  updateDaysInMonth();
+});
 
 const updateDaysInMonth = () => {
   const daysInMonth = getDaysInMonth(currentMonth.value, currentYear.value);
@@ -256,12 +263,18 @@ const getAttendanceType = (username, day) => {
   if (isWeekendDay) return '';
 
   // 해당 날짜에 출결 정보가 없다면 '출석' 반환
-  if (!studentAttendance.attendance[day]) {
+  if (!studentAttendance.attendance[day] || studentAttendance.attendance[day].approval == true) {
     return '◯';
   }
 
   // 출결 정보가 있다면 해당 유형 반환
-  return studentAttendance.attendance[day].type;
+
+  if(studentAttendance.attendance[day].type=='결석' && studentAttendance.attendance[day].approval != true){
+    return 'X';
+  }
+
+  if(studentAttendance.attendance[day].approval != true)
+  return '▲';
 };
 
 const processAttendanceData = (data) => {
@@ -293,15 +306,9 @@ const getatt = (attendance) => {
   if (!attendance) {
     return 'black'; // attendance가 undefined일 때 기본 색상
   }
-  if (attendance.approval !== null) {
+  if (attendance.approval == false) {
     return 'blue'; // approval이 null도 undefined도 아닐 때만 blue
-  } else if (attendance.type === '결석') {
-    return 'red';
-  } else if (['지각', '조퇴', '외출'].includes(attendance.type)) {
-    return 'green';
-  } else {
-    return 'black';
-  }
+  } else {return 'black';}
 };
 
 const getAbsentCount = (useridx) => {
@@ -363,8 +370,14 @@ onMounted(async () => {
     // 강의 목록이 비어 있지 않은 경우
     await getmonthatt(lecturelist.value[0].idx, nowDat.value); // 첫 번째 강의에 대한 출결 정보 가져오기
   }
-});
 
+  if(localStorage.getItem('token')==null){
+    router.push({name:'loginview'})
+  }
+
+}
+
+);
 </script>
 
 <style lang="scss" scoped></style>
