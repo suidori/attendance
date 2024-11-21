@@ -97,11 +97,13 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import dayjs from 'dayjs';
-import axios from 'axios';
 import 'dayjs/locale/ko';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
 import { useRouter } from 'vue-router';
+import { getlectureapi } from '@/api/teacher';
+import { desclectureapi } from '@/api/teacher';
+import { getmonthattapi } from '@/api/teacher';
 
 const router = useRouter()
 const isClicked = ref(true);
@@ -211,37 +213,31 @@ const update = () => {
 
 const getlecture = async () => {
   try {
-    const token = localStorage.getItem('token');
-    const res = await axios.get(`http://greencomart.kro.kr:716/lecture/mylecture`, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
+    
+    const res = await getlectureapi()
     lecturelist.value = res.data.sort((a, b) => b.idx - a.idx);
   } catch (e) {
     console.error(e);
   }
 };
 
+
 const desclecture = async () => {
   try {
-    const token = localStorage.getItem('token');
-    const res = await axios.get(`http://greencomart.kro.kr:716/lecture/mylecture`, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
+   
+    const res = desclectureapi()
     lecturelist.value = res.data.sort((a, b) => a.idx - b.idx);
   } catch (e) {
     console.error(e);
   }
 };
 
+
 const getmonthatt = async (idx, month) => {
   try {
-    const res = await axios.get(
-      `http://greencomart.kro.kr:716/attendance/monthview?idx=${idx}&month=${month}`
-    );
+    
+    const res = await getmonthattapi(idx, month)
+
     monthatt.value = processAttendanceData(res.data); // 데이터를 가공하는 함수를 호출
     selectedlecture.value = idx;
     console.log('일루오나' + selectedlecture.value);
@@ -249,6 +245,7 @@ const getmonthatt = async (idx, month) => {
     console.log(e);
   }
 };
+
 
 const getAttendanceType = (username, day) => {
   const studentAttendance = monthatt.value.find((student) => student.user === username);

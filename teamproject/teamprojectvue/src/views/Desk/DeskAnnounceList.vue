@@ -157,7 +157,7 @@ const fetchannounceForAlldesc = async (pageNum = 1) => {
   try {
     const response = await axios.get(`http://greencomart.kro.kr:716/announce/searchforalldesc?pageNum=${pageNum - 1}`);
     announcelist.value = response.data.list;
-    announcelist.value.sort((a, b) => b.idx - a.idx);
+    announcelist.value.sort((a, b) =>  a.idx - b.idx);
     totalElements.value = response.data.totalElements;
     totalPages.value = response.data.totalPages;
     currentPage.value = pageNum; // 페이지 번호 갱신
@@ -184,7 +184,7 @@ const fetchannounceByLecturedesc = async (lectureIdx, pageNum = 1) => {
   try {
     const response = await axios.get(`http://greencomart.kro.kr:716/announce/lecturesearchdesc/${lectureIdx}?pageNum=${pageNum - 1}`);
     announcelist.value = response.data.list;
-    announcelist.value.sort((a, b) => b.idx - a.idx);
+    announcelist.value.sort((a, b) =>  a.idx - b.idx);
     totalElements.value = response.data.totalElements;
     totalPages.value = response.data.totalPages;
     currentPage.value = pageNum; // 페이지 번호 갱신
@@ -211,7 +211,7 @@ const fetchannouncedesc = async (pageNum = 1) => {
   try {
     const response = await axios.get(`http://greencomart.kro.kr:716/announce/managerdesc?pageNum=${pageNum - 1}`);
     announcelist.value = response.data.list;
-    announcelist.value.sort((a, b) => b.idx - a.idx);
+    announcelist.value.sort((a, b) =>  a.idx  -b.idx);
     totalElements.value = response.data.totalElements;
     totalPages.value = response.data.totalPages;
     currentPage.value = pageNum;

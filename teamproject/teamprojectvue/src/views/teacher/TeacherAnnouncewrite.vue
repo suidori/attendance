@@ -47,10 +47,11 @@
 </template>
 
 <script setup>
-import axios from 'axios';
-
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
+import { getAnnouncelectureapi } from '@/api/teacher';
+import { subapi } from '@/api/teacher';
+
 const lecturelist = ref([]);
 const title = ref('');
 const body = ref('');
@@ -59,12 +60,8 @@ const router = useRouter();
 
 const getlecture = async () => {
   try {
-    const token = localStorage.getItem('token');
-    const res = await axios.get(`http://greencomart.kro.kr:716/lecture/mylecture`,{
-      headers: {
-        Authorization: `Bearer ${token}`,
-      }
-    });
+    
+    const res = await getAnnouncelectureapi()
 
     lecturelist.value = res.data.sort((a, b) => {
       return a.title.localeCompare(b.title);
@@ -75,15 +72,9 @@ const getlecture = async () => {
   }
 };
 
-const goback = ()=>{
-
-router.go(-1)
-
-}
 
 const sub = async () => {
 
-  const token = localStorage.getItem('token')
   const data = {
     "title": title.value,
     "body": body.value,
@@ -91,17 +82,17 @@ const sub = async () => {
 }
 
   try {
-    const res = await axios.post('http://greencomart.kro.kr:716/announce/save', data, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      }
-    })
+    const res = subapi(data)
     console.log(res)
     router.push({name:'teacherannouncelist'})
   } catch (e) {
     console.log(e)
     alert('에러')
   }
+}
+
+const goback = ()=>{
+router.go(-1)
 }
 
 onMounted(() => {
