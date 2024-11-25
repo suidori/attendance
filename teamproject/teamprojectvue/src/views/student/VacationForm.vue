@@ -1,6 +1,9 @@
 <template>
 
-  <div v-if="useravail" class="m-3 border border-gray-400 w-full">
+  <div v-if="useravail" class="w-[60vw] min-w-[620px]">
+    <HeaderLayout></HeaderLayout>
+    <h1 class="pb-6 font-bold text-blue-800 text-2xl ml-2">휴가 신청</h1>
+    <hr class="w-full mx-auto border-blue-900 mb-4 border-2">
     <!-- <h1 class="md:ml-52">| 학생용 (VacationForm)</h1> -->
     <div class="w-1/2 mx-auto min-w-80">
       <div class="">
@@ -39,7 +42,7 @@
               v-model="personalNumFront"
             />
             <span class="mx-1">-</span>
-            <input type="text" id="personalnum-back" class="block p-3 w-8 border rounded-md h-7" maxlength="1" v-model="personalNumBack" />
+            <input type="text" id="personalnum-back" class="block pl-2 w-8 border rounded-md h-7" maxlength="1" v-model="personalNumBack" />
             <span>●●●●●●</span>
           </div>
           <div class="m-3">
@@ -86,6 +89,7 @@ import { useRouter } from 'vue-router';
 import axios from 'axios';
 import dayjs from 'dayjs';
 import { ref, computed, onMounted } from 'vue';
+import HeaderLayout from '@/layout/HeaderLayout.vue';
 
 const router = useRouter()
 
@@ -104,9 +108,6 @@ const now = ref(dayjs());
 const useravail = ref(false);
 const usererror = ref('');
 const attlist = ref([]);
-
-
-
 
 const datecheck = (date) => {
   if (!date) {
@@ -135,6 +136,7 @@ const datecheck = (date) => {
   if (inputDate >= sevenDaysAfterToday) {
     dateAvail.value = true;
     selectedDate.value = '선택되었습니다.';
+    console.log('Date Available:', dateAvail.value);
   } else {
     dateAvail.value = false;
     selectedDate.value = '휴가 신청은 최소 일주일 전에 가능합니다.';

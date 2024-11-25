@@ -1,4 +1,8 @@
 <template>
+  <div class="w-[60vw] min-w-[620px]">
+    <HeaderLayout></HeaderLayout>
+    <h1 class="pb-6 font-bold text-blue-800 text-2xl ml-2">강좌 관리</h1>
+    <hr class="w-full mx-auto border-blue-900 mb-4 border-2">
   <div>
     <div>
       <!-- 인설트 모달창 -->
@@ -123,6 +127,7 @@
 
     <!-- 페이지 넘버 리스트 -->
   </div>
+</div>
 </template>
 
 <script setup>
@@ -133,6 +138,7 @@ import axios from 'axios';
 import { useRouter } from 'vue-router';
 
 const router = useRouter()
+import HeaderLayout from '@/layout/HeaderLayout.vue';
 
 //모달창 변수
 const modal = ref(false);

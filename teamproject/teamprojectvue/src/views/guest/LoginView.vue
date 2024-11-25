@@ -179,7 +179,7 @@ const Choicema = () => {
   isClicked3.value = true
   radiocheck.value = 'ROLE_MANAGER'
   console.log(radiocheck.value)
-  
+
 }
 
 

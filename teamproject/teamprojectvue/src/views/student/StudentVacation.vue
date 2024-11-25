@@ -1,10 +1,13 @@
 <template>
-  <div class=" flex justify-center font-sans border border-gray-400">
-    <main v-if="useravail" class="flex justify-center w-[1150px]" >
-      <section class="flex-1 p-5  bg-white border-gray-500 border-1">
+  <div class="w-[60vw] min-w-[620px]">
+    <HeaderLayout></HeaderLayout>
+    <h1 class="pb-6 font-bold text-blue-800 text-2xl ml-2">휴가 신청</h1>
+    <hr class="w-full mx-auto border-blue-900 border-2" />
+    <main v-if="useravail" class="flex justify-center">
+      <section class="flex-1 p-5 m-10 bg-white">
         <h1 class="mb-5 text-2xl font-semibold">휴가 신청 현황</h1>
 
-        <div class="overflow-x-auto">
+        <div>
           <table class="w-full mb-5 border border-collapse border-gray-300">
             <thead>
               <tr class="bg-gray-100">
@@ -71,6 +74,7 @@ import { ref, onMounted, computed } from 'vue';
 import axios from 'axios';
 import router from '@/router';
 import dayjs from 'dayjs';
+import HeaderLayout from '@/layout/HeaderLayout.vue';
 
 const vacationList = ref([]);
 const totalElements = ref(0);

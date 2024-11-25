@@ -1,7 +1,10 @@
 <template>
-  <div class="flex justify-center ml-4 font-sans">
-    <main class="flex justify-center w-[74.5rem]">
-      <section class="flex-1 p-6 m-2 bg-white border border-gray-500">
+  <div class="w-[60vw] min-w-[620px]">
+    <HeaderLayout></HeaderLayout>
+    <h1 class="pb-6 font-bold text-blue-800 text-2xl ml-2">공지사항</h1>
+    <hr class="w-full mx-auto border-blue-900 mb-4 border-2">
+
+      <section class="flex-1 p-6 m-2 bg-white">
         <h1 class="mb-5 text-2xl font-semibold">공지사항</h1>
 
         <div v-if="lecturelist.length > 0">
@@ -56,7 +59,6 @@
             class="px-3 py-1 bg-white border border-gray-300 hover:bg-gray-100">&gt;</button>
         </div>
       </section>
-    </main>
   </div>
 </template>
 
@@ -70,6 +72,8 @@ import { fetchannounceByLectureapi } from '@/api/teacher';
 import { fetchannounceByLecturedescapi } from '@/api/teacher';
 import { fetchannounceapi } from '@/api/teacher';
 import { fetchannouncedescapi } from '@/api/teacher';
+import axios from 'axios';
+import HeaderLayout from '@/layout/HeaderLayout.vue';
 
 const route = useRoute()
 const router = useRouter();
@@ -94,7 +98,7 @@ const resetSort = (pageNum) => {
 
 const getlecture = async () => {
   try {
-    
+
     const res = await getAnnouncelistlectureapi()
 
     lecturelist.value = res.data.sort((a, b) => {
@@ -209,7 +213,7 @@ const fetchannounceByLecturedesc = async (lectureIdx, pageNum = 1) => {
 const fetchannounce = async (pageNum = 1) => {
   try {
 
-    
+
     const response = await fetchannounceapi(pageNum)
     announcelist.value = response.list;
     announcelist.value.sort((a, b) => b.idx - a.idx);
@@ -224,7 +228,7 @@ const fetchannounce = async (pageNum = 1) => {
 
 const fetchannouncedesc = async (pageNum = 1) => {
   try {
-   
+
     const response = await fetchannouncedescapi(pageNum)
     announcelist.value = response.list;
     announcelist.value.sort((a, b) =>  a.idx - b.idx);
@@ -294,7 +298,7 @@ router.push({name:'teacherannouncewrite'})
 onMounted(() => {
   fetchannounce(currentPage.value);
   getlecture();
-  
+
   if(localStorage.getItem('token')==null){
     router.push({name:'loginview'})
   }

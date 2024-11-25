@@ -1,5 +1,9 @@
 <template>
-  <div class="flex justify-center font-sans border border-gray-400 ">
+  <div class="w-[60vw] min-w-[620px]">
+    <HeaderLayout></HeaderLayout>
+    <h1 class="pb-6 font-bold text-blue-800 text-2xl ml-2">학생 출결 조회</h1>
+    <hr class="w-full mx-auto border-blue-900 mb-4 border-2">
+
     <main v-if="useravail" class="flex justify-center w-[1150px]" >
       <section class="flex-1 p-5 bg-white border-gray-500 border-1">
         <h1 class="mb-5 text-2xl font-semibold">휴가 신청 현황</h1>
@@ -71,6 +75,7 @@ import { getattlistapi } from '@/api/teacher';
 import { GLOBAL_URL } from '@/api/utils';
 
 import dayjs from 'dayjs';
+import HeaderLayout from '@/layout/HeaderLayout.vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter()

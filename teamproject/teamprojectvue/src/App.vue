@@ -10,21 +10,22 @@ user5~15 학생
       <TopBar v-if="$route.name !== 'loginview'" class="w-full hidden"></TopBar>
     </div>
     <div class=""></div>
-    <div style="width: 1200px; margin: 0 auto" class="font-[GmarketSansMedium] flex justify-center">
+    <div class="font-[GmarketSansMedium] flex justify-center">
       <RouterView />
     </div>
-    <LayoutFooter class=""></LayoutFooter>
+    <!-- <LayoutFooter class=""></LayoutFooter> -->
 
-    <template v-if="userrlvalue == 'ROLE_STUDENT'">
-      <StudentSideBar class="" style="position: fixed; top: 1%; left: 11%" />
-    </template>
-    <template v-if="userrlvalue == 'ROLE_TEACHER'">
-      <TeacherSideBar class="" style="position: fixed; top: 1%; left: 11%" />
-    </template>
-    <template v-if="userrlvalue == 'ROLE_MANAGER'">
-      <ManagerSideBar class="" style="position: fixed; top: 1%; left: 11%" />
-    </template>
-  </div>
+  <template v-if="userrlvalue == 'ROLE_STUDENT'">
+    <StudentSideBar class="fixed top-[9.6vw] left-[4vw] min-w-[160px]"/>
+  </template>
+  <template v-if="userrlvalue == 'ROLE_TEACHER'">
+    <TeacherSideBar class="fixed top-[9.6vw] left-[4vw] min-w-[160px]"/>
+  </template>
+  <template v-if="userrlvalue == 'ROLE_MANAGER'">
+    <ManagerSideBar class="fixed top-[9.6vw] left-[4vw] min-w-[160px]"/>
+
+  </template>
+</div>
 </template>
 
 <script setup>

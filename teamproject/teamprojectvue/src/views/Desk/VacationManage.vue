@@ -1,6 +1,9 @@
 <template>
-  <div class="ml-4 font-sans flex justify-center">  
-    <main class="flex justify-center w-[74.5rem]">
+    <main class="w-[60vw] min-w-[620px]">
+      <HeaderLayout></HeaderLayout>
+    
+      <h1 class="pb-6 font-bold text-blue-800 text-2xl ml-2">휴가 신청 관리</h1>
+      <hr class="w-full mx-auto border-blue-900 mb-4 border-2">
       <section class="flex-1 p-5 m-2 bg-white border border-gray-500">
         <h1 class="mb-5 text-2xl font-semibold">휴가 신청 관리</h1>
         
@@ -89,12 +92,13 @@
         </div>
       </section>
     </main>
-  </div>
+
 </template>
 
 <script setup>
 import { ref, onMounted, computed } from 'vue';
 import axios from 'axios';
+import HeaderLayout from '@/layout/HeaderLayout.vue';
 
 import { useRouter } from 'vue-router';
 
