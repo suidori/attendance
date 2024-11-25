@@ -1,13 +1,15 @@
 <template>
-  <div class="ml-3 border p-10 ">
-    <div class=""></div>
-    <div id="user" class="">
+  <div class="w-[60vw] min-w-[620px]">
+<HeaderLayout></HeaderLayout>
+<h1 class="pb-6 font-bold text-blue-800 text-2xl ml-2">내 출결 관리</h1>
+<hr class="w-full mx-auto border-blue-900 border-2" />
+    <div id="user" class="pt-4">
       <h1 v-if="user">{{ user.name }} 학생 출결 관리</h1>
       <p v-if="useravail" class="text-green-600">수강중: {{ attlist.at(0).lecture }}</p>
       <p v-if="!useravail" class="text-red-600">{{ usererror }}</p>
     </div>
-    <hr class="border-b border-blue-400 mt-4" />
-    <div id="main" class="items-center justify-center mt-10 w-[68rem]">
+<hr>
+    <div id="main" class="items-center justify-center mt-5">
       <p v-if="useravail">- {{ attlist.at(0).lecture }} 강좌 출결 관리 -</p>
 
       <div v-if="useravail" id="attendance" class="flex">
@@ -227,6 +229,7 @@ import { ref, watch, onMounted } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
 import dayjs from 'dayjs';
+import HeaderLayout from '@/layout/HeaderLayout.vue';
 
 // import StudentSideBar from '@/layout/StudentSideBar.vue';
 

@@ -1,6 +1,10 @@
 <template>
+  <div class="w-[60vw] min-w-[620px]">
+    <HeaderLayout></HeaderLayout>
+    <h1 class="pb-6 font-bold text-blue-800 text-2xl ml-2">학생 출결 조회</h1>
+    <hr class="w-full mx-auto border-blue-900 mb-4 border-2">
   <div class="flex justify-center w-full">
-        <div v-if="lecturelist.length > 0" id="lecturelist" class="w-1/6 p-4 bg-white border border-blue-500">
+        <div v-if="lecturelist.length > 0" id="lecturelist" class="p-4 bg-white border border-blue-500">
           <h1>강의목록</h1>
           <button @click="getlecture, (isClicked = true)" :class="{ 'bg-green-500': isClicked }"
             class="px-4 py-2 mr-2 text-white bg-blue-600 rounded hover:opacity-80">
@@ -91,6 +95,7 @@
           </div>
         </div>
   </div>
+</div>
 </template>
 
 <script setup>
@@ -100,6 +105,7 @@ import axios from 'axios';
 import 'dayjs/locale/ko';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
+import HeaderLayout from '@/layout/HeaderLayout.vue';
 
 const isClicked = ref(true);
 

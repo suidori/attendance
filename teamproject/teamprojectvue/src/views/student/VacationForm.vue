@@ -1,6 +1,9 @@
 <template>
 
-  <div v-if="useravail" class="m-3 border border-gray-400 w-full">
+  <div v-if="useravail" class="w-[60vw] min-w-[620px]">
+    <HeaderLayout></HeaderLayout>
+    <h1 class="pb-6 font-bold text-blue-800 text-2xl ml-2">휴가 신청</h1>
+    <hr class="w-full mx-auto border-blue-900 mb-4 border-2">
     <!-- <h1 class="md:ml-52">| 학생용 (VacationForm)</h1> -->
     <div class="w-1/2 mx-auto min-w-80">
       <div class="">
@@ -86,6 +89,7 @@ import { useRouter } from 'vue-router';
 import axios from 'axios';
 import dayjs from 'dayjs';
 import { ref, computed, onMounted } from 'vue';
+import HeaderLayout from '@/layout/HeaderLayout.vue';
 
 const router = useRouter()
 

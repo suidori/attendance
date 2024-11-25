@@ -34,7 +34,7 @@
           <div class="flex justify-between text-center">
             <p class="flex items-center justify-center max-lg:text-left">ID</p>
             <input class="p-3 mb-5 ml-5 transition duration-200 border-b border-gray-400 w-80 focus:outline-none"
-              type="text" name="userid" id="userid" placeholder="아이디를 입력해주세요" v-model="userid" />
+              type="text" name="userid" id="userid" placeholder="아이디를 입력해주세요" v-model="userid" @keydown.enter="LoginSequence"/>
           </div>
           <p>
             PASSWORD

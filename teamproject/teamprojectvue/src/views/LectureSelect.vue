@@ -1,9 +1,8 @@
 <template>
-  <div class="mx-auto w-[74.5rem] p-5">
-    <div class="mb-4">
-      <h1 class="text-2xl font-bold mb-2">과정 선택</h1>
-      <hr class="border-t-2 border-blue-600" />
-    </div>
+  <div class="w-[60vw] min-w-[620px]">
+    <HeaderLayout></HeaderLayout>
+    <h1 class="pb-6 font-bold text-blue-800 text-2xl ml-2">강좌 관리</h1>
+    <hr class="w-full mx-auto border-blue-900 mb-4 border-2">
 
     <!-- Main Section -->
     <div class="bg-white shadow p-6 rounded-lg">
@@ -81,6 +80,7 @@ import { useRouter } from 'vue-router';
 import { useloginStore } from '@/stores/loginpinia';
 import { storeToRefs } from 'pinia';
 import axios from 'axios';
+import HeaderLayout from '@/layout/HeaderLayout.vue';
 
 const loginstore = useloginStore();
 

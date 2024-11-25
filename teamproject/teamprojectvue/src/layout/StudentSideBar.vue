@@ -1,9 +1,9 @@
 <template>
-  <div class="w-[11vw] rounded-sm">
-    <div class="bg-blue-50 rounded-md">
+  <div class="w-[14vw] rounded-sm bg-indigo-900">
+    <!-- <div class="bg-blue-50 rounded-md">
       <img src="../images/LOGO2.png" alt="Logo" />
-    </div>
-    <div class="bg-indigo-900 h-[650px] bottom-10 ">
+    </div> -->
+    <div class=" h-[650px] bottom-10 ">
       <aside class="p-3 text-gray-950 font-bold font-[GmarketSansMedium]">
         <div class="h-16 text-lg font-bold text-white"> 학생</div>
         <ul class="space-y-3 bg-slate-100 p-1 rounded-lg flex flex-col justify-center">
@@ -74,11 +74,8 @@
             </li>
           </RouterLink>
         </ul>
-        <div class="mt-20 text-xs">
-
-        </div>
       </aside>
-      <div @click="logout" class=" font-[GmarketSansMedium] mt-44 border-gray-300 bg-slate-100 m-3 rounded-md cursor-pointer hover:bg-red-300"><span class="p-2 pb-1 flex justify-center ">로그아웃</span></div>
+      <div @click="logout" class=" font-[GmarketSansMedium] bottom-0 absolute border-gray-300 bg-slate-100 m-3 w-[90%] rounded-md cursor-pointer hover:bg-red-300"><span class="flex justify-center p-2 pb-1 ">로그아웃</span></div>
     </div>
   </div>
 </template>

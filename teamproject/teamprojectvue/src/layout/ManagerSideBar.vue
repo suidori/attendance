@@ -1,11 +1,11 @@
 <template>
-  <div class="w-40 rounded-sm">
-    <div class="bg-blue-50 rounded-md">
+  <div class="w-[14vw] rounded-sm bg-indigo-900">
+    <!-- <div class="bg-blue-50 rounded-md">
       <img src="../images/LOGO2.png" alt="Logo" />
-    </div>
-    <div class="bg-blue-300 h-[650px]">
+    </div> -->
+    <div class=" h-[650px] bottom-10">
       <aside class="p-3 text-gray-950 font-bold font-[GmarketSansMedium]">
-        <div class="h-16 text-lg font-bold">매니저</div>
+        <div class="h-16 text-lg font-bold text-white">매니저</div>
         <ul class="space-y-3 bg-slate-100 p-1 rounded-lg flex flex-col justify-center">
           <RouterLink to="/deskcalander">
             <li>
