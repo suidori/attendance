@@ -10,11 +10,13 @@
     </div>
     <div style="width: 860px;" class="flex mt-8 mx-auto max-lg:w-[40rem] h-[25rem] bg-white shadow-md rounded-lg">
       <!-- 로그인 섹션 -->
-      <div class="w-[60%] p-4 flex flex-col items-center justify-center">
-        <div class="space-y-3">
-          <div class="flex items-center justify-center mb-10 space-x-8">
-
-            <p>그린컴퓨터학원 통합관리시스템입니다</p>
+      <div class="w-[60%]   flex flex-col items-center ">
+        <div class="space-y-3 w-full">
+          <div class=" w-full  mb-16 flex">
+<div class="border w-1/3 bg-white  h-16 cursor-pointer flex justify-center items-center rounded-tl-lg text-xl" @click="Choicest" :style="{ backgroundColor: isClicked1 ? '#eee' : 'white' }">학생</div>
+<div class="border w-1/3 bg-white h-16 cursor-pointer flex justify-center items-center text-xl" @click="Choicete" :style="{ backgroundColor: isClicked2 ? '#eee' : 'white' }">선생</div>
+<div class="border w-1/3 bg-white h-16 cursor-pointer flex justify-center items-center text-xl" @click="Choicema" :style="{ backgroundColor: isClicked3 ? '#eee' : 'white' }">매니저</div>
+            <br>
 
             <!-- <form action="">
           
@@ -31,12 +33,12 @@
 
           </div>
 
-          <div class="flex justify-between text-center">
-            <p class="flex items-center justify-center max-lg:text-left">ID</p>
-            <input class="p-3 mb-5 ml-5 transition duration-200 border-b border-gray-400 w-80 focus:outline-none"
+          <div class="flex justify-between text-center ">
+            <p class="flex items-center justify-center ml-10 max-lg:text-left">ID</p>
+            <input class="p-3 mr-6 mb-5 transition  duration-200 border-b border-gray-400 w-80 focus:outline-none"
               type="text" name="userid" id="userid" placeholder="아이디를 입력해주세요" v-model="userid" />
           </div>
-          <p>
+          <p class="ml-10">
             PASSWORD
             <input class="p-3 ml-5 transition duration-200 border-b border-gray-400 w-80 focus:outline-none"
               type="password" name="password" id="password" v-model="password" placeholder="비밀번호를 입력해주세요"
@@ -97,6 +99,10 @@ const arr = ref([]);
 
 const radiocheck = ref('ROLE_STUDENT')
 
+const isClicked1 = ref(true)
+const isClicked2 = ref(false)
+const isClicked3 = ref(false)
+
 const getannounce = async () => {
 
   const res = await loginannounceapi();
@@ -149,6 +155,33 @@ const LoginSequence = async () => {
     return;
   }
 };
+
+
+const Choicest = () => {
+  isClicked1.value = true
+  isClicked2.value = false
+  isClicked3.value = false
+radiocheck.value = 'ROLE_STUDENT'
+console.log(radiocheck.value)
+
+}
+const Choicete = () => {
+  isClicked1.value = false
+  isClicked2.value = true
+  isClicked3.value = false
+  radiocheck.value = 'ROLE_TEACHER'
+  console.log(radiocheck.value)
+
+}
+const Choicema = () => {
+  isClicked1.value = false
+  isClicked2.value = false
+  isClicked3.value = true
+  radiocheck.value = 'ROLE_MANAGER'
+  console.log(radiocheck.value)
+  
+}
+
 
 onMounted(async () => {
   getannounce();
