@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col items-center space-y-6 mt-8">
+  <div class="flex flex-col items-center space-y-6 mt-8  mt-32">
     <!-- Title -->
     <h2 class="text-2xl font-bold text-blue-900">회원가입</h2>
 
@@ -15,7 +15,7 @@
       </div>
       <div class="step flex flex-col items-center p-4 text-center bg-blue-800 text-white w-1/4">
         <p class="text-xl font-bold">03.</p>
-        <p class="text-sm">아이디 및<br>패스워드 설정</p>
+        <p class="text-sm">회원 유형 <br> 설정</p>
       </div>
       <div class="step flex flex-col items-center p-4 text-center bg-gray-100 text-gray-500 rounded-tr-lg rounded-br-lg w-1/4">
         <p class="text-xl font-bold">04.</p>

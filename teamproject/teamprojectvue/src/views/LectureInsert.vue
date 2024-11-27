@@ -1,4 +1,8 @@
 <template>
+  <div class="w-[60vw] min-w-[620px]  mt-32">
+   
+    <h1 class="pb-6 font-bold text-blue-800 text-2xl ml-2">강좌 관리</h1>
+    <hr class="w-full mx-auto border-blue-900 mb-4 border-2">
   <div>
     <div>
       <!-- 인설트 모달창 -->
@@ -123,6 +127,7 @@
 
     <!-- 페이지 넘버 리스트 -->
   </div>
+</div>
 </template>
 
 <script setup>
@@ -130,9 +135,9 @@ import { onMounted, onUnmounted, ref } from 'vue';
 import { insertlectureapi } from '@/api/lectureapi';
 import { getavaillecturelistapi } from '@/api/lectureapi';
 import { useRouter } from 'vue-router';
-import Cookies from 'js-cookie';
 
 const router = useRouter()
+
 
 //모달창 변수
 const modal = ref(false);
@@ -197,15 +202,15 @@ const modalClose = () => {
   resetdata();
 };
 
-// const changemodalClose = () => { //강좌시간변경 메서드 주석
-//   changemodal.value = false;
+const changemodalClose = () => {
+  changemodal.value = false;
 
-//   resetdata();
-// };
+  resetdata();
+};
 
-// const endlecture = () => {
-//   console.log('강좌종료 메서드');
-// };
+const endlecture = () => {
+  console.log('강좌종료 메서드');
+};
 
 const insertlecture = async () => {
 
@@ -260,8 +265,8 @@ const getavaillecture = async () => {
 }
 
 onMounted(()=>{
-if(Cookies.get('token')==null){
-  // if(localStorage.getItem('token')==null){
+
+  if(localStorage.getItem('token')==null){
     router.push({name:'loginview'})
   }
 

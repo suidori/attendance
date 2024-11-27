@@ -1,10 +1,13 @@
 <template>
-  <div class=" flex justify-center font-sans border border-gray-400">
-    <main v-if="useravail" class="flex justify-center w-[1150px]" >
-      <section class="flex-1 p-5  bg-white border-gray-500 border-1">
+  <div class="w-[60vw] min-w-[620px]  mt-32">
+  
+    <h1 class="pb-6 font-bold text-blue-800 text-2xl ml-2">휴가 신청</h1>
+    <hr class="w-full mx-auto border-blue-900 border-2" />
+    <main v-if="useravail" class="flex justify-center">
+      <section class="flex-1 p-5 m-10 bg-white">
         <h1 class="mb-5 text-2xl font-semibold">휴가 신청 현황</h1>
 
-        <div class="overflow-x-auto">
+        <div>
           <table class="w-full mb-5 border border-collapse border-gray-300">
             <thead>
               <tr class="bg-gray-100">
@@ -68,13 +71,9 @@
 
 <script setup>
 import { ref, onMounted, computed } from 'vue';
+import axios from 'axios';
 import router from '@/router';
 import dayjs from 'dayjs';
-import { stunCheckedapi } from '@/api/student';
-import { stfetchVacationsapi } from '@/api/student';
-import { stshowuserapi } from '@/api/student';
-import { stshowuserttapi } from '@/api/student';
-import Cookies from 'js-cookie';
 
 const vacationList = ref([]);
 const totalElements = ref(0);
@@ -92,12 +91,17 @@ const useravail = ref(false);
 const usererror = ref('');
 const attlist = ref([]);
 
+
+
 const unChecked = async (pageNum = 1) => {
   unchecking.value = true;
   try {
-    
-    const response = await stunCheckedapi(pageNum)
-
+    const token = localStorage.getItem('token');
+    const response = await axios.get(`http://greencomart.kro.kr:716/vacation/studentunchecked?pageNum=${pageNum - 1}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      }
+    });
     vacationList.value = response.data.list;
     totalElements.value = response.data.totalElements;
     totalPages.value = response.data.totalPages;
@@ -107,12 +111,15 @@ const unChecked = async (pageNum = 1) => {
   }
 };
 
-
 const fetchVacations = async (pageNum = 1) => {
   unchecking.value = false;
   try {
-   const response = await stfetchVacationsapi(pageNum)
-
+    const token = localStorage.getItem('token');
+    const response = await axios.get(`http://greencomart.kro.kr:716/vacation/student?pageNum=${pageNum - 1}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      }
+    });
     vacationList.value = response.data.list;
     vacationList.value.sort((a, b) => b.idx - a.idx);
     totalElements.value = response.data.totalElements;
@@ -161,14 +168,21 @@ const nextPageGroup = () => {
 
 
 const govacationForm = () => {
+
   router.push({name:'vacationform'})
+
 }
 
 
 const showuser = async () => {
   try {
-    
-    const resuser = stshowuserapi()
+    const token = localStorage.getItem('token');
+
+    const resuser = await axios.get('http://greencomart.kro.kr:716/user/getuser', {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
     console.log(resuser.data);
     user.value = resuser.data;
     const data = {
@@ -176,7 +190,7 @@ const showuser = async () => {
       month: dayjs(now.value).format('YYYY-MM')
     };
 
-    const resatt = stshowuserttapi(data)
+    const resatt = await axios.post('http://greencomart.kro.kr:716/attendance/getuser', data);
 
     attlist.value = resatt.data;
     useravail.value = true;
@@ -193,8 +207,7 @@ onMounted(() => {
   fetchVacations(currentPage.value);
   showuser()
 
-  if(Cookies.get('token')==null){
-  // if(localStorage.getItem('token')==null){
+  if(localStorage.getItem('token')==null){
     router.push({name:'loginview'})
   }
 });

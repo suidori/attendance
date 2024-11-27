@@ -1,7 +1,8 @@
 <template>
-  <div class="ml-5 m-3 border border-gray-400 w-full">
-    <div class="">
-      <div class="m-10">
+  <div class="w-[60vw] min-w-[620px]  mt-32">
+ 
+    <h1 class="pb-6 font-bold text-blue-800 text-2xl ml-2">금일 출결 현황</h1>
+    <hr class="w-full mx-auto border-blue-900 mb-4 border-2">
         <div class="flex justify-between">
           <h1 class="m-3 inline-block text-2xl font-bold" v-if="user">
             <span class="font-bold ">{{ user.name }}</span> 선생님, 환영합니다.
@@ -53,9 +54,7 @@
           </div>
         </div>
       </div>
-      <div class=""></div>
-    </div>
-  </div>
+
 </template>
 
 <script setup>
@@ -66,9 +65,7 @@ import { todayviewapi } from '@/api/teacher';
 import dayjs from 'dayjs';
 
 import { useRouter } from 'vue-router';
-import Cookies from 'js-cookie';
 
-const router = useRouter()
 const arr = ref([]);
 const user = ref(null);
 
@@ -104,8 +101,7 @@ onMounted(() => {
   getuser();
   todayview();
 
-  if(Cookies.get('token')==null){
-  // if(localStorage.getItem('token')==null){
+  if(localStorage.getItem('token')==null){
     router.push({name:'loginview'})
   }
 });

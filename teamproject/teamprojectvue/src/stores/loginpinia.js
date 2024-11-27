@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
-import Cookies from 'js-cookie';
 
 export const useloginStore = defineStore('loginpinia', () => {
   const logincheckpinia = ref(true);
@@ -33,8 +32,7 @@ export const useloginStore = defineStore('loginpinia', () => {
 
   const userL = ()=> {
 
-  //  if(localStorage.getItem('token') !==null) {
-  if(Cookies.get('token') !==null ){
+   if(localStorage.getItem('token') !==null) {
     userrl.value = null
    }
   }
@@ -45,7 +43,7 @@ export const useloginStore = defineStore('loginpinia', () => {
 
   //로그인
   const logincheckfalse = () => {
-     logincheckpinia.value = false;
+    logincheckpinia.value = false;
     console.log('체크' + logincheckpinia.value);
   };
 

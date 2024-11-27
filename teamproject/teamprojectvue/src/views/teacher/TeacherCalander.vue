@@ -1,9 +1,12 @@
 <template>
+  <div class="w-[60vw] min-w-[620px]  mt-32">
+    <h1 class="pb-6 font-bold text-blue-800 text-2xl ml-2">학생 출결 조회</h1>
+    <hr class="w-full mx-auto border-blue-900 mb-4 border-2">
   <div class="flex justify-center w-full">
-        <div v-if="lecturelist.length > 0" id="lecturelist" class="w-1/6 p-4 bg-white border border-blue-500">
-          <h1 class="my-5 text-3xl font-bold text-blue-800">강의목록</h1>
-          <button @click="getlecture(), (isClicked = true)" :class="{ 'bg-green-600': isClicked }"
-            class="p-1 mr-2 text-white bg-blue-400 rounded hover:opacity-80">
+        <div v-if="lecturelist.length > 0" id="lecturelist" class="p-4 bg-white border border-blue-500">
+          <h1>강의목록</h1>
+          <button @click="getlecture, (isClicked = true)" :class="{ 'bg-green-500': isClicked }"
+            class="px-4 py-2 mr-2 text-white bg-blue-600 rounded hover:opacity-80">
             최신순
           </button>
           <button @click="desclecture(), (isClicked = false)" :class="{ 'bg-green-600': !isClicked }"
@@ -92,6 +95,7 @@
           </div>
         </div>
   </div>
+</div>
 </template>
 
 <script setup>
@@ -104,7 +108,6 @@ import { useRouter } from 'vue-router';
 import { getlectureapi } from '@/api/teacher';
 import { desclectureapi } from '@/api/teacher';
 import { getmonthattapi } from '@/api/teacher';
-import Cookies from 'js-cookie';
 
 const router = useRouter()
 const isClicked = ref(true);
@@ -214,7 +217,7 @@ const update = () => {
 
 const getlecture = async () => {
   try {
-    
+
     const res = await getlectureapi()
     lecturelist.value = res.data.sort((a, b) => b.idx - a.idx);
   } catch (e) {
@@ -225,7 +228,7 @@ const getlecture = async () => {
 
 const desclecture = async () => {
   try {
-   
+
     const res = desclectureapi()
     lecturelist.value = res.data.sort((a, b) => a.idx - b.idx);
   } catch (e) {
@@ -236,7 +239,7 @@ const desclecture = async () => {
 
 const getmonthatt = async (idx, month) => {
   try {
-    
+
     const res = await getmonthattapi(idx, month)
 
     monthatt.value = processAttendanceData(res.data); // 데이터를 가공하는 함수를 호출
@@ -312,7 +315,7 @@ const getatt = (attendance) => {
 const getAbsentCount = (useridx) => {
   // 특정 학생의 출결 데이터에서 조건에 맞는 갯수를 세는 함수
   const studentAttendance = monthatt.value.find((student) => student.useridx === useridx);
-  
+
   if (!studentAttendance) return 0; // 학생이 존재하지 않으면 0 반환
 
   // 조건: approval이 true가 아니고, type이 '결석'인 데이터
@@ -330,7 +333,7 @@ const getAbsentCount = (useridx) => {
 const getNotAbsentOrEmptyCount = (useridx) => {
   // 특정 학생의 출결 데이터에서 조건에 맞는 갯수를 세는 함수
   const studentAttendance = monthatt.value.find((student) => student.useridx === useridx);
-  
+
   if (!studentAttendance) return 0; // 학생이 존재하지 않으면 0 반환
 
   // 조건: approval이 true가 아니고, type이 '결석'이 아니고, ''이 아닌 데이터
@@ -369,8 +372,7 @@ onMounted(async () => {
     await getmonthatt(lecturelist.value[0].idx, nowDat.value); // 첫 번째 강의에 대한 출결 정보 가져오기
   }
 
-  if(Cookies.get('token')==null){
-  // if(localStorage.getItem('token')==null){
+  if(localStorage.getItem('token')==null){
     router.push({name:'loginview'})
   }
 

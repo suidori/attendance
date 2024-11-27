@@ -1,6 +1,9 @@
 <template>
 
-  <div v-if="useravail" class="m-3 border border-gray-400 w-full">
+  <div v-if="useravail" class="w-[60vw] min-w-[620px]  mt-32">
+
+    <h1 class="pb-6 font-bold text-blue-800 text-2xl ml-2">휴가 신청</h1>
+    <hr class="w-full mx-auto border-blue-900 mb-4 border-2">
     <!-- <h1 class="md:ml-52">| 학생용 (VacationForm)</h1> -->
     <div class="w-1/2 mx-auto min-w-80">
       <div class="">
@@ -39,7 +42,7 @@
               v-model="personalNumFront"
             />
             <span class="mx-1">-</span>
-            <input type="text" id="personalnum-back" class="block p-3 w-8 border rounded-md h-7" maxlength="1" v-model="personalNumBack" />
+            <input type="text" id="personalnum-back" class="block pl-2 w-8 border rounded-md h-7" maxlength="1" v-model="personalNumBack" />
             <span>●●●●●●</span>
           </div>
           <div class="m-3">
@@ -83,12 +86,9 @@
 
 <script setup>
 import { useRouter } from 'vue-router';
+import axios from 'axios';
 import dayjs from 'dayjs';
 import { ref, computed, onMounted } from 'vue';
-import { subapi } from '@/api/student';
-import { showuserresattapi } from '@/api/student';
-import { showuserresuserapi } from '@/api/student';
-import Cookies from 'js-cookie';
 
 const router = useRouter()
 
@@ -107,7 +107,6 @@ const now = ref(dayjs());
 const useravail = ref(false);
 const usererror = ref('');
 const attlist = ref([]);
-
 
 const datecheck = (date) => {
   if (!date) {
@@ -136,6 +135,7 @@ const datecheck = (date) => {
   if (inputDate >= sevenDaysAfterToday) {
     dateAvail.value = true;
     selectedDate.value = '선택되었습니다.';
+    console.log('Date Available:', dateAvail.value);
   } else {
     dateAvail.value = false;
     selectedDate.value = '휴가 신청은 최소 일주일 전에 가능합니다.';
@@ -146,14 +146,13 @@ const fullPersonalNum = computed(() => {
   return `${personalNumFront.value}-${personalNumBack.value}●●●●●●`;
 });
 
-
 const sub = async () => {
-
   if (dateAvail.value == false) {
     alert('올바른 날짜를 선택 해 주세요.');
     return;
   }
 
+  const token = localStorage.getItem('token');
   const data = {
     personalNum: fullPersonalNum.value,
     reason: reason.value,
@@ -162,7 +161,11 @@ const sub = async () => {
   };
 
   try {
-    const res = await subapi(data)
+    const res = await axios.post('http://greencomart.kro.kr:716/vacation/request', data, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
     console.log(res);
 
     alert('휴가신청이 완료되었습니다.')
@@ -177,9 +180,13 @@ const sub = async () => {
 
 const showuser = async () => {
   try {
-    // const token = localStorage.getItem('token');
-    const resuser =await showuserresuserapi()
-   
+    const token = localStorage.getItem('token');
+
+    const resuser = await axios.get('http://greencomart.kro.kr:716/user/getuser', {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
     console.log(resuser.data);
     user.value = resuser.data;
     const data = {
@@ -187,7 +194,7 @@ const showuser = async () => {
       month: dayjs(now.value).format('YYYY-MM')
     };
 
-    const resatt = await showuserresattapi(data)
+    const resatt = await axios.post('http://greencomart.kro.kr:716/attendance/getuser', data);
 
     attlist.value = resatt.data;
     useravail.value = true;
@@ -196,17 +203,19 @@ const showuser = async () => {
     console.log(e);
     useravail.value = false;
     usererror.value = '사용자를 찾을 수 없습니다.';
+    
   }
 };
+
 
 onMounted(()=>{
   showuser()
 
-  if(Cookies.get('token')==null){
-  // if(localStorage.getItem('token')==null){
+  if(localStorage.getItem('token')==null){
     router.push({name:'loginview'})
   }
 })
+
 
 </script>
 

@@ -1,7 +1,8 @@
 <template>
-    <div class="ml-2 w-[1500px]">
-    <div class="m-3 border border-gray-400  h-full w-full">
-    <div class="">
+    <div class="w-[60vw] min-w-[620px]  mt-32">
+    
+    <h1 class="pb-6 font-bold text-blue-800 text-2xl ml-2">공지사항</h1>
+    <hr class="w-full mx-auto border-blue-900 mb-4 border-2">
       <div class="m-10">
         <div class="flex justify-between">
           <h1 class="m-3 inline-block" >
@@ -34,10 +35,7 @@
              공지사항 리스트 
           </div>
       </div>
-      <div class="">
-      </div>
-    </div>
-  </div>
+
 </div>
 </template>
 
@@ -47,7 +45,7 @@ import { useRoute } from 'vue-router';
 import { getAnnounceview } from '@/api/boradapi';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import Cookies from 'js-cookie';
+
 
 const route = useRoute()
 const router = useRouter()
@@ -74,8 +72,8 @@ onMounted( async()=>{
    user.value = res.data.user
    lecture.value = res.data.lecture
 
-if(Cookies.get('token')==null){
-  //  if(localStorage.getItem('token')==null){
+
+   if(localStorage.getItem('token')==null){
     router.push({name:'loginview'})
   }
 })
