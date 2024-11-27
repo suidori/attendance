@@ -1,6 +1,6 @@
 <template>
-  <div class="w-[60vw] min-w-[620px]">
-    <HeaderLayout></HeaderLayout>
+  <div class="w-[60vw] min-w-[620px]  mt-32">
+   
     <h1 class="pb-6 font-bold text-blue-800 text-2xl ml-2">강좌 관리</h1>
     <hr class="w-full mx-auto border-blue-900 mb-4 border-2">
   <div>
@@ -134,11 +134,10 @@
 import { onMounted, onUnmounted, ref } from 'vue';
 import { insertlectureapi } from '@/api/lectureapi';
 import { getavaillecturelistapi } from '@/api/lectureapi';
-import axios from 'axios';
 import { useRouter } from 'vue-router';
 
 const router = useRouter()
-import HeaderLayout from '@/layout/HeaderLayout.vue';
+
 
 //모달창 변수
 const modal = ref(false);

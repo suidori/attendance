@@ -1,6 +1,6 @@
 <template>
-    <div class="w-[60vw] min-w-[620px]">
-      <HeaderLayout></HeaderLayout>
+    <div class="w-[60vw] min-w-[620px]  mt-32">
+    
     <h1 class="pb-6 font-bold text-blue-800 text-2xl ml-2">공지사항</h1>
     <hr class="w-full mx-auto border-blue-900 mb-4 border-2">
       <div class="m-10">
@@ -45,7 +45,7 @@ import { useRoute } from 'vue-router';
 import { getAnnounceview } from '@/api/boradapi';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import HeaderLayout from '@/layout/HeaderLayout.vue';
+
 
 const route = useRoute()
 const router = useRouter()

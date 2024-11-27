@@ -1,6 +1,6 @@
 <template>
-  <div class="w-[60vw] min-w-[620px]">
-<HeaderLayout></HeaderLayout>
+  <div class="w-[60vw] min-w-[620px]  mt-32">
+
 <h1 class="pb-6 font-bold text-blue-800 text-2xl ml-2">출결 관리 *아래 리스트 최신화*</h1>
 <hr class="w-full mx-auto border-blue-900 border-2">
     <div>
@@ -129,7 +129,6 @@ import 'dayjs/locale/ko';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
 import router from '@/router';
-import HeaderLayout from '@/layout/HeaderLayout.vue';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);

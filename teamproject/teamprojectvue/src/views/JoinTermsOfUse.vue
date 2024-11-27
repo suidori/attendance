@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col items-center space-y-6 mt-8">
+  <div class="flex flex-col items-center space-y-6 mt-8  mt-32">
     <!-- Title -->
     <h2 class="text-2xl font-bold text-blue-900">회원가입</h2>
 

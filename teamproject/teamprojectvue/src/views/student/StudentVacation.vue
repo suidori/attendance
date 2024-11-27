@@ -1,6 +1,6 @@
 <template>
-  <div class="w-[60vw] min-w-[620px]">
-    <HeaderLayout></HeaderLayout>
+  <div class="w-[60vw] min-w-[620px]  mt-32">
+  
     <h1 class="pb-6 font-bold text-blue-800 text-2xl ml-2">휴가 신청</h1>
     <hr class="w-full mx-auto border-blue-900 border-2" />
     <main v-if="useravail" class="flex justify-center">
@@ -74,7 +74,6 @@ import { ref, onMounted, computed } from 'vue';
 import axios from 'axios';
 import router from '@/router';
 import dayjs from 'dayjs';
-import HeaderLayout from '@/layout/HeaderLayout.vue';
 
 const vacationList = ref([]);
 const totalElements = ref(0);

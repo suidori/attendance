@@ -1,6 +1,6 @@
 <template>
-  <div class="w-[60vw] min-w-[620px]">
-    <HeaderLayout></HeaderLayout>
+  <div class="w-[60vw] min-w-[620px]  mt-32">
+
     <h1 class="pb-6 font-bold text-blue-800 text-2xl ml-2">학생 출결 조회</h1>
     <hr class="w-full mx-auto border-blue-900 mb-4 border-2">
 
@@ -75,7 +75,7 @@ import { getattlistapi } from '@/api/teacher';
 import { GLOBAL_URL } from '@/api/utils';
 
 import dayjs from 'dayjs';
-import HeaderLayout from '@/layout/HeaderLayout.vue';
+
 import { useRouter } from 'vue-router';
 
 const router = useRouter()
