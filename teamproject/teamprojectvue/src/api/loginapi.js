@@ -1,11 +1,14 @@
 import axios from 'axios';
 import { useloginStore } from '@/stores/loginpinia';
 import { GLOBAL_URL } from './utils';
+import Cookies from 'js-cookie';
 
 const url = `${GLOBAL_URL}`;
 
 export const userdata = async () => {
-  const token = localStorage.getItem('token');
+
+  // const token = localStorage.getItem('token');
+  const token = Cookies.get('token')
   const loginStore = useloginStore();
   const { doLogin } = loginStore;
 
@@ -15,8 +18,10 @@ export const userdata = async () => {
         Authorization: `Bearer ${token}`
       }
     });
+
     console.log('res' + JSON.stringify(res.data.role));
     doLogin(res.data.name, res.data.role, res.data.accept);
+
   } catch (e) {
     const logincheck = useloginStore();
     logincheck.loginchecktrue();
@@ -25,7 +30,9 @@ export const userdata = async () => {
 
 
 export const userrole = async () => {
-  const token = localStorage.getItem('token');
+
+  const token = Cookies.get('token');
+  // const token = localStorage.getItem('token');
   if(token==null){
     return;
   }
@@ -50,7 +57,11 @@ export const logincontrol = async (data) => {
 
   try {
     const response = await axios.post(`${url}/sign/login`, data);
-    localStorage.setItem('token', response.data);
+
+    Cookies.set('token', response.data )
+
+
+    // localStorage.setItem('token', response.data);
 
     logincheckfalse();
 

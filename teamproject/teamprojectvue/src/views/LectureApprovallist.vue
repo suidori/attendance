@@ -1,7 +1,7 @@
 <template>
     <div>
         <div>
-<h1 class=" text-blue-800 text-2xl font-bold mb-3  mt-32">관리자 가입 허가</h1>
+<h1 class=" text-blue-800 text-2xl font-bold mb-3">관리자 가입 허가</h1>
 <hr class="border-2 border-blue-800 ">
 <div>
 <div class=" mx-auto" style="width: 1150px;">

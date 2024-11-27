@@ -1,13 +1,15 @@
 import axios from 'axios';
 import { GLOBAL_URL } from './utils';
 import { ref } from 'vue';
+import Cookies from 'js-cookie';
 
 const url = `${GLOBAL_URL}`
 
 export const fetchVacationsapi = async(pageNum) => {
 
     try{
-        const token = localStorage.getItem('token');
+        const token = Cookies.get('token')
+        // const token = localStorage.getItem('token');
 
         const response = await axios.get(`${url}/vacation/teacher?pageNum=${pageNum - 1}`, {
             headers: {
@@ -25,7 +27,8 @@ export const fetchVacationsapi = async(pageNum) => {
 export const showuserapi = async() => {
 
 try{
-    const token = localStorage.getItem('token')
+    const token = Cookies.get('token')
+    // const token = localStorage.getItem('token')
 
     const resuser = await axios.get(`${url}/user/getuser`, {
         headers: {
@@ -55,7 +58,8 @@ export const getattlistapi = async(data) => {
 export const getuserapi = async() => {
 
     try{
-        const token =  localStorage.getItem('token');
+        const token = Cookies.get('token')
+        // const token =  localStorage.getItem('token');
 
       const res = await axios.get(`${url}/user/getuser`, {
             headers: {
@@ -84,7 +88,8 @@ export const teachercheckapi = async (idx) => {
 export const todayviewapi = async() => {
 
     try{
-        const token = localStorage.getItem('token');
+        const token = Cookies.get('token')
+        // const token = localStorage.getItem('token');
         const res = await axios.get(`${url}/attendance/todayteacherview`, {
           headers: {
             Authorization: `Bearer ${token}`
@@ -101,8 +106,9 @@ export const todayviewapi = async() => {
 export const getlectureapi =async () => {
 
     try{
+        const token = Cookies.get('token')
 
-        const token = localStorage.getItem('token');
+        // const token = localStorage.getItem('token');
 
          const res = await axios.get(`${url}/lecture/mylecture`, {
             headers: {
@@ -121,7 +127,8 @@ export const getlectureapi =async () => {
 export const desclectureapi = async() => {
 
     try{
-        const token = localStorage.getItem('token');
+        const token = Cookies.get('token')
+        // const token = localStorage.getItem('token');
         const res = await axios.get(`${url}/lecture/mylecture`, {
             headers: {
               Authorization: `Bearer ${token}`
@@ -154,7 +161,8 @@ export const getmonthattapi = async(idx, month) => {
 export const getAnnouncelectureapi = async() => {
 
     try{
-        const token = localStorage.getItem('token');
+        const token = Cookies.get('token')
+        // const token = localStorage.getItem('token');
 
        const res = await axios.get(`${url}/lecture/mylecture`,{
             headers: {
@@ -173,7 +181,8 @@ export const getAnnouncelectureapi = async() => {
 export const subapi = async(data) => {
 
     try{
-        const token = localStorage.getItem('token')
+        const token = Cookies.get('token')
+        // const token = localStorage.getItem('token')
         const res = await axios.post(`${url}/announce/save`, data, {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -190,7 +199,8 @@ export const subapi = async(data) => {
 export const getAnnouncelistlectureapi = async() => {
 
     try{
-        const token = localStorage.getItem('token');
+        const token = Cookies.get('token')
+        // const token = localStorage.getItem('token');
 
        const res = await axios.get(`${url}/lecture/mylecture`, {
             headers: {
@@ -253,7 +263,8 @@ export const fetchannounceByLecturedescapi = async(lectureIdx, Num = 1) => {
 export const fetchannounceapi = async(Num = 1) => {
 
     try{
-        const token = localStorage.getItem('token');
+        const token = Cookies.get('token')
+        // const token = localStorage.getItem('token');
   
  const response = await axios.get(`${url}/announce/teacher?pageNum=${Num - 1}`,{
                   headers: {
@@ -273,7 +284,8 @@ return response.data
 export const fetchannouncedescapi = async(Num = 1) => {
 
     try{
-        const token = localStorage.getItem('token');
+        const token = Cookies.get('token')
+        // const token = localStorage.getItem('token');
         const response = await axios.get(`${url}/announce/teacherdesc?pageNum=${Num - 1}`,{
             headers: {
                 Authorization: `Bearer ${token}`

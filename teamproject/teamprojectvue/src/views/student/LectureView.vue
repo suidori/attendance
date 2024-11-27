@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-auto p-10 w-full  mt-32">
+  <div class="mx-auto p-10 w-full">
     <div class="mb-4">
       <h1 class="text-2xl font-bold mb-2">과정 선택</h1>
 
@@ -49,6 +49,7 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
+import Cookies from 'js-cookie';
 
 const router = useRouter();
 
@@ -57,17 +58,18 @@ const courses = ['강좌1', '강좌2', '강좌3', '강좌4', '강좌5', '강좌6
 
 const filteredCourses = computed(() => courses.filter((course) => course.toLowerCase().includes(search.value.toLowerCase())));
 
-const golectureinsert = () => {
-  router.push({ name: 'lectureinsert' });
-};
+// const golectureinsert = () => {
+//   router.push({ name: 'lectureinsert' });
+// };
 
-const golecturelist = () => {
-  router.push({ name: 'lectureapprovallist' });
-};
+// const golecturelist = () => {
+//   router.push({ name: 'lectureapprovallist' });
+// };
 
 onMounted(()=>{
 
-  if(localStorage.getItem('token')==null){
+  if(Cookies.get('token')==null){
+  // if(localStorage.getItem('token')==null){
     router.push({name:'loginview'})
   }
 })

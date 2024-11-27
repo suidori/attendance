@@ -6,39 +6,39 @@ user3,4 매니저
 user5~15 학생
 마스터
 -->
-    <div class=" ">
+    <div class="">
       <TopBar v-if="$route.name !== 'loginview'" class="w-full hidden"></TopBar>
     </div>
     <div class=""></div>
-    <div class="font-[GmarketSansMedium] flex justify-center">
+    <div style="width: 1200px; margin: 0 auto" class="font-[GmarketSansMedium] flex justify-center">
       <RouterView />
     </div>
-    <layoutFooter></layoutFooter>
+    <LayoutFooter class=""></LayoutFooter>
 
-  <template v-if="userrlvalue == 'ROLE_STUDENT'">
-    <StudentSideBar class="fixed top-[9.6vw] left-[4vw] min-w-[160px]"/>
-  </template>
-  <template v-if="userrlvalue == 'ROLE_TEACHER'">
-    <TeacherSideBar class="fixed top-[9.6vw] left-[4vw] min-w-[160px]"/>
-  </template>
-  <template v-if="userrlvalue == 'ROLE_MANAGER'">
-    <ManagerSideBar class="fixed top-[9.6vw] left-[4vw] min-w-[160px]"/>
-
-  </template>
-</div>
+    <template v-if="userrlvalue == 'ROLE_STUDENT'">
+      <StudentSideBar class="" style="position: fixed; top: 1%; left: 11%" />
+    </template>
+    <template v-if="userrlvalue == 'ROLE_TEACHER'">
+      <TeacherSideBar class="" style="position: fixed; top: 1%; left: 11%" />
+    </template>
+    <template v-if="userrlvalue == 'ROLE_MANAGER'">
+      <ManagerSideBar class="" style="position: fixed; top: 1%; left: 11%" />
+    </template>
+  </div>
 </template>
 
 <script setup>
 import ManagerSideBar from './layout/ManagerSideBar.vue';
 import StudentSideBar from './layout/StudentSideBar.vue';
 import TeacherSideBar from './layout/TeacherSideBar.vue';
+import LayoutFooter from './layout/layoutFooter.vue';
 import { useloginStore } from './stores/loginpinia';
 import { onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { storeToRefs } from 'pinia';
 import { userdata, userrole } from './api/loginapi';
 import { computed } from 'vue';
-import layoutFooter from './layout/layoutFooter.vue';
+import Cookies from 'js-cookie';
 // import TopBar from './layout/TopBar.vue';
 
 const router = useRouter();
@@ -67,7 +67,8 @@ const homelogin = async () => {
   }
 }
 
-  if (localStorage.getItem('token') !== null) {
+if(await Cookies.get('token') !== null){
+  // if (localStorage.getItem('token') !== null) {
     console.log('로그인 유지');
     if (userrl.value == 'ROLE_STUDENT') {
       console.log('학생계정');
@@ -88,9 +89,10 @@ const homelogin = async () => {
 };
 
 onMounted(async () => {
-  
-   userdata();
-  if (localStorage.getItem('token') !== null) {
+  userdata();
+
+if(await Cookies.get('token')!== null){
+  // if (localStorage.getItem('token') !== null) {
     userdata();
     //토큰 체크
     logincheckfalse();

@@ -1,5 +1,5 @@
 <template>
-  <img src="/src/images/wall5.png" alt="" class="absolute w-screen h-screen opacity-50 " />
+  <img src="/src/images/wall5.png" alt="" class="absolute w-screen h-screen opacity-50" />
   <div class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
     <div class="flex justify-center bg-gray-300 bg-opacity-30">
       <img src="/src/images/LOGO.png" alt="" class="w-28" />
@@ -14,7 +14,7 @@
         <div class="space-y-3 w-full">
           <div class=" w-full  mb-16 flex">
 <div class="border w-1/3 bg-white  h-16 cursor-pointer flex justify-center items-center rounded-tl-lg text-xl" @click="Choicest" :style="{ backgroundColor: isClicked1 ? '#eee' : 'white' }">학생</div>
-<div class="border w-1/3 bg-white h-16 cursor-pointer flex justify-center items-center text-xl" @click="Choicete" :style="{ backgroundColor: isClicked2 ? '#eee' : 'white' }">선생</div>
+<div class="border w-1/3 bg-white h-16 cursor-pointer flex justify-center items-center text-xl " @click="Choicete" :style="{ backgroundColor: isClicked2 ? '#eee' : 'white' }">선생</div>
 <div class="border w-1/3 bg-white h-16 cursor-pointer flex justify-center items-center text-xl" @click="Choicema" :style="{ backgroundColor: isClicked3 ? '#eee' : 'white' }">매니저</div>
             <br>
 
@@ -82,7 +82,7 @@ import { storeToRefs } from 'pinia';
 import { userdata, userrole, logincontrol } from '@/api/loginapi';
 import { onMounted } from 'vue';
 import { loginannounceapi } from '@/api/announceapi';
-
+import Cookies from 'js-cookie';
 
 const loginpinia = useloginStore();
 
@@ -117,7 +117,8 @@ const LoginSequence = async () => {
   // 백엔드로 보낼 데이터
   try {
     const token = await logincontrol(data);
-    if (token === undefined) {
+    
+    if (await token === undefined) {
       loginError.value = '아이디와 비밀번호를 확인해 주세요'
       return;
     }
@@ -125,9 +126,14 @@ const LoginSequence = async () => {
     console.log('최종 토큰' + token);
 
     await userdata();
-    if (!useraccept.value) {
+
+    if (await !useraccept.value) {
       userL();
-      localStorage.removeItem('token');
+
+
+     await Cookies.remove('token')   
+   
+      // localStorage.removeItem('token');
       loginError.value = '가입 승인 후에 활동 가능합니다.'
       return;
     }
@@ -179,12 +185,12 @@ const Choicema = () => {
   isClicked3.value = true
   radiocheck.value = 'ROLE_MANAGER'
   console.log(radiocheck.value)
-
+  
 }
 
 
 onMounted(async () => {
-  getannounce();
+ await getannounce();
   userL();
 });
 </script>

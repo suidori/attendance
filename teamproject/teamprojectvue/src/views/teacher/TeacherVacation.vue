@@ -1,9 +1,5 @@
 <template>
-  <div class="w-[60vw] min-w-[620px]  mt-32">
-
-    <h1 class="pb-6 font-bold text-blue-800 text-2xl ml-2">학생 출결 조회</h1>
-    <hr class="w-full mx-auto border-blue-900 mb-4 border-2">
-
+  <div class="flex justify-center font-sans border border-gray-400 ">
     <main v-if="useravail" class="flex justify-center w-[1150px]" >
       <section class="flex-1 p-5 bg-white border-gray-500 border-1">
         <h1 class="mb-5 text-2xl font-semibold">휴가 신청 현황</h1>
@@ -75,8 +71,8 @@ import { getattlistapi } from '@/api/teacher';
 import { GLOBAL_URL } from '@/api/utils';
 
 import dayjs from 'dayjs';
-
 import { useRouter } from 'vue-router';
+import Cookies from 'js-cookie';
 
 const router = useRouter()
 const url = `${GLOBAL_URL}`
@@ -174,7 +170,8 @@ onMounted(() => {
   fetchVacations(currentPage.value);
   showuser()
 
-  if(localStorage.getItem('token')==null){
+  if(Cookies.get('token')==null){
+  // if(localStorage.getItem('token')==null){
     router.push({name:'loginview'})
   }
 });

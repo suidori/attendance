@@ -1,11 +1,11 @@
 <template>
-  <div class="w-[14vw] rounded-sm bg-indigo-900">
-    <!-- <div class="rounded-md bg-blue-50">
+  <div class="w-40 rounded-sm">
+    <div class="rounded-md bg-blue-50">
       <img src="../images/LOGO2.png" alt="Logo" />
-    </div> -->
-    <div class="h-[650px] bottom-10 ">
+    </div>
+    <div class="bg-blue-300 h-[650px]">
       <aside class="p-3 text-gray-950 font-bold font-[GmarketSansMedium]">
-        <div class="h-16 text-lg font-bold text-white"> 선생님</div>
+        <div class="h-16 text-lg font-bold"> 선생님</div>
         <ul class="flex flex-col justify-center p-1 space-y-3 rounded-lg bg-slate-100">
           <RouterLink to="/teachertoday">
             <li>
@@ -94,7 +94,7 @@
 
         </div>
       </aside>
-      <div @click="logout" class=" font-[GmarketSansMedium] mt-9 border-gray-300 bg-slate-100 m-3 rounded-md cursor-pointer hover:bg-red-300 "><span class="flex justify-center p-2 pb-1 ">로그아웃</span></div>
+      <div @click="logout" class=" font-[GmarketSansMedium] mt-9 border-gray-300 bg-slate-100 m-3 rounded-md cursor-pointer hover:bg-red-400"><span class="flex justify-center p-2 pb-1 ">로그아웃</span></div>
     </div>
   </div>
 </template>
@@ -105,6 +105,7 @@ import { userrole } from '../api/loginapi.js';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { storeToRefs } from 'pinia';
+import Cookies from 'js-cookie';
 
 
 const router = useRouter()
@@ -127,8 +128,8 @@ const setActiveItem = (item) => {
 const logout =async () => {
 
 userrl.value =null
-
-localStorage.removeItem('token');
+Cookies.remove('token')
+// localStorage.removeItem('token');
 loginchecktrue();
  userrole();
  router.push({ name: 'loginview' });

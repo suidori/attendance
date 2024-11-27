@@ -1,8 +1,5 @@
 <template>
-  <div class="w-[60vw] min-w-[620px]  mt-32">
-
-    <h1 class="pb-6 font-bold text-blue-800 text-2xl ml-2">공지사항</h1>
-    <hr class="w-full mx-auto border-blue-900 border-2" />
+  <div class="ml-4 font-sans flex justify-center">
     <main class="flex justify-center w-[74.5rem]">
       <section class="flex-1 p-6 m-2 bg-white border border-gray-500">
         <h1 class="mb-5 text-2xl font-semibold">공지사항</h1>
@@ -65,7 +62,10 @@
 <script setup>
 import { ref, onMounted, computed, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import { stgetlectureapi } from '@/api/student';
+import { stfetchannounceForAllapi } from '@/api/student';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 const route = useRoute()
 const router = useRouter();
@@ -91,13 +91,8 @@ const resetSort = (pageNum) => {
 
 const getlecture = async () => {
   try {
-    const token = localStorage.getItem('token');
-    const res = await axios.get(`http://greencomart.kro.kr:716/lecture/mylecture`, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
-
+    
+    const res = stgetlectureapi()
     lecturelist.value = res.data.sort((a, b) => {
       return a.title.localeCompare(b.title);
     });
@@ -106,6 +101,7 @@ const getlecture = async () => {
     console.error(e);
   }
 };
+
 
 const lectureclick = (title) => {
 
@@ -147,9 +143,10 @@ watch(selectedlecture, async (newVal, oldVal) => {
   }
 });
 
+
 const fetchannounceForAll = async (pageNum = 1) => {
   try {
-    const response = await axios.get(`http://greencomart.kro.kr:716/announce/searchforall?pageNum=${pageNum - 1}`);
+    const response = await stfetchannounceForAllapi(pageNum)
     announcelist.value = response.data.list;
     announcelist.value.sort((a, b) => b.idx - a.idx);
     totalElements.value = response.data.totalElements;
@@ -202,7 +199,8 @@ const fetchannounceByLecturedesc = async (lectureIdx, pageNum = 1) => {
 
 const fetchannounce = async (pageNum = 1) => {
   try {
-    const token = localStorage.getItem('token');
+    const token = Cookies.get('token')
+    // const token = localStorage.getItem('token');
     const response = await axios.get(`http://greencomart.kro.kr:716/announce/teacher?pageNum=${pageNum - 1}`,{
 headers: {
     Authorization: `Bearer ${token}`
@@ -221,7 +219,8 @@ headers: {
 
 const fetchannouncedesc = async (pageNum = 1) => {
   try {
-    const token = localStorage.getItem('token');
+    const token = Cookies.get('token')
+    // const token = localStorage.getItem('token');
     const response = await axios.get(`http://greencomart.kro.kr:716/announce/teacherdesc?pageNum=${pageNum - 1}`,{
 headers: {
     Authorization: `Bearer ${token}`
@@ -293,7 +292,8 @@ onMounted(() => {
   fetchannounce(currentPage.value);
   getlecture();
 
-  if(localStorage.getItem('token')==null){
+  if(Cookies.get('token')==null){
+  // if(localStorage.getItem('token')==null){
     router.push({name:'loginview'})
   }
 });
