@@ -11,6 +11,7 @@ user5~15 학생
     </div>
     <div class=""></div>
     <div class="font-[GmarketSansMedium] flex justify-center">
+      <div class="w-[8%]"></div>
       <RouterView />
     </div>
     <!-- <LayoutFooter class=""></LayoutFooter> -->
