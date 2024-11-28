@@ -1,6 +1,6 @@
 <template>
 
-    <div class="mt-10 flex justify-center">
+    <div class="mt-10 flex justify-center  mt-32">
         <div class="flex justify-center  w-full" style="width: 1300px;"  >
     <div class="border w-full p-20 m-3 rounded">
             <!-- Step Progress Bar -->

@@ -1,6 +1,6 @@
 <template>
-    <div class="w-[60vw] min-w-[620px] ">
-      <HeaderLayout></HeaderLayout>
+    <div class="w-[60vw] min-w-[620px]  mt-32">
+    
     <h1 class="pb-6 font-bold text-blue-800 text-2xl ml-2">공지사항</h1>
     <hr class="w-full mx-auto border-blue-900 mb-4 border-2">
       <div class="border rounded-xl p-4">
@@ -46,9 +46,6 @@
 </template>
 
 <script setup>
-import HeaderLayout from '@/layout/HeaderLayout.vue';
-import axios from 'axios';
-
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { getAnnouncelectureapi } from '@/api/teacher';

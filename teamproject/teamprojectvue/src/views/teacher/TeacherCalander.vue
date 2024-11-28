@@ -1,6 +1,5 @@
 <template>
-  <div class="w-[60vw] min-w-[620px]">
-    <HeaderLayout></HeaderLayout>
+  <div class="w-[60vw] min-w-[620px]  mt-32">
     <h1 class="pb-6 font-bold text-blue-800 text-2xl ml-2">학생 출결 조회</h1>
     <hr class="w-full mx-auto border-blue-900 mb-4 border-2">
   <div class="flex justify-center w-full">
@@ -109,7 +108,6 @@ import { useRouter } from 'vue-router';
 import { getlectureapi } from '@/api/teacher';
 import { desclectureapi } from '@/api/teacher';
 import { getmonthattapi } from '@/api/teacher';
-import HeaderLayout from '@/layout/HeaderLayout.vue';
 
 const router = useRouter()
 const isClicked = ref(true);

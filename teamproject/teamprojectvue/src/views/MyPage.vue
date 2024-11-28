@@ -1,8 +1,8 @@
 <template>
     <div>
-  <HeaderLayout></HeaderLayout>
 
-    <div class="w-[60vw] min-w-[620px]">
+
+    <div class="w-[60vw] min-w-[620px] mt-32">
       <h1 class="pb-6 font-bold text-blue-800 text-2xl ml-2">마이페이지</h1>
       <hr class="w-full mx-auto border-blue-900 border-2" />
 

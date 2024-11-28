@@ -1,6 +1,6 @@
 <template>
-    <main class="w-[60vw] min-w-[620px]">
-      <HeaderLayout></HeaderLayout>
+    <main class="w-[60vw] min-w-[620px]  mt-32">
+
     
       <h1 class="pb-6 font-bold text-blue-800 text-2xl ml-2">휴가 신청 관리</h1>
       <hr class="w-full mx-auto border-blue-900 mb-4 border-2">
@@ -98,7 +98,6 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue';
 import axios from 'axios';
-import HeaderLayout from '@/layout/HeaderLayout.vue';
 
 import { useRouter } from 'vue-router';
 

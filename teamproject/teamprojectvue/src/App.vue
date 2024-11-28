@@ -6,7 +6,7 @@ user3,4 매니저
 user5~15 학생
 마스터
 -->
-    <div class="">
+    <div class=" ">
       <TopBar v-if="$route.name !== 'loginview'" class="w-full hidden"></TopBar>
     </div>
     <div class=""></div>
@@ -14,7 +14,7 @@ user5~15 학생
       <div class="w-[8%]"></div>
       <RouterView />
     </div>
-    <!-- <LayoutFooter class=""></LayoutFooter> -->
+    <layoutFooter></layoutFooter>
 
   <template v-if="userrlvalue == 'ROLE_STUDENT'">
     <StudentSideBar class="fixed top-[9.6vw] left-[4vw] min-w-[160px]"/>
@@ -33,13 +33,13 @@ user5~15 학생
 import ManagerSideBar from './layout/ManagerSideBar.vue';
 import StudentSideBar from './layout/StudentSideBar.vue';
 import TeacherSideBar from './layout/TeacherSideBar.vue';
-import LayoutFooter from './layout/layoutFooter.vue';
 import { useloginStore } from './stores/loginpinia';
 import { onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { storeToRefs } from 'pinia';
 import { userdata, userrole } from './api/loginapi';
 import { computed } from 'vue';
+import layoutFooter from './layout/layoutFooter.vue';
 // import TopBar from './layout/TopBar.vue';
 
 const router = useRouter();
@@ -89,7 +89,8 @@ const homelogin = async () => {
 };
 
 onMounted(async () => {
-  userdata();
+  
+   userdata();
   if (localStorage.getItem('token') !== null) {
     userdata();
     //토큰 체크

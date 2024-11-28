@@ -1,6 +1,6 @@
 <template>
-  <div class="w-[60vw] min-w-[620px]">
-<HeaderLayout></HeaderLayout>
+  <div class="w-[60vw] min-w-[620px]  mt-32">
+
 <h1 class="pb-6 font-bold text-blue-800 text-2xl ml-2">내 출결 관리</h1>
 <hr class="w-full mx-auto border-blue-900 border-2" />
     <div id="user" class="pt-4">
@@ -233,7 +233,6 @@ import { useRouter } from 'vue-router';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
 
-import HeaderLayout from '@/layout/HeaderLayout.vue';
 
 // import StudentSideBar from '@/layout/StudentSideBar.vue';
 dayjs.locale('ko');
