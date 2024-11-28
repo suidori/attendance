@@ -37,7 +37,7 @@
       <div class="flex items-center justify-between">
         <h2 class="text-xl font-bold"> {{ selectedlecture?.title }}</h2>
 
-        <button @click="closeModal" class="text-4xl text-gray-400 hover:text-gray-600 hover:scale-105">&times;</button>
+        <button @click="closeModal()" class="text-4xl text-gray-400 hover:text-gray-600 hover:scale-105">&times;</button>
       </div>
       <!-- 모달 내용 -->
       <div class="mt-4">
@@ -54,7 +54,7 @@
         <button @click="lecturejoin(selectedlecture.idx)" class="px-4 py-2 mx-2 text-white bg-green-500 rounded">
           신청
         </button>
-        <button @click="closeModal" class="px-4 py-2 text-white bg-red-500 rounded">
+        <button @click="closeModal()" class="px-4 py-2 text-white bg-red-500 rounded">
           닫기
         </button>
       </div>
@@ -170,11 +170,11 @@ const isConfirmModalOpen = ref(false);
 //   isModalOpen.value = true;
 // }
 
-// // 모달 닫기 함수
-// function closeModal() {
-//   isModalOpen.value = false;
-//   selectedCourse.value = null;
-// }
+// 모달 닫기 함수
+function closeModal() {
+  selectedlecture.value = false;
+  selectedCourse.value = null;
+}
 
 // function openConfirmModal(){
 //   isConfirmModalOpen.value = true;
