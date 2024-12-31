@@ -1,10 +1,13 @@
 <template>
-  <div class=" flex justify-center font-sans border border-gray-400">
-    <main v-if="useravail" class="flex justify-center w-[1150px]" >
-      <section class="flex-1 p-5  bg-white border-gray-500 border-1">
+  <div class="w-[60vw] min-w-[620px]  mt-32">
+  
+    <h1 class="pb-6 font-bold text-blue-800 text-2xl ml-2">휴가 신청</h1>
+    <hr class="w-full mx-auto border-blue-900 border-2" />
+    <main v-if="useravail" class="flex justify-center">
+      <section class="flex-1 p-5 m-10 bg-white">
         <h1 class="mb-5 text-2xl font-semibold">휴가 신청 현황</h1>
 
-        <div class="overflow-x-auto">
+        <div>
           <table class="w-full mb-5 border border-collapse border-gray-300">
             <thead>
               <tr class="bg-gray-100">
@@ -56,7 +59,7 @@
       </section>
     </main>
 
-    <div v-else class="mt-44 ">
+    <div v-else class="mt-44 w-[1100px] mb-24">
 <h1 class="flex justify-center"> << 먼저 강좌를 선택하여 주시길 바랍니다. >>  </h1>
 <div class="flex justify-center">
 <button  class=" border-2 border-blue-800 m-5 p-2 pl-8 pr-8 rounded-md bg-blue-800 text-white" @click="golectureselect" >강좌 리스트 보러가기</button>
@@ -203,6 +206,10 @@ const showuser = async () => {
 onMounted(() => {
   fetchVacations(currentPage.value);
   showuser()
+
+  if(localStorage.getItem('token')==null){
+    router.push({name:'loginview'})
+  }
 });
 
 </script>

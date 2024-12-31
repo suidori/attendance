@@ -1,0 +1,209 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#headercontainer {
+  display: flex;
+  width: 100vw;
+  align-items: top;
+}
+
+#headeruser {
+  border-left: 3.4px solid #3c4983;
+  padding-left: 10px;
+  color: #3c4983;
+  margin: 52px;
+  margin-left: 87px;
+  font-size: 2vh;
+}
+
+#headermenu {
+  display: flex;
+  list-style: none;
+  margin: 2.22vh 7.24vw 0 auto;
+  padding: 0;
+}
+
+#headermenu li {
+  margin-left: 1.04vw;
+  font-size: 2.19vh;
+}
+
+#headermenu a {
+  border-left: 3.4px solid #3c4983;
+  text-decoration: none;
+  color: #3c4983;
+  padding-left: 10px;
+}
+
+#title {
+  margin-left: 430px;
+}
+
+#title h1 {
+  margin-bottom: 20px;
+  color: #3c4983;
+}
+
+#title hr {
+  border: 0;
+  width: 1092px;
+  border-top: 2px solid #fbfbfb;
+}
+
+#body {
+  display: flex;
+}
+
+#sidebar {
+  width: 271px;
+  height: 750px;
+  background-color: #3c4983;
+  display: flex;
+  flex-direction: column;
+  margin-left: 87px;
+}
+
+#sidebarmenu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#sidebarmenu li {
+  position: relative;
+  color: #ffffff;
+  font-size: 2vh;
+  padding: 21px 0;
+  margin: 0 37px;
+}
+
+#sidebarmenulist {
+  position: relative;
+  font-size: 2vh;
+  padding: 21px 0;
+  margin: 0 37px;
+}
+
+#sidebarmenulist ::after {
+  content: "•"; /* 글머리 기호 */
+  position: absolute;
+  right: -0.5vw; /* 텍스트 오른쪽에 배치 (약간 간격을 두기 위해 음수로 설정) */
+  font-size: 2vh;
+  color: #ffffff; /* 글머리 기호 색상 */
+}
+
+#sidebarmenu li a {
+  text-decoration: none;
+  color: #ffffff;
+  display: block;
+}
+
+#sidebarmenu hr {
+  border: 0;
+  border-top: 1px solid #ffffff;
+  width: 80%;
+  margin: 0 auto;
+}
+
+#sidebar p {
+  margin-bottom: 0;
+  margin-top: auto;
+  color: #878a9a;
+  font-size: 1.2vh;
+  margin: auto auto 5px 19px;
+}
+
+#main-top {
+  display: flex;
+  margin-top: 54px;
+  margin-bottom: 34px;
+}
+
+#main-top img {
+  height: 180px;
+  margin-left: 140px;
+}
+
+#main-top-text {
+  display: flex;
+  flex-direction: column;
+  color: #9e9e9e;
+  margin: 10px 0 10px 43px;
+}
+
+#main-top-text p {
+  margin: 17px;
+  display: inline-block;
+}
+
+#main-top-info {
+  display: flex;
+  flex-direction: column;
+  color: #dcdcdc;
+  margin: 10px 0 10px 50px;
+}
+
+#main-top-info p {
+  margin: 17px;
+}
+
+#main-top-edit {
+  background-color: #3c4983;
+  margin-left: 238px;
+  color: #ffffff;
+  height: 34px;
+  margin-top: 73px;
+  width: 165px;
+}
+
+#main > hr {
+  border: 0;
+  border-top: 4px solid #3c4983;
+}
+
+#main-bottom {
+  margin-left: 72px;
+  margin-top: 23px;
+}
+
+#main-bottom h1 {
+  margin-bottom: 20px;
+  color: #3c4983;
+}
+
+#lectures {
+  display: flex;
+  margin: 21px auto;
+  align-items: center;
+}
+
+#lecturetitle {
+  background-color: #3c4983;
+  width: 206px;
+  heigh: 57px;
+  padding: 15px;
+  color: #ffffff;
+}
+
+#lectureinfo {
+  display: flex;
+  align-items: center;
+  margin-left: 16px;
+  border: 1px solid #c4c4c4;
+  width: 760px;
+  height: 57px;
+  color: #b7b7b7;
+}
+
+#lecturebutton {
+  background-color: #3c4983;
+  color: #ffffff;
+  margin: 14px 60px 0 757px;
+  text-align: right;
+  weight: 165px;
+  height: 34px;
+  text-align: center;
+}

@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import LoginView from '../views/guest/LoginView.vue'
 // import LoginHome from '@/views/LoginHome.vue'
-import LaboView from '@/views/LaboView.vue'
 import VacationForm from '@/views/student/VacationForm.vue'
 import JoinView from '@/views/guest/JoinView.vue'
 import Mypage from '@/views/MyPage.vue'
@@ -24,6 +23,9 @@ import DeskAnnouncewrite from '@/views/Desk/DeskAnnouncewrite.vue'
 import Announceview from '@/views/AnnounceView.vue'
 import TeacherAnnounceList from '@/views/teacher/TeacherAnnounceList.vue'
 import StudentAnnounceList from '@/views/student/StudentAnnounceList.vue'
+import TeacherVacation from '@/views/teacher/TeacherVacation.vue'
+import TeacherAnnouncewrite from '@/views/teacher/TeacherAnnouncewrite.vue'
+import HeaderLayout from '@/layout/HeaderLayout.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -37,6 +39,16 @@ const router = createRouter({
       path: '/announceview/:idx',
       name: 'announceview',
       component: Announceview
+    },
+    {
+      path: '/teacherannouncewrite',
+      name: 'teacherannouncewrite',
+      component: TeacherAnnouncewrite
+    },
+    {
+      path: '/teachervacation',
+      name: 'teachervacation',
+      component: TeacherVacation
     },
     {
       path: '/studentannouncelist',
@@ -105,11 +117,6 @@ const router = createRouter({
       component: JoinView
     },
     {
-      path: '/laboview',
-      name: 'laboview',
-      component: LaboView
-    },
-    {
       path: '/vacationform',
       name: 'vacationform',
       component: VacationForm
@@ -170,16 +177,19 @@ const router = createRouter({
       name: 'studentvacation',
       component: StudentVacation
     },
+    {
+      path: '/headerlayout',
+      name: 'headerlayout',
+      component: HeaderLayout
+    },
   ],
 
-  scrollBehavior (to, from, savePositior){
+
+  scrollBehavior (to, from, savePositior){ //라우터시 스크롤 맨위로 올라가게해줌
 
     return {top : 0}
   }
-
-
 })
-
 
 
 export default router

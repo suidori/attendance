@@ -1,10 +1,11 @@
 <template>
-  <div class="ml-5 m-3 border border-gray-400 w-full">
-    <div class="">
-      <div class="m-10">
+  <div class="w-[60vw] min-w-[620px]  mt-32">
+ 
+    <h1 class="pb-6 font-bold text-blue-800 text-2xl ml-2">금일 출결 현황</h1>
+    <hr class="w-full mx-auto border-blue-900 mb-4 border-2">
         <div class="flex justify-between">
-          <h1 class="m-3 inline-block" v-if="user">
-            <span class="font-bold">{{ user.name }}</span> 선생님, 환영합니다.
+          <h1 class="m-3 inline-block text-2xl font-bold" v-if="user">
+            <span class="font-bold ">{{ user.name }}</span> 선생님, 환영합니다.
           </h1>
           <h1 class="m-3 inline-block" v-if="user">
             {{ now }}
@@ -53,15 +54,17 @@
           </div>
         </div>
       </div>
-      <div class=""></div>
-    </div>
-  </div>
+
 </template>
 
 <script setup>
-import axios from 'axios';
 import { onMounted, ref } from 'vue';
+import { getuserapi } from '@/api/teacher';
+import { teachercheckapi } from '@/api/teacher';
+import { todayviewapi } from '@/api/teacher';
 import dayjs from 'dayjs';
+
+import { useRouter } from 'vue-router';
 
 const arr = ref([]);
 const user = ref(null);
@@ -69,14 +72,9 @@ const user = ref(null);
 const now = ref(dayjs().format('YYYY년MM월DD일'));
 
 const getuser = async () => {
-  try {
-    const token = localStorage.getItem('token');
 
-    const res = await axios.get(`http://greencomart.kro.kr:716/user/getuser`, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
+  try {
+    const res = getuserapi()
     user.value = res.data;
   } catch (e) {
     console.log(e);
@@ -84,10 +82,13 @@ const getuser = async () => {
 };
 
 const teachercheck = async (idx) => {
+
   try {
-    await axios.post(`http://greencomart.kro.kr:716/attendance/teacheraccept/${idx}`);
+
+       await teachercheckapi(idx)
 
     const item = arr.value.find((student) => student.idx === idx);
+
     if (item) {
       item.teacheraccept = '담당교사 확인 완료';
     }
@@ -99,16 +100,16 @@ const teachercheck = async (idx) => {
 onMounted(() => {
   getuser();
   todayview();
+
+  if(localStorage.getItem('token')==null){
+    router.push({name:'loginview'})
+  }
 });
 
 const todayview = async () => {
   try {
-    const token = localStorage.getItem('token');
-    const res = await axios.get(`http://greencomart.kro.kr:716/attendance/todayteacherview`, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
+
+    const res = await todayviewapi()
 
     const sortedData = res.data.sort((a, b) => {
       if (a.teacheraccept === '담당교사 확인 대기중' && b.teacheraccept !== '담당교사 확인 대기중') {

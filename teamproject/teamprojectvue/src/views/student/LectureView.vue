@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-auto p-10 w-full">
+  <div class="mx-auto p-10 w-full  mt-32">
     <div class="mb-4">
       <h1 class="text-2xl font-bold mb-2">과정 선택</h1>
 
@@ -47,7 +47,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
@@ -64,6 +64,13 @@ const golectureinsert = () => {
 const golecturelist = () => {
   router.push({ name: 'lectureapprovallist' });
 };
+
+onMounted(()=>{
+
+  if(localStorage.getItem('token')==null){
+    router.push({name:'loginview'})
+  }
+})
 </script>
 
 <style scoped></style>

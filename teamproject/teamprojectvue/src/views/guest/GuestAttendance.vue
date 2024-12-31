@@ -1,5 +1,5 @@
 <template>
-    <div id="container" class="flex">
+    <div id="container" class="flex  mt-32">
         <div id="leftmenu" class="p-4 border border-blue-500 w-36">
             <h1>메뉴</h1>
             <RouterLink to="/join">
@@ -162,7 +162,7 @@
 </template>
 
 <script setup>
-import { ref, watch, watchEffect } from 'vue';
+import { onMounted, ref, watch, watchEffect } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
 import dayjs from 'dayjs';
@@ -364,6 +364,13 @@ const selectAttFn = (event, items) => {
         approval.value = (items.approval==null) ? null : false;
     }
 };
+
+onMounted(()=>{
+    if(localStorage.getItem('token')==null){
+    router.push({name:'loginview'})
+  }
+})
+
 </script>
 
 <style lang="scss" scoped></style>
