@@ -1,5 +1,5 @@
 <template>
-    <div id="container" class="flex">
+    <div id="container" class="flex  mt-32">
         <div id="leftmenu" class="p-4 border border-blue-500 w-36">
             <h1>메뉴</h1>
             <RouterLink to="/join">

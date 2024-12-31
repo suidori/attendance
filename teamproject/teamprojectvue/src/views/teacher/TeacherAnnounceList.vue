@@ -1,7 +1,9 @@
 <template>
-  <div class="flex justify-center ml-4 font-sans">
-    <main class="flex justify-center w-[74.5rem]">
-      <section class="flex-1 p-6 m-2 bg-white border border-gray-500">
+  <div class="w-[60vw] min-w-[620px]  mt-32">
+    <h1 class="pb-6 font-bold text-blue-800 text-2xl ml-2">공지사항</h1>
+    <hr class="w-full mx-auto border-blue-900 mb-4 border-2">
+
+      <section class="flex-1 p-6 m-2 bg-white">
         <h1 class="mb-5 text-2xl font-semibold">공지사항</h1>
 
         <div v-if="lecturelist.length > 0">
@@ -56,14 +58,20 @@
             class="px-3 py-1 bg-white border border-gray-300 hover:bg-gray-100">&gt;</button>
         </div>
       </section>
-    </main>
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted, computed, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import axios from 'axios';
+import { getAnnouncelistlectureapi } from '@/api/teacher';
+import { fetchannounceForAllapi } from '@/api/teacher';
+import { fetchannounceForAlldescapi } from '@/api/teacher';
+import { fetchannounceByLectureapi } from '@/api/teacher';
+import { fetchannounceByLecturedescapi } from '@/api/teacher';
+import { fetchannounceapi } from '@/api/teacher';
+import { fetchannouncedescapi } from '@/api/teacher';
+
 
 const route = useRoute()
 const router = useRouter();
@@ -86,15 +94,10 @@ const resetSort = (pageNum) => {
   fetchannounce(pageNum); // 페이지 번호 1로 초기화
 };
 
-
 const getlecture = async () => {
   try {
-    const token = localStorage.getItem('token');
-    const res = await axios.get(`http://greencomart.kro.kr:716/lecture/mylecture`, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
+
+    const res = await getAnnouncelistlectureapi()
 
     lecturelist.value = res.data.sort((a, b) => {
       return a.title.localeCompare(b.title);
@@ -104,6 +107,7 @@ const getlecture = async () => {
     console.error(e);
   }
 };
+
 
 const lectureclick = (title) => {
 
@@ -146,39 +150,45 @@ watch(selectedlecture, async (newVal, oldVal) => {
 });
 
 const fetchannounceForAll = async (pageNum = 1) => {
+
   try {
-    const response = await axios.get(`http://greencomart.kro.kr:716/announce/searchforall?pageNum=${pageNum - 1}`);
-    announcelist.value = response.data.list;
+
+    const response = await fetchannounceForAllapi(pageNum);
+    console.log(response);
+    announcelist.value = response.list;
     announcelist.value.sort((a, b) => b.idx - a.idx);
-    totalElements.value = response.data.totalElements;
-    totalPages.value = response.data.totalPages;
+    totalElements.value = response.totalElements;
+    totalPages.value = response.totalPages;
     currentPage.value = pageNum; // 페이지 번호 갱신
   } catch (error) {
     console.error(error);
   }
 };
 
+
 const fetchannounceForAlldesc = async (pageNum = 1) => {
+
   try {
-    const response = await axios.get(`http://greencomart.kro.kr:716/announce/searchforalldesc?pageNum=${pageNum - 1}`);
-    announcelist.value = response.data.list;
-    announcelist.value.sort((a, b) => b.idx - a.idx);
-    totalElements.value = response.data.totalElements;
-    totalPages.value = response.data.totalPages;
+    const response = fetchannounceForAlldescapi(pageNum)
+    announcelist.value = response.list;
+    announcelist.value.sort((a, b) =>  a.idx - b.idx);
+    totalElements.value = response.totalElements;
+    totalPages.value = response.totalPages;
     currentPage.value = pageNum; // 페이지 번호 갱신
   } catch (error) {
     console.error(error);
   }
 };
+
 
 // 특정 강의를 선택했을 때의 요청
 const fetchannounceByLecture = async (lectureIdx, pageNum = 1) => {
   try {
-    const response = await axios.get(`http://greencomart.kro.kr:716/announce/lecturesearch/${lectureIdx}?pageNum=${pageNum - 1}`);
-    announcelist.value = response.data.list;
+    const response = await fetchannounceByLectureapi(lectureIdx, pageNum)
+    announcelist.value = response.list;
     announcelist.value.sort((a, b) => b.idx - a.idx);
-    totalElements.value = response.data.totalElements;
-    totalPages.value = response.data.totalPages;
+    totalElements.value = response.totalElements;
+    totalPages.value = response.totalPages;
     currentPage.value = pageNum; // 페이지 번호 갱신
   } catch (error) {
     console.error(error);
@@ -187,11 +197,11 @@ const fetchannounceByLecture = async (lectureIdx, pageNum = 1) => {
 
 const fetchannounceByLecturedesc = async (lectureIdx, pageNum = 1) => {
   try {
-    const response = await axios.get(`http://greencomart.kro.kr:716/announce/lecturesearchdesc/${lectureIdx}?pageNum=${pageNum - 1}`);
-    announcelist.value = response.data.list;
-    announcelist.value.sort((a, b) => b.idx - a.idx);
-    totalElements.value = response.data.totalElements;
-    totalPages.value = response.data.totalPages;
+    const response = await fetchannounceByLecturedescapi(lectureIdx, pageNum)
+    announcelist.value = response.list;
+    announcelist.value.sort((a, b) =>  a.idx - b.idx);
+    totalElements.value = response.totalElements;
+    totalPages.value = response.totalPages;
     currentPage.value = pageNum; // 페이지 번호 갱신
   } catch (error) {
     console.error(error);
@@ -200,16 +210,13 @@ const fetchannounceByLecturedesc = async (lectureIdx, pageNum = 1) => {
 
 const fetchannounce = async (pageNum = 1) => {
   try {
-    const token = localStorage.getItem('token');
-    const response = await axios.get(`http://greencomart.kro.kr:716/announce/teacher?pageNum=${pageNum - 1}`,{
-headers: {
-    Authorization: `Bearer ${token}`
-  }
-});
-    announcelist.value = response.data.list;
+
+
+    const response = await fetchannounceapi(pageNum)
+    announcelist.value = response.list;
     announcelist.value.sort((a, b) => b.idx - a.idx);
-    totalElements.value = response.data.totalElements;
-    totalPages.value = response.data.totalPages;
+    totalElements.value = response.totalElements;
+    totalPages.value = response.totalPages;
     currentPage.value = pageNum;
     selectedlecture.value = null;
   } catch (error) {
@@ -219,16 +226,12 @@ headers: {
 
 const fetchannouncedesc = async (pageNum = 1) => {
   try {
-    const token = localStorage.getItem('token');
-    const response = await axios.get(`http://greencomart.kro.kr:716/announce/teacherdesc?pageNum=${pageNum - 1}`,{
-headers: {
-    Authorization: `Bearer ${token}`
-  }
-});
-    announcelist.value = response.data.list;
-    announcelist.value.sort((a, b) => b.idx - a.idx);
-    totalElements.value = response.data.totalElements;
-    totalPages.value = response.data.totalPages;
+
+    const response = await fetchannouncedescapi(pageNum)
+    announcelist.value = response.list;
+    announcelist.value.sort((a, b) =>  a.idx - b.idx);
+    totalElements.value = response.totalElements;
+    totalPages.value = response.totalPages;
     currentPage.value = pageNum;
     selectedlecture.value = null;
   } catch (error) {
@@ -287,15 +290,13 @@ const nextPageGroup = () => {
 };
 
 const gowrite = () => {
-
 router.push({name:'teacherannouncewrite'})
 }
-
 
 onMounted(() => {
   fetchannounce(currentPage.value);
   getlecture();
-  
+
   if(localStorage.getItem('token')==null){
     router.push({name:'loginview'})
   }

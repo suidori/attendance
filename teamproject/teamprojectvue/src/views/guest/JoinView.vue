@@ -1,25 +1,35 @@
 <template>
-  <div class="w-3/4 max-w-2xl mt-5 p-8 mx-auto bg-white rounded shadow-2xl min-w-80 max-lg:w-1/2">
-    <h1 class="mb-4 text-3xl  font-bold text-center">GREEN COMPUTER ACADEMY</h1>
-    <form @submit.prevent="joinuser">
-      <div class="mb-6">
-        <label for="role" class="inline mb-2 text-sm font-bold  text-blue-800">1. 회원 유형</label>
-        <hr class="m-1">
-        <div class="m-2 ml-4 flex w-full" style="justify-content: center;">
-          <input type="radio" value="ROLE_STUDENT" name="role" id="role-1" v-model="role" />
-        <label for="role-1" class="p-1 pr-3 mr-10">학원생</label>
-        <input type="radio" value="ROLE_TEACHER" name="role" id="role-2" v-model="role" />
-        <label for="role-2" class="p-1 pr-3 mr-10">선생님</label>
-        <input type="radio" value="ROLE_MANAGER" name="role" id="role-3" v-model="role" />
-        <label for="role-3" class="p-1 pr-3 mr-10">매니저</label></div>
-        
+  <div class="w-3/4 max-w-2xl mt-5 p-8 mx-auto bg-white rounded shadow-2xl min-w-80 max-lg:w-1/2  mt-32">
+    <h1 class="my-6 text-3xl  font-bold text-center">GREEN COMPUTER ACADEMY</h1>
+
+        <!-- Step Progress Bar -->
+        <div class="flex justify-center space-x-2 w-full max-w-2xl mb-6">
+      <div class="step flex flex-col items-center p-4 text-center bg-blue-900 text-white rounded-tl-lg rounded-bl-lg w-1/4">
+        <p class="text-xl font-bold">01.</p>
+        <p class="text-sm">이용약관 및<br>개인정보 수집 및 이용에 관한 동의</p>
       </div>
+      <div class="step flex flex-col items-center p-4 text-center bg-white text-gray-700 border border-gray-300 w-1/4">
+        <p class="text-xl font-bold">02.</p>
+        <p class="text-sm">본인인증 및<br>기본정보 입력</p>
+      </div>
+      <div class="step flex flex-col items-center p-4 text-center bg-blue-800 text-white w-1/4">
+        <p class="text-xl font-bold">03.</p>
+        <p class="text-sm">회원 유형 <br> 설정</p>
+      </div>
+      <div class="step flex flex-col items-center p-4 text-center bg-gray-100 text-gray-500 rounded-tr-lg rounded-br-lg w-1/4">
+        <p class="text-xl font-bold">04.</p>
+        <p class="text-sm">회원가입 완료</p>
+      </div>
+    </div>
+
+    <form @submit.prevent="joinuser">
+
 
 
 
 
       <!-- 아이디 입력 -->
-      <label for="role" class="inline mb-2 text-sm font-bold  text-blue-800">2. 기본 정보 입력</label>
+      <label for="role" class="inline mb-2 text-sm font-bold  text-blue-800">1. 기본 정보 입력</label>
       <hr class="m-1">
 
       <div class="mb-4">
@@ -115,6 +125,18 @@
           v-model="email"
           class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
         />
+      </div>
+      <div class="my-6">
+        <label for="role" class="inline mb-2 text-sm font-bold  text-blue-800">2. 회원 유형</label>
+        <hr class="m-1">
+        <div class="m-2 ml-4 flex w-full" style="justify-content: center;">
+          <input type="radio" value="ROLE_STUDENT" name="role" id="role-1" v-model="role" />
+        <label for="role-1" class="p-1 pr-3 mr-10">학원생</label>
+        <input type="radio" value="ROLE_TEACHER" name="role" id="role-2" v-model="role" />
+        <label for="role-2" class="p-1 pr-3 mr-10">선생님</label>
+        <input type="radio" value="ROLE_MANAGER" name="role" id="role-3" v-model="role" />
+        <label for="role-3" class="p-1 pr-3 mr-10">매니저</label></div>
+        
       </div>
       <div class="flex justify-center my-4">
       <button

@@ -1,22 +1,25 @@
 <template>
-  <div class="ml-3 border p-10">
-    <div id="user" class="">
-      <h1 class="text-3xl font-bold" v-if="user">{{ user.name }} 학생 출결 관리</h1>
-      
+  <div class="w-[60vw] min-w-[620px]  mt-32">
+
+<h1 class="pb-6 font-bold text-blue-800 text-2xl ml-2">내 출결 관리</h1>
+<hr class="w-full mx-auto border-blue-900 border-2" />
+    <div id="user" class="pt-4">
+      <h1 v-if="user">{{ user.name }} 학생 출결 관리</h1>
+      <p v-if="useravail" class="text-green-600">수강중: {{ attlist.at(0).lecture }}</p>
+      <p v-if="!useravail" class="text-red-600">{{ usererror }}</p>
     </div>
-    <hr class="border-b border-blue-400 mt-4" />
-    <div id="main" class="items-center justify-center mt-10 w-[68rem]">
-      <p v-if="useravail" class="text-green-600 text-2xl font-bold">◆ {{ attlist.at(0).lecture }}</p>
-      <p v-if="!useravail" class="text-red-600 text-2xl font-bold">◆ {{ usererror }}</p>
+<hr>
+    <div id="main" class="items-center justify-center mt-5">
+      <p v-if="useravail">- {{ attlist.at(0).lecture }} 강좌 출결 관리 -</p>
 
       <div v-if="useravail" id="attendance" class="flex">
         <div id="calander" class="w-full p-4 bg-white rounded-lg shadow-md min-w-72">
           <h1 class="mb-4 text-xl font-bold text-center">
-            <button @click="subMonth()" class="mr-2">
+            <button @click="subMonth()" class="mr-2 hover:scale-x-125">
               <i class="fas fa-arrow-left">&lt;&lt;</i>
             </button>
             {{ now.format('YYYY년 MM월') }}
-            <button @click="addMonth()" class="ml-2">
+            <button @click="addMonth()" class="ml-2 hover:scale-x-125">
               <i class="fas fa-arrow-right">&gt;&gt;</i>
             </button>
           </h1>
@@ -67,7 +70,7 @@
           </div>
         </div>
 
-        <div id="attadd" v-show="selectDate" class="mx-6 w-2/5 bg-blue-300 rounded-lg p-2">
+        <div id="attadd" v-show="selectDate" class="w-2/5 bg-blue-300 rounded-lg p-2">
           <h1>{{ selectDate }} 출결 등록</h1>
           <div class="">
             <label for="attendance" class="text-xs"
@@ -135,7 +138,7 @@
             제출하기
           </button>
         </div>
-        <div id="attupdate" v-show="selectAtt" class="mx-1 w-2/5 bg-blue-300 rounded-lg p-2">
+        <div id="attupdate" v-show="selectAtt" class="w-2/5 bg-blue-300 rounded-lg p-2">
           <h1>{{ attDate }} 출결 수정</h1>
           <div>
             <label for="attendance" class="text-xs"
@@ -187,20 +190,22 @@
               <label for="approval-2" class="p-1 pr-3">아니오</label>
             </form>
           </div>
+          <div class="space-x-3 justify-center">
           <button
             @click="attupdate"
-            class="px-3 py-2 mt-6 font-bold text-white bg-blue-500 rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline"
+            class="ml-2 px-3 py-2 mt-6 font-bold text-white bg-blue-500 rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline"
             type="button"
           >
             수정하기
           </button>
           <button
             @click="attdelete"
-            class="px-3 py-2 font-bold text-white bg-red-500 rounded hover:bg-red-700 focus:outline-none focus:shadow-outline"
+            class="px-3 py-2 mt-6 font-bold text-white bg-red-500 rounded hover:bg-red-700 focus:outline-none focus:shadow-outline"
             type="button"
           >
             삭제하기
           </button>
+        </div>
         </div>
       </div>
 

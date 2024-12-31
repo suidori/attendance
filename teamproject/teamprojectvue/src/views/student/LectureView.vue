@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-auto p-10 w-full">
+  <div class="mx-auto p-10 w-full  mt-32">
     <div class="mb-4">
       <h1 class="text-2xl font-bold mb-2">과정 선택</h1>
 

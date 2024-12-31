@@ -1,6 +1,8 @@
 <template>
-  <div class="flex justify-center ml-4 font-sans">  
+  <div class="flex justify-center ml-4 font-sans">
     <main class="flex justify-center w-[74.5rem]">
+      <h1 class="pb-6 font-bold text-blue-800 text-2xl ml-2">휴가 신청 관리</h1>
+      <hr class="w-full mx-auto border-blue-900 mb-4 border-2">
       <section class="flex-1 p-5 m-2 bg-white border border-gray-500">
         <h1 class="mb-5 text-2xl font-semibold">휴가 신청 관리</h1>
         

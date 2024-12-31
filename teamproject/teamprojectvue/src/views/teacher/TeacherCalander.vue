@@ -1,9 +1,12 @@
 <template>
+  <div class="w-[60vw] min-w-[620px]  mt-32">
+    <h1 class="pb-6 font-bold text-blue-800 text-2xl ml-2">학생 출결 조회</h1>
+    <hr class="w-full mx-auto border-blue-900 mb-4 border-2">
   <div class="flex justify-center w-full">
-        <div v-if="lecturelist.length > 0" id="lecturelist" class="w-1/6 p-4 bg-white border border-blue-500">
-          <h1 class="my-5 text-3xl font-bold text-blue-800">강의목록</h1>
-          <button @click="getlecture(), (isClicked = true)" :class="{ 'bg-green-600': isClicked }"
-            class="p-1 mr-2 text-white bg-blue-400 rounded hover:opacity-80">
+        <div v-if="lecturelist.length > 0" id="lecturelist" class="p-4 bg-white border border-blue-500">
+          <h1>강의목록</h1>
+          <button @click="getlecture, (isClicked = true)" :class="{ 'bg-green-500': isClicked }"
+            class="px-4 py-2 mr-2 text-white bg-blue-600 rounded hover:opacity-80">
             최신순
           </button>
           <button @click="desclecture(), (isClicked = false)" :class="{ 'bg-green-600': !isClicked }"
@@ -92,16 +95,19 @@
           </div>
         </div>
   </div>
+</div>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue';
 import dayjs from 'dayjs';
-import axios from 'axios';
 import 'dayjs/locale/ko';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
 import { useRouter } from 'vue-router';
+import { getlectureapi } from '@/api/teacher';
+import { desclectureapi } from '@/api/teacher';
+import { getmonthattapi } from '@/api/teacher';
 
 const router = useRouter()
 const isClicked = ref(true);
@@ -211,37 +217,31 @@ const update = () => {
 
 const getlecture = async () => {
   try {
-    const token = localStorage.getItem('token');
-    const res = await axios.get(`http://greencomart.kro.kr:716/lecture/mylecture`, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
+
+    const res = await getlectureapi()
     lecturelist.value = res.data.sort((a, b) => b.idx - a.idx);
   } catch (e) {
     console.error(e);
   }
 };
 
+
 const desclecture = async () => {
   try {
-    const token = localStorage.getItem('token');
-    const res = await axios.get(`http://greencomart.kro.kr:716/lecture/mylecture`, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
+
+    const res = desclectureapi()
     lecturelist.value = res.data.sort((a, b) => a.idx - b.idx);
   } catch (e) {
     console.error(e);
   }
 };
 
+
 const getmonthatt = async (idx, month) => {
   try {
-    const res = await axios.get(
-      `http://greencomart.kro.kr:716/attendance/monthview?idx=${idx}&month=${month}`
-    );
+
+    const res = await getmonthattapi(idx, month)
+
     monthatt.value = processAttendanceData(res.data); // 데이터를 가공하는 함수를 호출
     selectedlecture.value = idx;
     console.log('일루오나' + selectedlecture.value);
@@ -249,6 +249,7 @@ const getmonthatt = async (idx, month) => {
     console.log(e);
   }
 };
+
 
 const getAttendanceType = (username, day) => {
   const studentAttendance = monthatt.value.find((student) => student.user === username);
@@ -268,7 +269,7 @@ const getAttendanceType = (username, day) => {
   }
 
   // 출결 정보가 있다면 해당 유형 반환
-  
+
   if(studentAttendance.attendance[day].type=='결석' && studentAttendance.attendance[day].approval != true){
     return 'X';
   }
@@ -314,7 +315,7 @@ const getatt = (attendance) => {
 const getAbsentCount = (useridx) => {
   // 특정 학생의 출결 데이터에서 조건에 맞는 갯수를 세는 함수
   const studentAttendance = monthatt.value.find((student) => student.useridx === useridx);
-  
+
   if (!studentAttendance) return 0; // 학생이 존재하지 않으면 0 반환
 
   // 조건: approval이 true가 아니고, type이 '결석'인 데이터
@@ -332,7 +333,7 @@ const getAbsentCount = (useridx) => {
 const getNotAbsentOrEmptyCount = (useridx) => {
   // 특정 학생의 출결 데이터에서 조건에 맞는 갯수를 세는 함수
   const studentAttendance = monthatt.value.find((student) => student.useridx === useridx);
-  
+
   if (!studentAttendance) return 0; // 학생이 존재하지 않으면 0 반환
 
   // 조건: approval이 true가 아니고, type이 '결석'이 아니고, ''이 아닌 데이터
@@ -347,6 +348,7 @@ const getNotAbsentOrEmptyCount = (useridx) => {
   return count;
 };
 
+
 const getAttendanceSummary = (useridx) => {
   const absentCount = getAbsentCount(useridx);
   const notAbsentOrEmptyCount = getNotAbsentOrEmptyCount(useridx);
@@ -357,8 +359,14 @@ const getAttendanceSummary = (useridx) => {
   return `결석 ${totalAbsent}<br>부분출석 ${partialAttendance}`;
 };
 
+
 onMounted(async () => {
   await getlecture(); // 강의 목록 가져오기
+
+  const currentYearValue = dayjs().year();
+  availableYears.value = Array.from({ length: 11 }, (_, i) => currentYearValue - 5 + i);
+  updateDaysInMonth();
+
   if (lecturelist.value.length > 0) {
     // 강의 목록이 비어 있지 않은 경우
     await getmonthatt(lecturelist.value[0].idx, nowDat.value); // 첫 번째 강의에 대한 출결 정보 가져오기

@@ -1,7 +1,10 @@
 <template>
-  <div class="ml-4 font-sans flex justify-center">
+  <div class="w-[60vw] min-w-[620px]  mt-32">
+    
+    <h1 class="pb-6 font-bold text-blue-800 text-2xl ml-2">공지사항</h1>
+    <hr class="w-full mx-auto border-blue-900 mb-4 border-2">
     <main class="flex justify-center w-[74.5rem]">
-      <section class="flex-1 p-6 m-2 bg-white border border-gray-500">
+      <section class="flex-1 p-6 m-2 bg-white border border-gray-500 mr-5">
         <h1 class="mb-5 text-2xl font-semibold">공지사항</h1>
 
         <div v-if="lecturelist.length > 0">
@@ -157,7 +160,7 @@ const fetchannounceForAlldesc = async (pageNum = 1) => {
   try {
     const response = await axios.get(`http://greencomart.kro.kr:716/announce/searchforalldesc?pageNum=${pageNum - 1}`);
     announcelist.value = response.data.list;
-    announcelist.value.sort((a, b) => b.idx - a.idx);
+    announcelist.value.sort((a, b) =>  a.idx - b.idx);
     totalElements.value = response.data.totalElements;
     totalPages.value = response.data.totalPages;
     currentPage.value = pageNum; // 페이지 번호 갱신
@@ -184,7 +187,7 @@ const fetchannounceByLecturedesc = async (lectureIdx, pageNum = 1) => {
   try {
     const response = await axios.get(`http://greencomart.kro.kr:716/announce/lecturesearchdesc/${lectureIdx}?pageNum=${pageNum - 1}`);
     announcelist.value = response.data.list;
-    announcelist.value.sort((a, b) => b.idx - a.idx);
+    announcelist.value.sort((a, b) =>  a.idx - b.idx);
     totalElements.value = response.data.totalElements;
     totalPages.value = response.data.totalPages;
     currentPage.value = pageNum; // 페이지 번호 갱신
@@ -211,7 +214,7 @@ const fetchannouncedesc = async (pageNum = 1) => {
   try {
     const response = await axios.get(`http://greencomart.kro.kr:716/announce/managerdesc?pageNum=${pageNum - 1}`);
     announcelist.value = response.data.list;
-    announcelist.value.sort((a, b) => b.idx - a.idx);
+    announcelist.value.sort((a, b) =>  a.idx  -b.idx);
     totalElements.value = response.data.totalElements;
     totalPages.value = response.data.totalPages;
     currentPage.value = pageNum;

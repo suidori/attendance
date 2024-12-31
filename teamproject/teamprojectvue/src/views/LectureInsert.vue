@@ -1,4 +1,8 @@
 <template>
+  <div class="w-[60vw] min-w-[620px]  mt-32">
+   
+    <h1 class="pb-6 font-bold text-blue-800 text-2xl ml-2">강좌 관리</h1>
+    <hr class="w-full mx-auto border-blue-900 mb-4 border-2">
   <div>
     <div>
       <!-- 인설트 모달창 -->
@@ -123,14 +127,17 @@
 
     <!-- 페이지 넘버 리스트 -->
   </div>
+</div>
 </template>
 
 <script setup>
 import { onMounted, onUnmounted, ref } from 'vue';
-import axios from 'axios';
+import { insertlectureapi } from '@/api/lectureapi';
+import { getavaillecturelistapi } from '@/api/lectureapi';
 import { useRouter } from 'vue-router';
 
 const router = useRouter()
+
 
 //모달창 변수
 const modal = ref(false);
@@ -206,6 +213,7 @@ const endlecture = () => {
 };
 
 const insertlecture = async () => {
+
   const token = await localStorage.getItem('token'); //전역스코프 pinia 써서 토큰 저장한걸 불러오게 해야함
 
   if (token !== null) {
@@ -220,7 +228,8 @@ const insertlecture = async () => {
       password: postpassword.value
     };
 
-    const res = await axios.post(`http://greencomart.kro.kr:716/lecture/save`, data);
+
+    const res = await insertlectureapi(data)
 
     if (res.status == 200) {
       alert('강좌가 등록 되었습니다.');
@@ -232,15 +241,21 @@ const insertlecture = async () => {
   }
 };
 
+
 const getavaillecture = async () => {
+
   try {
-    const res = await axios.get(`http://greencomart.kro.kr:716/lecture/list`);
+
+    const res = await getavaillecturelistapi()
 
     // enable이 true인 데이터를 우선으로, 같은 enable 값끼리는 idx 내림차순으로 정렬
     arr.value = res.data.sort((a, b) => {
+
       if (a.enable !== b.enable) {
+
         return a.enable ? -1 : 1; // enable이 true인 항목이 우선
       }
+
       return b.idx - a.idx; // enable이 같은 경우 idx 내림차순
     });
 
