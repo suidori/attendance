@@ -2,6 +2,9 @@ services:
   spring-boot-app:
     build:
       context: ./management
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mariadb://maria-app:3306/educationsystemdb
+
     ports:
       - "8080:8080"
     networks:
@@ -12,6 +15,13 @@ services:
       context: ./teamprojectvue
     ports:
       - "5173:5173"
+
+  maria-app:
+    image: mariadb:latest
+    environment:
+      - MARIADB_ROOT_PASSWORD=1234
+    ports:
+      - "3306:3306"
     networks:
       - team1network
 
